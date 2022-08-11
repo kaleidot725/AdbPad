@@ -14,10 +14,15 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.material)
     implementation(libs.adam)
+    testImplementation(libs.junit5)
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "15"
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 compose.desktop {
