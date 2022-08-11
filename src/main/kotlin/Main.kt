@@ -14,7 +14,6 @@ import androidx.compose.ui.window.application
 @Preview
 fun App() {
     var text by remember { mutableStateOf("Hello, World!") }
-
     MaterialTheme {
         Column {
             androidx.compose.material.Button(onClick = {}) {
