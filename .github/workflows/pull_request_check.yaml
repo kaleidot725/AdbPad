@@ -12,6 +12,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+          cache: "gradle"
       - name: run test
         run: |
           ./gradlew test
