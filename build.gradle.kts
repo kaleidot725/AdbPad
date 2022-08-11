@@ -10,18 +10,10 @@ plugins {
 group = "jp.kaleidot725"
 version = "1.0"
 
-repositories {
-    google()
-    mavenCentral()
-    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-}
-
-@OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
 dependencies {
     implementation(compose.desktop.currentOs)
-    implementation(compose.desktop.components.splitPane)
     implementation(compose.material)
-    implementation(compose.material3)
+    implementation(libs.adam)
 }
 
 tasks.withType<KotlinCompile> {
