@@ -20,10 +20,6 @@ fun App() {
             androidx.compose.material.Button(onClick = {}) {
                 androidx.compose.material.Text("Material Test")
             }
-
-            androidx.compose.material3.Button(onClick = {}) {
-                androidx.compose.material3.Text("Material3 TEST")
-            }
         }
     }
 }
