@@ -18,7 +18,7 @@ jobs:
           ruby-version: '2.7'
       - name: Install danger
         run: |
-          gem install danger danger-junit danger-ktlint
+          gem install danger danger-junit danger-checkstyle_format
       - name: Run test
         run: |
           ./gradlew test
@@ -26,7 +26,8 @@ jobs:
       - name: Run ktlint
         run: |
           ./gradlew ktlintCheck
-      - name: Run danger
+        continue-on-error: true
+     - name: Run danger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

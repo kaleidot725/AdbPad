@@ -7,5 +7,6 @@ warn("Big PR") if git.lines_of_code > 500
     junit.report
 end
 
-# Enable ktlint
-ktlint.lint
+# Notify ktlint warning
+checkstyle_format.base_path = Dir.pwd
+checkstyle_format.report 'build/reports/ktlint/ktlintMainSourceSetCheck.xml'
