@@ -13,14 +13,17 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '17'
-      - name: run test
-        run: |
-          ./gradlew test
-      - name: install danger
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+      - name: Install danger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gem install danger danger-junit
-      - name: run danger
+      - name: Run test
+        run: |
+          ./gradlew test
+      - name: Run danger
         run: |
           danger
