@@ -16,3 +16,11 @@ jobs:
       - name: run test
         run: |
           ./gradlew test
+      - name: install danger
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gem install danger danger-junit
+      - name: run danger
+        run: |
+          danger
