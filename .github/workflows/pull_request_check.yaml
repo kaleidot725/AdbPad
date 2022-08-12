@@ -17,12 +17,12 @@ jobs:
         with:
           ruby-version: '2.7'
       - name: Install danger
-
         run: |
           gem install danger danger-junit
       - name: Run test
         run: |
           ./gradlew test
+        continue-on-error: true
       - name: Run danger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
