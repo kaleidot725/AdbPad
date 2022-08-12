@@ -27,7 +27,7 @@ jobs:
         run: |
           ./gradlew ktlintCheck
         continue-on-error: true
-     - name: Run danger
+      - name: Run danger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
