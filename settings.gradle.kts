@@ -18,6 +18,7 @@ dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
             library("adam", "com.malinskiy.adam:adam:0.4.5")
+            library("junit5", "org.junit.jupiter:junit-jupiter:5.9.0")
         }
     }
 }

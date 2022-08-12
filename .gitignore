@@ -23,3 +23,6 @@
 hs_err_pid*
 build/*
 .gradle/7.5.1/*
+.gradle/buildOutputCleanup/*
+
+*.probe
