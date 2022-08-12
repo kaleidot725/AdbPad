@@ -18,14 +18,14 @@ jobs:
           ruby-version: '2.7'
       - name: Install danger
         run: |
-          gem install danger danger-junit
+          gem install danger danger-junit danger-ktlint
       - name: Run test
         run: |
           ./gradlew test
         continue-on-error: true
       - name: Run ktlint
         run: |
-          ./gradlew ktlint
+          ./gradlew ktlintCheck
       - name: Run danger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
