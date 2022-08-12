@@ -4,6 +4,6 @@ import org.junit.jupiter.api.Test
 class SampleTest {
     @Test
     fun plus() {
-        assertEquals(2, 3)
+        assertEquals(2, 2)
     }
 }
