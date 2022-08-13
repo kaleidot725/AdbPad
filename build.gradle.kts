@@ -11,9 +11,11 @@ plugins {
 group = "jp.kaleidot725"
 version = "1.0"
 
+@OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
 dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.material)
+    implementation(compose.material3)
     implementation(libs.adam)
     testImplementation(libs.junit5)
 }
