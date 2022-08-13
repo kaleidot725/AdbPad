@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.example.compose.AppTheme
-import jp.kaleidot725.adbpad.theme.WINDOW_TITLE
+import jp.kaleidot725.adbpad.resource.WINDOW_TITLE
 
 @Composable
 @Preview

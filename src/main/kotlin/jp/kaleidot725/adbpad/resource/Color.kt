@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.theme
+package jp.kaleidot725.adbpad.resource
 
 import androidx.compose.ui.graphics.Color
 
