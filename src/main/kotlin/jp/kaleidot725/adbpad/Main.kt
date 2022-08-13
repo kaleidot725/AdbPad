@@ -29,15 +29,15 @@ fun App() {
                 leftContent = {
                     Box(modifier = Modifier.width(200.dp).fillMaxHeight().background(Color.White)) {
                         Button(onClick = {}, modifier = Modifier.wrapContentSize().align(Alignment.Center)) {
-                            Text("Material1")
-                        }
+                        Text("Material1")
+                    }
                     }
                 },
                 rightContent = {
                     Box(modifier = Modifier.fillMaxSize().background(Color.LightGray)) {
                         Button(onClick = {}, modifier = Modifier.wrapContentSize().align(Alignment.Center)) {
-                            Text("Material2")
-                        }
+                        Text("Material2")
+                    }
                     }
                 },
                 modifier = Modifier.fillMaxSize()
