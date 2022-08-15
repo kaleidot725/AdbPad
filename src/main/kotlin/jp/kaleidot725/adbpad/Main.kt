@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
@@ -18,6 +20,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.example.compose.AppTheme
 import jp.kaleidot725.adbpad.component.SplitLayout
+import jp.kaleidot725.adbpad.component.menu.DeviceDropDownMenu
 import jp.kaleidot725.adbpad.resource.WINDOW_TITLE
 
 @Composable
@@ -27,17 +30,18 @@ fun App() {
         Surface {
             SplitLayout(
                 leftContent = {
-                    Box(modifier = Modifier.width(200.dp).fillMaxHeight().background(Color.White)) {
-                        Button(onClick = {}, modifier = Modifier.wrapContentSize().align(Alignment.Center)) {
-                        Text("Material1")
-                    }
+                    Box(modifier = Modifier.width(250.dp).fillMaxHeight().background(Color.White)) {
+                        DeviceDropDownMenu(
+                            devices = listOf("端末A", "端末B", "端末C"),
+                            modifier = Modifier.fillMaxWidth().padding(8.dp)
+                        )
                     }
                 },
                 rightContent = {
                     Box(modifier = Modifier.fillMaxSize().background(Color.LightGray)) {
                         Button(onClick = {}, modifier = Modifier.wrapContentSize().align(Alignment.Center)) {
-                        Text("Material2")
-                    }
+                            Text("Material2")
+                        }
                     }
                 },
                 modifier = Modifier.fillMaxSize()
