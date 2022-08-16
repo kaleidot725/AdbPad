@@ -15,10 +15,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.example.compose.AppTheme
-import jp.kaleidot725.adbpad.component.SplitLayout
-import jp.kaleidot725.adbpad.resource.WINDOW_TITLE
-import jp.kaleidot725.adbpad.view.component.menulist.LeftPane
-import jp.kaleidot725.adbpad.view.layout.RightPane
+import jp.kaleidot725.adbpad.view.component.menulist.MenuPane
+import jp.kaleidot725.adbpad.view.layout.SplitLayout
+import jp.kaleidot725.adbpad.view.page.ScreenShotPane
+import jp.kaleidot725.adbpad.view.resource.WINDOW_TITLE
 
 @Composable
 @Preview
@@ -33,7 +33,7 @@ fun App() {
 
             SplitLayout(
                 leftPane = {
-                    LeftPane(
+                    MenuPane(
                         devices = devices,
                         selectedDevice = selectedDevice,
                         onSelectDevice = { selectedDevice = it },
@@ -48,7 +48,7 @@ fun App() {
                     )
                 },
                 rightPane = {
-                    RightPane()
+                    ScreenShotPane()
                 },
                 modifier = Modifier.fillMaxSize()
             )

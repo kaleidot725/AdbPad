@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.component
+package jp.kaleidot725.adbpad.view.layout
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable

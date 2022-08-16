@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.view.component.extension.clickableNoRipple
 
 @Composable
-fun LeftPane(
+fun MenuPane(
     devices: List<String>,
     selectedDevice: String,
     onSelectDevice: (String) -> Unit,
