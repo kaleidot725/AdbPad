@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.component.menu
+package jp.kaleidot725.adbpad.view.component.menulist
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.BorderStroke
@@ -28,7 +28,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DeviceDropDownMenu(
+fun DeviceList(
     devices: List<String>,
     modifier: Modifier = Modifier
 ) {
@@ -46,14 +46,12 @@ fun DeviceDropDownMenu(
                     border = BorderStroke(2.dp, MaterialTheme.colors.primary),
                     shape = RoundedCornerShape(8.dp)
                 )
-                .padding(16.dp)
+                .padding(vertical = 8.dp, horizontal = 16.dp)
         ) {
             Text(
                 text = selectedDevice,
-                style = MaterialTheme.typography.subtitle1,
-                modifier = Modifier
-                    .fillMaxWidth()
-
+                style = MaterialTheme.typography.subtitle2,
+                modifier = Modifier.fillMaxWidth()
             )
 
             Icon(
@@ -75,7 +73,10 @@ fun DeviceDropDownMenu(
                         expanded = false
                     }
                 ) {
-                    Text(text = device)
+                    Text(
+                        text = device,
+                        style = MaterialTheme.typography.subtitle2,
+                    )
                 }
             }
         }
@@ -84,6 +85,6 @@ fun DeviceDropDownMenu(
 
 @Preview
 @Composable
-private fun DeviceDropDownMenu_Preview() {
-    DeviceDropDownMenu(listOf("端末A", "端末B", "端末C"))
+private fun DeviceList_Preview() {
+    DeviceList(listOf("端末A", "端末B", "端末C"))
 }

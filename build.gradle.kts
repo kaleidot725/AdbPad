@@ -15,7 +15,6 @@ version = "1.0"
 dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.material)
-    implementation(compose.material3)
     implementation(libs.adam)
     testImplementation(libs.junit5)
 }
