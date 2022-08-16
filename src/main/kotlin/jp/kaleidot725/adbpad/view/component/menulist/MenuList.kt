@@ -10,10 +10,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.view.component.extension.clickableNoRipple
@@ -21,10 +17,10 @@ import jp.kaleidot725.adbpad.view.component.extension.clickableNoRipple
 @Composable
 fun MenuList(
     menus: List<String>,
+    selectedMenu: String,
+    onSelectMenu: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var selectedMenu by remember { mutableStateOf(menus.first()) }
-
     Column(modifier = modifier) {
         menus.forEach { menu ->
             val isSelected = menu == selectedMenu
@@ -36,7 +32,7 @@ fun MenuList(
                     .fillMaxWidth()
                     .selectedBackground(isSelected)
                     .padding(horizontal = 8.dp)
-                    .clickableNoRipple { selectedMenu = menu }
+                    .clickableNoRipple { onSelectMenu(menu) }
                     .padding(vertical = 8.dp)
             )
         }
@@ -55,5 +51,5 @@ private fun Modifier.selectedBackground(isSelected: Boolean): Modifier {
 @Preview
 @Composable
 private fun MenuList_Preview() {
-    MenuList(listOf("MENU_A", "MENU_B", "MENU_C"))
+    MenuList(listOf("MENU_A", "MENU_B", "MENU_C"), "MENU_A", {})
 }

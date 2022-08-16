@@ -8,19 +8,21 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.view.component.extension.clickableNoRipple
 
 @Composable
-fun LeftPane(modifier: Modifier = Modifier) {
-    val devices by remember { mutableStateOf(listOf("端末A", "端末B", "端末C")) }
-    var selectedDevice by remember { mutableStateOf(devices.first()) }
-
+fun LeftPane(
+    devices: List<String>,
+    selectedDevice: String,
+    onSelectDevice: (String) -> Unit,
+    menus: List<String>,
+    selectedMenu: String,
+    onSelectMenu: (String) -> Unit,
+    onOpenSetting: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = modifier
@@ -33,7 +35,7 @@ fun LeftPane(modifier: Modifier = Modifier) {
         DeviceList(
             devices = devices,
             selectedDevice = selectedDevice,
-            onSelectDevice = { selectedDevice = it },
+            onSelectDevice = onSelectDevice,
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -43,7 +45,9 @@ fun LeftPane(modifier: Modifier = Modifier) {
         )
 
         MenuList(
-            menus = listOf("コマンド実行", "スクリーンショット", "自動入力補助"),
+            menus = menus,
+            selectedMenu = selectedMenu,
+            onSelectMenu = onSelectMenu,
             modifier = Modifier.fillMaxWidth().weight(weight = 0.9f, fill = true)
         )
 
@@ -51,7 +55,7 @@ fun LeftPane(modifier: Modifier = Modifier) {
             icon = Icons.Default.Settings,
             iconDescription = "Setting Icon",
             text = "設定",
-            modifier = Modifier.clickableNoRipple { /** TODO */ }
+            modifier = Modifier.clickableNoRipple { onOpenSetting() }
         )
     }
 }
