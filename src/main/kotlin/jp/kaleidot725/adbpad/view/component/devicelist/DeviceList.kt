@@ -3,7 +3,6 @@ package jp.kaleidot725.adbpad.view.component.menulist
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.view.component.extension.clickableNoRipple
 
 @Composable
 fun DeviceList(
@@ -39,7 +39,7 @@ fun DeviceList(
     Box(modifier) {
         Box(
             modifier = Modifier
-                .clickable { if (!expanded) expanded = true }
+                .clickableNoRipple { if (!expanded) expanded = true }
                 .fillMaxWidth()
                 .onSizeChanged { dropDownWidth = it.width }
                 .border(

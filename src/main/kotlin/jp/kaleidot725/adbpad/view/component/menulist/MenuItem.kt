@@ -16,7 +16,12 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MenuItem(icon: ImageVector, iconDescription: String, text: String, modifier: Modifier = Modifier) {
+fun MenuItem(
+    icon: ImageVector,
+    iconDescription: String,
+    text: String,
+    modifier: Modifier = Modifier
+) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
