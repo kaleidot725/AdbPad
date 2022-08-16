@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.view.component.menulist
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -23,7 +24,7 @@ fun MenuItem(icon: ImageVector, iconDescription: String, text: String, modifier:
         Icon(
             imageVector = icon,
             contentDescription = iconDescription,
-            modifier = Modifier.align(Alignment.CenterVertically)
+            modifier = Modifier.align(Alignment.CenterVertically).size(20.dp)
         )
 
         Text(

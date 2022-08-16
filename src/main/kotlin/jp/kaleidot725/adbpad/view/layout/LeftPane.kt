@@ -32,7 +32,7 @@ fun LeftPane(modifier: Modifier = Modifier) {
         )
 
         MenuList(
-            menus = listOf("コマンドツール", "スクショツール", "入力ツール"),
+            menus = listOf("コマンド実行", "スクリーンショット", "自動入力補助"),
             modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
         )
     }

@@ -23,7 +23,7 @@ import jp.kaleidot725.adbpad.view.component.menulist.LeftPane
 @Composable
 @Preview
 fun App() {
-    AppTheme(useDarkTheme = true) {
+    AppTheme(useDarkTheme = false) {
         Surface {
             SplitLayout(
                 leftContent = {
