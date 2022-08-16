@@ -8,12 +8,19 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.view.component.extension.clickableNoRipple
 
 @Composable
 fun LeftPane(modifier: Modifier = Modifier) {
+    val devices by remember { mutableStateOf(listOf("端末A", "端末B", "端末C")) }
+    var selectedDevice by remember { mutableStateOf(devices.first()) }
+
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = modifier
@@ -24,7 +31,9 @@ fun LeftPane(modifier: Modifier = Modifier) {
         )
 
         DeviceList(
-            devices = listOf("端末A", "端末B", "端末C"),
+            devices = devices,
+            selectedDevice = selectedDevice,
+            onSelectDevice = { selectedDevice = it },
             modifier = Modifier.fillMaxWidth()
         )
 
