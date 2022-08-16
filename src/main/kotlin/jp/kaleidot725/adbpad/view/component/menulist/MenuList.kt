@@ -12,13 +12,14 @@ import androidx.compose.material.icons.filled.Call
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.model.Menu
 import jp.kaleidot725.adbpad.view.component.extension.clickableNoRipple
 
 @Composable
 fun MenuList(
-    menus: List<String>,
-    selectedMenu: String,
-    onSelectMenu: (String) -> Unit,
+    menus: List<Menu>,
+    selectedMenu: Menu,
+    onSelectMenu: (Menu) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
@@ -27,7 +28,7 @@ fun MenuList(
             MenuItem(
                 icon = Icons.Default.Call,
                 iconDescription = "$menu Icon",
-                text = menu,
+                text = menu.toTitle(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .selectedBackground(isSelected)
@@ -36,6 +37,14 @@ fun MenuList(
                     .padding(vertical = 8.dp)
             )
         }
+    }
+}
+
+private fun Menu.toTitle(): String {
+    return when (this) {
+        Menu.COMMAND_MENU -> "コマンド実行"
+        Menu.SCREENSHOT_MENU -> "スクリーンショット"
+        Menu.AUTOFILL_MENU -> "自動入力補助"
     }
 }
 
@@ -51,5 +60,5 @@ private fun Modifier.selectedBackground(isSelected: Boolean): Modifier {
 @Preview
 @Composable
 private fun MenuList_Preview() {
-    MenuList(listOf("MENU_A", "MENU_B", "MENU_C"), "MENU_A", {})
+    MenuList(Menu.values().toList(), Menu.COMMAND_MENU, {})
 }

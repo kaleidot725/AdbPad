@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.model.Menu
 import jp.kaleidot725.adbpad.view.component.extension.clickableNoRipple
 
 @Composable
@@ -17,9 +18,9 @@ fun MenuPane(
     devices: List<String>,
     selectedDevice: String,
     onSelectDevice: (String) -> Unit,
-    menus: List<String>,
-    selectedMenu: String,
-    onSelectMenu: (String) -> Unit,
+    menus: List<Menu>,
+    selectedMenu: Menu,
+    onSelectMenu: (Menu) -> Unit,
     onOpenSetting: () -> Unit,
     modifier: Modifier = Modifier
 ) {
