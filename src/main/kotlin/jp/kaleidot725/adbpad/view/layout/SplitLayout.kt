@@ -7,13 +7,13 @@ import jp.kaleidot725.adbpad.component.layout.VerticalBorder
 
 @Composable
 fun SplitLayout(
-    leftContent: @Composable () -> Unit,
-    rightContent: @Composable () -> Unit,
+    leftPane: @Composable () -> Unit,
+    rightPane: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(modifier) {
-        leftContent()
+        leftPane()
         VerticalBorder()
-        rightContent()
+        rightPane()
     }
 }
