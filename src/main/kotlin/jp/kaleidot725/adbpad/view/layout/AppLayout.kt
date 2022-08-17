@@ -1,19 +1,23 @@
 package jp.kaleidot725.adbpad.view.layout
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import jp.kaleidot725.adbpad.component.layout.VerticalBorder
 
 @Composable
-fun SplitLayout(
+fun AppLayout(
     leftPane: @Composable () -> Unit,
     rightPane: @Composable () -> Unit,
+    dialog: @Composable () -> Unit,
+    enableDialog: Boolean,
     modifier: Modifier = Modifier
 ) {
-    Row(modifier) {
-        leftPane()
-        VerticalBorder()
-        rightPane()
+    Box(modifier) {
+        Row {
+            leftPane()
+            rightPane()
+        }
+        if (enableDialog) dialog()
     }
 }
