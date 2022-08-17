@@ -8,9 +8,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.DoubleArrow
+import androidx.compose.material.icons.filled.Input
+import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.model.Menu
 import jp.kaleidot725.adbpad.view.component.extension.clickableNoRipple
@@ -26,7 +29,7 @@ fun MenuList(
         menus.forEach { menu ->
             val isSelected = menu == selectedMenu
             MenuItem(
-                icon = Icons.Default.Call,
+                icon = menu.toIcon(),
                 iconDescription = "$menu Icon",
                 text = menu.toTitle(),
                 modifier = Modifier
@@ -42,9 +45,17 @@ fun MenuList(
 
 private fun Menu.toTitle(): String {
     return when (this) {
-        Menu.COMMAND_MENU -> "設定変更"
+        Menu.COMMAND_MENU -> "コマンド"
         Menu.SCREENSHOT_MENU -> "スクリーンショット"
         Menu.AUTOFILL_MENU -> "自動入力"
+    }
+}
+
+private fun Menu.toIcon(): ImageVector {
+    return when (this) {
+        Menu.COMMAND_MENU -> Icons.Default.DoubleArrow
+        Menu.SCREENSHOT_MENU -> Icons.Default.PhotoCamera
+        Menu.AUTOFILL_MENU -> Icons.Default.Input
     }
 }
 

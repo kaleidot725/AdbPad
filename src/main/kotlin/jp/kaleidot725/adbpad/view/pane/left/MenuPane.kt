@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.view.component.menu
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -56,7 +57,9 @@ fun MenuPane(
             icon = Icons.Default.Settings,
             iconDescription = "Setting Icon",
             text = "設定",
-            modifier = Modifier.clickableNoRipple { onOpenSetting() }
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
+                .clickableNoRipple { onOpenSetting() }
         )
     }
 }

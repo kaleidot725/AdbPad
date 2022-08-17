@@ -23,7 +23,7 @@ fun MenuItem(
     modifier: Modifier = Modifier
 ) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
         modifier = modifier
     ) {
         Icon(
