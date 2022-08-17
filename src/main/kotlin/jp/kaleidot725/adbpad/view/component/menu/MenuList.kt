@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.menulist
+package jp.kaleidot725.adbpad.view.component.menu
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
@@ -42,9 +42,9 @@ fun MenuList(
 
 private fun Menu.toTitle(): String {
     return when (this) {
-        Menu.COMMAND_MENU -> "コマンド実行"
+        Menu.COMMAND_MENU -> "設定変更"
         Menu.SCREENSHOT_MENU -> "スクリーンショット"
-        Menu.AUTOFILL_MENU -> "自動入力補助"
+        Menu.AUTOFILL_MENU -> "自動入力"
     }
 }
 

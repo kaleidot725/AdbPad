@@ -17,7 +17,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.example.compose.AppTheme
 import jp.kaleidot725.adbpad.model.Menu
-import jp.kaleidot725.adbpad.view.component.menulist.MenuPane
+import jp.kaleidot725.adbpad.view.component.menu.MenuPane
 import jp.kaleidot725.adbpad.view.dialog.SettingDialog
 import jp.kaleidot725.adbpad.view.layout.AppLayout
 import jp.kaleidot725.adbpad.view.page.AutoFillPane

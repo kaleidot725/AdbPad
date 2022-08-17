@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.menulist
+package jp.kaleidot725.adbpad.view.component.menu
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
