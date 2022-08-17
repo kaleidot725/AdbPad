@@ -12,10 +12,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import com.example.compose.AppTheme
+import jp.kaleidot725.adbpad.model.Command
 import jp.kaleidot725.adbpad.model.Menu
 import jp.kaleidot725.adbpad.view.component.menu.MenuPane
 import jp.kaleidot725.adbpad.view.dialog.SettingDialog
@@ -23,6 +24,7 @@ import jp.kaleidot725.adbpad.view.layout.AppLayout
 import jp.kaleidot725.adbpad.view.page.AutoFillPane
 import jp.kaleidot725.adbpad.view.page.CommandPane
 import jp.kaleidot725.adbpad.view.page.ScreenShotPane
+import jp.kaleidot725.adbpad.view.resource.AppTheme
 import jp.kaleidot725.adbpad.view.resource.WINDOW_TITLE
 
 @Composable
@@ -38,28 +40,38 @@ fun App() {
             val menus by remember { mutableStateOf(Menu.values().toList()) }
             var selectedMenu by remember { mutableStateOf(Menu.values().first()) }
 
+            val commands by remember { mutableStateOf(Command.values().toList()) }
+
             Box {
                 AppLayout(
                     leftPane = {
-                        MenuPane(
-                            devices = devices,
-                            selectedDevice = selectedDevice,
-                            onSelectDevice = { selectedDevice = it },
-                            menus = menus,
-                            selectedMenu = selectedMenu,
-                            onSelectMenu = { selectedMenu = it },
-                            onOpenSetting = { enableSetting = true },
-                            modifier = Modifier
-                                .width(250.dp)
-                                .fillMaxHeight()
-                                .padding(horizontal = 12.dp, vertical = 16.dp)
-                        )
+                        Surface {
+                            MenuPane(
+                                devices = devices,
+                                selectedDevice = selectedDevice,
+                                onSelectDevice = { selectedDevice = it },
+                                menus = menus,
+                                selectedMenu = selectedMenu,
+                                onSelectMenu = { selectedMenu = it },
+                                onOpenSetting = { enableSetting = true },
+                                modifier = Modifier
+                                    .width(250.dp)
+                                    .fillMaxHeight()
+                                    .padding(horizontal = 12.dp, vertical = 16.dp)
+                            )
+                        }
                     },
                     rightPane = {
-                        when (selectedMenu) {
-                            Menu.COMMAND_MENU -> CommandPane()
-                            Menu.SCREENSHOT_MENU -> ScreenShotPane()
-                            Menu.AUTOFILL_MENU -> AutoFillPane()
+                        Surface(color = Color.LightGray) {
+                            when (selectedMenu) {
+                                Menu.COMMAND_MENU -> CommandPane(
+                                    commands = commands,
+                                    onExecuteCommand = { /** TODO */ }
+                                )
+
+                                Menu.SCREENSHOT_MENU -> ScreenShotPane()
+                                Menu.AUTOFILL_MENU -> AutoFillPane()
+                            }
                         }
                     },
                     dialog = {
