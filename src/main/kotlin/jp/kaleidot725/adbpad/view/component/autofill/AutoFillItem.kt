@@ -37,8 +37,8 @@ fun AutoFillItem(
                 modifier = Modifier.fillMaxWidth().weight(weight = 0.5f, fill = true)
             )
             Button(onClick = { onExecute() }, modifier = Modifier.align(Alignment.End)) {
-                Text("実行")
-            }
+            Text("実行")
+        }
         }
     }
 }

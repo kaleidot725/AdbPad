@@ -25,8 +25,7 @@ fun Modifier.clickableNoRipple(
 }
 
 @Composable
-fun Modifier.consumeClickEvent(
-): Modifier {
+fun Modifier.consumeClickEvent(): Modifier {
     return this.clickable(
         enabled = true,
         onClickLabel = null,
