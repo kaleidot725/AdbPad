@@ -6,7 +6,7 @@ import jp.kaleidot725.adbpad.model.Menu
 
 data class MainState(
     val devices: List<String> = listOf("端末A", "端末B", "端末C"),
-    val selectedDevice: String = "",
+    val selectedDevice: String = "端末A",
     val menus: List<Menu> = Menu.values().toList(),
     val selectedMenu: Menu = Menu.COMMAND_MENU,
     val commands: List<Command> = Command.values().toList(),

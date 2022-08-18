@@ -7,17 +7,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import jp.kaleidot725.adbpad.model.AutoFillText
-import jp.kaleidot725.adbpad.model.Command
+import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.model.Menu
 import jp.kaleidot725.adbpad.view.component.menu.MenuPane
 import jp.kaleidot725.adbpad.view.layout.AppLayout
@@ -27,43 +24,30 @@ import jp.kaleidot725.adbpad.view.page.ScreenShotPane
 import jp.kaleidot725.adbpad.view.resource.AppTheme
 import jp.kaleidot725.adbpad.view.resource.WINDOW_TITLE
 
+fun main() = application {
+    val mainStateHolder = MainStateHolder()
+    Window(title = WINDOW_TITLE, onCloseRequest = ::exitApplication) {
+        App(mainStateHolder)
+    }
+}
+
 @Composable
 @Preview
-fun App() {
+fun App(stateHolder: MainStateHolder) {
+    val state by stateHolder.state.collectAsState()
     AppTheme(useDarkTheme = false) {
         Surface {
-            val devices by remember { mutableStateOf(listOf("端末A", "端末B", "端末C")) }
-            var selectedDevice by remember { mutableStateOf(devices.first()) }
-
-            val menus by remember { mutableStateOf(Menu.values().toList()) }
-            var selectedMenu by remember { mutableStateOf(Menu.values().first()) }
-
-            val commands by remember { mutableStateOf(Command.values().toList()) }
-            val texts by remember {
-                mutableStateOf(
-                    listOf(
-                        AutoFillText("ID入力", "いろはにほへと"),
-                        AutoFillText("ID入力", "いろはにほへと"),
-                        AutoFillText("ID入力", "いろはにほへと"),
-                        AutoFillText("ID入力", "いろはにほへと"),
-                        AutoFillText("ID入力", "いろはにほへと"),
-                        AutoFillText("ID入力", "いろはにほへと"),
-                        AutoFillText("ID入力", "いろはにほへと"),
-                    )
-                )
-            }
-
             Box {
                 AppLayout(
                     leftPane = {
                         Surface {
                             MenuPane(
-                                devices = devices,
-                                selectedDevice = selectedDevice,
-                                onSelectDevice = { selectedDevice = it },
-                                menus = menus,
-                                selectedMenu = selectedMenu,
-                                onSelectMenu = { selectedMenu = it },
+                                devices = state.devices,
+                                selectedDevice = state.selectedDevice,
+                                onSelectDevice = { stateHolder.selectDevice(it) },
+                                menus = state.menus,
+                                selectedMenu = state.selectedMenu,
+                                onSelectMenu = { stateHolder.selectMenu(it) },
                                 modifier = Modifier
                                     .width(250.dp)
                                     .fillMaxHeight()
@@ -73,22 +57,22 @@ fun App() {
                     },
                     rightPane = {
                         Surface(color = Color.LightGray) {
-                            when (selectedMenu) {
+                            when (state.selectedMenu) {
                                 Menu.COMMAND_MENU -> CommandPane(
-                                    commands = commands,
-                                    onExecute = { /** TODO */ }
+                                    commands = state.commands,
+                                    onExecute = { stateHolder.executeCommand() }
                                 )
 
                                 Menu.AUTOFILL_MENU -> AutoFillPane(
-                                    texts = texts,
-                                    onExecute = { /** TODO */ }
+                                    texts = state.autoFillTexts,
+                                    onExecute = { stateHolder.executeAutoFillText() }
                                 )
 
                                 Menu.SCREENSHOT_MENU -> ScreenShotPane(
                                     image1 = "TEST1",
                                     image2 = "TEST2",
-                                    onTakeScreenShot = {},
-                                    onTakeThemeScreenshot = {}
+                                    onTakeScreenShot = { stateHolder.takeScreenShot() },
+                                    onTakeThemeScreenshot = { stateHolder.takeThemeScreenShot() }
                                 )
                             }
                         }
@@ -98,14 +82,5 @@ fun App() {
                 )
             }
         }
-    }
-}
-
-fun main() = application {
-    Window(
-        title = WINDOW_TITLE,
-        onCloseRequest = ::exitApplication
-    ) {
-        App()
     }
 }
