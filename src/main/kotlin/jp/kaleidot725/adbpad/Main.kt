@@ -20,7 +20,6 @@ import jp.kaleidot725.adbpad.model.AutoFillText
 import jp.kaleidot725.adbpad.model.Command
 import jp.kaleidot725.adbpad.model.Menu
 import jp.kaleidot725.adbpad.view.component.menu.MenuPane
-import jp.kaleidot725.adbpad.view.dialog.SettingDialog
 import jp.kaleidot725.adbpad.view.layout.AppLayout
 import jp.kaleidot725.adbpad.view.page.AutoFillPane
 import jp.kaleidot725.adbpad.view.page.CommandPane
@@ -33,8 +32,6 @@ import jp.kaleidot725.adbpad.view.resource.WINDOW_TITLE
 fun App() {
     AppTheme(useDarkTheme = false) {
         Surface {
-            var enableSetting by remember { mutableStateOf(false) }
-
             val devices by remember { mutableStateOf(listOf("端末A", "端末B", "端末C")) }
             var selectedDevice by remember { mutableStateOf(devices.first()) }
 
@@ -96,10 +93,7 @@ fun App() {
                             }
                         }
                     },
-                    dialog = {
-                        SettingDialog(onClose = { enableSetting = false })
-                    },
-                    enableDialog = enableSetting,
+                    dialog = {},
                     modifier = Modifier.fillMaxSize()
                 )
             }

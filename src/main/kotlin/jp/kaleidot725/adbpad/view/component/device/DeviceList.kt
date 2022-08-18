@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.view.component.extension.clickableNoRipple
+import jp.kaleidot725.adbpad.view.extension.clickableNoRipple
 
 @Composable
 fun DeviceList(

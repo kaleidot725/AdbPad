@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.view.component.extension.consumeClickEvent
+import jp.kaleidot725.adbpad.view.extension.consumeClickEvent
 
 @Composable
 fun SettingDialog(onClose: () -> Unit) {

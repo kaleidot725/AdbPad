@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.model.Menu
 import jp.kaleidot725.adbpad.model.toIcon
 import jp.kaleidot725.adbpad.model.toTitle
-import jp.kaleidot725.adbpad.view.component.extension.clickableNoRipple
+import jp.kaleidot725.adbpad.view.extension.clickableNoRipple
 
 @Composable
 fun MenuList(
