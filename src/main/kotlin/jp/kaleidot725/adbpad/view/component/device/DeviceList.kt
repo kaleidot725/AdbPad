@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.menulist
+package jp.kaleidot725.adbpad.view.component.menu
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.BorderStroke
@@ -30,10 +30,11 @@ import jp.kaleidot725.adbpad.view.component.extension.clickableNoRipple
 @Composable
 fun DeviceList(
     devices: List<String>,
+    selectedDevice: String,
+    onSelectDevice: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedDevice by remember { mutableStateOf(devices.first()) }
     var dropDownWidth by remember { mutableStateOf(0) }
 
     Box(modifier) {
@@ -69,7 +70,7 @@ fun DeviceList(
             devices.forEach { device ->
                 DropdownMenuItem(
                     onClick = {
-                        selectedDevice = device
+                        onSelectDevice(device)
                         expanded = false
                     }
                 ) {
@@ -86,5 +87,5 @@ fun DeviceList(
 @Preview
 @Composable
 private fun DeviceList_Preview() {
-    DeviceList(listOf("端末A", "端末B", "端末C"))
+    DeviceList(listOf("端末A", "端末B", "端末C"), "端末A", {})
 }

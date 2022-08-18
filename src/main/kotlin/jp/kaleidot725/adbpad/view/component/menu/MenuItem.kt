@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.menulist
+package jp.kaleidot725.adbpad.view.component.menu
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +23,7 @@ fun MenuItem(
     modifier: Modifier = Modifier
 ) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
         modifier = modifier
     ) {
         Icon(
