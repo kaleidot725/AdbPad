@@ -18,7 +18,7 @@ import jp.kaleidot725.adbpad.model.toTitle
 @Composable
 fun CommandList(
     commands: List<Command>,
-    onExecuteCommand: (Command) -> Unit,
+    onExecute: (Command) -> Unit,
     minSize: Dp = 200.dp,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.Start,
@@ -34,7 +34,7 @@ fun CommandList(
             CommandItem(
                 title = command.toTitle(),
                 detail = command.toDetail(),
-                onExecute = { onExecuteCommand(command) },
+                onExecute = { onExecute(command) },
                 modifier = Modifier.size(minSize)
             )
         }

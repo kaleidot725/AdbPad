@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import jp.kaleidot725.adbpad.model.AutoFillText
 import jp.kaleidot725.adbpad.model.Command
 import jp.kaleidot725.adbpad.model.Menu
 import jp.kaleidot725.adbpad.view.component.menu.MenuPane
@@ -41,6 +42,19 @@ fun App() {
             var selectedMenu by remember { mutableStateOf(Menu.values().first()) }
 
             val commands by remember { mutableStateOf(Command.values().toList()) }
+            val texts by remember {
+                mutableStateOf(
+                    listOf(
+                        AutoFillText("ID入力", "いろはにほへと"),
+                        AutoFillText("ID入力", "いろはにほへと"),
+                        AutoFillText("ID入力", "いろはにほへと"),
+                        AutoFillText("ID入力", "いろはにほへと"),
+                        AutoFillText("ID入力", "いろはにほへと"),
+                        AutoFillText("ID入力", "いろはにほへと"),
+                        AutoFillText("ID入力", "いろはにほへと"),
+                    )
+                )
+            }
 
             Box {
                 AppLayout(
@@ -66,11 +80,15 @@ fun App() {
                             when (selectedMenu) {
                                 Menu.COMMAND_MENU -> CommandPane(
                                     commands = commands,
-                                    onExecuteCommand = { /** TODO */ }
+                                    onExecute = { /** TODO */ }
+                                )
+
+                                Menu.AUTOFILL_MENU -> AutoFillPane(
+                                    texts = texts,
+                                    onExecute = { /** TODO */ }
                                 )
 
                                 Menu.SCREENSHOT_MENU -> ScreenShotPane()
-                                Menu.AUTOFILL_MENU -> AutoFillPane()
                             }
                         }
                     },
