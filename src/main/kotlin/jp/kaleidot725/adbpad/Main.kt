@@ -67,7 +67,6 @@ fun App() {
                                 menus = menus,
                                 selectedMenu = selectedMenu,
                                 onSelectMenu = { selectedMenu = it },
-                                onOpenSetting = { enableSetting = true },
                                 modifier = Modifier
                                     .width(250.dp)
                                     .fillMaxHeight()
@@ -88,7 +87,12 @@ fun App() {
                                     onExecute = { /** TODO */ }
                                 )
 
-                                Menu.SCREENSHOT_MENU -> ScreenShotPane()
+                                Menu.SCREENSHOT_MENU -> ScreenShotPane(
+                                    image1 = "TEST1",
+                                    image2 = "TEST2",
+                                    onTakeScreenShot = {},
+                                    onTakeThemeScreenshot = {}
+                                )
                             }
                         }
                     },
