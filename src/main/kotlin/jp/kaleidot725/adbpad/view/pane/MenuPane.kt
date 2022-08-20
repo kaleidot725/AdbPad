@@ -17,7 +17,7 @@ fun MenuPane(
     selectedDevice: Device?,
     onSelectDevice: (Device) -> Unit,
     menus: List<Menu>,
-    selectedMenu: Menu,
+    selectedMenu: Menu?,
     onSelectMenu: (Menu) -> Unit,
     modifier: Modifier = Modifier
 ) {

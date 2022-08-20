@@ -18,7 +18,7 @@ import jp.kaleidot725.adbpad.view.resource.toTitle
 @Composable
 fun MenuList(
     menus: List<Menu>,
-    selectedMenu: Menu,
+    selectedMenu: Menu?,
     onSelectMenu: (Menu) -> Unit,
     modifier: Modifier = Modifier
 ) {

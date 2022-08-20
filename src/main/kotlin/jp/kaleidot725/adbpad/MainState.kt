@@ -8,25 +8,8 @@ import jp.kaleidot725.adbpad.view.resource.Menu
 data class MainState(
     val devices: List<Device> = emptyList(),
     val selectedDevice: Device? = null,
-    val menus: List<Menu> = Menu.values().toList(),
-    val selectedMenu: Menu = Menu.COMMAND_MENU,
-    val commands: List<Command> = listOf(
-        Command.DarkThemeOn,
-        Command.DarkThemeOff,
-        Command.WifiOn,
-        Command.WifiOff,
-        Command.DataOn,
-        Command.DataOff,
-        Command.WifiAndDataOn,
-        Command.WifiAndDataOff,
-    ),
-    val inputTexts: List<InputText> = listOf(
-        InputText("ID入力", "aiueo"),
-        InputText("ID入力", "cdefg"),
-        InputText("ID入力", "12345"),
-        InputText("ID入力", "67890"),
-        InputText("ID入力", "09876"),
-        InputText("ID入力", "543211"),
-        InputText("ID入力", "日本語入力"),
-    )
+    val menus: List<Menu> = emptyList(),
+    val selectedMenu: Menu? = null,
+    val commands: List<Command> = emptyList(),
+    val inputTexts: List<InputText> = emptyList()
 )
