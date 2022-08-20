@@ -4,6 +4,8 @@ import com.malinskiy.adam.AndroidDebugBridgeClientFactory
 import com.malinskiy.adam.interactor.StartAdbInteractor
 import com.malinskiy.adam.request.device.AsyncDeviceMonitorRequest
 import com.malinskiy.adam.request.device.Device
+import com.malinskiy.adam.request.shell.v1.ShellCommandRequest
+import jp.kaleidot725.adbpad.model.Command
 import jp.kaleidot725.adbpad.model.Menu
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -54,8 +56,30 @@ class MainStateHolder {
         _state.value = _state.value.copy(selectedMenu = menu)
     }
 
-    fun executeCommand() {
+    fun executeCommand(command: Command) {
+        val serial = _state.value.selectedDevice?.serial
 
+        coroutineScope.launch {
+            when (command) {
+                Command.DARK_THEME_ON -> {
+                    val response = adb.execute(
+                        request = ShellCommandRequest("cmd uimode night yes"),
+                        serial = serial
+                    )
+                    print(response)
+                }
+
+                Command.DARK_THEME_OFF -> {
+                    val response = adb.execute(
+                        request = ShellCommandRequest("cmd uimode night no"),
+                        serial = serial
+                    )
+                    print(response)
+                }
+
+                else -> {}
+            }
+        }
     }
 
     fun executeAutoFillText() {

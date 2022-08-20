@@ -60,7 +60,7 @@ fun App(stateHolder: MainStateHolder) {
                             when (state.selectedMenu) {
                                 Menu.COMMAND_MENU -> CommandPane(
                                     commands = state.commands,
-                                    onExecute = { stateHolder.executeCommand() }
+                                    onExecute = { stateHolder.executeCommand(it) }
                                 )
 
                                 Menu.AUTOFILL_MENU -> AutoFillPane(
