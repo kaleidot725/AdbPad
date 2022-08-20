@@ -1,9 +1,9 @@
 package jp.kaleidot725.adbpad
 
 import com.malinskiy.adam.request.device.Device
-import jp.kaleidot725.adbpad.model.AutoFillText
 import jp.kaleidot725.adbpad.model.Command
-import jp.kaleidot725.adbpad.model.Menu
+import jp.kaleidot725.adbpad.model.InputText
+import jp.kaleidot725.adbpad.view.resource.Menu
 
 data class MainState(
     val devices: List<Device> = emptyList(),
@@ -11,13 +11,13 @@ data class MainState(
     val menus: List<Menu> = Menu.values().toList(),
     val selectedMenu: Menu = Menu.COMMAND_MENU,
     val commands: List<Command> = Command.values().toList(),
-    val autoFillTexts: List<AutoFillText> = listOf(
-        AutoFillText("ID入力", "いろはにほへと"),
-        AutoFillText("ID入力", "いろはにほへと"),
-        AutoFillText("ID入力", "いろはにほへと"),
-        AutoFillText("ID入力", "いろはにほへと"),
-        AutoFillText("ID入力", "いろはにほへと"),
-        AutoFillText("ID入力", "いろはにほへと"),
-        AutoFillText("ID入力", "いろはにほへと"),
+    val inputTexts: List<InputText> = listOf(
+        InputText("ID入力", "いろはにほへと"),
+        InputText("ID入力", "いろはにほへと"),
+        InputText("ID入力", "いろはにほへと"),
+        InputText("ID入力", "いろはにほへと"),
+        InputText("ID入力", "いろはにほへと"),
+        InputText("ID入力", "いろはにほへと"),
+        InputText("ID入力", "いろはにほへと"),
     )
 )

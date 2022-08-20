@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.autofill
+package jp.kaleidot725.adbpad.view.component.input
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -10,13 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.model.AutoFillText
+import jp.kaleidot725.adbpad.model.InputText
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AutoFillList(
-    texts: List<AutoFillText>,
-    onExecute: (AutoFillText) -> Unit,
+    texts: List<InputText>,
+    onExecute: (InputText) -> Unit,
     minSize: Dp = 200.dp,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.Start,

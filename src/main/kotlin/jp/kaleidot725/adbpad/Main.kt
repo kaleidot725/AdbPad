@@ -15,13 +15,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import jp.kaleidot725.adbpad.MainStateHolder
-import jp.kaleidot725.adbpad.model.Menu
 import jp.kaleidot725.adbpad.view.component.menu.MenuPane
 import jp.kaleidot725.adbpad.view.layout.AppLayout
 import jp.kaleidot725.adbpad.view.page.AutoFillPane
 import jp.kaleidot725.adbpad.view.page.CommandPane
 import jp.kaleidot725.adbpad.view.page.ScreenShotPane
 import jp.kaleidot725.adbpad.view.resource.AppTheme
+import jp.kaleidot725.adbpad.view.resource.Menu
 import jp.kaleidot725.adbpad.view.resource.WINDOW_TITLE
 
 fun main() = application {
@@ -64,7 +64,7 @@ fun App(stateHolder: MainStateHolder) {
                                 )
 
                                 Menu.AUTOFILL_MENU -> AutoFillPane(
-                                    texts = state.autoFillTexts,
+                                    texts = state.inputTexts,
                                     onExecute = { stateHolder.executeAutoFillText() }
                                 )
 

@@ -6,7 +6,7 @@ import com.malinskiy.adam.request.device.AsyncDeviceMonitorRequest
 import com.malinskiy.adam.request.device.Device
 import com.malinskiy.adam.request.shell.v1.ShellCommandRequest
 import jp.kaleidot725.adbpad.model.Command
-import jp.kaleidot725.adbpad.model.Menu
+import jp.kaleidot725.adbpad.view.resource.Menu
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

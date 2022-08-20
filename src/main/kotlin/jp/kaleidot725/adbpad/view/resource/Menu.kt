@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.model
+package jp.kaleidot725.adbpad.view.resource
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DoubleArrow
