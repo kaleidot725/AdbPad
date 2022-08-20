@@ -6,6 +6,7 @@ import com.malinskiy.adam.request.device.AsyncDeviceMonitorRequest
 import com.malinskiy.adam.request.device.Device
 import com.malinskiy.adam.request.shell.v1.ShellCommandRequest
 import jp.kaleidot725.adbpad.model.Command
+import jp.kaleidot725.adbpad.model.InputText
 import jp.kaleidot725.adbpad.view.resource.Menu
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -123,14 +124,19 @@ class MainStateHolder {
                         serial = serial
                     )
                 }
-
-                else -> {}
             }
         }
     }
 
-    fun executeAutoFillText() {
-
+    fun inputText(inputText: InputText) {
+        coroutineScope.launch {
+            val serial = _state.value.selectedDevice?.serial
+            val response = adb.execute(
+                request = ShellCommandRequest("input text ${inputText.content}"),
+                serial = serial
+            )
+            print(response)
+        }
     }
 
     fun takeScreenShot() {

@@ -12,12 +12,12 @@ data class MainState(
     val selectedMenu: Menu = Menu.COMMAND_MENU,
     val commands: List<Command> = Command.values().toList(),
     val inputTexts: List<InputText> = listOf(
-        InputText("ID入力", "いろはにほへと"),
-        InputText("ID入力", "いろはにほへと"),
-        InputText("ID入力", "いろはにほへと"),
-        InputText("ID入力", "いろはにほへと"),
-        InputText("ID入力", "いろはにほへと"),
-        InputText("ID入力", "いろはにほへと"),
-        InputText("ID入力", "いろはにほへと"),
+        InputText("ID入力", "aiueo"),
+        InputText("ID入力", "cdefg"),
+        InputText("ID入力", "12345"),
+        InputText("ID入力", "67890"),
+        InputText("ID入力", "09876"),
+        InputText("ID入力", "543211"),
+        InputText("ID入力", "日本語入力"),
     )
 )

@@ -65,7 +65,7 @@ fun App(stateHolder: MainStateHolder) {
 
                                 Menu.AUTOFILL_MENU -> AutoFillPane(
                                     texts = state.inputTexts,
-                                    onExecute = { stateHolder.executeAutoFillText() }
+                                    onExecute = { stateHolder.inputText(it) }
                                 )
 
                                 Menu.SCREENSHOT_MENU -> ScreenShotPane(
