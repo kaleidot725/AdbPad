@@ -83,15 +83,12 @@ class MainStateHolder(
     }
 
     fun takeScreenShot() {
-
     }
 
     fun takeThemeScreenShot() {
-
     }
 
     fun dispose() {
         coroutineScope.cancel()
     }
 }
-
