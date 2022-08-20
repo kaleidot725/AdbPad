@@ -25,13 +25,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import com.malinskiy.adam.request.device.Device
+import com.malinskiy.adam.request.device.DeviceState
 import jp.kaleidot725.adbpad.view.extension.clickableNoRipple
 
 @Composable
 fun DeviceList(
-    devices: List<String>,
-    selectedDevice: String,
-    onSelectDevice: (String) -> Unit,
+    devices: List<Device>,
+    selectedDevice: Device?,
+    onSelectDevice: (Device) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -40,7 +42,7 @@ fun DeviceList(
     Box(modifier) {
         Box(
             modifier = Modifier
-                .clickableNoRipple { if (!expanded) expanded = true }
+                .clickableNoRipple { if (!expanded && devices.isNotEmpty()) expanded = true }
                 .fillMaxWidth()
                 .onSizeChanged { dropDownWidth = it.width }
                 .border(
@@ -50,7 +52,7 @@ fun DeviceList(
                 .padding(vertical = 8.dp, horizontal = 16.dp)
         ) {
             Text(
-                text = selectedDevice,
+                text = selectedDevice?.serial ?: "端末がありません",
                 style = MaterialTheme.typography.subtitle2,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -75,7 +77,7 @@ fun DeviceList(
                     }
                 ) {
                     Text(
-                        text = device,
+                        text = device.serial,
                         style = MaterialTheme.typography.subtitle2,
                     )
                 }
@@ -87,5 +89,6 @@ fun DeviceList(
 @Preview
 @Composable
 private fun DeviceList_Preview() {
-    DeviceList(listOf("端末A", "端末B", "端末C"), "端末A", {})
+    val sample = Device("TEST", DeviceState.DEVICE)
+    DeviceList(listOf(sample), sample, {})
 }

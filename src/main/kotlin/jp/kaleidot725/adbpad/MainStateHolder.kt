@@ -1,14 +1,52 @@
 package jp.kaleidot725.adbpad
 
+import com.malinskiy.adam.AndroidDebugBridgeClientFactory
+import com.malinskiy.adam.interactor.StartAdbInteractor
+import com.malinskiy.adam.request.device.AsyncDeviceMonitorRequest
+import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.Menu
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 
 class MainStateHolder {
+    private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    private val adb = AndroidDebugBridgeClientFactory().build()
+
     private val _state: MutableStateFlow<MainState> = MutableStateFlow(MainState())
     val state: StateFlow<MainState> = _state
 
-    fun selectDevice(device: String) {
+    init {
+        coroutineScope.launch {
+            StartAdbInteractor().execute()
+
+            val channel = adb.execute(
+                request = AsyncDeviceMonitorRequest(),
+                scope = coroutineScope
+            )
+
+            channel.receiveAsFlow().collect { devices ->
+                if (devices.isNotEmpty()) {
+                    val selectedDevice = _state.value.selectedDevice
+                    val newSelectedDevice = when {
+                        selectedDevice == null -> devices.firstOrNull()
+                        !devices.contains(selectedDevice) -> devices.firstOrNull()
+                        else -> selectedDevice
+                    }
+                    _state.value = _state.value.copy(devices = devices, selectedDevice = newSelectedDevice)
+                } else {
+                    _state.value = _state.value.copy(devices = devices, selectedDevice = null)
+                }
+            }
+        }
+    }
+
+    fun selectDevice(device: Device) {
         _state.value = _state.value.copy(selectedDevice = device)
     }
 
