@@ -18,7 +18,6 @@ fun AppLayout(
     leftPane: @Composable () -> Unit,
     rightPane: @Composable () -> Unit,
     dialog: @Composable () -> Unit,
-    enableDialog: Boolean,
     modifier: Modifier = Modifier
 ) {
     Box(modifier) {
@@ -26,7 +25,7 @@ fun AppLayout(
             leftPane()
             rightPane()
         }
-        if (enableDialog) dialog()
+        dialog()
     }
 }
 
@@ -41,7 +40,6 @@ private fun AppLayout_Preview() {
             Box(Modifier.fillMaxSize().background(Color.Blue))
         },
         dialog = {},
-        enableDialog = false,
         modifier = Modifier.fillMaxSize()
     )
 }
@@ -59,7 +57,6 @@ private fun AppLayoutDialog_Preview() {
         dialog = {
             Box(Modifier.fillMaxSize().padding(32.dp).background(Color.Green))
         },
-        enableDialog = true,
         modifier = Modifier.fillMaxSize()
     )
 }

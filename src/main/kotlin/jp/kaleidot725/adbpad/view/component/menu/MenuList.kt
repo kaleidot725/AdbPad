@@ -10,15 +10,15 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.model.Menu
-import jp.kaleidot725.adbpad.model.toIcon
-import jp.kaleidot725.adbpad.model.toTitle
-import jp.kaleidot725.adbpad.view.component.extension.clickableNoRipple
+import jp.kaleidot725.adbpad.view.extension.clickableNoRipple
+import jp.kaleidot725.adbpad.view.resource.Menu
+import jp.kaleidot725.adbpad.view.resource.toIcon
+import jp.kaleidot725.adbpad.view.resource.toTitle
 
 @Composable
 fun MenuList(
     menus: List<Menu>,
-    selectedMenu: Menu,
+    selectedMenu: Menu?,
     onSelectMenu: (Menu) -> Unit,
     modifier: Modifier = Modifier
 ) {

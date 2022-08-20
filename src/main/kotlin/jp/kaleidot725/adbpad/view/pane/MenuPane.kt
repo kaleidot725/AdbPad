@@ -8,15 +8,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.model.Menu
+import com.malinskiy.adam.request.device.Device
+import jp.kaleidot725.adbpad.view.resource.Menu
 
 @Composable
 fun MenuPane(
-    devices: List<String>,
-    selectedDevice: String,
-    onSelectDevice: (String) -> Unit,
+    devices: List<Device>,
+    selectedDevice: Device?,
+    onSelectDevice: (Device) -> Unit,
     menus: List<Menu>,
-    selectedMenu: Menu,
+    selectedMenu: Menu?,
     onSelectMenu: (Menu) -> Unit,
     modifier: Modifier = Modifier
 ) {

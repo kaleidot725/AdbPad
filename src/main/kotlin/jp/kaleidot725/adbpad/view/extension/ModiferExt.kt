@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.extension
+package jp.kaleidot725.adbpad.view.extension
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource

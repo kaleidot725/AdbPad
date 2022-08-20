@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.autofill
+package jp.kaleidot725.adbpad.view.component.input
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
@@ -13,11 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.model.AutoFillText
+import jp.kaleidot725.adbpad.model.data.InputText
 
 @Composable
 fun AutoFillItem(
-    text: AutoFillText,
+    text: InputText,
     onExecute: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -47,7 +47,7 @@ fun AutoFillItem(
 @Composable
 private fun CommandItem_Preview() {
     AutoFillItem(
-        text = AutoFillText("テストID", "いろはにほへと"),
+        text = InputText("テストID", "いろはにほへと"),
         onExecute = {},
         modifier = Modifier.size(200.dp)
     )
