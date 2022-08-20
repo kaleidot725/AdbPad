@@ -5,8 +5,8 @@ import com.malinskiy.adam.interactor.StartAdbInteractor
 import com.malinskiy.adam.request.device.AsyncDeviceMonitorRequest
 import com.malinskiy.adam.request.device.Device
 import com.malinskiy.adam.request.shell.v1.ShellCommandRequest
-import jp.kaleidot725.adbpad.model.Command
-import jp.kaleidot725.adbpad.model.InputText
+import jp.kaleidot725.adbpad.model.data.Command
+import jp.kaleidot725.adbpad.model.data.InputText
 import jp.kaleidot725.adbpad.view.resource.Menu
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -61,49 +61,49 @@ class MainStateHolder {
         coroutineScope.launch {
             val serial = _state.value.selectedDevice?.serial
             when (command) {
-                Command.DARK_THEME_ON -> {
+                Command.DarkThemeOn -> {
                     adb.execute(
                         request = ShellCommandRequest("cmd uimode night yes"),
                         serial = serial
                     )
                 }
 
-                Command.DARK_THEME_OFF -> {
+                Command.DarkThemeOff -> {
                     adb.execute(
                         request = ShellCommandRequest("cmd uimode night no"),
                         serial = serial
                     )
                 }
 
-                Command.WIFI_ON -> {
+                Command.WifiOn -> {
                     adb.execute(
                         request = ShellCommandRequest("svc wifi enable"),
                         serial = serial
                     )
                 }
 
-                Command.WIFI_OFF -> {
+                Command.WifiOff -> {
                     adb.execute(
                         request = ShellCommandRequest("svc wifi disable"),
                         serial = serial
                     )
                 }
 
-                Command.DATA_ON -> {
+                Command.DataOn -> {
                     adb.execute(
                         request = ShellCommandRequest("svc data enable"),
                         serial = serial
                     )
                 }
 
-                Command.DATA_OFF -> {
+                Command.DataOff -> {
                     adb.execute(
                         request = ShellCommandRequest("svc data disable"),
                         serial = serial
                     )
                 }
 
-                Command.WIFI_AND_DATA_ON -> {
+                Command.WifiAndDataOn -> {
                     adb.execute(
                         request = ShellCommandRequest("svc wifi enable"),
                         serial = serial
@@ -114,7 +114,7 @@ class MainStateHolder {
                     )
                 }
 
-                Command.WIFI_AND_DATA_OFF -> {
+                Command.WifiAndDataOff -> {
                     adb.execute(
                         request = ShellCommandRequest("svc wifi disable"),
                         serial = serial

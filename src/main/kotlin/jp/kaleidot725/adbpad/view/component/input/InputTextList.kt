@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.model.InputText
+import jp.kaleidot725.adbpad.model.data.InputText
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

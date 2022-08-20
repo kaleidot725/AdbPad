@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.model
+package jp.kaleidot725.adbpad.model.data
 
 sealed class OperatingSystem(val settingPath: String = "") {
     object Mac : OperatingSystem(System.getProperty("user.home") + "/Library/Application Support/adbpad/")

@@ -1,8 +1,8 @@
 package jp.kaleidot725.adbpad
 
 import com.malinskiy.adam.request.device.Device
-import jp.kaleidot725.adbpad.model.Command
-import jp.kaleidot725.adbpad.model.InputText
+import jp.kaleidot725.adbpad.model.data.Command
+import jp.kaleidot725.adbpad.model.data.InputText
 import jp.kaleidot725.adbpad.view.resource.Menu
 
 data class MainState(
@@ -10,7 +10,16 @@ data class MainState(
     val selectedDevice: Device? = null,
     val menus: List<Menu> = Menu.values().toList(),
     val selectedMenu: Menu = Menu.COMMAND_MENU,
-    val commands: List<Command> = Command.values().toList(),
+    val commands: List<Command> = listOf(
+        Command.DarkThemeOn,
+        Command.DarkThemeOff,
+        Command.WifiOn,
+        Command.WifiOff,
+        Command.DataOn,
+        Command.DataOff,
+        Command.WifiAndDataOn,
+        Command.WifiAndDataOff,
+    ),
     val inputTexts: List<InputText> = listOf(
         InputText("ID入力", "aiueo"),
         InputText("ID入力", "cdefg"),
