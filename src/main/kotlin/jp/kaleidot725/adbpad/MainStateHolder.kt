@@ -57,24 +57,71 @@ class MainStateHolder {
     }
 
     fun executeCommand(command: Command) {
-        val serial = _state.value.selectedDevice?.serial
-
         coroutineScope.launch {
+            val serial = _state.value.selectedDevice?.serial
             when (command) {
                 Command.DARK_THEME_ON -> {
-                    val response = adb.execute(
+                    adb.execute(
                         request = ShellCommandRequest("cmd uimode night yes"),
                         serial = serial
                     )
-                    print(response)
                 }
 
                 Command.DARK_THEME_OFF -> {
-                    val response = adb.execute(
+                    adb.execute(
                         request = ShellCommandRequest("cmd uimode night no"),
                         serial = serial
                     )
-                    print(response)
+                }
+
+                Command.WIFI_ON -> {
+                    adb.execute(
+                        request = ShellCommandRequest("svc wifi enable"),
+                        serial = serial
+                    )
+                }
+
+                Command.WIFI_OFF -> {
+                    adb.execute(
+                        request = ShellCommandRequest("svc wifi disable"),
+                        serial = serial
+                    )
+                }
+
+                Command.DATA_ON -> {
+                    adb.execute(
+                        request = ShellCommandRequest("svc data enable"),
+                        serial = serial
+                    )
+                }
+
+                Command.DATA_OFF -> {
+                    adb.execute(
+                        request = ShellCommandRequest("svc data disable"),
+                        serial = serial
+                    )
+                }
+
+                Command.WIFI_AND_DATA_ON -> {
+                    adb.execute(
+                        request = ShellCommandRequest("svc wifi enable"),
+                        serial = serial
+                    )
+                    adb.execute(
+                        request = ShellCommandRequest("svc data enable"),
+                        serial = serial
+                    )
+                }
+
+                Command.WIFI_AND_DATA_OFF -> {
+                    adb.execute(
+                        request = ShellCommandRequest("svc wifi disable"),
+                        serial = serial
+                    )
+                    adb.execute(
+                        request = ShellCommandRequest("svc data disable"),
+                        serial = serial
+                    )
                 }
 
                 else -> {}
