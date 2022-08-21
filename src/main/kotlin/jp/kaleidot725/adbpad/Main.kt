@@ -60,7 +60,8 @@ fun main() = application {
                             onTextChange = { stateHolder.updateInputText(it) },
                             texts = state.inputTexts,
                             onExecute = { stateHolder.inputText(it) },
-                            onSave = {}
+                            onSave = { stateHolder.saveInputText(it) },
+                            onDelete = { stateHolder.deleteInputText(it) }
                         )
 
                         Menu.SCREENSHOT_MENU -> ScreenshotScreen(

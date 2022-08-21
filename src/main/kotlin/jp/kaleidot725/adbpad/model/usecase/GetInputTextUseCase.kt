@@ -1,17 +1,11 @@
 package jp.kaleidot725.adbpad.model.usecase
 
 import jp.kaleidot725.adbpad.model.data.InputText
+import jp.kaleidot725.adbpad.model.data.Setting
 
 class GetInputTextUseCase {
     operator fun invoke(): List<InputText> {
-        return listOf(
-            InputText("aiueo"),
-            InputText("cdefg"),
-            InputText("12345"),
-            InputText("67890"),
-            InputText("09876"),
-            InputText("543211"),
-            InputText("日本語入力"),
-        )
+        val setting = Setting.load()
+        return setting?.inputTexts ?: emptyList()
     }
 }

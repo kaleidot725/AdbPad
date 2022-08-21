@@ -20,7 +20,8 @@ fun InputTextScreen(
     onTextChange: (InputText) -> Unit,
     texts: List<InputText>,
     onExecute: (InputText) -> Unit,
-    onSave: (InputText) -> Unit
+    onSave: (InputText) -> Unit,
+    onDelete: (InputText) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         InputTestList(

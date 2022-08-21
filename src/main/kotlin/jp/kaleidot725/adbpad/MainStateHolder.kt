@@ -96,15 +96,17 @@ class MainStateHolder(
         }
     }
 
-    fun addInputText(inputText: InputText) {
+    fun saveInputText(inputText: InputText) {
         coroutineScope.launch {
             addInputTextUseCase(inputText)
+            _state.value = _state.value.copy(inputTexts = getInputTextUseCase())
         }
     }
 
     fun deleteInputText(inputText: InputText) {
         coroutineScope.launch {
             deleteInputTextUseCase(inputText)
+            _state.value = _state.value.copy(inputTexts = getInputTextUseCase())
         }
     }
 
