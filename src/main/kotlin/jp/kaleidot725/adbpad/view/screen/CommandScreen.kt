@@ -7,17 +7,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.model.data.InputText
-import jp.kaleidot725.adbpad.view.component.input.AutoFillList
+import jp.kaleidot725.adbpad.model.data.Command
+import jp.kaleidot725.adbpad.view.component.command.CommandList
 
 @Composable
-fun AutoFillPane(
-    texts: List<InputText>,
-    onExecute: (InputText) -> Unit
+fun CommandScreen(
+    commands: List<Command>,
+    onExecute: (Command) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        AutoFillList(
-            texts = texts,
+        CommandList(
+            commands = commands,
             onExecute = onExecute,
             minSize = 200.dp,
             verticalArrangement = Arrangement.spacedBy(16.dp),

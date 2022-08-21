@@ -11,5 +11,6 @@ data class MainState(
     val menus: List<Menu> = emptyList(),
     val selectedMenu: Menu? = null,
     val commands: List<Command> = emptyList(),
-    val inputTexts: List<InputText> = emptyList()
+    val inputText: InputText = InputText(""),
+    val inputTexts: List<InputText> = emptyList(),
 )

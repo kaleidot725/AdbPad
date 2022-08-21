@@ -12,7 +12,7 @@ import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.view.resource.Menu
 
 @Composable
-fun MenuPane(
+fun MenuScreen(
     devices: List<Device>,
     selectedDevice: Device?,
     onSelectDevice: (Device) -> Unit,

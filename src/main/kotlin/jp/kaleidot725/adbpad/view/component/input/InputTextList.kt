@@ -14,9 +14,10 @@ import jp.kaleidot725.adbpad.model.data.InputText
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AutoFillList(
+fun InputTestList(
     texts: List<InputText>,
     onExecute: (InputText) -> Unit,
+    onDelete: (InputText) -> Unit,
     minSize: Dp = 200.dp,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.Start,
@@ -29,9 +30,10 @@ fun AutoFillList(
         modifier = modifier
     ) {
         items(texts) { text ->
-            AutoFillItem(
+            InputTestItem(
                 text = text,
                 onExecute = { onExecute(text) },
+                onDelete = { onDelete(text) },
                 modifier = Modifier.size(minSize)
             )
         }

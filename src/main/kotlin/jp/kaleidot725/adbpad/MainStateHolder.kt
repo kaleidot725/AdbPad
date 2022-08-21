@@ -3,6 +3,8 @@ package jp.kaleidot725.adbpad
 import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Command
 import jp.kaleidot725.adbpad.model.data.InputText
+import jp.kaleidot725.adbpad.model.usecase.AddInputTextUseCase
+import jp.kaleidot725.adbpad.model.usecase.DeleteInputTextUseCase
 import jp.kaleidot725.adbpad.model.usecase.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.model.usecase.ExecuteInputTextUseCase
 import jp.kaleidot725.adbpad.model.usecase.GetAndroidDeviceListUseCase
@@ -25,7 +27,9 @@ class MainStateHolder(
     val getCommandListUseCase: GetCommandListUseCase = GetCommandListUseCase(),
     val getInputTextUseCase: GetInputTextUseCase = GetInputTextUseCase(),
     val executeCommandUseCase: ExecuteCommandUseCase = ExecuteCommandUseCase(),
-    val executeInputTextUseCase: ExecuteInputTextUseCase = ExecuteInputTextUseCase()
+    val executeInputTextUseCase: ExecuteInputTextUseCase = ExecuteInputTextUseCase(),
+    val addInputTextUseCase: AddInputTextUseCase = AddInputTextUseCase(),
+    val deleteInputTextUseCase: DeleteInputTextUseCase = DeleteInputTextUseCase()
 ) {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private val _state: MutableStateFlow<MainState> = MutableStateFlow(MainState())
@@ -79,6 +83,30 @@ class MainStateHolder(
         coroutineScope.launch {
             val serial = _state.value.selectedDevice?.serial
             executeInputTextUseCase(serial, inputText)
+        }
+    }
+
+    fun updateInputText(inputText: InputText) {
+        val isLettersOrDigits = inputText.content.none {
+            it !in 'A'..'Z' && it !in 'a'..'z' && it !in '0'..'9'
+        }
+
+        if (isLettersOrDigits) {
+            _state.value = _state.value.copy(inputText = inputText)
+        }
+    }
+
+    fun saveInputText(inputText: InputText) {
+        coroutineScope.launch {
+            addInputTextUseCase(inputText)
+            _state.value = _state.value.copy(inputTexts = getInputTextUseCase())
+        }
+    }
+
+    fun deleteInputText(inputText: InputText) {
+        coroutineScope.launch {
+            deleteInputTextUseCase(inputText)
+            _state.value = _state.value.copy(inputTexts = getInputTextUseCase())
         }
     }
 

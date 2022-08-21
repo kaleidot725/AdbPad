@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.layout
+package jp.kaleidot725.adbpad.view.template
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AppLayout(
+fun AppTemplate(
     leftPane: @Composable () -> Unit,
     rightPane: @Composable () -> Unit,
     dialog: @Composable () -> Unit,
@@ -31,8 +31,8 @@ fun AppLayout(
 
 @Preview
 @Composable
-private fun AppLayout_Preview() {
-    AppLayout(
+private fun AppTemplate_Preview() {
+    AppTemplate(
         leftPane = {
             Box(Modifier.width(200.dp).fillMaxHeight().background(Color.Red))
         },
@@ -46,8 +46,8 @@ private fun AppLayout_Preview() {
 
 @Preview
 @Composable
-private fun AppLayoutDialog_Preview() {
-    AppLayout(
+private fun AppTemplateDialog_Preview() {
+    AppTemplate(
         leftPane = {
             Box(Modifier.width(200.dp).fillMaxHeight().background(Color.Red))
         },
