@@ -55,9 +55,12 @@ fun main() = application {
                             onExecute = { stateHolder.executeCommand(it) }
                         )
 
-                        Menu.AUTOFILL_MENU -> InputTextScreen(
+                        Menu.INPUT_TEXT_MENU -> InputTextScreen(
+                            inputText = state.inputText,
+                            onTextChange = { stateHolder.updateInputText(it) },
                             texts = state.inputTexts,
-                            onExecute = { stateHolder.inputText(it) }
+                            onExecute = { stateHolder.inputText(it) },
+                            onSave = {}
                         )
 
                         Menu.SCREENSHOT_MENU -> ScreenshotScreen(

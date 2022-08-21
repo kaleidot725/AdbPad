@@ -8,14 +8,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 enum class Menu {
     COMMAND_MENU,
-    AUTOFILL_MENU,
+    INPUT_TEXT_MENU,
     SCREENSHOT_MENU
 }
 
 fun Menu.toTitle(): String {
     return when (this) {
         Menu.COMMAND_MENU -> "コマンド"
-        Menu.AUTOFILL_MENU -> "テキスト入力"
+        Menu.INPUT_TEXT_MENU -> "テキスト入力"
         Menu.SCREENSHOT_MENU -> "スクリーンショット"
     }
 }
@@ -23,7 +23,7 @@ fun Menu.toTitle(): String {
 fun Menu.toIcon(): ImageVector {
     return when (this) {
         Menu.COMMAND_MENU -> Icons.Default.DoubleArrow
-        Menu.AUTOFILL_MENU -> Icons.Default.Input
+        Menu.INPUT_TEXT_MENU -> Icons.Default.Input
         Menu.SCREENSHOT_MENU -> Icons.Default.PhotoCamera
     }
 }

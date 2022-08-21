@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.model.data.InputText
 
 @Composable
-fun AutoFillItem(
+fun InputTestItem(
     text: InputText,
     onExecute: () -> Unit,
     modifier: Modifier = Modifier
@@ -27,18 +27,13 @@ fun AutoFillItem(
             modifier = Modifier.padding(8.dp)
         ) {
             Text(
-                text = text.title,
-                maxLines = 1,
-                modifier = Modifier.fillMaxWidth()
-            )
-            Text(
                 text = text.content,
                 maxLines = 3,
-                modifier = Modifier.fillMaxWidth().weight(weight = 0.5f, fill = true)
+                modifier = Modifier.fillMaxWidth().weight(weight = 0.8f, fill = true)
             )
             Button(onClick = { onExecute() }, modifier = Modifier.align(Alignment.End)) {
-            Text("実行")
-        }
+                Text("実行")
+            }
         }
     }
 }
@@ -46,8 +41,8 @@ fun AutoFillItem(
 @Preview
 @Composable
 private fun CommandItem_Preview() {
-    AutoFillItem(
-        text = InputText("テストID", "いろはにほへと"),
+    InputTestItem(
+        text = InputText("いろはにほへと"),
         onExecute = {},
         modifier = Modifier.size(200.dp)
     )
