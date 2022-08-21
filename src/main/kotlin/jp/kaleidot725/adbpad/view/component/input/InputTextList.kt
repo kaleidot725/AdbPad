@@ -17,6 +17,7 @@ import jp.kaleidot725.adbpad.model.data.InputText
 fun InputTestList(
     texts: List<InputText>,
     onExecute: (InputText) -> Unit,
+    onDelete: (InputText) -> Unit,
     minSize: Dp = 200.dp,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.Start,
@@ -32,6 +33,7 @@ fun InputTestList(
             InputTestItem(
                 text = text,
                 onExecute = { onExecute(text) },
+                onDelete = { onDelete(text) },
                 modifier = Modifier.size(minSize)
             )
         }

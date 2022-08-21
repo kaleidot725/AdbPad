@@ -27,6 +27,7 @@ fun InputTextScreen(
         InputTestList(
             texts = texts,
             onExecute = onExecute,
+            onDelete = onDelete,
             minSize = 200.dp,
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),

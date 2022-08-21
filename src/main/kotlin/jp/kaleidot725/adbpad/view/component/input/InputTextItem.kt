@@ -19,6 +19,7 @@ import jp.kaleidot725.adbpad.model.data.InputText
 fun InputTestItem(
     text: InputText,
     onExecute: () -> Unit,
+    onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(modifier) {
@@ -34,6 +35,9 @@ fun InputTestItem(
             Button(onClick = { onExecute() }, modifier = Modifier.align(Alignment.End)) {
                 Text("実行")
             }
+            Button(onClick = { onDelete() }, modifier = Modifier.align(Alignment.End)) {
+                Text("削除")
+            }
         }
     }
 }
@@ -44,6 +48,7 @@ private fun CommandItem_Preview() {
     InputTestItem(
         text = InputText("いろはにほへと"),
         onExecute = {},
+        onDelete = {},
         modifier = Modifier.size(200.dp)
     )
 }
