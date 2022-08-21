@@ -11,7 +11,7 @@ import jp.kaleidot725.adbpad.model.data.InputText
 import jp.kaleidot725.adbpad.view.component.input.AutoFillList
 
 @Composable
-fun AutoFillPane(
+fun InputTextScreen(
     texts: List<InputText>,
     onExecute: (InputText) -> Unit
 ) {

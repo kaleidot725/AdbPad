@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.view.component.viewer.ImageView
 
 @Composable
-fun ScreenShotPane(
+fun ScreenshotScreen(
     image1: String,
     image2: String,
     onTakeScreenShot: () -> Unit,

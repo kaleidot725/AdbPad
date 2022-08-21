@@ -11,7 +11,7 @@ import jp.kaleidot725.adbpad.model.data.Command
 import jp.kaleidot725.adbpad.view.component.command.CommandList
 
 @Composable
-fun CommandPane(
+fun CommandScreen(
     commands: List<Command>,
     onExecute: (Command) -> Unit
 ) {

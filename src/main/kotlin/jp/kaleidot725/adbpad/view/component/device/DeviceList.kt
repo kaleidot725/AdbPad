@@ -27,7 +27,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.malinskiy.adam.request.device.Device
 import com.malinskiy.adam.request.device.DeviceState
-import jp.kaleidot725.adbpad.view.extension.clickableNoRipple
+import jp.kaleidot725.adbpad.extension.clickableNoRipple
 
 @Composable
 fun DeviceList(

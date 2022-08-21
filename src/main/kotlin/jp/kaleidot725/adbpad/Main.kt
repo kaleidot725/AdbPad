@@ -13,14 +13,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import jp.kaleidot725.adbpad.MainStateHolder
-import jp.kaleidot725.adbpad.view.component.menu.MenuPane
-import jp.kaleidot725.adbpad.view.layout.AppLayout
-import jp.kaleidot725.adbpad.view.page.AutoFillPane
-import jp.kaleidot725.adbpad.view.page.CommandPane
-import jp.kaleidot725.adbpad.view.page.ScreenShotPane
+import jp.kaleidot725.adbpad.view.component.menu.MenuScreen
+import jp.kaleidot725.adbpad.view.page.CommandScreen
+import jp.kaleidot725.adbpad.view.page.InputTextScreen
+import jp.kaleidot725.adbpad.view.page.ScreenshotScreen
 import jp.kaleidot725.adbpad.view.resource.AppTheme
 import jp.kaleidot725.adbpad.view.resource.Menu
 import jp.kaleidot725.adbpad.view.resource.WINDOW_TITLE
+import jp.kaleidot725.adbpad.view.template.AppTemplate
 
 fun main() = application {
     Window(title = WINDOW_TITLE, onCloseRequest = ::exitApplication) {
@@ -33,9 +33,9 @@ fun main() = application {
         }
 
         AppTheme {
-            AppLayout(
+            AppTemplate(
                 leftPane = {
-                    MenuPane(
+                    MenuScreen(
                         devices = state.devices,
                         selectedDevice = state.selectedDevice,
                         onSelectDevice = { stateHolder.selectDevice(it) },
@@ -50,17 +50,17 @@ fun main() = application {
                 },
                 rightPane = {
                     when (state.selectedMenu) {
-                        Menu.COMMAND_MENU -> CommandPane(
+                        Menu.COMMAND_MENU -> CommandScreen(
                             commands = state.commands,
                             onExecute = { stateHolder.executeCommand(it) }
                         )
 
-                        Menu.AUTOFILL_MENU -> AutoFillPane(
+                        Menu.AUTOFILL_MENU -> InputTextScreen(
                             texts = state.inputTexts,
                             onExecute = { stateHolder.inputText(it) }
                         )
 
-                        Menu.SCREENSHOT_MENU -> ScreenShotPane(
+                        Menu.SCREENSHOT_MENU -> ScreenshotScreen(
                             image1 = "TEST1",
                             image2 = "TEST2",
                             onTakeScreenShot = { stateHolder.takeScreenShot() },
