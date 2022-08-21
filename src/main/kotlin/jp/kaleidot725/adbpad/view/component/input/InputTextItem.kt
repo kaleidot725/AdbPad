@@ -33,11 +33,11 @@ fun InputTestItem(
                 modifier = Modifier.fillMaxWidth().weight(weight = 0.8f, fill = true)
             )
             Button(onClick = { onExecute() }, modifier = Modifier.align(Alignment.End)) {
-                Text("実行")
-            }
+            Text("実行")
+        }
             Button(onClick = { onDelete() }, modifier = Modifier.align(Alignment.End)) {
-                Text("削除")
-            }
+            Text("削除")
+        }
         }
     }
 }
