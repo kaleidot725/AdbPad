@@ -32,8 +32,8 @@ fun CommandItem(
                 Text(text = detail, maxLines = 1, modifier = Modifier.fillMaxWidth())
             }
             Button(onClick = { onExecute() }, modifier = Modifier.align(Alignment.CenterVertically)) {
-                Text("実行")
-            }
+            Text("実行")
+        }
         }
     }
 }

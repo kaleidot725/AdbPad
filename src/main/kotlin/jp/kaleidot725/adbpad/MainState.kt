@@ -1,7 +1,6 @@
 package jp.kaleidot725.adbpad
 
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.painter.BitmapPainter
 import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Command
 import jp.kaleidot725.adbpad.model.data.InputText
@@ -22,7 +21,7 @@ data class MainState(
     // InputText
     val inputText: InputText = InputText(""),
     val inputTexts: List<InputText> = emptyList(),
-    
+
     // Screenshot
     val previewImageUrl1: ImageBitmap? = null,
     val previewImageUrl2: ImageBitmap? = null,

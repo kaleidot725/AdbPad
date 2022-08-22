@@ -45,9 +45,8 @@ fun InputTestItem(
                 onClick = { onExecute() },
                 modifier = Modifier.align(Alignment.CenterVertically)
             ) {
-                Text("実行")
+                Text("送信")
             }
-
         }
     }
 }

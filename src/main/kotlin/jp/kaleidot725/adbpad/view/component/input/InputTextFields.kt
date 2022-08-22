@@ -45,7 +45,7 @@ fun InputTextFields(
             modifier = Modifier.fillMaxHeight().wrapContentWidth()
         ) {
             Text(
-                text = "実行",
+                text = "送信",
                 textAlign = TextAlign.Center
             )
         }
