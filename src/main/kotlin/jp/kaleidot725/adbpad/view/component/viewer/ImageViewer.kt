@@ -27,7 +27,6 @@ fun ImageView(
                 modifier = Modifier
                     .fillMaxHeight()
                     .weight(0.5f)
-                    .border(border = BorderStroke(1.dp, Color.Black))
             )
         }
 
@@ -38,7 +37,6 @@ fun ImageView(
                 modifier = Modifier
                     .fillMaxHeight()
                     .weight(0.5f)
-                    .border(border = BorderStroke(1.dp, Color.Black))
             )
         }
     }

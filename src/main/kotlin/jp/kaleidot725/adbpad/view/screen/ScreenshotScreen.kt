@@ -37,7 +37,7 @@ fun ScreenshotScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.wrapContentSize().align(Alignment.End)
         ) {
-            Button(onClick = { onTakeScreenShot() }) {
+            Button(onClick = { onTakeThemeScreenshot() }) {
                 Text(
                     text = "テーマ毎に撮影する",
                     textAlign = TextAlign.Center,
@@ -45,7 +45,7 @@ fun ScreenshotScreen(
                 )
             }
 
-            Button(onClick = { onTakeThemeScreenshot() }) {
+            Button(onClick = { onTakeScreenShot() }) {
                 Text(
                     text = "撮影する",
                     textAlign = TextAlign.Center,
