@@ -13,14 +13,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.view.component.viewer.ImageView
 
 @Composable
 fun ScreenshotScreen(
-    image1: String,
-    image2: String,
+    image1: ImageBitmap?,
+    image2: ImageBitmap?,
     onTakeScreenShot: () -> Unit,
     onTakeThemeScreenshot: () -> Unit
 ) {

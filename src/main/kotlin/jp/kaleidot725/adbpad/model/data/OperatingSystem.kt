@@ -1,6 +1,6 @@
 package jp.kaleidot725.adbpad.model.data
 
-sealed class OperatingSystem(val settingPath: String = "") {
+sealed class OperatingSystem(val direcotry: String = "") {
     object Mac : OperatingSystem(System.getProperty("user.home") + "/Library/Application Support/adbpad/")
     object Windows : OperatingSystem(System.getProperty("user.home") + "/adbpad/")
     companion object {
