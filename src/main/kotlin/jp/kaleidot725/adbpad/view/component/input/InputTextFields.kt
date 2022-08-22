@@ -5,13 +5,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.TextField
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DoubleArrow
-import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.model.data.InputText
 
@@ -24,25 +22,31 @@ fun InputTextFields(
     modifier: Modifier = Modifier
 ) {
     Row(modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        TextField(
+        OutlinedTextField(
             value = inputText.content,
             onValueChange = { onTextChange(InputText(content = it)) },
-            modifier = Modifier.weight(0.9f, true).fillMaxHeight()
+            modifier = Modifier
+                .weight(0.9f, true)
+                .fillMaxHeight()
         )
 
-        Button(onClick = { onExecute(inputText) }) {
-            Icon(
-                imageVector = Icons.Default.DoubleArrow,
-                contentDescription = "Run",
-                modifier = Modifier.fillMaxHeight().wrapContentWidth()
+        Button(
+            onClick = { onSave(inputText) },
+            modifier = Modifier.fillMaxHeight().wrapContentWidth()
+        ) {
+            Text(
+                text = "保存",
+                textAlign = TextAlign.Center
             )
         }
 
-        Button(onClick = { onSave(inputText) }) {
-            Icon(
-                imageVector = Icons.Default.Save,
-                contentDescription = "Save",
-                modifier = Modifier.fillMaxHeight().wrapContentWidth()
+        Button(
+            onClick = { onExecute(inputText) },
+            modifier = Modifier.fillMaxHeight().wrapContentWidth()
+        ) {
+            Text(
+                text = "実行",
+                textAlign = TextAlign.Center
             )
         }
     }

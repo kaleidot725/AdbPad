@@ -19,9 +19,7 @@ fun CommandScreen(
         CommandList(
             commands = commands,
             onExecute = onExecute,
-            minSize = 200.dp,
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.fillMaxSize()
         )
     }

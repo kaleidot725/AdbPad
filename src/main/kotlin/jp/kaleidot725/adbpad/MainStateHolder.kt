@@ -4,7 +4,16 @@ import androidx.compose.ui.res.loadImageBitmap
 import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Command
 import jp.kaleidot725.adbpad.model.data.InputText
-import jp.kaleidot725.adbpad.model.usecase.*
+import jp.kaleidot725.adbpad.model.usecase.AddInputTextUseCase
+import jp.kaleidot725.adbpad.model.usecase.DeleteInputTextUseCase
+import jp.kaleidot725.adbpad.model.usecase.ExecuteCommandUseCase
+import jp.kaleidot725.adbpad.model.usecase.ExecuteInputTextUseCase
+import jp.kaleidot725.adbpad.model.usecase.GetAndroidDeviceListUseCase
+import jp.kaleidot725.adbpad.model.usecase.GetCommandListUseCase
+import jp.kaleidot725.adbpad.model.usecase.GetInputTextUseCase
+import jp.kaleidot725.adbpad.model.usecase.StartAdbUseCase
+import jp.kaleidot725.adbpad.model.usecase.TakeScreenshotUseCase
+import jp.kaleidot725.adbpad.model.usecase.TakeThemeScreenshotUseCase
 import jp.kaleidot725.adbpad.view.resource.Menu
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -122,9 +131,11 @@ class MainStateHolder(
         coroutineScope.launch {
             val serial = _state.value.selectedDevice?.serial
             val previewImageUrlPair = takeThemeScreenshotUseCase(serial)
+            val file1 = File(previewImageUrlPair.first ?: "")
+            val file2 = File(previewImageUrlPair.second ?: "")
             _state.value = _state.value.copy(
-                previewImageUrl1 = loadImageBitmap(File(previewImageUrlPair.first ?: "").inputStream()),
-                previewImageUrl2 = loadImageBitmap(File(previewImageUrlPair.second ?: "").inputStream()),
+                previewImageUrl1 = loadImageBitmap(file1.inputStream()),
+                previewImageUrl2 = loadImageBitmap(file2.inputStream()),
             )
         }
     }

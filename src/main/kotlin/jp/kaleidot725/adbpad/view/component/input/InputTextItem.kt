@@ -2,10 +2,10 @@ package jp.kaleidot725.adbpad.view.component.input
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -23,21 +23,31 @@ fun InputTestItem(
     modifier: Modifier = Modifier
 ) {
     Card(modifier) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(8.dp)
         ) {
             Text(
                 text = text.content,
-                maxLines = 3,
-                modifier = Modifier.fillMaxWidth().weight(weight = 0.8f, fill = true)
+                maxLines = 2,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(weight = 0.8f, fill = true)
+                    .align(Alignment.CenterVertically)
             )
-            Button(onClick = { onExecute() }, modifier = Modifier.align(Alignment.End)) {
-            Text("実行")
-        }
-            Button(onClick = { onDelete() }, modifier = Modifier.align(Alignment.End)) {
-            Text("削除")
-        }
+            Button(
+                onClick = { onDelete() },
+                modifier = Modifier.align(Alignment.CenterVertically)
+            ) {
+                Text("削除")
+            }
+            Button(
+                onClick = { onExecute() },
+                modifier = Modifier.align(Alignment.CenterVertically)
+            ) {
+                Text("実行")
+            }
+
         }
     }
 }
@@ -49,6 +59,6 @@ private fun CommandItem_Preview() {
         text = InputText("いろはにほへと"),
         onExecute = {},
         onDelete = {},
-        modifier = Modifier.size(200.dp)
+        modifier = Modifier.fillMaxWidth().height(50.dp)
     )
 }
