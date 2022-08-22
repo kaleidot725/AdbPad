@@ -1,5 +1,6 @@
 package jp.kaleidot725.adbpad
 
+import androidx.compose.ui.res.loadImageBitmap
 import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Command
 import jp.kaleidot725.adbpad.model.data.InputText
@@ -11,6 +12,8 @@ import jp.kaleidot725.adbpad.model.usecase.GetAndroidDeviceListUseCase
 import jp.kaleidot725.adbpad.model.usecase.GetCommandListUseCase
 import jp.kaleidot725.adbpad.model.usecase.GetInputTextUseCase
 import jp.kaleidot725.adbpad.model.usecase.StartAdbUseCase
+import jp.kaleidot725.adbpad.model.usecase.TakeScreenshotUseCase
+import jp.kaleidot725.adbpad.model.usecase.TakeThemeScreenshotUseCase
 import jp.kaleidot725.adbpad.view.resource.Menu
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +23,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.io.File
 
 class MainStateHolder(
     val startAdbUseCase: StartAdbUseCase = StartAdbUseCase(),
@@ -29,7 +33,9 @@ class MainStateHolder(
     val executeCommandUseCase: ExecuteCommandUseCase = ExecuteCommandUseCase(),
     val executeInputTextUseCase: ExecuteInputTextUseCase = ExecuteInputTextUseCase(),
     val addInputTextUseCase: AddInputTextUseCase = AddInputTextUseCase(),
-    val deleteInputTextUseCase: DeleteInputTextUseCase = DeleteInputTextUseCase()
+    val deleteInputTextUseCase: DeleteInputTextUseCase = DeleteInputTextUseCase(),
+    val takeScreenshotUseCase: TakeScreenshotUseCase = TakeScreenshotUseCase(),
+    val takeThemeScreenshotUseCase: TakeThemeScreenshotUseCase = TakeThemeScreenshotUseCase()
 ) {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private val _state: MutableStateFlow<MainState> = MutableStateFlow(MainState())
@@ -111,9 +117,27 @@ class MainStateHolder(
     }
 
     fun takeScreenShot() {
+        coroutineScope.launch {
+            val serial = _state.value.selectedDevice?.serial
+            val previewImageUrl = takeScreenshotUseCase(serial)
+            _state.value = _state.value.copy(
+                previewImageUrl1 = loadImageBitmap(File(previewImageUrl ?: "").inputStream()),
+                previewImageUrl2 = null
+            )
+        }
     }
 
     fun takeThemeScreenShot() {
+        coroutineScope.launch {
+            val serial = _state.value.selectedDevice?.serial
+            val previewImageUrlPair = takeThemeScreenshotUseCase(serial)
+            val file1 = File(previewImageUrlPair.first ?: "")
+            val file2 = File(previewImageUrlPair.second ?: "")
+            _state.value = _state.value.copy(
+                previewImageUrl1 = loadImageBitmap(file1.inputStream()),
+                previewImageUrl2 = loadImageBitmap(file2.inputStream()),
+            )
+        }
     }
 
     fun dispose() {

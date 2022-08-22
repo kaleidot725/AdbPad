@@ -6,13 +6,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.model.data.InputText
-import jp.kaleidot725.adbpad.view.component.input.InputTestList
 import jp.kaleidot725.adbpad.view.component.input.InputTextFields
+import jp.kaleidot725.adbpad.view.component.input.InputTextList
 
 @Composable
 fun InputTextScreen(
@@ -24,14 +26,12 @@ fun InputTextScreen(
     onDelete: (InputText) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        InputTestList(
-            texts = texts,
+        InputTextList(
+            inputTexts = texts,
             onExecute = onExecute,
             onDelete = onDelete,
-            minSize = 200.dp,
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().padding(bottom = 60.dp).verticalScroll(rememberScrollState())
         )
 
         InputTextFields(

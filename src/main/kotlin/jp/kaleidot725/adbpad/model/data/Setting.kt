@@ -43,7 +43,7 @@ data class Setting(
             }
         }
 
-        private fun getDirPath() = OperatingSystem.resolveOperationSystem().settingPath
+        private fun getDirPath() = OperatingSystem.resolveOperationSystem().direcotry
         private fun getFilePath() = getDirPath() + "config.json"
     }
 }

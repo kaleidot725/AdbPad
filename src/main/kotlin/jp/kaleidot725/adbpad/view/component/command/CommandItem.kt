@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.view.component.command
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,13 +23,15 @@ fun CommandItem(
     modifier: Modifier = Modifier
 ) {
     Card(modifier) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(8.dp)
         ) {
-            Text(text = title, maxLines = 1, modifier = Modifier.fillMaxWidth())
-            Text(text = detail, maxLines = 3, modifier = Modifier.fillMaxWidth().weight(weight = 0.5f, fill = true))
-            Button(onClick = { onExecute() }, modifier = Modifier.align(Alignment.End)) {
+            Column(modifier = Modifier.weight(0.9f, true)) {
+                Text(text = title, maxLines = 1, modifier = Modifier.fillMaxWidth())
+                Text(text = detail, maxLines = 1, modifier = Modifier.fillMaxWidth())
+            }
+            Button(onClick = { onExecute() }, modifier = Modifier.align(Alignment.CenterVertically)) {
             Text("実行")
         }
         }
