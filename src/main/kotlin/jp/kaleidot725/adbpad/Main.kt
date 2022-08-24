@@ -19,11 +19,11 @@ import jp.kaleidot725.adbpad.view.page.InputTextScreen
 import jp.kaleidot725.adbpad.view.page.ScreenshotScreen
 import jp.kaleidot725.adbpad.view.resource.AppTheme
 import jp.kaleidot725.adbpad.view.resource.Menu
-import jp.kaleidot725.adbpad.view.resource.WINDOW_TITLE
+import jp.kaleidot725.adbpad.view.resource.StringRes
 import jp.kaleidot725.adbpad.view.template.AppTemplate
 
 fun main() = application {
-    Window(title = WINDOW_TITLE, onCloseRequest = ::exitApplication) {
+    Window(title = StringRes.WINDOW_TITLE, onCloseRequest = ::exitApplication) {
         val stateHolder by remember { mutableStateOf(MainStateHolder()) }
         val state by stateHolder.state.collectAsState()
 
@@ -72,7 +72,6 @@ fun main() = application {
                         )
                     }
                 },
-                dialog = {},
                 modifier = Modifier.fillMaxSize()
             )
         }

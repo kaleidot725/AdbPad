@@ -1,24 +1,24 @@
 package jp.kaleidot725.adbpad.view.component.command
 
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.model.data.Command
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CommandList(
     commands: List<Command>,
     onExecute: (Command) -> Unit,
-    verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     modifier: Modifier = Modifier
 ) {
     Column(
-        verticalArrangement = verticalArrangement,
-        modifier = modifier
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         commands.forEach { command ->
             CommandItem(
@@ -29,6 +29,20 @@ fun CommandList(
             )
         }
     }
+}
+
+@Preview
+@Composable
+private fun CommandList_Preview() {
+    CommandList(
+        commands = listOf(
+            Command.DarkThemeOn, Command.DarkThemeOff, Command.WifiOn,
+            Command.WifiOff, Command.DataOn, Command.DataOff,
+            Command.WifiAndDataOn, Command.WifiAndDataOff,
+        ),
+        onExecute = {},
+        modifier = Modifier.fillMaxWidth().wrapContentHeight()
+    )
 }
 
 fun Command.toTitle(): String {
