@@ -1,5 +1,6 @@
 package jp.kaleidot725.adbpad.view.page
 
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -23,3 +24,11 @@ fun CommandScreen(
     }
 }
 
+@Preview
+@Composable
+private fun CommandScreen_Preview() {
+    CommandScreen(
+        commands = listOf(Command.DarkThemeOn, Command.DarkThemeOff, Command.WifiOn),
+        onExecute = {},
+    )
+}

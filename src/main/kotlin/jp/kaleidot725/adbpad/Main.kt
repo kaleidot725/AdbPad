@@ -58,7 +58,7 @@ fun main() = application {
                         Menu.INPUT_TEXT_MENU -> InputTextScreen(
                             inputText = state.inputText,
                             onTextChange = { stateHolder.updateInputText(it) },
-                            texts = state.inputTexts,
+                            inputTexts = state.inputTexts,
                             onExecute = { stateHolder.inputText(it) },
                             onSave = { stateHolder.saveInputText(it) },
                             onDelete = { stateHolder.deleteInputText(it) }

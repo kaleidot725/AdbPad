@@ -45,10 +45,10 @@ private fun AppTemplate_Preview() {
 private fun AppTemplateDialog_Preview() {
     AppTemplate(
         leftPane = {
-            Box(Modifier.width(200.dp).fillMaxHeight().background(Color.Red))
+            Box(Modifier.width(200.dp).fillMaxHeight().background(Color.LightGray))
         },
         rightPane = {
-            Box(Modifier.fillMaxSize().background(Color.Blue))
+            Box(Modifier.fillMaxSize().background(Color.White))
         },
         modifier = Modifier.fillMaxSize()
     )

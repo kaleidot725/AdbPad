@@ -52,5 +52,9 @@ private fun Modifier.selectedBackground(isSelected: Boolean): Modifier {
 @Preview
 @Composable
 private fun MenuList_Preview() {
-    MenuList(Menu.values().toList(), Menu.COMMAND_MENU, {})
+    MenuList(
+        menus = Menu.values().toList(),
+        selectedMenu = Menu.COMMAND_MENU,
+        onSelectMenu = {}
+    )
 }

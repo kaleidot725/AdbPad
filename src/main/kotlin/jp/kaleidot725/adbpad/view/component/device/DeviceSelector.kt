@@ -53,5 +53,5 @@ fun DeviceSelector(
 @Composable
 private fun SelectedDevice_Preview() {
     val sample = Device("DEVICE", DeviceState.DEVICE)
-    DeviceSelector(sample)
+    DeviceSelector(selectedDevice = sample)
 }
