@@ -30,7 +30,7 @@ fun MenuScreen(
             style = MaterialTheme.typography.subtitle2
         )
 
-        DeviceList(
+        DropDownDeviceMenu(
             devices = devices,
             selectedDevice = selectedDevice,
             onSelectDevice = onSelectDevice,
