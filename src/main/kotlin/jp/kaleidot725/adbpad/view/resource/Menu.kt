@@ -5,6 +5,7 @@ import androidx.compose.material.icons.filled.DoubleArrow
 import androidx.compose.material.icons.filled.Input
 import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.ui.graphics.vector.ImageVector
+import kotlin.String
 
 enum class Menu {
     COMMAND_MENU,

@@ -43,5 +43,9 @@ fun MenuItem(
 @Preview
 @Composable
 private fun MenuItem_Preview() {
-    MenuItem(Icons.Default.Menu, "menu", "MENU_TITLE")
+    MenuItem(
+        icon = Icons.Default.Menu,
+        iconDescription = "menu",
+        text = "MENU_TITLE"
+    )
 }

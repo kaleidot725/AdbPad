@@ -1,37 +1,69 @@
 package jp.kaleidot725.adbpad.view.component.command
 
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.model.data.Command
+import jp.kaleidot725.adbpad.view.resource.String
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CommandList(
     commands: List<Command>,
     onExecute: (Command) -> Unit,
-    verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        verticalArrangement = verticalArrangement,
-        modifier = modifier
-    ) {
-        commands.forEach { command ->
-            CommandItem(
-                title = command.toTitle(),
-                detail = command.toDetail(),
-                onExecute = { onExecute(command) },
-                modifier = Modifier.fillMaxWidth()
+    Box(modifier = modifier) {
+        if (commands.isNotEmpty()) {
+            Column(
+                modifier = modifier,
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                commands.forEach { command ->
+                    CommandItem(
+                        title = command.toTitle(),
+                        detail = command.toDetail(),
+                        onExecute = { onExecute(command) },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
+        } else {
+            Text(
+                text = String.NOT_FOUND_COMMAND,
+                modifier = Modifier.align(Alignment.Center)
             )
         }
     }
 }
 
-fun Command.toTitle(): String {
+@Preview
+@Composable
+private fun CommandList_Preview() {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        CommandList(
+            commands = listOf(Command.DarkThemeOn, Command.DarkThemeOff, Command.WifiOn),
+            onExecute = {},
+            modifier = Modifier.fillMaxWidth().weight(0.5f)
+        )
+
+        CommandList(
+            commands = emptyList(),
+            onExecute = {},
+            modifier = Modifier.fillMaxWidth().weight(0.5f).background(Color.LightGray)
+        )
+    }
+}
+
+fun Command.toTitle(): kotlin.String {
     return when (this) {
         Command.DarkThemeOn -> "ダークテーマON"
         Command.DarkThemeOff -> "ダークテーマOFF"
@@ -44,7 +76,7 @@ fun Command.toTitle(): String {
     }
 }
 
-fun Command.toDetail(): String {
+fun Command.toDetail(): kotlin.String {
     return when (this) {
         Command.DarkThemeOn -> "端末のダークテーマ設定をONにします"
         Command.DarkThemeOff -> "端末のダークテーマ設定をOFFにします"
