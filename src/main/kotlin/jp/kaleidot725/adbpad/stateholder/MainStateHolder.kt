@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad
+package jp.kaleidot725.adbpad.stateholder
 
 import androidx.compose.ui.res.loadImageBitmap
 import com.malinskiy.adam.request.device.Device

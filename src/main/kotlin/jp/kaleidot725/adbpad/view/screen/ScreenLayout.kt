@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AppTemplate(
+fun ScreenLayout(
     leftPane: @Composable () -> Unit,
     rightPane: @Composable () -> Unit,
     modifier: Modifier = Modifier
@@ -28,8 +28,8 @@ fun AppTemplate(
 
 @Preview
 @Composable
-private fun AppTemplate_Preview() {
-    AppTemplate(
+private fun ScreenLayout_Preview() {
+    ScreenLayout(
         leftPane = {
             Box(Modifier.width(200.dp).fillMaxHeight().background(Color.Red))
         },
@@ -43,7 +43,7 @@ private fun AppTemplate_Preview() {
 @Preview
 @Composable
 private fun AppTemplateDialog_Preview() {
-    AppTemplate(
+    ScreenLayout(
         leftPane = {
             Box(Modifier.width(200.dp).fillMaxHeight().background(Color.LightGray))
         },

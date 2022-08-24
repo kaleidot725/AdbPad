@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import jp.kaleidot725.adbpad.MainStateHolder
+import jp.kaleidot725.adbpad.stateholder.MainStateHolder
 import jp.kaleidot725.adbpad.view.component.menu.MenuScreen
 import jp.kaleidot725.adbpad.view.page.CommandScreen
 import jp.kaleidot725.adbpad.view.page.InputTextScreen
@@ -20,7 +20,7 @@ import jp.kaleidot725.adbpad.view.page.ScreenshotScreen
 import jp.kaleidot725.adbpad.view.resource.AppTheme
 import jp.kaleidot725.adbpad.view.resource.Menu
 import jp.kaleidot725.adbpad.view.resource.StringRes
-import jp.kaleidot725.adbpad.view.template.AppTemplate
+import jp.kaleidot725.adbpad.view.template.ScreenLayout
 
 fun main() = application {
     Window(title = StringRes.WINDOW_TITLE, onCloseRequest = ::exitApplication) {
@@ -33,7 +33,7 @@ fun main() = application {
         }
 
         AppTheme {
-            AppTemplate(
+            ScreenLayout(
                 leftPane = {
                     MenuScreen(
                         devices = state.devices,
