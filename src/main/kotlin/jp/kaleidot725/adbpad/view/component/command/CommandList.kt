@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.model.data.Command
-import jp.kaleidot725.adbpad.view.resource.StringRes
+import jp.kaleidot725.adbpad.view.resource.String
 
 @Composable
 fun CommandList(
@@ -38,7 +38,7 @@ fun CommandList(
             }
         } else {
             Text(
-                text = StringRes.NOT_FOUND_COMMAND,
+                text = String.NOT_FOUND_COMMAND,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
@@ -63,7 +63,7 @@ private fun CommandList_Preview() {
     }
 }
 
-fun Command.toTitle(): String {
+fun Command.toTitle(): kotlin.String {
     return when (this) {
         Command.DarkThemeOn -> "ダークテーマON"
         Command.DarkThemeOff -> "ダークテーマOFF"
@@ -76,7 +76,7 @@ fun Command.toTitle(): String {
     }
 }
 
-fun Command.toDetail(): String {
+fun Command.toDetail(): kotlin.String {
     return when (this) {
         Command.DarkThemeOn -> "端末のダークテーマ設定をONにします"
         Command.DarkThemeOff -> "端末のダークテーマ設定をOFFにします"

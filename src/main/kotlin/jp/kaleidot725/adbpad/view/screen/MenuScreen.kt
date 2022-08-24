@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.view.resource.Menu
-import jp.kaleidot725.adbpad.view.resource.StringRes
+import jp.kaleidot725.adbpad.view.resource.String
 
 @Composable
 fun MenuScreen(
@@ -28,7 +28,7 @@ fun MenuScreen(
         modifier = modifier
     ) {
         Text(
-            text = StringRes.TARGET_DEVICE,
+            text = String.TARGET_DEVICE,
             style = MaterialTheme.typography.subtitle2
         )
 
@@ -40,7 +40,7 @@ fun MenuScreen(
         )
 
         Text(
-            text = StringRes.TOOL,
+            text = String.TOOL,
             style = MaterialTheme.typography.subtitle2
         )
 

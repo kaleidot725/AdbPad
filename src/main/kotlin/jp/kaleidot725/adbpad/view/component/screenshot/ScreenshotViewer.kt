@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
-import jp.kaleidot725.adbpad.view.resource.StringRes
+import jp.kaleidot725.adbpad.view.resource.String
 
 @Composable
 fun ScreenshotViewer(
@@ -44,7 +44,7 @@ fun ScreenshotViewer(
             }
         } else {
             Text(
-                text = StringRes.NOT_FOUND_SCREEN_SHOT,
+                text = String.NOT_FOUND_SCREEN_SHOT,
                 modifier = Modifier.align(Alignment.Center)
             )
         }

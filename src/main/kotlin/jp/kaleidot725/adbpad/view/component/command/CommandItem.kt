@@ -14,12 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.view.resource.StringRes
+import jp.kaleidot725.adbpad.view.resource.String
 
 @Composable
 fun CommandItem(
-    title: String,
-    detail: String,
+    title: kotlin.String,
+    detail: kotlin.String,
     onExecute: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -34,7 +34,7 @@ fun CommandItem(
                 Text(text = detail)
             }
             Button(onClick = { onExecute() }) {
-                Text(text = StringRes.EXECUTE)
+                Text(text = String.EXECUTE)
             }
         }
     }

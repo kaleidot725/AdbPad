@@ -1,6 +1,6 @@
 package jp.kaleidot725.adbpad.view.resource
 
-object StringRes {
+object String {
     const val WINDOW_TITLE = "AdbPad(v0.1.0)"
     const val NOT_FOUND_DEVICE = "デバイスがありません"
     const val NOT_FOUND_COMMAND = "コマンドがありません"

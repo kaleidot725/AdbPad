@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.model.data.InputText
-import jp.kaleidot725.adbpad.view.resource.StringRes
+import jp.kaleidot725.adbpad.view.resource.String
 
 @Composable
 fun InputTextList(
@@ -42,7 +42,7 @@ fun InputTextList(
             }
         } else {
             Text(
-                text = StringRes.NOT_FOUND_INPUT_TEXT,
+                text = String.NOT_FOUND_INPUT_TEXT,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
