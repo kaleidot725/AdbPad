@@ -3,7 +3,6 @@ package jp.kaleidot725.adbpad
 import androidx.compose.ui.graphics.ImageBitmap
 import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Command
-import jp.kaleidot725.adbpad.model.data.InputText
 import jp.kaleidot725.adbpad.view.resource.Menu
 
 data class MainState(
@@ -19,10 +18,13 @@ data class MainState(
     val selectedDevice: Device? = null,
 
     // InputText
-    val inputTexts: List<InputText> = emptyList(),
-    val inputText: InputText = InputText(""),
+    val inputTexts: List<String> = emptyList(),
+    val userInputText: String = "",
 
     // Screenshot
     val previewImageUrl1: ImageBitmap? = null,
     val previewImageUrl2: ImageBitmap? = null,
-)
+) {
+    val canSendUserInputText: Boolean get() = userInputText.isNotEmpty()
+    val canSaveUserInputText: Boolean get() = userInputText.isNotEmpty()
+}

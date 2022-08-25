@@ -15,14 +15,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.model.data.InputText
-import jp.kaleidot725.adbpad.view.resource.String
 
 @Composable
 fun InputTextList(
-    inputTexts: List<InputText>,
-    onExecute: (InputText) -> Unit,
-    onDelete: (InputText) -> Unit,
+    inputTexts: List<String>,
+    onSend: (String) -> Unit,
+    onDelete: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
@@ -32,9 +30,9 @@ fun InputTextList(
                 modifier = Modifier.verticalScroll(rememberScrollState())
             ) {
                 inputTexts.forEach { text ->
-                    InputTestItem(
+                    InputTextItem(
                         text = text,
-                        onExecute = { onExecute(text) },
+                        onSend = { onSend(text) },
                         onDelete = { onDelete(text) },
                         modifier = Modifier.height(60.dp).fillMaxWidth()
                     )
@@ -42,7 +40,7 @@ fun InputTextList(
             }
         } else {
             Text(
-                text = String.NOT_FOUND_INPUT_TEXT,
+                text = jp.kaleidot725.adbpad.view.resource.String.NOT_FOUND_INPUT_TEXT,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
@@ -54,15 +52,15 @@ fun InputTextList(
 private fun InputTextList_Preview() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         InputTextList(
-            inputTexts = listOf(InputText("A"), InputText("B"), InputText("C")),
-            onExecute = {},
+            inputTexts = listOf("A", "B", "C"),
+            onSend = {},
             onDelete = {},
             modifier = Modifier.fillMaxWidth().weight(0.5f, true)
         )
 
         InputTextList(
             inputTexts = emptyList(),
-            onExecute = {},
+            onSend = {},
             onDelete = {},
             modifier = Modifier.fillMaxWidth().weight(0.5f, true).background(Color.LightGray)
         )

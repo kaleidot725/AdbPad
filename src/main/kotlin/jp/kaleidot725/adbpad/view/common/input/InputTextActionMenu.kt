@@ -13,15 +13,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.model.data.InputText
-import jp.kaleidot725.adbpad.view.resource.String
 
 @Composable
 fun InputTextActionMenu(
-    inputText: InputText,
-    onTextChange: (InputText) -> Unit,
-    onExecute: (InputText) -> Unit,
-    onSave: (InputText) -> Unit,
+    inputText: String,
+    onTextChange: (String) -> Unit,
+    onSend: (String) -> Unit,
+    canSend: Boolean,
+    onSave: (String) -> Unit,
+    canSave: Boolean,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -29,29 +29,31 @@ fun InputTextActionMenu(
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         OutlinedTextField(
-            value = inputText.content,
-            onValueChange = { onTextChange(InputText(content = it)) },
+            value = inputText,
+            onValueChange = { onTextChange(it) },
             modifier = Modifier
                 .weight(0.9f, true)
                 .fillMaxHeight()
         )
 
         Button(
+            enabled = canSave,
             onClick = { onSave(inputText) },
             modifier = Modifier.fillMaxHeight().wrapContentWidth()
         ) {
             Text(
-                text = String.SAVE,
+                text = jp.kaleidot725.adbpad.view.resource.String.SAVE,
                 textAlign = TextAlign.Center
             )
         }
 
         Button(
-            onClick = { onExecute(inputText) },
+            enabled = canSend,
+            onClick = { onSend(inputText) },
             modifier = Modifier.fillMaxHeight().wrapContentWidth()
         ) {
             Text(
-                text = String.SEND,
+                text = jp.kaleidot725.adbpad.view.resource.String.SEND,
                 textAlign = TextAlign.Center
             )
         }
@@ -62,9 +64,11 @@ fun InputTextActionMenu(
 @Composable
 private fun InputTextActionMenu_Preview() {
     InputTextActionMenu(
-        inputText = InputText("INPUT TEXT SAMPLE"),
-        onExecute = {},
+        inputText = "INPUT TEXT SAMPLE",
+        onSend = {},
+        canSend = true,
         onSave = {},
+        canSave = true,
         onTextChange = {},
         modifier = Modifier.height(50.dp)
     )

@@ -4,11 +4,10 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.loadImageBitmap
 import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Command
-import jp.kaleidot725.adbpad.model.data.InputText
 import jp.kaleidot725.adbpad.model.usecase.AddInputTextUseCase
 import jp.kaleidot725.adbpad.model.usecase.DeleteInputTextUseCase
 import jp.kaleidot725.adbpad.model.usecase.ExecuteCommandUseCase
-import jp.kaleidot725.adbpad.model.usecase.ExecuteInputTextUseCase
+import jp.kaleidot725.adbpad.model.usecase.ExecuteInputTextCommandUseCase
 import jp.kaleidot725.adbpad.model.usecase.GetAndroidDevicesFlowUseCase
 import jp.kaleidot725.adbpad.model.usecase.GetCommandListUseCase
 import jp.kaleidot725.adbpad.model.usecase.GetInputTextUseCase
@@ -34,7 +33,7 @@ class MainStateHolder(
     val getCommandListUseCase: GetCommandListUseCase = GetCommandListUseCase(),
     val getInputTextUseCase: GetInputTextUseCase = GetInputTextUseCase(),
     val executeCommandUseCase: ExecuteCommandUseCase = ExecuteCommandUseCase(),
-    val executeInputTextUseCase: ExecuteInputTextUseCase = ExecuteInputTextUseCase(),
+    val executeInputTextCommandUseCase: ExecuteInputTextCommandUseCase = ExecuteInputTextCommandUseCase(),
     val addInputTextUseCase: AddInputTextUseCase = AddInputTextUseCase(),
     val deleteInputTextUseCase: DeleteInputTextUseCase = DeleteInputTextUseCase(),
     val takeScreenshotUseCase: TakeScreenshotUseCase = TakeScreenshotUseCase(),
@@ -47,8 +46,8 @@ class MainStateHolder(
     private val commands: MutableStateFlow<List<Command>> = MutableStateFlow(emptyList())
     private val devices: MutableStateFlow<List<Device>> = MutableStateFlow(emptyList())
     private val selectedDevice: MutableStateFlow<Device?> = MutableStateFlow(null)
-    private val inputTexts: MutableStateFlow<List<InputText>> = MutableStateFlow(emptyList())
-    private val userInputText: MutableStateFlow<InputText> = MutableStateFlow(InputText(""))
+    private val inputTexts: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
+    private val userInputText: MutableStateFlow<String> = MutableStateFlow("")
     private val previewImage1: MutableStateFlow<ImageBitmap?> = MutableStateFlow(null)
     private val previewImage2: MutableStateFlow<ImageBitmap?> = MutableStateFlow(null)
 
@@ -61,8 +60,8 @@ class MainStateHolder(
             commands = it[2] as List<Command>,
             devices = it[3] as List<Device>,
             selectedDevice = it[4] as Device?,
-            inputTexts = it[5] as List<InputText>,
-            inputText = it[6] as InputText,
+            inputTexts = it[5] as List<String>,
+            userInputText = it[6] as String,
             previewImageUrl1 = it[7] as ImageBitmap?,
             previewImageUrl2 = it[8] as ImageBitmap?
         )
@@ -100,30 +99,30 @@ class MainStateHolder(
         }
     }
 
-    fun inputText(inputText: InputText) {
+    fun inputText(text: String) {
         coroutineScope.launch {
             val serial = state.value.selectedDevice?.serial
-            executeInputTextUseCase(serial, inputText)
+            executeInputTextCommandUseCase(serial, text)
         }
     }
 
-    fun updateInputText(inputtedText: InputText) {
-        val isLettersOrDigits = inputtedText.content.none {
+    fun updateInputText(text: String) {
+        val isLettersOrDigits = text.none {
             it !in 'A'..'Z' && it !in 'a'..'z' && it !in '0'..'9'
         }
-        if (isLettersOrDigits) this.userInputText.value = inputtedText
+        if (isLettersOrDigits) this.userInputText.value = text
     }
 
-    fun saveInputText(inputText: InputText) {
+    fun saveInputText(text: String) {
         coroutineScope.launch {
-            addInputTextUseCase(inputText)
+            addInputTextUseCase(text)
             inputTexts.value = getInputTextUseCase()
         }
     }
 
-    fun deleteInputText(inputText: InputText) {
+    fun deleteInputText(text: String) {
         coroutineScope.launch {
-            deleteInputTextUseCase(inputText)
+            deleteInputTextUseCase(text)
             inputTexts.value = getInputTextUseCase()
         }
     }

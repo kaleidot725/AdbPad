@@ -56,11 +56,13 @@ fun main() = application {
                         )
 
                         Menu.INPUT_TEXT_MENU -> InputTextScreen(
-                            inputText = state.inputText,
+                            inputText = state.userInputText,
                             onTextChange = { stateHolder.updateInputText(it) },
                             inputTexts = state.inputTexts,
-                            onExecute = { stateHolder.inputText(it) },
+                            onSend = { stateHolder.inputText(it) },
+                            canSend = state.canSendUserInputText,
                             onSave = { stateHolder.saveInputText(it) },
+                            canSave = state.canSaveUserInputText,
                             onDelete = { stateHolder.deleteInputText(it) }
                         )
 

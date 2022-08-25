@@ -9,7 +9,7 @@ import java.io.IOException
 
 @Serializable
 data class Setting(
-    val inputTexts: List<InputText> = emptyList()
+    val inputTexts: List<String> = emptyList()
 ) {
     companion object {
         fun write(setting: Setting): Boolean {
