@@ -3,7 +3,7 @@ package jp.kaleidot725.adbpad.model.usecase
 import com.malinskiy.adam.AndroidDebugBridgeClientFactory
 import com.malinskiy.adam.request.framebuffer.RawImageScreenCaptureAdapter
 import com.malinskiy.adam.request.framebuffer.ScreenCaptureRequest
-import jp.kaleidot725.adbpad.model.data.OperatingSystem
+import jp.kaleidot725.adbpad.model.data.OSContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -16,7 +16,7 @@ class TakeScreenshotUseCase {
             val adapter = RawImageScreenCaptureAdapter()
             val image = adb.execute(request = ScreenCaptureRequest(adapter), serial = serial).toBufferedImage()
 
-            val path = OperatingSystem.resolveOperationSystem().direcotry + "screenshot.png"
+            val path = OSContext.resolveOSContext().direcotry + "screenshot.png"
             val isSuccess = ImageIO.write(image, "png", File(path))
             return@withContext if (isSuccess) path else null
         }

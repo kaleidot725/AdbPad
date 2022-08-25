@@ -4,7 +4,7 @@ import com.malinskiy.adam.AndroidDebugBridgeClientFactory
 import com.malinskiy.adam.request.framebuffer.RawImageScreenCaptureAdapter
 import com.malinskiy.adam.request.framebuffer.ScreenCaptureRequest
 import com.malinskiy.adam.request.shell.v1.ShellCommandRequest
-import jp.kaleidot725.adbpad.model.data.OperatingSystem
+import jp.kaleidot725.adbpad.model.data.OSContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -22,7 +22,7 @@ class TakeThemeScreenshotUseCase {
             )
 
             val darkImage = adb.execute(request = ScreenCaptureRequest(adapter), serial = serial).toBufferedImage()
-            val darkImagePath = OperatingSystem.resolveOperationSystem().direcotry + "screenshot1.png"
+            val darkImagePath = OSContext.resolveOSContext().direcotry + "screenshot1.png"
             if (!ImageIO.write(darkImage, "png", File(darkImagePath))) return@withContext null
 
             adb.execute(
@@ -31,7 +31,7 @@ class TakeThemeScreenshotUseCase {
             )
 
             val lightImage = adb.execute(request = ScreenCaptureRequest(adapter), serial = serial).toBufferedImage()
-            val lightImagePath = OperatingSystem.resolveOperationSystem().direcotry + "screenshot2.png"
+            val lightImagePath = OSContext.resolveOSContext().direcotry + "screenshot2.png"
             if (!ImageIO.write(lightImage, "png", File(lightImagePath))) return@withContext null
 
             return@withContext darkImagePath to lightImagePath
