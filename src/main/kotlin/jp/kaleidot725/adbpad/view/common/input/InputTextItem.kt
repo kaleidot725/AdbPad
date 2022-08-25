@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.input
+package jp.kaleidot725.adbpad.view.common.input
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
@@ -13,13 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.model.data.InputText
-import jp.kaleidot725.adbpad.view.resource.String
+import jp.kaleidot725.adbpad.view.resource.StringRes
 
 @Composable
-fun InputTestItem(
-    text: InputText,
-    onExecute: () -> Unit,
+fun InputTextItem(
+    text: String,
+    onSend: () -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -29,7 +28,7 @@ fun InputTestItem(
             modifier = Modifier.padding(8.dp)
         ) {
             Text(
-                text = text.content,
+                text = text,
                 maxLines = 2,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -40,13 +39,13 @@ fun InputTestItem(
                 onClick = { onDelete() },
                 modifier = Modifier.align(Alignment.CenterVertically)
             ) {
-                Text(String.DELETE)
+                Text(StringRes.DELETE)
             }
             Button(
-                onClick = { onExecute() },
+                onClick = { onSend() },
                 modifier = Modifier.align(Alignment.CenterVertically)
             ) {
-                Text(String.SEND)
+                Text(StringRes.SEND)
             }
         }
     }
@@ -55,9 +54,9 @@ fun InputTestItem(
 @Preview
 @Composable
 private fun CommandItem_Preview() {
-    InputTestItem(
-        text = InputText("いろはにほへと"),
-        onExecute = {},
+    InputTextItem(
+        text = "いろはにほへと",
+        onSend = {},
         onDelete = {},
         modifier = Modifier.fillMaxWidth().height(50.dp)
     )

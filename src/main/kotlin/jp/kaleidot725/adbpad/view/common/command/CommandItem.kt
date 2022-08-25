@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.command
+package jp.kaleidot725.adbpad.view.common.command
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
@@ -14,12 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.view.resource.String
+import jp.kaleidot725.adbpad.view.resource.StringRes
 
 @Composable
 fun CommandItem(
-    title: kotlin.String,
-    detail: kotlin.String,
+    title: String,
+    detail: String,
     onExecute: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -34,7 +34,7 @@ fun CommandItem(
                 Text(text = detail)
             }
             Button(onClick = { onExecute() }) {
-                Text(text = String.EXECUTE)
+                Text(text = StringRes.EXECUTE)
             }
         }
     }

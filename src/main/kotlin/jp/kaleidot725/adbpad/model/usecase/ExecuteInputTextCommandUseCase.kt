@@ -5,11 +5,11 @@ import jp.kaleidot725.adbpad.model.data.Command
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ExecuteCommandUseCase {
-    suspend operator fun invoke(serial: String?, command: Command): Boolean {
+class ExecuteInputTextCommandUseCase {
+    suspend operator fun invoke(serial: String?, text: String): Boolean {
         return withContext(Dispatchers.IO) {
             val adbClient = AndroidDebugBridgeClientFactory().build()
-            command.requests.forEach { request ->
+            Command.InputText(text).requests.forEach { request ->
                 val result = adbClient.execute(request, serial)
                 if (result.exitCode != 0) return@withContext false
             }

@@ -12,18 +12,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import jp.kaleidot725.adbpad.stateholder.MainStateHolder
-import jp.kaleidot725.adbpad.view.component.menu.MenuScreen
+import jp.kaleidot725.adbpad.MainStateHolder
+import jp.kaleidot725.adbpad.model.data.Menu
+import jp.kaleidot725.adbpad.view.common.menu.MenuScreen
 import jp.kaleidot725.adbpad.view.page.CommandScreen
 import jp.kaleidot725.adbpad.view.page.InputTextScreen
 import jp.kaleidot725.adbpad.view.page.ScreenshotScreen
 import jp.kaleidot725.adbpad.view.resource.AppTheme
-import jp.kaleidot725.adbpad.view.resource.Menu
-import jp.kaleidot725.adbpad.view.resource.String
+import jp.kaleidot725.adbpad.view.resource.StringRes
 import jp.kaleidot725.adbpad.view.template.ScreenLayout
 
 fun main() = application {
-    Window(title = String.WINDOW_TITLE, onCloseRequest = ::exitApplication) {
+    Window(title = StringRes.WINDOW_TITLE, onCloseRequest = ::exitApplication) {
         val stateHolder by remember { mutableStateOf(MainStateHolder()) }
         val state by stateHolder.state.collectAsState()
 
@@ -50,21 +50,23 @@ fun main() = application {
                 },
                 rightPane = {
                     when (state.selectedMenu) {
-                        Menu.COMMAND_MENU -> CommandScreen(
+                        Menu.Command -> CommandScreen(
                             commands = state.commands,
                             onExecute = { stateHolder.executeCommand(it) }
                         )
 
-                        Menu.INPUT_TEXT_MENU -> InputTextScreen(
-                            inputText = state.inputText,
+                        Menu.InputText -> InputTextScreen(
+                            inputText = state.userInputText,
                             onTextChange = { stateHolder.updateInputText(it) },
                             inputTexts = state.inputTexts,
-                            onExecute = { stateHolder.inputText(it) },
+                            onSend = { stateHolder.inputText(it) },
+                            canSend = state.canSendUserInputText,
                             onSave = { stateHolder.saveInputText(it) },
+                            canSave = state.canSaveUserInputText,
                             onDelete = { stateHolder.deleteInputText(it) }
                         )
 
-                        Menu.SCREENSHOT_MENU -> ScreenshotScreen(
+                        Menu.Screenshot -> ScreenshotScreen(
                             image1 = state.previewImageUrl1,
                             image2 = state.previewImageUrl2,
                             onTakeScreenShot = { stateHolder.takeScreenShot() },

@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.screenshot
+package jp.kaleidot725.adbpad.view.common.screenshot
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.view.resource.String
+import jp.kaleidot725.adbpad.view.resource.StringRes
 
 @Composable
 fun ScreenshotMenu(
@@ -23,7 +23,7 @@ fun ScreenshotMenu(
     ) {
         Button(onClick = { onTakeThemeScreenshot() }) {
             Text(
-                text = String.TAKE_THEME_SCREENSHOT,
+                text = StringRes.TAKE_THEME_SCREENSHOT,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.width(150.dp)
             )
@@ -31,7 +31,7 @@ fun ScreenshotMenu(
 
         Button(onClick = { onTakeScreenShot() }) {
             Text(
-                text = String.TAKE_SCREENSHOT,
+                text = StringRes.TAKE_SCREENSHOT,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.width(150.dp)
             )

@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.menu
+package jp.kaleidot725.adbpad.view.common.menu
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
@@ -11,9 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.extension.clickableNoRipple
-import jp.kaleidot725.adbpad.view.resource.Menu
-import jp.kaleidot725.adbpad.view.resource.toIcon
-import jp.kaleidot725.adbpad.view.resource.toTitle
+import jp.kaleidot725.adbpad.model.data.Menu
 
 @Composable
 fun MenuList(
@@ -26,9 +24,9 @@ fun MenuList(
         menus.forEach { menu ->
             val isSelected = menu == selectedMenu
             MenuItem(
-                icon = menu.toIcon(),
+                icon = menu.icon,
                 iconDescription = "$menu Icon",
-                text = menu.toTitle(),
+                text = menu.title,
                 modifier = Modifier
                     .fillMaxWidth()
                     .selectedBackground(isSelected)
@@ -53,8 +51,8 @@ private fun Modifier.selectedBackground(isSelected: Boolean): Modifier {
 @Composable
 private fun MenuList_Preview() {
     MenuList(
-        menus = Menu.values().toList(),
-        selectedMenu = Menu.COMMAND_MENU,
+        menus = listOf(Menu.Command, Menu.InputText, Menu.Screenshot),
+        selectedMenu = Menu.Command,
         onSelectMenu = {}
     )
 }

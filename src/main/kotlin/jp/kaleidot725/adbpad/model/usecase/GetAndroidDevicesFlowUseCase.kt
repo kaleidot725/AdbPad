@@ -7,8 +7,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 
-class GetAndroidDeviceListUseCase {
-    suspend operator fun invoke(coroutineScope: CoroutineScope): Flow<List<Device>> {
+class GetAndroidDevicesFlowUseCase {
+    operator fun invoke(coroutineScope: CoroutineScope): Flow<List<Device>> {
         return AndroidDebugBridgeClientFactory().build().execute(
             request = AsyncDeviceMonitorRequest(),
             scope = coroutineScope

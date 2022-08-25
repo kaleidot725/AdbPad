@@ -10,23 +10,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.model.data.InputText
-import jp.kaleidot725.adbpad.view.component.input.InputTextActionMenu
-import jp.kaleidot725.adbpad.view.component.input.InputTextList
+import jp.kaleidot725.adbpad.view.common.input.InputTextActionMenu
+import jp.kaleidot725.adbpad.view.common.input.InputTextList
 
 @Composable
 fun InputTextScreen(
-    inputText: InputText,
-    onTextChange: (InputText) -> Unit,
-    inputTexts: List<InputText>,
-    onExecute: (InputText) -> Unit,
-    onSave: (InputText) -> Unit,
-    onDelete: (InputText) -> Unit
+    inputText: String,
+    onTextChange: (String) -> Unit,
+    inputTexts: List<String>,
+    onSend: (String) -> Unit,
+    canSend: Boolean,
+    onSave: (String) -> Unit,
+    canSave: Boolean,
+    onDelete: (String) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         InputTextList(
             inputTexts = inputTexts,
-            onExecute = onExecute,
+            onSend = onSend,
             onDelete = onDelete,
             modifier = Modifier.fillMaxSize().padding(bottom = 60.dp)
         )
@@ -34,8 +35,10 @@ fun InputTextScreen(
         InputTextActionMenu(
             inputText = inputText,
             onTextChange = onTextChange,
-            onExecute = onExecute,
+            onSend = onSend,
+            canSend = canSend,
             onSave = onSave,
+            canSave = canSave,
             modifier = Modifier.height(50.dp).fillMaxWidth().align(Alignment.BottomEnd)
         )
     }
@@ -45,11 +48,13 @@ fun InputTextScreen(
 @Composable
 private fun InputTextScreen_Preview() {
     InputTextScreen(
-        inputText = InputText("SAMPLE INPUT TEXT"),
+        inputText = "SAMPLE INPUT TEXT",
         onTextChange = {},
-        inputTexts = listOf(InputText("A"), InputText("B"), InputText("C")),
-        onExecute = {},
+        inputTexts = listOf("A", "B", "C"),
+        onSend = {},
+        canSend = true,
         onSave = {},
+        canSave = true,
         onDelete = {}
     )
 }

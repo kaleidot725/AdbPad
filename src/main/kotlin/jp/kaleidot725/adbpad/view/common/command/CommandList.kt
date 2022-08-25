@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.command
+package jp.kaleidot725.adbpad.view.common.command
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.model.data.Command
-import jp.kaleidot725.adbpad.view.resource.String
+import jp.kaleidot725.adbpad.view.resource.StringRes
 
 @Composable
 fun CommandList(
@@ -29,8 +29,8 @@ fun CommandList(
             ) {
                 commands.forEach { command ->
                     CommandItem(
-                        title = command.toTitle(),
-                        detail = command.toDetail(),
+                        title = command.title,
+                        detail = command.details,
                         onExecute = { onExecute(command) },
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -38,7 +38,7 @@ fun CommandList(
             }
         } else {
             Text(
-                text = String.NOT_FOUND_COMMAND,
+                text = StringRes.NOT_FOUND_COMMAND,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
@@ -60,31 +60,5 @@ private fun CommandList_Preview() {
             onExecute = {},
             modifier = Modifier.fillMaxWidth().weight(0.5f).background(Color.LightGray)
         )
-    }
-}
-
-fun Command.toTitle(): kotlin.String {
-    return when (this) {
-        Command.DarkThemeOn -> "ダークテーマON"
-        Command.DarkThemeOff -> "ダークテーマOFF"
-        Command.WifiOn -> "Wi-Fi ON"
-        Command.WifiOff -> "Wi-Fi OFF"
-        Command.DataOn -> "データ通信 ON"
-        Command.DataOff -> "データ通信 OFF"
-        Command.WifiAndDataOn -> "Wi-Fi＆データ通信 ON"
-        Command.WifiAndDataOff -> "Wi-Fi&データ通信 OFF"
-    }
-}
-
-fun Command.toDetail(): kotlin.String {
-    return when (this) {
-        Command.DarkThemeOn -> "端末のダークテーマ設定をONにします"
-        Command.DarkThemeOff -> "端末のダークテーマ設定をOFFにします"
-        Command.WifiOn -> "端末のWi-Fi設定をONにします"
-        Command.WifiOff -> "端末のWi-Fi設定をOFFにします"
-        Command.DataOn -> "端末のデータ通信設定をONにします"
-        Command.DataOff -> "端末のデータ通信設定をOFFにします"
-        Command.WifiAndDataOn -> "端末のWi-Fi設定とデータ通信設定の両方をONにします"
-        Command.WifiAndDataOff -> "端末のWi-Fi設定とデータ通信設定の両方をOFFにします"
     }
 }
