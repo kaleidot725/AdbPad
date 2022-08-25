@@ -18,6 +18,7 @@ dependencies {
     implementation(compose.material)
     implementation(compose.materialIconsExtended)
     implementation(libs.adam)
+    implementation(libs.kotlin.coroutines)
     implementation(libs.kotlin.serialization)
     testImplementation(libs.junit5)
 }

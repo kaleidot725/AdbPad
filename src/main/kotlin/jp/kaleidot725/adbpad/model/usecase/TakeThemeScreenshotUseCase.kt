@@ -5,32 +5,36 @@ import com.malinskiy.adam.request.framebuffer.RawImageScreenCaptureAdapter
 import com.malinskiy.adam.request.framebuffer.ScreenCaptureRequest
 import com.malinskiy.adam.request.shell.v1.ShellCommandRequest
 import jp.kaleidot725.adbpad.model.data.OperatingSystem
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.File
 import javax.imageio.ImageIO
 
 class TakeThemeScreenshotUseCase {
-    suspend operator fun invoke(serial: String?): Pair<String?, String?> {
-        val adb = AndroidDebugBridgeClientFactory().build()
+    suspend operator fun invoke(serial: String?): Pair<String, String>? {
+        return withContext(Dispatchers.IO) {
+            val adb = AndroidDebugBridgeClientFactory().build()
+            val adapter = RawImageScreenCaptureAdapter()
 
-        adb.execute(
-            request = ShellCommandRequest("cmd uimode night yes"),
-            serial = serial
-        )
+            adb.execute(
+                request = ShellCommandRequest("cmd uimode night yes"),
+                serial = serial
+            )
 
-        val adapter = RawImageScreenCaptureAdapter()
-        val image1 = adb.execute(request = ScreenCaptureRequest(adapter), serial = serial).toBufferedImage()
-        val path1 = OperatingSystem.resolveOperationSystem().direcotry + "screenshot1.png"
-        if (!ImageIO.write(image1, "png", File(path1))) return null to null
+            val darkImage = adb.execute(request = ScreenCaptureRequest(adapter), serial = serial).toBufferedImage()
+            val darkImagePath = OperatingSystem.resolveOperationSystem().direcotry + "screenshot1.png"
+            if (!ImageIO.write(darkImage, "png", File(darkImagePath))) return@withContext null
 
-        adb.execute(
-            request = ShellCommandRequest("cmd uimode night no"),
-            serial = serial
-        )
+            adb.execute(
+                request = ShellCommandRequest("cmd uimode night no"),
+                serial = serial
+            )
 
-        val image2 = adb.execute(request = ScreenCaptureRequest(adapter), serial = serial).toBufferedImage()
-        val path2 = OperatingSystem.resolveOperationSystem().direcotry + "screenshot2.png"
-        if (!ImageIO.write(image2, "png", File(path2))) return path1 to null
+            val lightImage = adb.execute(request = ScreenCaptureRequest(adapter), serial = serial).toBufferedImage()
+            val lightImagePath = OperatingSystem.resolveOperationSystem().direcotry + "screenshot2.png"
+            if (!ImageIO.write(lightImage, "png", File(lightImagePath))) return@withContext null
 
-        return path1 to path2
+            return@withContext darkImagePath to lightImagePath
+        }
     }
 }
