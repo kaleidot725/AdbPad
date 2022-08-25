@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.model.data.Command
-import jp.kaleidot725.adbpad.view.component.command.CommandList
+import jp.kaleidot725.adbpad.view.common.command.CommandList
 
 @Composable
 fun CommandScreen(

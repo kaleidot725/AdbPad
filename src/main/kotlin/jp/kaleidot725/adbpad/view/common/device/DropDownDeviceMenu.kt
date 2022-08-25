@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.menu
+package jp.kaleidot725.adbpad.view.common.menu
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Box
@@ -19,7 +19,7 @@ import androidx.compose.ui.platform.LocalDensity
 import com.malinskiy.adam.request.device.Device
 import com.malinskiy.adam.request.device.DeviceState
 import jp.kaleidot725.adbpad.extension.clickableNoRipple
-import jp.kaleidot725.adbpad.view.component.device.DeviceSelector
+import jp.kaleidot725.adbpad.view.common.device.DeviceSelector
 
 @Composable
 fun DropDownDeviceMenu(

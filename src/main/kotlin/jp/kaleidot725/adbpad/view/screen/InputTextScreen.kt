@@ -11,8 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.model.data.InputText
-import jp.kaleidot725.adbpad.view.component.input.InputTextActionMenu
-import jp.kaleidot725.adbpad.view.component.input.InputTextList
+import jp.kaleidot725.adbpad.view.common.input.InputTextActionMenu
+import jp.kaleidot725.adbpad.view.common.input.InputTextList
 
 @Composable
 fun InputTextScreen(

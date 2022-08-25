@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.screenshot
+package jp.kaleidot725.adbpad.view.common.screenshot
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

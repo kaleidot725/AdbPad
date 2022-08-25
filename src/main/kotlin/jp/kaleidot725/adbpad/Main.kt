@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import jp.kaleidot725.adbpad.stateholder.MainStateHolder
-import jp.kaleidot725.adbpad.view.component.menu.MenuScreen
+import jp.kaleidot725.adbpad.MainStateHolder
+import jp.kaleidot725.adbpad.view.common.menu.MenuScreen
 import jp.kaleidot725.adbpad.view.page.CommandScreen
 import jp.kaleidot725.adbpad.view.page.InputTextScreen
 import jp.kaleidot725.adbpad.view.page.ScreenshotScreen
