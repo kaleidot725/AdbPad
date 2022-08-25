@@ -5,18 +5,18 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 
 private val LightColors = Colors(
-    primary = md_theme_light_primary,
-    primaryVariant = md_theme_light_primaryVariant,
-    secondary = md_theme_light_secondary,
-    secondaryVariant = md_theme_light_secondaryVariant,
-    background = md_theme_light_background,
-    surface = md_theme_light_surface,
-    error = md_theme_light_error,
-    onPrimary = md_theme_light_onPrimary,
-    onSecondary = md_theme_light_onSecondary,
-    onError = md_theme_light_onError,
-    onBackground = md_theme_light_onBackground,
-    onSurface = md_theme_light_onSurface,
+    primary = ColorRes.PRIMARY,
+    primaryVariant = ColorRes.PRIMARY_VARIANT,
+    secondary = ColorRes.SECONDARY,
+    secondaryVariant = ColorRes.SECONDARY_VARIANT,
+    background = ColorRes.BACKGROUND,
+    surface = ColorRes.SURFACE,
+    error = ColorRes.ERROR,
+    onPrimary = ColorRes.ON_PRIMARY,
+    onSecondary = ColorRes.ON_SECONDARY,
+    onError = ColorRes.ON_ERROR,
+    onBackground = ColorRes.ON_BACKGROUND,
+    onSurface = ColorRes.ON_SURFACE,
     isLight = true
 )
 
