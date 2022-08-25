@@ -23,15 +23,3 @@ fun Modifier.clickableNoRipple(
         indication = null
     )
 }
-
-@Composable
-fun Modifier.consumeClickEvent(): Modifier {
-    return this.clickable(
-        enabled = true,
-        onClickLabel = null,
-        role = null,
-        onClick = {},
-        interactionSource = remember { MutableInteractionSource() },
-        indication = null
-    )
-}

@@ -16,7 +16,7 @@ class TakeScreenshotUseCase {
             val adapter = RawImageScreenCaptureAdapter()
             val image = adb.execute(request = ScreenCaptureRequest(adapter), serial = serial).toBufferedImage()
 
-            val path = OSContext.resolveOSContext().direcotry + "screenshot.png"
+            val path = OSContext.resolveOSContext().directory + "screenshot.png"
             val isSuccess = ImageIO.write(image, "png", File(path))
             return@withContext if (isSuccess) path else null
         }

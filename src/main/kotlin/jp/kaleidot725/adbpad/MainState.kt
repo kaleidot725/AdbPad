@@ -3,7 +3,7 @@ package jp.kaleidot725.adbpad
 import androidx.compose.ui.graphics.ImageBitmap
 import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Command
-import jp.kaleidot725.adbpad.view.resource.Menu
+import jp.kaleidot725.adbpad.model.data.Menu
 
 data class MainState(
     // Menus

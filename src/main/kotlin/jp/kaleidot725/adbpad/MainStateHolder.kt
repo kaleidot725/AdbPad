@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.loadImageBitmap
 import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Command
+import jp.kaleidot725.adbpad.model.data.Menu
 import jp.kaleidot725.adbpad.model.usecase.AddInputTextUseCase
 import jp.kaleidot725.adbpad.model.usecase.DeleteInputTextUseCase
 import jp.kaleidot725.adbpad.model.usecase.ExecuteCommandUseCase
@@ -11,10 +12,10 @@ import jp.kaleidot725.adbpad.model.usecase.ExecuteInputTextCommandUseCase
 import jp.kaleidot725.adbpad.model.usecase.GetAndroidDevicesFlowUseCase
 import jp.kaleidot725.adbpad.model.usecase.GetCommandListUseCase
 import jp.kaleidot725.adbpad.model.usecase.GetInputTextUseCase
+import jp.kaleidot725.adbpad.model.usecase.GetMenuListUseCase
 import jp.kaleidot725.adbpad.model.usecase.StartAdbUseCase
 import jp.kaleidot725.adbpad.model.usecase.TakeScreenshotUseCase
 import jp.kaleidot725.adbpad.model.usecase.TakeThemeScreenshotUseCase
-import jp.kaleidot725.adbpad.view.resource.Menu
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -28,6 +29,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 class MainStateHolder(
+    val getMenuListUseCase: GetMenuListUseCase = GetMenuListUseCase(),
     val startAdbUseCase: StartAdbUseCase = StartAdbUseCase(),
     val getAndroidDevicesFlowUseCase: GetAndroidDevicesFlowUseCase = GetAndroidDevicesFlowUseCase(),
     val getCommandListUseCase: GetCommandListUseCase = GetCommandListUseCase(),
@@ -68,9 +70,11 @@ class MainStateHolder(
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), MainState())
 
     fun setup() {
+        menus.value = getMenuListUseCase()
+        selectedMenu.value = menus.value.firstOrNull()
+        commands.value = getCommandListUseCase()
+
         coroutineScope.launch {
-            menus.value = Menu.values().toList()
-            commands.value = getCommandListUseCase()
             inputTexts.value = getInputTextUseCase()
         }
 

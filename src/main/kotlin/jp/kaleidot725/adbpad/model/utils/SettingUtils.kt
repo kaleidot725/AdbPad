@@ -31,7 +31,7 @@ object SettingUtils {
         }
     }
 
-    private fun getDirPath() = OSContext.resolveOSContext().direcotry
+    private fun getDirPath() = OSContext.resolveOSContext().directory
     private fun getFilePath() = getDirPath() + "config.json"
 
     private fun createDir() {

@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.view.resource.StringRes
 
 @Composable
 fun InputTextItem(
@@ -38,13 +39,13 @@ fun InputTextItem(
                 onClick = { onDelete() },
                 modifier = Modifier.align(Alignment.CenterVertically)
             ) {
-                Text(jp.kaleidot725.adbpad.view.resource.String.DELETE)
+                Text(StringRes.DELETE)
             }
             Button(
                 onClick = { onSend() },
                 modifier = Modifier.align(Alignment.CenterVertically)
             ) {
-                Text(jp.kaleidot725.adbpad.view.resource.String.SEND)
+                Text(StringRes.SEND)
             }
         }
     }
