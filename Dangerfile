@@ -9,4 +9,4 @@ end
 
 # Notify ktlint warning
 checkstyle_format.base_path = Dir.pwd
-checkstyle_format.report 'build/reports/ktlint/ktlintMainSourceSetCheck/ktlintMainSourceSetCheck.xml'
+checkstyle_format.report 'build/reports/ktlint/ktlintJvmMainSourceSetCheck/ktlintJvmMainSourceSetCheck.xml'
