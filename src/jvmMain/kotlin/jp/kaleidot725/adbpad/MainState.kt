@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Command
 import jp.kaleidot725.adbpad.model.data.Menu
+import java.io.File
 
 data class MainState(
     // Menus
@@ -22,8 +23,8 @@ data class MainState(
     val userInputText: String = "",
 
     // Screenshot
-    val previewImageUrl1: ImageBitmap? = null,
-    val previewImageUrl2: ImageBitmap? = null,
+    val imageFile1: File? = null,
+    val imageFile2: File? = null,
 ) {
     val canSendUserInputText: Boolean get() = userInputText.isNotEmpty()
     val canSaveUserInputText: Boolean get() = userInputText.isNotEmpty()

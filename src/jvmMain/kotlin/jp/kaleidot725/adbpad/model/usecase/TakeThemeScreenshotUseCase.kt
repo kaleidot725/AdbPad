@@ -4,6 +4,7 @@ import com.malinskiy.adam.AndroidDebugBridgeClientFactory
 import com.malinskiy.adam.request.framebuffer.RawImageScreenCaptureAdapter
 import com.malinskiy.adam.request.framebuffer.ScreenCaptureRequest
 import com.malinskiy.adam.request.shell.v1.ShellCommandRequest
+import jp.kaleidot725.adbpad.model.data.Command
 import jp.kaleidot725.adbpad.model.data.OSContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -16,25 +17,32 @@ class TakeThemeScreenshotUseCase {
             val adb = AndroidDebugBridgeClientFactory().build()
             val adapter = RawImageScreenCaptureAdapter()
 
-            adb.execute(
-                request = ShellCommandRequest("cmd uimode night yes"),
-                serial = serial
-            )
+            Command.DarkThemeOn.requests.forEach {
+                val result = adb.execute(request = it, serial = serial)
+                if (result.exitCode != 0) return@withContext null
+            }
 
+            val osContext = OSContext.resolveOSContext()
             val darkImage = adb.execute(request = ScreenCaptureRequest(adapter), serial = serial).toBufferedImage()
-            val darkImagePath = OSContext.resolveOSContext().directory + "screenshot1.png"
-            if (!ImageIO.write(darkImage, "png", File(darkImagePath))) return@withContext null
+            val darkImagePath = osContext.directory + FILE_NAME1
+            if (!ImageIO.write(darkImage, EXTENSION_NAME, File(darkImagePath))) return@withContext null
 
-            adb.execute(
-                request = ShellCommandRequest("cmd uimode night no"),
-                serial = serial
-            )
+            Command.DarkThemeOff.requests.forEach {
+                val result = adb.execute(request = it, serial = serial)
+                if (result.exitCode != 0) return@withContext null
+            }
 
             val lightImage = adb.execute(request = ScreenCaptureRequest(adapter), serial = serial).toBufferedImage()
-            val lightImagePath = OSContext.resolveOSContext().directory + "screenshot2.png"
-            if (!ImageIO.write(lightImage, "png", File(lightImagePath))) return@withContext null
+            val lightImagePath = osContext.directory + FILE_NAME2
+            if (!ImageIO.write(lightImage, EXTENSION_NAME, File(lightImagePath))) return@withContext null
 
             return@withContext darkImagePath to lightImagePath
         }
+    }
+
+    companion object {
+        private const val FILE_NAME1 = "screenshot1.png"
+        private const val FILE_NAME2 = "screenshot2.png"
+        private const val EXTENSION_NAME = "png"
     }
 }

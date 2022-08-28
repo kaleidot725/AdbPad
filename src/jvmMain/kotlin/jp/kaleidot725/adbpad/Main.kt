@@ -67,8 +67,8 @@ fun main() = application {
                         )
 
                         Menu.Screenshot -> ScreenshotScreen(
-                            image1 = state.previewImageUrl1,
-                            image2 = state.previewImageUrl2,
+                            image1 = state.imageFile1,
+                            image2 = state.imageFile2,
                             onTakeScreenShot = { stateHolder.takeScreenShot() },
                             onTakeThemeScreenshot = { stateHolder.takeThemeScreenShot() }
                         )

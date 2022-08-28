@@ -16,11 +16,12 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.view.common.screenshot.ScreenshotMenu
 import jp.kaleidot725.adbpad.view.common.screenshot.ScreenshotViewer
+import java.io.File
 
 @Composable
 fun ScreenshotScreen(
-    image1: ImageBitmap?,
-    image2: ImageBitmap?,
+    image1: File?,
+    image2: File?,
     onTakeScreenShot: () -> Unit,
     onTakeThemeScreenshot: () -> Unit
 ) {
