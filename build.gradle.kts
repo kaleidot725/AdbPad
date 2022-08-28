@@ -24,6 +24,7 @@ kotlin {
         }
         withJava()
     }
+
     sourceSets {
         val jvmMain by getting {
             dependencies {
@@ -53,6 +54,10 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 subprojects {
