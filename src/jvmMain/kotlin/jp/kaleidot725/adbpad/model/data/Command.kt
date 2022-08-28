@@ -7,6 +7,56 @@ sealed class Command(
     val details: String,
     val requests: List<ShellCommandRequest>
 ) {
+    object LayoutBorderOn: Command(
+        "レイアウト境界表示 ON",
+        "端末のUI要素のレイアウト境界表示をONにする",
+        listOf(
+            ShellCommandRequest("setprop debug.layout true"),
+            ShellCommandRequest("service call activity 1599295570")
+        )
+    )
+
+    object LayoutBorderOff: Command(
+        "レイアウト境界表示 OFF",
+        "端末のUI要素のレイアウト境界表示をOFFにする",
+        listOf(
+            ShellCommandRequest("setprop debug.layout false"),
+            ShellCommandRequest("service call activity 1599295570")
+        )
+    )
+
+    object TapEffectOn: Command(
+        "タップ表示 ON",
+        "端末の画面をタップした位置の表示をONにする",
+        listOf(
+            ShellCommandRequest("settings put system show_touches 1"),
+        )
+    )
+
+    object TapEffectOff: Command(
+        "タップ表示 OFF",
+        "端末の画面をタップした位置の表示をOFFにする",
+        listOf(
+            ShellCommandRequest("settings put system show_touches 0"),
+        )
+    )
+
+    object SleepModeOff: Command(
+        "スリープモードにしない ON",
+        "端末をスリープモードにしないようにする",
+        listOf(
+            ShellCommandRequest("setting put global stay_on_while_plugged_in 7")
+        )
+    )
+
+    object SleepModeOn: Command(
+        "スリープモードにしない OFF",
+        "端末をスリープモードにするようにする",
+        listOf(
+            ShellCommandRequest("setting put global stay_on_while_plugged_in ０")
+        )
+    )
+
     object DarkThemeOn : Command(
         "ダークテーマON",
         "端末のダークテーマ設定をONにします",
