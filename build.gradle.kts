@@ -1,26 +1,58 @@
 import org.jetbrains.compose.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.6.10"
-    kotlin("plugin.serialization") version "1.6.10"
-    id("org.jetbrains.compose") version "1.1.1"
-    id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
+    kotlin("multiplatform")
+    id("org.jetbrains.compose")
+    kotlin("plugin.serialization")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 group = "jp.kaleidot725"
 version = "1.0"
 
-@OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-dependencies {
-    implementation(compose.desktop.currentOs)
-    implementation(compose.material)
-    implementation(compose.materialIconsExtended)
-    implementation(libs.adam)
-    implementation(libs.kotlin.coroutines)
-    implementation(libs.kotlin.serialization)
-    testImplementation(libs.junit5)
+repositories {
+    google()
+    mavenCentral()
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+}
+
+kotlin {
+    jvm {
+        compilations.all {
+            kotlinOptions.jvmTarget = "17"
+        }
+        withJava()
+    }
+    sourceSets {
+        val jvmMain by getting {
+            dependencies {
+                implementation(compose.desktop.currentOs)
+                implementation(compose.material)
+                implementation(compose.materialIconsExtended)
+                implementation(libs.adam)
+                implementation(libs.kotlin.coroutines)
+                implementation(libs.kotlin.serialization)
+            }
+        }
+        val jvmTest by getting {
+            dependencies {
+                implementation(libs.junit5)
+            }
+        }
+    }
+}
+
+compose.desktop {
+    application {
+        mainClass = "MainKt"
+        nativeDistributions {
+            modules("jdk.management")
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi)
+            packageName = "adbpad"
+            packageVersion = "1.0.0"
+        }
+    }
 }
 
 subprojects {
@@ -37,14 +69,6 @@ subprojects {
     }
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
-
 configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
     reporters {
         reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
@@ -53,17 +77,5 @@ configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
     filter {
         exclude("**/generated/**")
         include("**/kotlin/**")
-    }
-}
-
-compose.desktop {
-    application {
-        mainClass = "MainKt"
-        nativeDistributions {
-            modules("jdk.management")
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi)
-            packageName = "adbpad"
-            packageVersion = "1.0.0"
-        }
     }
 }
