@@ -7,7 +7,7 @@ sealed class Command(
     val details: String,
     val requests: List<ShellCommandRequest>
 ) {
-    object LayoutBorderOn: Command(
+    object LayoutBorderOn : Command(
         "レイアウト境界表示 ON",
         "端末のUI要素のレイアウト境界表示をONにする",
         listOf(
@@ -16,7 +16,7 @@ sealed class Command(
         )
     )
 
-    object LayoutBorderOff: Command(
+    object LayoutBorderOff : Command(
         "レイアウト境界表示 OFF",
         "端末のUI要素のレイアウト境界表示をOFFにする",
         listOf(
@@ -25,7 +25,7 @@ sealed class Command(
         )
     )
 
-    object TapEffectOn: Command(
+    object TapEffectOn : Command(
         "タップ表示 ON",
         "端末の画面をタップした位置の表示をONにする",
         listOf(
@@ -33,7 +33,7 @@ sealed class Command(
         )
     )
 
-    object TapEffectOff: Command(
+    object TapEffectOff : Command(
         "タップ表示 OFF",
         "端末の画面をタップした位置の表示をOFFにする",
         listOf(
@@ -41,7 +41,7 @@ sealed class Command(
         )
     )
 
-    object SleepModeOff: Command(
+    object SleepModeOff : Command(
         "スリープモードにしない ON",
         "端末をスリープモードにしないようにする",
         listOf(
@@ -49,7 +49,7 @@ sealed class Command(
         )
     )
 
-    object SleepModeOn: Command(
+    object SleepModeOn : Command(
         "スリープモードにしない OFF",
         "端末をスリープモードにするようにする",
         listOf(

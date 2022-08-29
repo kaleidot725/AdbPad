@@ -3,7 +3,6 @@ package jp.kaleidot725.adbpad.model.usecase
 import com.malinskiy.adam.AndroidDebugBridgeClientFactory
 import com.malinskiy.adam.request.framebuffer.RawImageScreenCaptureAdapter
 import com.malinskiy.adam.request.framebuffer.ScreenCaptureRequest
-import com.malinskiy.adam.request.shell.v1.ShellCommandRequest
 import jp.kaleidot725.adbpad.model.data.Command
 import jp.kaleidot725.adbpad.model.data.OSContext
 import kotlinx.coroutines.Dispatchers

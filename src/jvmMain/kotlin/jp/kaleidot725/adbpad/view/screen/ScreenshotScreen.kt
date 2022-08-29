@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.view.common.screenshot.ScreenshotMenu
 import jp.kaleidot725.adbpad.view.common.screenshot.ScreenshotViewer
