@@ -23,7 +23,7 @@ fun CommandItem(
     onExecute: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Card(modifier) {
+    Card(modifier, elevation = 1.dp) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically,

@@ -1,7 +1,5 @@
 package jp.kaleidot725.adbpad
 
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.res.loadImageBitmap
 import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Command
 import jp.kaleidot725.adbpad.model.data.Menu
@@ -50,8 +48,8 @@ class MainStateHolder(
     private val selectedDevice: MutableStateFlow<Device?> = MutableStateFlow(null)
     private val inputTexts: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
     private val userInputText: MutableStateFlow<String> = MutableStateFlow("")
-    private val previewImage1: MutableStateFlow<ImageBitmap?> = MutableStateFlow(null)
-    private val previewImage2: MutableStateFlow<ImageBitmap?> = MutableStateFlow(null)
+    private val previewImage1: MutableStateFlow<File?> = MutableStateFlow(null)
+    private val previewImage2: MutableStateFlow<File?> = MutableStateFlow(null)
 
     val state: StateFlow<MainState> = combine(
         menus, selectedMenu, commands, devices, selectedDevice, inputTexts, userInputText, previewImage1, previewImage2
@@ -64,8 +62,8 @@ class MainStateHolder(
             selectedDevice = it[4] as Device?,
             inputTexts = it[5] as List<String>,
             userInputText = it[6] as String,
-            previewImageUrl1 = it[7] as ImageBitmap?,
-            previewImageUrl2 = it[8] as ImageBitmap?
+            imageFile1 = it[7] as File?,
+            imageFile2 = it[8] as File?
         )
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), MainState())
 
@@ -135,7 +133,7 @@ class MainStateHolder(
         coroutineScope.launch {
             val serial = state.value.selectedDevice?.serial
             val filePath = takeScreenshotUseCase(serial) ?: return@launch
-            previewImage1.value = loadImageBitmap(File(filePath).inputStream())
+            previewImage1.value = File(filePath)
             previewImage2.value = null
         }
     }
@@ -144,8 +142,8 @@ class MainStateHolder(
         coroutineScope.launch {
             val serial = state.value.selectedDevice?.serial
             val filePathPair = takeThemeScreenshotUseCase(serial) ?: return@launch
-            previewImage1.value = loadImageBitmap(File(filePathPair.first).inputStream())
-            previewImage2.value = loadImageBitmap(File(filePathPair.second).inputStream())
+            previewImage1.value = File(filePathPair.first)
+            previewImage2.value = File(filePathPair.second)
         }
     }
 

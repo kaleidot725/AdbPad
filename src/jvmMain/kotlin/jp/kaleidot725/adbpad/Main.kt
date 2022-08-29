@@ -20,7 +20,7 @@ import jp.kaleidot725.adbpad.view.page.InputTextScreen
 import jp.kaleidot725.adbpad.view.page.ScreenshotScreen
 import jp.kaleidot725.adbpad.view.resource.AppTheme
 import jp.kaleidot725.adbpad.view.resource.StringRes
-import jp.kaleidot725.adbpad.view.template.ScreenLayout
+import jp.kaleidot725.adbpad.view.screen.ScreenLayout
 
 fun main() = application {
     Window(title = StringRes.WINDOW_TITLE, onCloseRequest = ::exitApplication) {
@@ -67,8 +67,8 @@ fun main() = application {
                         )
 
                         Menu.Screenshot -> ScreenshotScreen(
-                            image1 = state.previewImageUrl1,
-                            image2 = state.previewImageUrl2,
+                            image1 = state.imageFile1,
+                            image2 = state.imageFile2,
                             onTakeScreenShot = { stateHolder.takeScreenShot() },
                             onTakeThemeScreenshot = { stateHolder.takeThemeScreenShot() }
                         )

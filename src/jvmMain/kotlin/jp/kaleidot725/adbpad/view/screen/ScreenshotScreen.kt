@@ -8,19 +8,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.view.common.screenshot.ScreenshotMenu
 import jp.kaleidot725.adbpad.view.common.screenshot.ScreenshotViewer
+import java.io.File
 
 @Composable
 fun ScreenshotScreen(
-    image1: ImageBitmap?,
-    image2: ImageBitmap?,
+    image1: File?,
+    image2: File?,
     onTakeScreenShot: () -> Unit,
     onTakeThemeScreenshot: () -> Unit
 ) {
@@ -31,7 +32,10 @@ fun ScreenshotScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(0.5f)
-                .border(BorderStroke(1.dp, Color.LightGray))
+                .border(
+                    border = BorderStroke(1.dp, Color.LightGray),
+                    shape = RoundedCornerShape(4.dp)
+                )
         )
 
         ScreenshotMenu(
