@@ -15,4 +15,8 @@ object ColorRes {
     val ON_BACKGROUND = Color(0xFF191C1B)
     val SURFACE = Color(0xFFFAFDFA)
     val ON_SURFACE = Color(0xFF191C1B)
+
+    val LEFT_PANE = Color(0xFFF0F0F0)
+    val PANE_SPLITTER = Color(0x0FFDDDDDD)
+    val RIGHT_PANE = Color(0xFFFFFFFF)
 }

@@ -22,7 +22,7 @@ fun InputTextItem(
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Card(modifier) {
+    Card(modifier, elevation = 1.dp) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(8.dp)

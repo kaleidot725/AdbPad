@@ -2,11 +2,7 @@ package jp.kaleidot725.adbpad.view.common.input
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
@@ -35,7 +31,7 @@ fun InputTextList(
                         text = text,
                         onSend = { onSend(text) },
                         onDelete = { onDelete(text) },
-                        modifier = Modifier.height(60.dp).fillMaxWidth()
+                        modifier = Modifier.height(60.dp).fillMaxWidth().padding(2.dp)
                     )
                 }
             }
