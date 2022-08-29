@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,9 +24,9 @@ fun ScreenLayout(
 ) {
     Box(modifier) {
         Row {
-            Surface(color = ColorRes.LEFT_PANE) { leftPane() }
+            Box(Modifier.background(ColorRes.LEFT_PANE)) { leftPane() }
             Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, ColorRes.PANE_SPLITTER)))
-            Surface(color = ColorRes.RIGHT_PANE) { rightPane() }
+            Box(Modifier.background(ColorRes.RIGHT_PANE)) { rightPane() }
         }
     }
 }
