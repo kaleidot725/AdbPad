@@ -48,7 +48,7 @@ compose.desktop {
     application {
         mainClass = "MainKt"
         nativeDistributions {
-            packageName = "adbpad"
+            packageName = "AdbPad"
             packageVersion = "1.0.0"
 
             modules("jdk.management")
