@@ -7,8 +7,8 @@ import jp.kaleidot725.adbpad.model.usecase.AddInputTextUseCase
 import jp.kaleidot725.adbpad.model.usecase.DeleteInputTextUseCase
 import jp.kaleidot725.adbpad.model.usecase.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.model.usecase.ExecuteInputTextCommandUseCase
-import jp.kaleidot725.adbpad.model.usecase.GetAndroidDevicesFlowUseCase
 import jp.kaleidot725.adbpad.model.usecase.GetCommandListUseCase
+import jp.kaleidot725.adbpad.model.usecase.GetDevicesFlowUseCase
 import jp.kaleidot725.adbpad.model.usecase.GetInputTextUseCase
 import jp.kaleidot725.adbpad.model.usecase.GetMenuListUseCase
 import jp.kaleidot725.adbpad.model.usecase.StartAdbUseCase
@@ -29,7 +29,7 @@ import java.io.File
 class MainStateHolder(
     val getMenuListUseCase: GetMenuListUseCase = GetMenuListUseCase(),
     val startAdbUseCase: StartAdbUseCase = StartAdbUseCase(),
-    val getAndroidDevicesFlowUseCase: GetAndroidDevicesFlowUseCase = GetAndroidDevicesFlowUseCase(),
+    val getAndroidDevicesFlowUseCase: GetDevicesFlowUseCase = GetDevicesFlowUseCase(),
     val getCommandListUseCase: GetCommandListUseCase = GetCommandListUseCase(),
     val getInputTextUseCase: GetInputTextUseCase = GetInputTextUseCase(),
     val executeCommandUseCase: ExecuteCommandUseCase = ExecuteCommandUseCase(),
