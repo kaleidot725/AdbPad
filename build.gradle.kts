@@ -48,10 +48,19 @@ compose.desktop {
     application {
         mainClass = "MainKt"
         nativeDistributions {
-            modules("jdk.management")
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi)
             packageName = "adbpad"
             packageVersion = "1.0.0"
+
+            modules("jdk.management")
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi)
+
+            macOS {
+                iconFile.set(project.file("icon.icns"))
+            }
+
+            windows {
+                iconFile.set(project.file("icon.ico"))
+            }
         }
     }
 }
