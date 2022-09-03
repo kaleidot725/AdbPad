@@ -1,6 +1,8 @@
 # <img align="center" width=40 src="https://raw.githubusercontent.com/kaleidot725/AdbPad/main/icon.ico"> AdbPad
 
-https://user-images.githubusercontent.com/23740796/188260602-30ec706f-0654-415b-b913-43f3418d8b85.mp4
+AdpPad is a GUI application to use adb. adb is a command line tool to control android device.
+
+https://user-images.githubusercontent.com/23740796/188260673-9ef2c217-41d4-4ebc-93df-525239a3280a.mp4
 
 # ✨ Feature
 
