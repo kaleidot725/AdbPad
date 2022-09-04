@@ -13,8 +13,8 @@ https://user-images.githubusercontent.com/23740796/188260673-9ef2c217-41d4-4ebc-
 
 # ⬇️ Install
 
-1. Clone this repository.
-2. Open a project by IntelliJ Idea.
+1. Clone [this repository](https://github.com/kaleidot725/AdbPad).
+2. Open a project by [IntelliJ IDEA](https://www.jetbrains.com/ja-jp/idea/).
 3. Open Gradle tasks.
 4. Run package task and create an application package.
 5. Install AdbPad using the application package.
