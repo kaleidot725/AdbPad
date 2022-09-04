@@ -6,8 +6,11 @@ https://user-images.githubusercontent.com/23740796/188260673-9ef2c217-41d4-4ebc-
 
 # ✨ Feature
 
-TODO
+- Observe android device list.
+- Execute adb shell command.
+- Input text to android device.
+- Take a screenshot for each theme.
 
 # ⬇️ Install
 
-TODO
+-
