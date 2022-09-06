@@ -1,9 +1,9 @@
 package jp.kaleidot725.adbpad.view.common.menu
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.MaterialTheme
@@ -14,11 +14,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalDensity
 import com.malinskiy.adam.request.device.Device
 import com.malinskiy.adam.request.device.DeviceState
-import jp.kaleidot725.adbpad.extension.clickableNoRipple
 import jp.kaleidot725.adbpad.view.common.device.DeviceSelector
 
 @Composable
@@ -29,22 +26,14 @@ fun DropDownDeviceMenu(
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var dropDownWidth by remember { mutableStateOf(0) }
 
     Box(modifier) {
         DeviceSelector(
             selectedDevice = selectedDevice,
-            modifier = Modifier
-                .clickableNoRipple { if (!expanded && devices.isNotEmpty()) expanded = true }
-                .fillMaxWidth()
-                .onSizeChanged { dropDownWidth = it.width }
+            modifier = Modifier.clickable { if (!expanded && devices.isNotEmpty()) expanded = true }
         )
 
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-            modifier = Modifier.width(with(LocalDensity.current) { dropDownWidth.toDp() })
-        ) {
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }, modifier = Modifier.fillMaxWidth()) {
             devices.forEach { device ->
                 DropdownMenuItem(
                     onClick = {
@@ -52,10 +41,7 @@ fun DropDownDeviceMenu(
                         expanded = false
                     }
                 ) {
-                    Text(
-                        text = device.serial,
-                        style = MaterialTheme.typography.subtitle2,
-                    )
+                    Text(text = device.serial, style = MaterialTheme.typography.subtitle2)
                 }
             }
         }
