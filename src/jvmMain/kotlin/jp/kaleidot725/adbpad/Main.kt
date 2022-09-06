@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import jp.kaleidot725.adbpad.MainApp
 import jp.kaleidot725.adbpad.MainStateHolder
+import jp.kaleidot725.adbpad.view.common.command.CommandList
 import jp.kaleidot725.adbpad.view.resource.StringRes
 
 fun main() = application {
@@ -19,17 +19,9 @@ fun main() = application {
         }
 
         val state by stateHolder.state.collectAsState()
-        MainApp(
-            state = state,
-            onSelectDevice = { stateHolder.selectDevice(it) },
-            onSelectMenu = { stateHolder.selectMenu(it) },
-            onExecuteCommand = { stateHolder.executeCommand(it) },
-            onChangeInputText = { stateHolder.updateInputText(it) },
-            onSendInputText = { stateHolder.inputText(it) },
-            onSaveInputText = { stateHolder.saveInputText(it) },
-            onDeleteInputText = { stateHolder.deleteInputText(it) },
-            onTakeScreenshot = { stateHolder.takeScreenShot() },
-            onTakeThemeScreenshot = { stateHolder.takeThemeScreenShot() }
+        CommandList(
+            commands = state.commands,
+            onExecute = { stateHolder.executeCommand(it) }
         )
     }
 }

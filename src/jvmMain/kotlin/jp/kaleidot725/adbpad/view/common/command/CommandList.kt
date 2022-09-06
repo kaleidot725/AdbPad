@@ -53,7 +53,7 @@ fun CommandList(
 private fun CommandList_Preview() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         CommandList(
-            commands = listOf(Command.DarkThemeOn, Command.DarkThemeOff, Command.WifiOn),
+            commands = listOf(Command.DarkThemeOn, Command.DarkThemeOff),
             onExecute = {},
             modifier = Modifier.fillMaxWidth().weight(0.5f)
         )
