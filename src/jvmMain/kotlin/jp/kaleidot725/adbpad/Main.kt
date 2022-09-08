@@ -22,8 +22,8 @@ fun main() = application {
 
         val state by stateHolder.state.collectAsState()
         DropDownDeviceMenu(
-            devices = state.devices,
             selectedDevice = state.selectedDevice,
+            devices = state.devices,
             onSelectDevice = { stateHolder.selectDevice(it) },
             modifier = Modifier.wrapContentSize()
         )
