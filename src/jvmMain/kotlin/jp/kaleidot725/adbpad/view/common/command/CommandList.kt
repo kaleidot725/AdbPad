@@ -5,10 +5,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,25 +28,27 @@ fun CommandList(
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
-        if (commands.isNotEmpty()) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.verticalScroll(rememberScrollState())
-            ) {
-                commands.forEach { command ->
-                    CommandItem(
-                        title = command.title,
-                        detail = command.details,
-                        onExecute = { onExecute(command) },
-                        modifier = Modifier.fillMaxWidth().padding(2.dp)
-                    )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.verticalScroll(rememberScrollState())
+        ) {
+            commands.forEach { command ->
+                Card(modifier, elevation = 1.dp) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        Column(modifier = Modifier.weight(0.9f, true)) {
+                            Text(text = command.title)
+                            Text(text = command.details)
+                        }
+                        Button(onClick = { onExecute(command) }) {
+                            Text(text = StringRes.EXECUTE)
+                        }
+                    }
                 }
             }
-        } else {
-            Text(
-                text = StringRes.NOT_FOUND_COMMAND,
-                modifier = Modifier.align(Alignment.Center)
-            )
         }
     }
 }
