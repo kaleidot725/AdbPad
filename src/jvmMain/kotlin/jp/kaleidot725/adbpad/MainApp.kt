@@ -70,6 +70,8 @@ fun MainApp(
                         onTakeScreenShot = onTakeScreenshot,
                         onTakeThemeScreenshot = onTakeThemeScreenshot
                     )
+
+                    null -> Unit
                 }
             },
             modifier = Modifier.fillMaxSize()
