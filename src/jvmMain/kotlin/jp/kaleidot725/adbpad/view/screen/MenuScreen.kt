@@ -4,12 +4,16 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.malinskiy.adam.request.device.Device
+import jp.kaleidot725.adbpad.extension.clickableNoRipple
 import jp.kaleidot725.adbpad.model.data.Menu
 import jp.kaleidot725.adbpad.view.resource.StringRes
 
@@ -21,6 +25,7 @@ fun MenuScreen(
     menus: List<Menu>,
     selectedMenu: Menu?,
     onSelectMenu: (Menu) -> Unit,
+    onShowSetting: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -50,6 +55,17 @@ fun MenuScreen(
             onSelectMenu = onSelectMenu,
             modifier = Modifier.fillMaxWidth().weight(weight = 0.9f, fill = true)
         )
+
+        MenuItem(
+            icon = Icons.Default.Settings,
+            iconDescription = "Setting",
+            text = "Setting",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp)
+                .clickableNoRipple { onShowSetting() }
+                .padding(vertical = 8.dp)
+        )
     }
 }
 
@@ -62,6 +78,7 @@ private fun MenuScreen_Preview() {
         onSelectDevice = {},
         menus = listOf(Menu.Command, Menu.InputText, Menu.Screenshot),
         selectedMenu = Menu.Command,
-        onSelectMenu = {}
+        onSelectMenu = {},
+        onShowSetting = {}
     )
 }

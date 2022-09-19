@@ -2,6 +2,7 @@ package jp.kaleidot725.adbpad
 
 import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Command
+import jp.kaleidot725.adbpad.model.data.Dialog
 import jp.kaleidot725.adbpad.model.data.Menu
 import jp.kaleidot725.adbpad.model.usecase.AddInputTextUseCase
 import jp.kaleidot725.adbpad.model.usecase.DeleteInputTextUseCase
@@ -50,9 +51,19 @@ class MainStateHolder(
     private val userInputText: MutableStateFlow<String> = MutableStateFlow("")
     private val previewImage1: MutableStateFlow<File?> = MutableStateFlow(null)
     private val previewImage2: MutableStateFlow<File?> = MutableStateFlow(null)
+    private val dialog: MutableStateFlow<Dialog?> = MutableStateFlow(null)
 
     val state: StateFlow<MainState> = combine(
-        menus, selectedMenu, commands, devices, selectedDevice, inputTexts, userInputText, previewImage1, previewImage2
+        menus,
+        selectedMenu,
+        commands,
+        devices,
+        selectedDevice,
+        inputTexts,
+        userInputText,
+        previewImage1,
+        previewImage2,
+        dialog
     ) {
         MainState(
             menus = it[0] as List<Menu>,
@@ -63,7 +74,8 @@ class MainStateHolder(
             inputTexts = it[5] as List<String>,
             userInputText = it[6] as String,
             imageFile1 = it[7] as File?,
-            imageFile2 = it[8] as File?
+            imageFile2 = it[8] as File?,
+            dialog = it[9] as Dialog?
         )
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), MainState())
 
@@ -147,6 +159,14 @@ class MainStateHolder(
         }
     }
 
+    fun showSettingDialog() {
+        dialog.value = Dialog.Setting
+    }
+
+    fun closeDialog() {
+        dialog.value = null
+    }
+    
     fun dispose() {
         coroutineScope.cancel()
     }

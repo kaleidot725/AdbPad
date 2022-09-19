@@ -37,6 +37,7 @@ fun ScreenLayout(
             Spacer(Modifier.height(1.dp).fillMaxWidth().border(BorderStroke(1.dp, ColorRes.PANE_SPLITTER)))
             Box(Modifier.background(ColorRes.NOTIFICATION_AREA)) { notificationArea() }
         }
+        dialog()
     }
 }
 
