@@ -1,9 +1,14 @@
 package jp.kaleidot725.adbpad
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -74,6 +79,12 @@ fun MainApp(
                     null -> Unit
                 }
             },
+            notificationArea = {
+                Box(Modifier.fillMaxWidth().height(25.dp).padding(horizontal = 8.dp, vertical = 4.dp)) {
+                    Text("Start adbpad", style = MaterialTheme.typography.caption)
+                }
+            },
+            dialog = {},
             modifier = Modifier.fillMaxSize()
         )
     }

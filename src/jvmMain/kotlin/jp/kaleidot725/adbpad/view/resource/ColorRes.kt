@@ -19,4 +19,5 @@ object ColorRes {
     val LEFT_PANE = Color(0xFFF0F0F0)
     val PANE_SPLITTER = Color(0x0FFDDDDDD)
     val RIGHT_PANE = Color(0xFFFFFFFF)
+    val NOTIFICATION_AREA = Color(0xFFF0F0F0)
 }
