@@ -89,7 +89,7 @@ fun MainApp(
             },
             notificationArea = {
                 Box(Modifier.fillMaxWidth().height(25.dp).padding(horizontal = 8.dp, vertical = 4.dp)) {
-                    Text("Start adbpad", style = MaterialTheme.typography.caption)
+                    Text("Sample text", style = MaterialTheme.typography.caption)
                 }
             },
             dialog = {
