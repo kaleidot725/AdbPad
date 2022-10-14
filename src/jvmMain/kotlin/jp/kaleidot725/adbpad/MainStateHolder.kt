@@ -166,7 +166,7 @@ class MainStateHolder(
     fun closeDialog() {
         dialog.value = null
     }
-    
+
     fun dispose() {
         coroutineScope.cancel()
     }

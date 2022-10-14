@@ -55,7 +55,6 @@ private fun ScreenLayout_Preview() {
             Box(Modifier.fillMaxWidth().height(50.dp).background(Color.Green))
         },
         dialog = {
-
         },
         modifier = Modifier.fillMaxSize()
     )
@@ -75,7 +74,6 @@ private fun AppTemplateDialog_Preview() {
             Box(Modifier.fillMaxWidth().height(50.dp).background(Color.Green))
         },
         dialog = {
-
         },
         modifier = Modifier.fillMaxSize()
     )
