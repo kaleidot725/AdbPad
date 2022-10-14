@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,16 +28,17 @@ fun CommandList(
 ) {
     Box(modifier = modifier) {
         if (commands.isNotEmpty()) {
-            Column(
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(250.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.verticalScroll(rememberScrollState())
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                commands.forEach { command ->
+                items(commands) { command ->
                     CommandItem(
                         title = command.title,
                         detail = command.details,
                         onExecute = { onExecute(command) },
-                        modifier = Modifier.fillMaxWidth().padding(2.dp)
+                        modifier = Modifier.height(200.dp).fillMaxWidth().padding(2.dp)
                     )
                 }
             }

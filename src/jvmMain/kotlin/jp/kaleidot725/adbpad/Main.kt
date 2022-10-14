@@ -29,7 +29,9 @@ fun main() = application {
             onSaveInputText = { stateHolder.saveInputText(it) },
             onDeleteInputText = { stateHolder.deleteInputText(it) },
             onTakeScreenshot = { stateHolder.takeScreenShot() },
-            onTakeThemeScreenshot = { stateHolder.takeThemeScreenShot() }
+            onTakeThemeScreenshot = { stateHolder.takeThemeScreenShot() },
+            onShowSettingDialog = { stateHolder.showSettingDialog() },
+            onCloseDialog = { stateHolder.closeDialog() }
         )
     }
 }

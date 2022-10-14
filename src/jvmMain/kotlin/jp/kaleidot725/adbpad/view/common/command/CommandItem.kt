@@ -1,10 +1,8 @@
 package jp.kaleidot725.adbpad.view.common.command
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.Button
@@ -24,18 +22,12 @@ fun CommandItem(
     modifier: Modifier = Modifier
 ) {
     Card(modifier, elevation = 1.dp) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(8.dp)
-        ) {
-            Column(modifier = Modifier.weight(0.9f, true)) {
-                Text(text = title)
-                Text(text = detail)
-            }
-            Button(onClick = { onExecute() }) {
-                Text(text = StringRes.EXECUTE)
-            }
+        Column(modifier = Modifier.padding(8.dp)) {
+            Text(text = title)
+            Text(text = detail, modifier = Modifier.weight(0.9f, true))
+            Button(onClick = { onExecute() }, modifier = Modifier.align(Alignment.End)) {
+            Text(text = StringRes.EXECUTE)
+        }
         }
     }
 }
@@ -47,6 +39,6 @@ private fun CommandItem_Preview() {
         title = "ダークテーマON",
         detail = "端末のダークテーマ設定をONにします",
         onExecute = {},
-        modifier = Modifier.fillMaxWidth().wrapContentWidth().padding(16.dp)
+        modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp)
     )
 }

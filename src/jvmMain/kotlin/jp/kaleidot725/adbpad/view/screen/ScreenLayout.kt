@@ -5,10 +5,13 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,14 +23,21 @@ import jp.kaleidot725.adbpad.view.resource.ColorRes
 fun ScreenLayout(
     leftPane: @Composable () -> Unit,
     rightPane: @Composable () -> Unit,
+    notificationArea: @Composable () -> Unit,
+    dialog: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(modifier) {
-        Row {
-            Box(Modifier.background(ColorRes.LEFT_PANE)) { leftPane() }
-            Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, ColorRes.PANE_SPLITTER)))
-            Box(Modifier.background(ColorRes.RIGHT_PANE)) { rightPane() }
+        Column {
+            Row(modifier = Modifier.weight(0.9f, true)) {
+                Box(Modifier.background(ColorRes.LEFT_PANE)) { leftPane() }
+                Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, ColorRes.PANE_SPLITTER)))
+                Box(Modifier.background(ColorRes.RIGHT_PANE)) { rightPane() }
+            }
+            Spacer(Modifier.height(1.dp).fillMaxWidth().border(BorderStroke(1.dp, ColorRes.PANE_SPLITTER)))
+            Box(Modifier.background(ColorRes.NOTIFICATION_AREA)) { notificationArea() }
         }
+        dialog()
     }
 }
 
@@ -40,6 +50,11 @@ private fun ScreenLayout_Preview() {
         },
         rightPane = {
             Box(Modifier.fillMaxSize().background(Color.Blue))
+        },
+        notificationArea = {
+            Box(Modifier.fillMaxWidth().height(50.dp).background(Color.Green))
+        },
+        dialog = {
         },
         modifier = Modifier.fillMaxSize()
     )
@@ -54,6 +69,11 @@ private fun AppTemplateDialog_Preview() {
         },
         rightPane = {
             Box(Modifier.fillMaxSize().background(Color.White))
+        },
+        notificationArea = {
+            Box(Modifier.fillMaxWidth().height(50.dp).background(Color.Green))
+        },
+        dialog = {
         },
         modifier = Modifier.fillMaxSize()
     )
