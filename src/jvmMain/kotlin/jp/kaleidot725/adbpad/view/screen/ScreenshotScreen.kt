@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.page
+package jp.kaleidot725.adbpad.view.screen
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.BorderStroke

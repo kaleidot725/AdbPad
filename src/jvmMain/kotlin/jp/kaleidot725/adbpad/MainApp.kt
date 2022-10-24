@@ -20,12 +20,12 @@ import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Command
 import jp.kaleidot725.adbpad.model.data.Dialog
 import jp.kaleidot725.adbpad.model.data.Menu
-import jp.kaleidot725.adbpad.view.common.menu.MenuScreen
-import jp.kaleidot725.adbpad.view.page.CommandScreen
-import jp.kaleidot725.adbpad.view.page.InputTextScreen
-import jp.kaleidot725.adbpad.view.page.ScreenshotScreen
 import jp.kaleidot725.adbpad.view.resource.AppTheme
+import jp.kaleidot725.adbpad.view.screen.CommandScreen
+import jp.kaleidot725.adbpad.view.screen.InputTextScreen
+import jp.kaleidot725.adbpad.view.screen.MenuScreen
 import jp.kaleidot725.adbpad.view.screen.ScreenLayout
+import jp.kaleidot725.adbpad.view.screen.ScreenshotScreen
 
 @Composable
 fun MainApp(
