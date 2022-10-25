@@ -1,15 +1,15 @@
-package jp.kaleidot725.adbpad.model.usecase
+package jp.kaleidot725.adbpad.model.usecase.command
 
 import com.malinskiy.adam.AndroidDebugBridgeClientFactory
 import jp.kaleidot725.adbpad.model.data.Command
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ExecuteInputTextCommandUseCase {
-    suspend operator fun invoke(serial: String?, text: String): Boolean {
+class ExecuteCommandUseCase {
+    suspend operator fun invoke(serial: String?, command: Command): Boolean {
         return withContext(Dispatchers.IO) {
             val adbClient = AndroidDebugBridgeClientFactory().build()
-            Command.InputText(text).requests.forEach { request ->
+            command.requests.forEach { request ->
                 val result = adbClient.execute(request, serial)
                 if (result.exitCode != 0) return@withContext false
             }

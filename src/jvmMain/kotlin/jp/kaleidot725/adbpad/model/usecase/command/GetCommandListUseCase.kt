@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.model.usecase
+package jp.kaleidot725.adbpad.model.usecase.command
 
 import jp.kaleidot725.adbpad.model.data.Command
 

@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.model.usecase
+package jp.kaleidot725.adbpad.model.usecase.input
 
 import jp.kaleidot725.adbpad.model.utils.SettingUtils
 import kotlinx.coroutines.Dispatchers
