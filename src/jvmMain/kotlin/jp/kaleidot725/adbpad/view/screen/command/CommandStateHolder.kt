@@ -1,8 +1,6 @@
 package jp.kaleidot725.adbpad.view.screen.command
 
 import com.malinskiy.adam.request.device.Device
-import jp.kaleidot725.adbpad.MainState
-import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.model.data.Command
 import jp.kaleidot725.adbpad.model.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.model.usecase.command.GetCommandListUseCase
@@ -21,7 +19,7 @@ import kotlinx.coroutines.launch
 class CommandStateHolder(
     val getCommandListUseCase: GetCommandListUseCase = GetCommandListUseCase(),
     val executeCommandUseCase: ExecuteCommandUseCase = ExecuteCommandUseCase()
-) : StateHolder<CommandState>, MainStateHolder.Syncer {
+) : StateHolder<CommandState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val commands: MutableStateFlow<List<Command>> = MutableStateFlow(emptyList())
     private val selectedDevice: MutableStateFlow<Device?> = MutableStateFlow(null)
@@ -34,10 +32,6 @@ class CommandStateHolder(
 
     override fun setup() {
         commands.value = getCommandListUseCase()
-    }
-
-    override fun sync(state: MainState) {
-        selectedDevice.value = state.selectedDevice
     }
 
     override fun dispose() {
