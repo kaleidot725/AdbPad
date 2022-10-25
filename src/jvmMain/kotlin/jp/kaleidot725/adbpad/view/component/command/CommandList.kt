@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.common.command
+package jp.kaleidot725.adbpad.view.component.command
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background

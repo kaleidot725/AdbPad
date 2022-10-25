@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.common.menu
+package jp.kaleidot725.adbpad.view.component.menu
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
@@ -10,8 +10,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.extension.clickableNoRipple
 import jp.kaleidot725.adbpad.model.data.Menu
+import jp.kaleidot725.adbpad.view.extension.clickableNoRipple
 
 @Composable
 fun MenuList(
