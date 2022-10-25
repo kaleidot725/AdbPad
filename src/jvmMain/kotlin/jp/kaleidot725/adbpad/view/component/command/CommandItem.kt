@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.common.command
+package jp.kaleidot725.adbpad.view.component.command
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Column
@@ -26,8 +26,8 @@ fun CommandItem(
             Text(text = title)
             Text(text = detail, modifier = Modifier.weight(0.9f, true))
             Button(onClick = { onExecute() }, modifier = Modifier.align(Alignment.End)) {
-            Text(text = StringRes.EXECUTE)
-        }
+                Text(text = StringRes.EXECUTE)
+            }
         }
     }
 }

@@ -20,7 +20,6 @@ import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Command
 import jp.kaleidot725.adbpad.model.data.Dialog
 import jp.kaleidot725.adbpad.model.data.Menu
-import jp.kaleidot725.adbpad.state.MainState
 import jp.kaleidot725.adbpad.view.resource.AppTheme
 import jp.kaleidot725.adbpad.view.screen.CommandScreen
 import jp.kaleidot725.adbpad.view.screen.InputTextScreen

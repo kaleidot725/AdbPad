@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.state
+package jp.kaleidot725.adbpad
 
 import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Command

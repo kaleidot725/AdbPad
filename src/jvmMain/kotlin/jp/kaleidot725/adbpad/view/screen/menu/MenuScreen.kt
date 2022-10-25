@@ -14,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Menu
-import jp.kaleidot725.adbpad.view.common.menu.DropDownDeviceMenu
-import jp.kaleidot725.adbpad.view.common.menu.MenuItem
-import jp.kaleidot725.adbpad.view.common.menu.MenuList
+import jp.kaleidot725.adbpad.view.component.menu.DropDownDeviceMenu
+import jp.kaleidot725.adbpad.view.component.menu.MenuItem
+import jp.kaleidot725.adbpad.view.component.menu.MenuList
 import jp.kaleidot725.adbpad.view.extension.clickableNoRipple
 import jp.kaleidot725.adbpad.view.resource.StringRes
 

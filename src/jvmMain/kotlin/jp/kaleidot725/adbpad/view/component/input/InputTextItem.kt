@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.common.input
+package jp.kaleidot725.adbpad.view.component.input
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
