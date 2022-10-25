@@ -26,8 +26,8 @@ fun CommandItem(
             Text(text = title)
             Text(text = detail, modifier = Modifier.weight(0.9f, true))
             Button(onClick = { onExecute() }, modifier = Modifier.align(Alignment.End)) {
-                Text(text = StringRes.EXECUTE)
-            }
+            Text(text = StringRes.EXECUTE)
+        }
         }
     }
 }
