@@ -22,12 +22,8 @@ fun main() = application {
 
         MainApp(
             state = state,
-            onChangeInputText = { stateHolder.updateInputText(it) },
-            onSendInputText = { stateHolder.inputText(it) },
-            onSaveInputText = { stateHolder.saveInputText(it) },
-            onDeleteInputText = { stateHolder.deleteInputText(it) },
-            onTakeScreenshot = { stateHolder.takeScreenShot() },
-            onTakeThemeScreenshot = { stateHolder.takeThemeScreenShot() },
+            onTakeScreenshot = { },
+            onTakeThemeScreenshot = { },
             onShowSettingDialog = { stateHolder.showSettingDialog() },
             onCloseDialog = { stateHolder.closeDialog() }
         )

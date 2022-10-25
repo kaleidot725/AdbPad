@@ -30,15 +30,12 @@ import jp.kaleidot725.adbpad.view.screen.MenuScreen
 import jp.kaleidot725.adbpad.view.screen.ScreenLayout
 import jp.kaleidot725.adbpad.view.screen.ScreenshotScreen
 import jp.kaleidot725.adbpad.view.screen.command.CommandStateHolder
+import jp.kaleidot725.adbpad.view.screen.input.InputTextStateHolder
 import jp.kaleidot725.adbpad.view.screen.menu.MenuStateHolder
 
 @Composable
 fun MainApp(
     state: MainState,
-    onChangeInputText: (String) -> Unit,
-    onSendInputText: (String) -> Unit,
-    onSaveInputText: (String) -> Unit,
-    onDeleteInputText: (String) -> Unit,
     onTakeScreenshot: () -> Unit,
     onTakeThemeScreenshot: () -> Unit,
     onShowSettingDialog: () -> Unit,
@@ -50,6 +47,21 @@ fun MainApp(
         DisposableEffect(menuStateHolder) {
             menuStateHolder.setup()
             onDispose { menuStateHolder.dispose() }
+        }
+
+        val commandStateHolder by remember { mutableStateOf(CommandStateHolder()) }
+        val commandState by commandStateHolder.state.collectAsState()
+
+        DisposableEffect(commandStateHolder) {
+            commandStateHolder.setup()
+            onDispose { commandStateHolder.dispose() }
+        }
+
+        val inputTextStateHolder by remember { mutableStateOf(InputTextStateHolder()) }
+        val inputTextState by inputTextStateHolder.state.collectAsState()
+        DisposableEffect(inputTextStateHolder) {
+            inputTextStateHolder.setup()
+            onDispose { inputTextStateHolder.dispose() }
         }
 
         ScreenLayout(
@@ -71,13 +83,7 @@ fun MainApp(
             rightPane = {
                 when (menuState.selectedMenu) {
                     Menu.Command -> {
-                        val commandStateHolder by remember { mutableStateOf(CommandStateHolder()) }
-                        val commandState by commandStateHolder.state.collectAsState()
 
-                        DisposableEffect(commandStateHolder) {
-                            commandStateHolder.setup()
-                            onDispose { commandStateHolder.dispose() }
-                        }
                         CommandScreen(
                             commands = commandState.commands,
                             onExecute = { command ->
@@ -90,14 +96,24 @@ fun MainApp(
 
                     Menu.InputText -> {
                         InputTextScreen(
-                            inputText = state.userInputText,
-                            onTextChange = onChangeInputText,
-                            inputTexts = state.inputTexts,
-                            onSend = onSendInputText,
-                            canSend = state.canSendUserInputText,
-                            onSave = onSaveInputText,
-                            canSave = state.canSaveUserInputText,
-                            onDelete = onDeleteInputText
+                            inputText = inputTextState.userInputText,
+                            onTextChange = { text ->
+                                inputTextStateHolder.updateInputText(text)
+                            },
+                            inputTexts = inputTextState.inputTexts,
+                            onSend = { text ->
+                                menuState.selectedDevice?.let { device ->
+                                    inputTextStateHolder.sendInputText(device, text)
+                                }
+                            },
+                            canSend = inputTextState.canSendUserInputText,
+                            onSave = { text ->
+                                inputTextStateHolder.saveInputText(text)
+                            },
+                            canSave = inputTextState.canSaveUserInputText,
+                            onDelete = { text ->
+                                inputTextStateHolder.deleteInputText(text)
+                            }
                         )
                     }
 
