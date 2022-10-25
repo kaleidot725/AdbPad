@@ -27,16 +27,12 @@ kotlin {
     sourceSets {
         all {
             dependencies {
-                implementation(libs.kotlin.coroutines)
-                implementation(libs.kotlin.serialization)
-            }
-        }
-        val jvmMain by getting {
-            dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(compose.material)
                 implementation(compose.materialIconsExtended)
                 implementation(libs.adam)
+                implementation(libs.kotlin.coroutines)
+                implementation(libs.kotlin.serialization)
             }
         }
         val jvmTest by getting {

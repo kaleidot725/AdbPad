@@ -13,17 +13,17 @@ import jp.kaleidot725.adbpad.view.resource.StringRes
 fun main() = application {
     Window(title = StringRes.WINDOW_TITLE, onCloseRequest = ::exitApplication) {
         val stateHolder by remember { mutableStateOf(MainStateHolder()) }
+        val state by stateHolder.state.collectAsState()
+
         DisposableEffect(stateHolder) {
             stateHolder.setup()
             onDispose { stateHolder.dispose() }
         }
 
-        val state by stateHolder.state.collectAsState()
         MainApp(
             state = state,
             onSelectDevice = { stateHolder.selectDevice(it) },
             onSelectMenu = { stateHolder.selectMenu(it) },
-            onExecuteCommand = { stateHolder.executeCommand(it) },
             onChangeInputText = { stateHolder.updateInputText(it) },
             onSendInputText = { stateHolder.inputText(it) },
             onSaveInputText = { stateHolder.saveInputText(it) },
