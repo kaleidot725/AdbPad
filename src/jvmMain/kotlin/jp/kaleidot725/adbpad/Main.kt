@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import jp.kaleidot725.adbpad.MainApp
-import jp.kaleidot725.adbpad.MainStateHolder
+import jp.kaleidot725.adbpad.state.MainStateHolder
 import jp.kaleidot725.adbpad.view.resource.StringRes
 
 fun main() = application {
