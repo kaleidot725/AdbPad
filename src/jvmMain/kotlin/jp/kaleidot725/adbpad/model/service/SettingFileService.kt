@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.model.utils
+package jp.kaleidot725.adbpad.model.service
 
 import jp.kaleidot725.adbpad.model.data.OSContext
 import jp.kaleidot725.adbpad.model.data.Setting
@@ -8,7 +8,7 @@ import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.IOException
 
-object SettingUtils {
+object SettingFileService {
     fun save(setting: Setting): Boolean {
         return try {
             createDir()

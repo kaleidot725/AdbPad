@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.model.usecase
+package jp.kaleidot725.adbpad.model.usecase.device
 
 import com.malinskiy.adam.AndroidDebugBridgeClientFactory
 import com.malinskiy.adam.request.device.AsyncDeviceMonitorRequest

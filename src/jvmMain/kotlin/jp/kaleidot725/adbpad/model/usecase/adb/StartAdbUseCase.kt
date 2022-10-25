@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.model.usecase
+package jp.kaleidot725.adbpad.model.usecase.adb
 
 import com.malinskiy.adam.interactor.StartAdbInteractor
 import kotlinx.coroutines.Dispatchers
