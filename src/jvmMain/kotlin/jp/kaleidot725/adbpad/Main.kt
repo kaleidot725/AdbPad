@@ -22,8 +22,6 @@ fun main() = application {
 
         MainApp(
             state = state,
-            onSelectDevice = { stateHolder.selectDevice(it) },
-            onSelectMenu = { stateHolder.selectMenu(it) },
             onChangeInputText = { stateHolder.updateInputText(it) },
             onSendInputText = { stateHolder.inputText(it) },
             onSaveInputText = { stateHolder.saveInputText(it) },

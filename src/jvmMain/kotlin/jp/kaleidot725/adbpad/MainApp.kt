@@ -21,7 +21,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.model.data.Dialog
 import jp.kaleidot725.adbpad.model.data.Menu
 import jp.kaleidot725.adbpad.view.resource.AppTheme
@@ -31,12 +30,11 @@ import jp.kaleidot725.adbpad.view.screen.MenuScreen
 import jp.kaleidot725.adbpad.view.screen.ScreenLayout
 import jp.kaleidot725.adbpad.view.screen.ScreenshotScreen
 import jp.kaleidot725.adbpad.view.screen.command.CommandStateHolder
+import jp.kaleidot725.adbpad.view.screen.menu.MenuStateHolder
 
 @Composable
 fun MainApp(
     state: MainState,
-    onSelectDevice: (Device) -> Unit,
-    onSelectMenu: (Menu) -> Unit,
     onChangeInputText: (String) -> Unit,
     onSendInputText: (String) -> Unit,
     onSaveInputText: (String) -> Unit,
@@ -47,15 +45,22 @@ fun MainApp(
     onCloseDialog: () -> Unit
 ) {
     AppTheme {
+        val menuStateHolder by remember { mutableStateOf(MenuStateHolder()) }
+        val menuState by menuStateHolder.state.collectAsState()
+        DisposableEffect(menuStateHolder) {
+            menuStateHolder.setup()
+            onDispose { menuStateHolder.dispose() }
+        }
+
         ScreenLayout(
             leftPane = {
                 MenuScreen(
-                    devices = state.devices,
-                    selectedDevice = state.selectedDevice,
-                    onSelectDevice = onSelectDevice,
-                    menus = state.menus,
-                    selectedMenu = state.selectedMenu,
-                    onSelectMenu = onSelectMenu,
+                    devices = menuState.devices,
+                    selectedDevice = menuState.selectedDevice,
+                    onSelectDevice = { menuStateHolder.selectDevice(it) },
+                    menus = menuState.menus,
+                    selectedMenu = menuState.selectedMenu,
+                    onSelectMenu = { menuStateHolder.selectMenu(it) },
                     onShowSetting = onShowSettingDialog,
                     modifier = Modifier
                         .width(250.dp)
@@ -64,17 +69,22 @@ fun MainApp(
                 )
             },
             rightPane = {
-                when (state.selectedMenu) {
+                when (menuState.selectedMenu) {
                     Menu.Command -> {
-                        val stateHolder by remember { mutableStateOf(CommandStateHolder()) }
-                        val state by stateHolder.state.collectAsState()
-                        DisposableEffect(stateHolder) {
-                            stateHolder.setup()
-                            onDispose { stateHolder.dispose() }
+                        val commandStateHolder by remember { mutableStateOf(CommandStateHolder()) }
+                        val commandState by commandStateHolder.state.collectAsState()
+
+                        DisposableEffect(commandStateHolder) {
+                            commandStateHolder.setup()
+                            onDispose { commandStateHolder.dispose() }
                         }
                         CommandScreen(
-                            commands = state.commands,
-                            onExecute = { stateHolder.executeCommand(it) }
+                            commands = commandState.commands,
+                            onExecute = { command ->
+                                menuState.selectedDevice?.let { device ->
+                                    commandStateHolder.executeCommand(device, command)
+                                }
+                            }
                         )
                     }
 

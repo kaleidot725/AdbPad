@@ -44,10 +44,9 @@ class CommandStateHolder(
         coroutineScope.cancel()
     }
 
-    fun executeCommand(command: Command) {
+    fun executeCommand(device: Device, command: Command) {
         coroutineScope.launch {
-            val serial = state.value.selectedDevice?.serial
-            executeCommandUseCase(serial, command)
+            executeCommandUseCase(device.serial, command)
         }
     }
 }
