@@ -28,8 +28,8 @@ fun CommandItem(
             Text(text = title)
             Text(text = detail, modifier = Modifier.weight(0.9f, true))
             Button(onClick = { onExecute() }, modifier = Modifier.align(Alignment.End)) {
-                if (isRunning) RunningIndicator() else Text(text = StringRes.EXECUTE)
-            }
+            if (isRunning) RunningIndicator() else Text(text = StringRes.EXECUTE)
+        }
         }
     }
 }
@@ -57,4 +57,3 @@ private fun CommandItem_NotRunning_Preview() {
         modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp)
     )
 }
-
