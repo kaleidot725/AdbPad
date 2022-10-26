@@ -37,6 +37,7 @@ fun CommandList(
                     CommandItem(
                         title = command.title,
                         detail = command.details,
+                        isRunning = command.isRunning,
                         onExecute = { onExecute(command) },
                         modifier = Modifier.height(200.dp).fillMaxWidth().padding(2.dp)
                     )
