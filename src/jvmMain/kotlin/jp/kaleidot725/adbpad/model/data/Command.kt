@@ -2,118 +2,122 @@ package jp.kaleidot725.adbpad.model.data
 
 import com.malinskiy.adam.request.shell.v1.ShellCommandRequest
 
-sealed class Command(
-    val title: String,
-    val details: String,
+interface Command {
+    val title: String
+    val details: String
+    val isRunning: Boolean
     val requests: List<ShellCommandRequest>
-) {
-    object LayoutBorderOn : Command(
-        "レイアウト境界表示 ON",
-        "端末のUI要素のレイアウト境界表示をONにする",
-        listOf(
+
+    data class LayoutBorderOn(override val isRunning: Boolean = false) : Command {
+        override val title: String = "レイアウト境界表示 ON"
+        override val details: String = "端末のUI要素のレイアウト境界表示をONにする"
+        override val requests: List<ShellCommandRequest> = listOf(
             ShellCommandRequest("setprop debug.layout true"),
             ShellCommandRequest("service call activity 1599295570")
         )
-    )
+    }
 
-    object LayoutBorderOff : Command(
-        "レイアウト境界表示 OFF",
-        "端末のUI要素のレイアウト境界表示をOFFにする",
-        listOf(
+    data class LayoutBorderOff(override val isRunning: Boolean = false) : Command {
+        override val title: String = "レイアウト境界表示 OFF"
+        override val details: String = "端末のUI要素のレイアウト境界表示をOFFにする"
+        override val requests: List<ShellCommandRequest> = listOf(
             ShellCommandRequest("setprop debug.layout false"),
             ShellCommandRequest("service call activity 1599295570")
         )
-    )
+    }
 
-    object TapEffectOn : Command(
-        "タップ表示 ON",
-        "端末の画面をタップした位置の表示をONにする",
-        listOf(
+    data class TapEffectOn(override val isRunning: Boolean = false) : Command {
+        override val title: String = "タップ表示 ON"
+        override val details: String = "端末の画面をタップした位置の表示をONにする"
+        override val requests: List<ShellCommandRequest> = listOf(
             ShellCommandRequest("settings put system show_touches 1"),
         )
-    )
+    }
 
-    object TapEffectOff : Command(
-        "タップ表示 OFF",
-        "端末の画面をタップした位置の表示をOFFにする",
-        listOf(
+    data class TapEffectOff(override val isRunning: Boolean = false) : Command {
+        override val title: String = "タップ表示 OFF"
+        override val details: String = "端末の画面をタップした位置の表示をOFFにする"
+        override val requests: List<ShellCommandRequest> = listOf(
             ShellCommandRequest("settings put system show_touches 0"),
         )
-    )
+    }
 
-    object SleepModeOff : Command(
-        "スリープモードにしない ON",
-        "端末をスリープモードにしないようにする",
-        listOf(
+    data class SleepModeOff(override val isRunning: Boolean = false) : Command {
+        override val title: String = "スリープモードにしない ON"
+        override val details: String = "端末をスリープモードにしないようにする"
+        override val requests: List<ShellCommandRequest> = listOf(
             ShellCommandRequest("setting put global stay_on_while_plugged_in 7")
         )
-    )
+    }
 
-    object SleepModeOn : Command(
-        "スリープモードにしない OFF",
-        "端末をスリープモードにするようにする",
-        listOf(
+    data class SleepModeOn(override val isRunning: Boolean = false) : Command {
+        override val title: String = "スリープモードにしない OFF"
+        override val details: String = "端末をスリープモードにするようにする"
+        override val requests: List<ShellCommandRequest> = listOf(
             ShellCommandRequest("setting put global stay_on_while_plugged_in ０")
         )
-    )
+    }
 
-    object DarkThemeOn : Command(
-        "ダークテーマON",
-        "端末のダークテーマ設定をONにします",
-        listOf(ShellCommandRequest("cmd uimode night yes"))
-    )
+    data class DarkThemeOn(override val isRunning: Boolean = false) : Command {
+        override val title: String = "ダークテーマON"
+        override val details: String = "端末のダークテーマ設定をONにします"
+        override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("cmd uimode night yes"))
+    }
 
-    object DarkThemeOff : Command(
-        "ダークテーマOFF",
-        "端末のダークテーマ設定をOFFにします",
-        listOf(ShellCommandRequest("cmd uimode night no"))
-    )
+    data class DarkThemeOff(override val isRunning: Boolean = false) : Command {
+        override val title: String = "ダークテーマOFF"
+        override val details: String = "端末のダークテーマ設定をOFFにします"
+        override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("cmd uimode night no"))
+    }
 
-    object WifiOn : Command(
-        "Wi-Fi ON",
-        "端末のWi-Fi設定をONにします",
-        listOf(ShellCommandRequest("svc wifi enable"))
-    )
+    data class WifiOn(override val isRunning: Boolean = false) : Command {
+        override val title: String = "Wi-Fi ON"
+        override val details: String = "端末のWi-Fi設定をONにします"
+        override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("svc wifi enable"))
+    }
 
-    object WifiOff : Command(
-        "Wi-Fi OFF",
-        "端末のWi-Fi設定をOFFにします",
-        listOf(ShellCommandRequest("svc wifi disable"))
-    )
+    data class WifiOff(override val isRunning: Boolean = false) : Command {
+        override val title: String = "Wi-Fi OFF"
+        override val details: String = "端末のWi-Fi設定をOFFにします"
+        override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("svc wifi disable"))
+    }
 
-    object DataOn : Command(
-        "データ通信 ON",
-        "端末のデータ通信設定をONにします",
-        listOf(ShellCommandRequest("svc data enable"))
-    )
+    data class DataOn(override val isRunning: Boolean = false) : Command {
+        override val title: String = "データ通信 ON"
+        override val details: String = "端末のデータ通信設定をONにします"
+        override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("svc data enable"))
+    }
 
-    object DataOff : Command(
-        "データ通信 OFF",
-        "端末のデータ通信設定をOFFにします",
-        listOf(ShellCommandRequest("svc data disable"))
-    )
+    data class DataOff(override val isRunning: Boolean = false) : Command {
+        override val title: String = "データ通信 OFF"
+        override val details: String = "端末のデータ通信設定をOFFにします"
+        override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("svc data disable"))
+    }
 
-    data class InputText(private val text: String) : Command(
-        "テキスト入力",
-        "入力したテキストを端末に送信します",
-        listOf(ShellCommandRequest("input text $text"))
-    )
+    data class InputText(
+        private val text: String,
+        override val isRunning: Boolean = false,
+    ) : Command {
+        override val title: String = "テキスト入力"
+        override val details: String = "入力したテキストを端末に送信します"
+        override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("input text $text"))
+    }
 
-    object WifiAndDataOn : Command(
-        "Wi-Fi＆データ通信 ON",
-        "端末のWi-Fi設定とデータ通信設定の両方をONにします",
-        listOf(
+    data class WifiAndDataOn(override val isRunning: Boolean = false) : Command {
+        override val title: String = "Wi-Fi＆データ通信 ON"
+        override val details: String = "端末のWi-Fi設定とデータ通信設定の両方をONにします"
+        override val requests: List<ShellCommandRequest> = listOf(
             ShellCommandRequest("svc wifi enable"),
             ShellCommandRequest("svc data enable")
         )
-    )
+    }
 
-    object WifiAndDataOff : Command(
-        "Wi-Fi&データ通信 OFF",
-        "端末のWi-Fi設定とデータ通信設定の両方をOFFにします",
-        listOf(
+    data class WifiAndDataOff(override val isRunning: Boolean = false) : Command {
+        override val title: String = "Wi-Fi&データ通信 OFF"
+        override val details: String = "端末のWi-Fi設定とデータ通信設定の両方をOFFにします"
+        override val requests: List<ShellCommandRequest> = listOf(
             ShellCommandRequest("svc wifi disable"),
             ShellCommandRequest("svc data disable")
         )
-    )
+    }
 }

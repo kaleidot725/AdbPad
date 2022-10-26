@@ -37,6 +37,7 @@ fun CommandList(
                     CommandItem(
                         title = command.title,
                         detail = command.details,
+                        isRunning = command.isRunning,
                         onExecute = { onExecute(command) },
                         modifier = Modifier.height(200.dp).fillMaxWidth().padding(2.dp)
                     )
@@ -56,7 +57,7 @@ fun CommandList(
 private fun CommandList_Preview() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         CommandList(
-            commands = listOf(Command.DarkThemeOn, Command.DarkThemeOff, Command.WifiOn),
+            commands = listOf(Command.DarkThemeOn(), Command.DarkThemeOff(), Command.WifiOn()),
             onExecute = {},
             modifier = Modifier.fillMaxWidth().weight(0.5f)
         )

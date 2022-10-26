@@ -28,7 +28,7 @@ fun CommandScreen(
 @Composable
 private fun CommandScreen_Preview() {
     CommandScreen(
-        commands = listOf(Command.DarkThemeOn, Command.DarkThemeOff, Command.WifiOn),
+        commands = listOf(Command.DarkThemeOn(), Command.DarkThemeOff(), Command.WifiOn()),
         onExecute = {},
     )
 }

@@ -16,7 +16,7 @@ class TakeThemeScreenshotUseCase {
             val adb = AndroidDebugBridgeClientFactory().build()
             val adapter = RawImageScreenCaptureAdapter()
 
-            Command.DarkThemeOn.requests.forEach {
+            Command.DarkThemeOn().requests.forEach {
                 val result = adb.execute(request = it, serial = serial)
                 if (result.exitCode != 0) return@withContext null
             }
@@ -26,7 +26,7 @@ class TakeThemeScreenshotUseCase {
             val darkImagePath = osContext.directory + FILE_NAME1
             if (!ImageIO.write(darkImage, EXTENSION_NAME, File(darkImagePath))) return@withContext null
 
-            Command.DarkThemeOff.requests.forEach {
+            Command.DarkThemeOff().requests.forEach {
                 val result = adb.execute(request = it, serial = serial)
                 if (result.exitCode != 0) return@withContext null
             }

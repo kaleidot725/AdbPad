@@ -75,7 +75,6 @@ fun main() = application {
                 rightPane = {
                     when (menuState.selectedMenu) {
                         Menu.Command -> {
-
                             CommandScreen(
                                 commands = commandState.commands,
                                 onExecute = { command ->
