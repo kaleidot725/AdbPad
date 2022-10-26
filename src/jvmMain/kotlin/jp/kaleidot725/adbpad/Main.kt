@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.model.data.Dialog
 import jp.kaleidot725.adbpad.model.data.Menu
 import jp.kaleidot725.adbpad.view.resource.AppTheme
@@ -31,38 +32,28 @@ import jp.kaleidot725.adbpad.view.screen.InputTextScreen
 import jp.kaleidot725.adbpad.view.screen.MenuScreen
 import jp.kaleidot725.adbpad.view.screen.ScreenLayout
 import jp.kaleidot725.adbpad.view.screen.ScreenshotScreen
-import jp.kaleidot725.adbpad.view.screen.command.CommandStateHolder
-import jp.kaleidot725.adbpad.view.screen.input.InputTextStateHolder
-import jp.kaleidot725.adbpad.view.screen.menu.MenuStateHolder
-import jp.kaleidot725.adbpad.view.screen.screenshot.ScreenshotStateHolder
 
 fun main() = application {
     Window(title = StringRes.WINDOW_TITLE, onCloseRequest = ::exitApplication) {
         AppTheme {
             var dialog by remember { mutableStateOf<Dialog?>(null) }
-            val menuStateHolder by remember { mutableStateOf(MenuStateHolder()) }
+            val mainStateHolder by remember { mutableStateOf(MainStateHolder()) }
+    
+            val menuStateHolder = mainStateHolder.menuStateHolder
             val menuState by menuStateHolder.state.collectAsState()
-            DisposableEffect(menuStateHolder) {
-                menuStateHolder.setup()
-                onDispose { menuStateHolder.dispose() }
-            }
-            val commandStateHolder by remember { mutableStateOf(CommandStateHolder()) }
+
+            val commandStateHolder = mainStateHolder.commandStateHolder
             val commandState by commandStateHolder.state.collectAsState()
-            DisposableEffect(commandStateHolder) {
-                commandStateHolder.setup()
-                onDispose { commandStateHolder.dispose() }
-            }
-            val inputTextStateHolder by remember { mutableStateOf(InputTextStateHolder()) }
+
+            val inputTextStateHolder = mainStateHolder.inputTextStateHolder
             val inputTextState by inputTextStateHolder.state.collectAsState()
-            DisposableEffect(inputTextStateHolder) {
-                inputTextStateHolder.setup()
-                onDispose { inputTextStateHolder.dispose() }
-            }
-            val screenshotStateHolder by remember { mutableStateOf(ScreenshotStateHolder()) }
-            val screenshotState by screenshotStateHolder.state.collectAsState()
-            DisposableEffect(Unit) {
-                screenshotStateHolder.setup()
-                onDispose { screenshotStateHolder.dispose() }
+
+            val screenshotStateHolder = mainStateHolder.screenshotStateHolder
+            val screenshotState by mainStateHolder.screenshotStateHolder.state.collectAsState()
+
+            DisposableEffect(mainStateHolder) {
+                mainStateHolder.setup()
+                onDispose { mainStateHolder.dispose() }
             }
 
             ScreenLayout(
