@@ -38,7 +38,7 @@ fun main() = application {
         AppTheme {
             var dialog by remember { mutableStateOf<Dialog?>(null) }
             val mainStateHolder by remember { mutableStateOf(MainStateHolder()) }
-    
+
             val menuStateHolder = mainStateHolder.menuStateHolder
             val menuState by menuStateHolder.state.collectAsState()
 

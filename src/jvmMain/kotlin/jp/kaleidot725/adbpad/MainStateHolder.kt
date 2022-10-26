@@ -13,7 +13,7 @@ class MainStateHolder : StateHolder<Unit> {
     val commandStateHolder = CommandStateHolder()
     val inputTextStateHolder = InputTextStateHolder()
     val screenshotStateHolder = ScreenshotStateHolder()
-    
+
     override val state: StateFlow<Unit> = MutableStateFlow(Unit)
     override fun setup() {
         menuStateHolder.setup()
