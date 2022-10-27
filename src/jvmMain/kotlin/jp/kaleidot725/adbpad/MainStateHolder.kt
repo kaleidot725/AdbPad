@@ -1,31 +1,34 @@
 package jp.kaleidot725.adbpad
 
-import jp.kaleidot725.adbpad.view.common.StateHolder
-import jp.kaleidot725.adbpad.view.screen.command.CommandStateHolder
-import jp.kaleidot725.adbpad.view.screen.input.InputTextStateHolder
-import jp.kaleidot725.adbpad.view.screen.menu.MenuStateHolder
-import jp.kaleidot725.adbpad.view.screen.screenshot.ScreenshotStateHolder
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import jp.kaleidot725.adbpad.model.data.Event
+import jp.kaleidot725.adbpad.view.common.ParentStateHolder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
-class MainStateHolder : StateHolder<Unit> {
-    val menuStateHolder = MenuStateHolder()
-    val commandStateHolder = CommandStateHolder()
-    val inputTextStateHolder = InputTextStateHolder()
-    val screenshotStateHolder = ScreenshotStateHolder()
+class MainStateHolder : ParentStateHolder {
+    private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
+    val state: MainState = MainState()
 
-    override val state: StateFlow<Unit> = MutableStateFlow(Unit)
+    private val _event: MutableSharedFlow<Event> = MutableSharedFlow()
+    val event: SharedFlow<Event> = _event
+
     override fun setup() {
-        menuStateHolder.setup()
-        commandStateHolder.setup()
-        inputTextStateHolder.setup()
-        screenshotStateHolder.setup()
+        state.children.forEach { it.setup() }
+        state.childrenEvent.forEach { flow ->
+            coroutineScope.launch {
+                flow.collectLatest {
+                    _event.emit(it)
+                }
+            }
+        }
     }
 
     override fun dispose() {
-        menuStateHolder.dispose()
-        commandStateHolder.dispose()
-        inputTextStateHolder.dispose()
-        screenshotStateHolder.dispose()
+        state.children.forEach { it.dispose() }
     }
 }

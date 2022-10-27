@@ -24,6 +24,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.model.data.Dialog
+import jp.kaleidot725.adbpad.model.data.Event
 import jp.kaleidot725.adbpad.model.data.Menu
 import jp.kaleidot725.adbpad.view.resource.AppTheme
 import jp.kaleidot725.adbpad.view.resource.StringRes
@@ -38,18 +39,19 @@ fun main() = application {
         AppTheme {
             var dialog by remember { mutableStateOf<Dialog?>(null) }
             val mainStateHolder by remember { mutableStateOf(MainStateHolder()) }
+            val event by mainStateHolder.event.collectAsState(Event.NULL_EVENT)
 
-            val menuStateHolder = mainStateHolder.menuStateHolder
+            val menuStateHolder = mainStateHolder.state.menuStateHolder
             val menuState by menuStateHolder.state.collectAsState()
 
-            val commandStateHolder = mainStateHolder.commandStateHolder
+            val commandStateHolder = mainStateHolder.state.commandStateHolder
             val commandState by commandStateHolder.state.collectAsState()
 
-            val inputTextStateHolder = mainStateHolder.inputTextStateHolder
+            val inputTextStateHolder = mainStateHolder.state.inputTextStateHolder
             val inputTextState by inputTextStateHolder.state.collectAsState()
 
-            val screenshotStateHolder = mainStateHolder.screenshotStateHolder
-            val screenshotState by mainStateHolder.screenshotStateHolder.state.collectAsState()
+            val screenshotStateHolder = mainStateHolder.state.screenshotStateHolder
+            val screenshotState by screenshotStateHolder.state.collectAsState()
 
             DisposableEffect(mainStateHolder) {
                 mainStateHolder.setup()
@@ -130,7 +132,7 @@ fun main() = application {
                 },
                 notificationArea = {
                     Box(Modifier.fillMaxWidth().height(25.dp).padding(horizontal = 8.dp, vertical = 4.dp)) {
-                        Text("Sample text", style = MaterialTheme.typography.caption)
+                        Text(event.message, style = MaterialTheme.typography.caption)
                     }
                 },
                 dialog = {
