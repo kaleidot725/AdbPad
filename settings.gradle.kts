@@ -8,8 +8,9 @@ pluginManagement {
 
     plugins {
         kotlin("multiplatform").version(extra["kotlin.version"] as String)
-        id("org.jetbrains.compose").version(extra["compose.version"] as String)
+        id("com.google.devtools.ksp").version(extra["kotlin.ksp"] as String)
         kotlin("plugin.serialization").version(extra["kotlin.version"] as String)
+        id("org.jetbrains.compose").version(extra["compose.version"] as String)
         id("org.jlleitschuh.gradle.ktlint").version(extra["library.ktlint.plugin"] as String)
     }
 }
@@ -31,6 +32,12 @@ dependencyResolutionManagement {
             library("kotlin-serialization", "org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVer")
             val junitVer = extra["library.junit"] as String
             library("junit5", "org.junit.jupiter:junit-jupiter:$junitVer")
+            val koin = extra["library.koin"] as String
+            library("koin", "io.insert-koin:koin-core:$koin")
+            val koinAnnotation = extra["library.koin_annotation"] as String
+            library("koin.annotation", "io.insert-koin:koin-annotations:$koinAnnotation")
+            val koinKspCompiler = extra["kotlin.ksp"] as String
+            library("koin.ksp", "io.insert-koin:koin-ksp-compiler:$koinKspCompiler")
         }
     }
 }

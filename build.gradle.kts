@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.compose")
     kotlin("plugin.serialization")
     id("org.jlleitschuh.gradle.ktlint")
+    id("com.google.devtools.ksp")
 }
 
 group = "jp.kaleidot725"
@@ -16,6 +17,18 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 }
 
+// KSP Setup for koin
+// https://kotlinlang.org/docs/ksp-multiplatform.html#compilation-and-processing
+sourceSets.all {
+    java.srcDirs("build/generated/ksp/main/kotlin")
+}
+
+// KSP Setup for koin
+// https://kotlinlang.org/docs/ksp-multiplatform.html#compilation-and-processing
+dependencies {
+    add("kspCommonMainMetadata", libs.koin.annotation)
+}
+
 kotlin {
     jvm {
         compilations.all {
@@ -23,9 +36,8 @@ kotlin {
         }
         withJava()
     }
-
     sourceSets {
-        all {
+        val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(compose.material)
@@ -33,6 +45,8 @@ kotlin {
                 implementation(libs.adam)
                 implementation(libs.kotlin.coroutines)
                 implementation(libs.kotlin.serialization)
+                implementation(libs.koin)
+                implementation(libs.koin.annotation)
             }
         }
         val jvmTest by getting {
