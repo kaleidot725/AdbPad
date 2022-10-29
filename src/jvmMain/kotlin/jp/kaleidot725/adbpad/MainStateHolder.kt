@@ -1,6 +1,6 @@
 package jp.kaleidot725.adbpad
 
-import jp.kaleidot725.adbpad.model.data.Event
+import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.view.common.ParentStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

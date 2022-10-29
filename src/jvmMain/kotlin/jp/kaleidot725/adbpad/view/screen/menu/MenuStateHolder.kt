@@ -1,11 +1,11 @@
 package jp.kaleidot725.adbpad.view.screen.menu
 
 import com.malinskiy.adam.request.device.Device
-import jp.kaleidot725.adbpad.model.data.Event
-import jp.kaleidot725.adbpad.model.data.Menu
-import jp.kaleidot725.adbpad.model.usecase.adb.StartAdbUseCase
-import jp.kaleidot725.adbpad.model.usecase.device.GetDevicesFlowUseCase
-import jp.kaleidot725.adbpad.model.usecase.menu.GetMenuListUseCase
+import jp.kaleidot725.adbpad.domain.model.Event
+import jp.kaleidot725.adbpad.domain.model.Menu
+import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
+import jp.kaleidot725.adbpad.domain.usecase.device.GetDevicesFlowUseCase
+import jp.kaleidot725.adbpad.domain.usecase.menu.GetMenuListUseCase
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

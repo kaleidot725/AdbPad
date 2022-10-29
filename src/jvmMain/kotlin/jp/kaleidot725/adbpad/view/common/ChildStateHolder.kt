@@ -1,6 +1,6 @@
 package jp.kaleidot725.adbpad.view.common
 
-import jp.kaleidot725.adbpad.model.data.Event
+import jp.kaleidot725.adbpad.domain.model.Event
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 
