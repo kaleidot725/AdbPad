@@ -1,11 +1,11 @@
 package jp.kaleidot725.adbpad.view.screen.command
 
 import com.malinskiy.adam.request.device.Device
-import jp.kaleidot725.adbpad.model.data.Command
-import jp.kaleidot725.adbpad.model.data.Event
-import jp.kaleidot725.adbpad.model.usecase.command.ExecuteCommandUseCase
-import jp.kaleidot725.adbpad.model.usecase.command.GetNotRunningCommandList
-import jp.kaleidot725.adbpad.model.usecase.command.GetRunningCommandList
+import jp.kaleidot725.adbpad.domain.model.Command
+import jp.kaleidot725.adbpad.domain.model.Event
+import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
+import jp.kaleidot725.adbpad.domain.usecase.command.GetNotRunningCommandList
+import jp.kaleidot725.adbpad.domain.usecase.command.GetRunningCommandList
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

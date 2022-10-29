@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.malinskiy.adam.request.device.Device
 import com.malinskiy.adam.request.device.DeviceState
-import jp.kaleidot725.adbpad.view.resource.StringRes
+import jp.kaleidot725.adbpad.view.common.resource.StringRes
 
 @Composable
 fun DeviceSelector(

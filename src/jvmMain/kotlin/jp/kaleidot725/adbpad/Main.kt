@@ -23,11 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import jp.kaleidot725.adbpad.MainStateHolder
-import jp.kaleidot725.adbpad.model.data.Dialog
-import jp.kaleidot725.adbpad.model.data.Event
-import jp.kaleidot725.adbpad.model.data.Menu
-import jp.kaleidot725.adbpad.view.resource.AppTheme
-import jp.kaleidot725.adbpad.view.resource.StringRes
+import jp.kaleidot725.adbpad.domain.model.Dialog
+import jp.kaleidot725.adbpad.domain.model.Event
+import jp.kaleidot725.adbpad.domain.model.Menu
+import jp.kaleidot725.adbpad.view.common.resource.AppTheme
+import jp.kaleidot725.adbpad.view.common.resource.StringRes
 import jp.kaleidot725.adbpad.view.screen.CommandScreen
 import jp.kaleidot725.adbpad.view.screen.InputTextScreen
 import jp.kaleidot725.adbpad.view.screen.MenuScreen

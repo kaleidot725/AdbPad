@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.view.resource.StringRes
+import jp.kaleidot725.adbpad.view.common.resource.StringRes
 
 @Composable
 fun ScreenshotMenu(

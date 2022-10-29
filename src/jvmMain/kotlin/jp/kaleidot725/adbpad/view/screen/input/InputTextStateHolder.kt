@@ -1,11 +1,11 @@
 package jp.kaleidot725.adbpad.view.screen.input
 
 import com.malinskiy.adam.request.device.Device
-import jp.kaleidot725.adbpad.model.data.Event
-import jp.kaleidot725.adbpad.model.usecase.input.AddInputTextUseCase
-import jp.kaleidot725.adbpad.model.usecase.input.DeleteInputTextUseCase
-import jp.kaleidot725.adbpad.model.usecase.input.ExecuteInputTextCommandUseCase
-import jp.kaleidot725.adbpad.model.usecase.input.GetInputTextUseCase
+import jp.kaleidot725.adbpad.domain.model.Event
+import jp.kaleidot725.adbpad.domain.usecase.input.AddInputTextUseCase
+import jp.kaleidot725.adbpad.domain.usecase.input.DeleteInputTextUseCase
+import jp.kaleidot725.adbpad.domain.usecase.input.ExecuteInputTextCommandUseCase
+import jp.kaleidot725.adbpad.domain.usecase.input.GetInputTextUseCase
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

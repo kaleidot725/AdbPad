@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.view.common.resource.StringRes
 import jp.kaleidot725.adbpad.view.component.RunningIndicator
-import jp.kaleidot725.adbpad.view.resource.StringRes
 
 @Composable
 fun CommandItem(

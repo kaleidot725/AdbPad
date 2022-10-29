@@ -18,8 +18,8 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import com.malinskiy.adam.request.device.Device
 import com.malinskiy.adam.request.device.DeviceState
+import jp.kaleidot725.adbpad.view.common.extension.clickableNoRipple
 import jp.kaleidot725.adbpad.view.component.device.DeviceSelector
-import jp.kaleidot725.adbpad.view.extension.clickableNoRipple
 
 @Composable
 fun DropDownDeviceMenu(

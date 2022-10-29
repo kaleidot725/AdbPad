@@ -1,6 +1,6 @@
 package jp.kaleidot725.adbpad
 
-import jp.kaleidot725.adbpad.model.data.Event
+import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
 import jp.kaleidot725.adbpad.view.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.view.screen.input.InputTextStateHolder
