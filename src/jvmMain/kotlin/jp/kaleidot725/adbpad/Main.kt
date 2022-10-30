@@ -12,6 +12,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,29 +37,33 @@ import jp.kaleidot725.adbpad.view.screen.InputTextScreen
 import jp.kaleidot725.adbpad.view.screen.MenuScreen
 import jp.kaleidot725.adbpad.view.screen.ScreenLayout
 import jp.kaleidot725.adbpad.view.screen.ScreenshotScreen
+import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
 
 fun main() = application {
-    startKoin {
-        modules(repositoryModule, domainModule, stateHolderModule)
+    LaunchedEffect(Unit) {
+        startKoin {
+            modules(repositoryModule, domainModule, stateHolderModule)
+        }
     }
 
     Window(title = StringRes.WINDOW_TITLE, onCloseRequest = ::exitApplication) {
+
         AppTheme {
             var dialog by remember { mutableStateOf<Dialog?>(null) }
-            val mainStateHolder by remember { mutableStateOf(MainStateHolder()) }
+            val mainStateHolder by remember { mutableStateOf(GlobalContext.get().get<MainStateHolder>()) }
             val event by mainStateHolder.event.collectAsState(Event.NULL_EVENT)
 
-            val menuStateHolder = mainStateHolder.state.menuStateHolder
+            val menuStateHolder = mainStateHolder.menuStateHolder
             val menuState by menuStateHolder.state.collectAsState()
 
-            val commandStateHolder = mainStateHolder.state.commandStateHolder
+            val commandStateHolder = mainStateHolder.commandStateHolder
             val commandState by commandStateHolder.state.collectAsState()
 
-            val inputTextStateHolder = mainStateHolder.state.inputTextStateHolder
+            val inputTextStateHolder = mainStateHolder.inputTextStateHolder
             val inputTextState by inputTextStateHolder.state.collectAsState()
 
-            val screenshotStateHolder = mainStateHolder.state.screenshotStateHolder
+            val screenshotStateHolder = mainStateHolder.screenshotStateHolder
             val screenshotState by screenshotStateHolder.state.collectAsState()
 
             DisposableEffect(mainStateHolder) {

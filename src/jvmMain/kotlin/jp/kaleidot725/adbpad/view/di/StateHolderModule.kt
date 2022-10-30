@@ -1,5 +1,6 @@
 package jp.kaleidot725.adbpad.view.di
 
+import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.view.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.view.screen.input.InputTextStateHolder
 import jp.kaleidot725.adbpad.view.screen.menu.MenuStateHolder
@@ -36,6 +37,15 @@ val stateHolderModule = module {
         ScreenshotStateHolder(
             takeScreenshotUseCase = get(),
             takeThemeScreenshotUseCase = get()
+        )
+    }
+
+    factory {
+        MainStateHolder(
+            menuStateHolder = get(),
+            commandStateHolder = get(),
+            inputTextStateHolder = get(),
+            screenshotStateHolder = get()
         )
     }
 }
