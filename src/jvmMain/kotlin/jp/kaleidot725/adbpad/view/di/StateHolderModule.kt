@@ -1,21 +1,10 @@
-package jp.kaleidot725.adbpad
+package jp.kaleidot725.adbpad.view.di
 
-import jp.kaleidot725.adbpad.repository.DeviceRepositoryImpl
 import jp.kaleidot725.adbpad.view.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.view.screen.input.InputTextStateHolder
 import jp.kaleidot725.adbpad.view.screen.menu.MenuStateHolder
 import jp.kaleidot725.adbpad.view.screen.screenshot.ScreenshotStateHolder
 import org.koin.dsl.module
-
-val repositoryModule = module {
-    single {
-        DeviceRepositoryImpl()
-    }
-}
-
-val domainModule = module {
-    
-}
 
 val stateHolderModule = module {
     factory {
