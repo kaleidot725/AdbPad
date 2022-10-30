@@ -29,11 +29,11 @@ fun CommandItem(
             Text(text = title)
             Text(text = detail, modifier = Modifier.weight(0.9f, true))
             Button(onClick = { onExecute() }, enabled = canExecute, modifier = Modifier.align(Alignment.End)) {
-                when {
-                    isRunning -> RunningIndicator()
-                    else -> Text(text = StringRes.EXECUTE)
-                }
+            when {
+                isRunning -> RunningIndicator()
+                else -> Text(text = StringRes.EXECUTE)
             }
+        }
         }
     }
 }
