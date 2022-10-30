@@ -20,6 +20,7 @@ fun CommandItem(
     title: String,
     detail: String,
     isRunning: Boolean,
+    canExecute: Boolean,
     onExecute: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -27,8 +28,11 @@ fun CommandItem(
         Column(modifier = Modifier.padding(8.dp)) {
             Text(text = title)
             Text(text = detail, modifier = Modifier.weight(0.9f, true))
-            Button(onClick = { onExecute() }, modifier = Modifier.align(Alignment.End)) {
-            if (isRunning) RunningIndicator() else Text(text = StringRes.EXECUTE)
+            Button(onClick = { onExecute() }, enabled = canExecute, modifier = Modifier.align(Alignment.End)) {
+            when {
+                isRunning -> RunningIndicator()
+                else -> Text(text = StringRes.EXECUTE)
+            }
         }
         }
     }
@@ -41,6 +45,7 @@ private fun CommandItem_Running_Preview() {
         title = "ダークテーマON",
         detail = "端末のダークテーマ設定をONにします",
         isRunning = true,
+        canExecute = true,
         onExecute = {},
         modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp)
     )
@@ -53,6 +58,20 @@ private fun CommandItem_NotRunning_Preview() {
         title = "ダークテーマON",
         detail = "端末のダークテーマ設定をONにします",
         isRunning = false,
+        canExecute = true,
+        onExecute = {},
+        modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp)
+    )
+}
+
+@Preview
+@Composable
+private fun CommandItem_NotExecute_Preview() {
+    CommandItem(
+        title = "ダークテーマON",
+        detail = "端末のダークテーマ設定をONにします",
+        isRunning = false,
+        canExecute = false,
         onExecute = {},
         modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp)
     )

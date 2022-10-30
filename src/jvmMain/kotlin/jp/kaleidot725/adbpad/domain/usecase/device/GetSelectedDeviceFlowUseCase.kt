@@ -4,10 +4,10 @@ import jp.kaleidot725.adbpad.domain.model.Device
 import jp.kaleidot725.adbpad.domain.repository.DeviceRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetDevicesFlowUseCase(
+class GetSelectedDeviceFlowUseCase(
     private val deviceRepository: DeviceRepository
 ) {
-    operator fun invoke(): Flow<List<Device>> {
-        return deviceRepository.getDeviceFlow()
+    operator fun invoke(): Flow<Device?> {
+        return deviceRepository.getSelectedDeviceFlow()
     }
 }

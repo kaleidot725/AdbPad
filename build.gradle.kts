@@ -23,7 +23,6 @@ kotlin {
         }
         withJava()
     }
-
     sourceSets {
         all {
             dependencies {
@@ -33,6 +32,18 @@ kotlin {
                 implementation(libs.adam)
                 implementation(libs.kotlin.coroutines)
                 implementation(libs.kotlin.serialization)
+                implementation(libs.koin)
+            }
+        }
+        val jvmMain by getting {
+            dependencies {
+                implementation(compose.desktop.currentOs)
+                implementation(compose.material)
+                implementation(compose.materialIconsExtended)
+                implementation(libs.adam)
+                implementation(libs.kotlin.coroutines)
+                implementation(libs.kotlin.serialization)
+                implementation(libs.koin)
             }
         }
         val jvmTest by getting {

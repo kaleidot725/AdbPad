@@ -8,7 +8,7 @@ import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.IOException
 
-object SettingFileService {
+object SettingFileCreator {
     fun save(setting: Setting): Boolean {
         return try {
             createDir()
