@@ -1,9 +1,10 @@
 package jp.kaleidot725.adbpad.domain.repository
 
 import jp.kaleidot725.adbpad.domain.model.Device
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
 interface DeviceRepository {
-    fun getDeviceFlow(coroutineScope: CoroutineScope): Flow<List<Device>>
+    suspend fun selectDevice(device: Device)
+    fun getDeviceFlow(): Flow<List<Device>>
+    fun getSelectedDeviceFlow(): Flow<Device?>
 }
