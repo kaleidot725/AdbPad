@@ -1,6 +1,6 @@
 package jp.kaleidot725.adbpad.view.screen.input
 
-import com.malinskiy.adam.request.device.Device
+import jp.kaleidot725.adbpad.domain.model.Device
 import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.usecase.input.AddInputTextUseCase
 import jp.kaleidot725.adbpad.domain.usecase.input.DeleteInputTextUseCase

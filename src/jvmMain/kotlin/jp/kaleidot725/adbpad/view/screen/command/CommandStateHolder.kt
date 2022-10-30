@@ -1,11 +1,12 @@
 package jp.kaleidot725.adbpad.view.screen.command
 
-import com.malinskiy.adam.request.device.Device
 import jp.kaleidot725.adbpad.domain.model.Command
+import jp.kaleidot725.adbpad.domain.model.Device
 import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetNotRunningCommandList
 import jp.kaleidot725.adbpad.domain.usecase.command.GetRunningCommandList
+import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,11 +25,14 @@ import kotlinx.coroutines.launch
 class CommandStateHolder(
     val getNotRunningCommandList: GetNotRunningCommandList,
     val getRunningCommandList: GetRunningCommandList,
-    val executeCommandUseCase: ExecuteCommandUseCase
+    val executeCommandUseCase: ExecuteCommandUseCase,
+    val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase
 ) : ChildStateHolder<CommandState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val commands: MutableStateFlow<List<Command>> = MutableStateFlow(emptyList())
-    private val selectedDevice: MutableStateFlow<Device?> = MutableStateFlow(null)
+    private val selectedDevice: StateFlow<Device?> = getSelectedDeviceFlowUseCase()
+        .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
+
     override val state: StateFlow<CommandState> = combine(
         commands,
         selectedDevice,
@@ -48,13 +52,14 @@ class CommandStateHolder(
     }
 
     private val runningCommandSets = mutableSetOf<Command>()
-    fun executeCommand(device: Device, command: Command) {
+    fun executeCommand(command: Command) {
+        val selectedDevice = state.value.selectedDevice ?: return
         coroutineScope.launch {
             _event.emit(Event("${command.title} コマンド実行開始"))
             runningCommandSets.add(command)
             commands.value = getRunningCommandList(runningCommandSets.toList())
 
-            executeCommandUseCase(device.serial, command)
+            executeCommandUseCase(selectedDevice.serial, command)
             delay(300)
 
             runningCommandSets.remove(command)

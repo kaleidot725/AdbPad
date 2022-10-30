@@ -1,6 +1,6 @@
 package jp.kaleidot725.adbpad.view.screen.screenshot
 
-import com.malinskiy.adam.request.device.Device
+import jp.kaleidot725.adbpad.domain.model.Device
 import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeThemeScreenshotUseCase

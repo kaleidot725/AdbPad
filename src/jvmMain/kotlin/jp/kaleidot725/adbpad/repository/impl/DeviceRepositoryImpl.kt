@@ -8,38 +8,51 @@ import jp.kaleidot725.adbpad.domain.repository.DeviceRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 
 class DeviceRepositoryImpl : DeviceRepository {
     private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
     private val adbClient = AndroidDebugBridgeClientFactory().build()
-    private val receiveChannel = adbClient.execute(
-        request = AsyncDeviceMonitorRequest(),
-        scope = coroutineScope
-    )
+
     private var lastSelectedDevice: Device? = null
-    private val selectedDevice = Channel<Device?>()
+    private val selectedDevice get() = Channel<Device?>(CONFLATED)
+
+    private var lastDevices: List<Device> = emptyList()
+    private val devicesChannel
+        get() = adbClient.execute(
+            request = AsyncDeviceMonitorRequest(),
+            scope = coroutineScope
+        )
 
     init {
-        receiveChannel.receiveAsFlow().map { rowDevices ->
-            val devices = rowDevices.convert()
-            val contains = devices.contains(lastSelectedDevice)
-            if (!contains) {
-                lastSelectedDevice = null
-                selectedDevice.send(null)
+        coroutineScope.launch {
+            devicesChannel.receiveAsFlow().collect { rowDevices ->
+                lastDevices = rowDevices.convert()
+                val contains = lastDevices.contains(lastSelectedDevice)
+                if (!contains) {
+                    lastSelectedDevice = lastDevices.firstOrNull()
+                    selectedDevice.send(lastSelectedDevice)
+                }
             }
         }
     }
 
-    override suspend fun selectDevice(device: Device) {
-        lastSelectedDevice = device
-        selectedDevice.send(device)
+    override suspend fun selectDevice(device: Device): Boolean {
+        return if (lastDevices.contains(device)) {
+            lastSelectedDevice = device
+            selectedDevice.send(device)
+            true
+        } else {
+            false
+        }
     }
 
     override fun getDeviceFlow(): Flow<List<Device>> {
-        return receiveChannel.receiveAsFlow().map { rowDevices -> rowDevices.convert() }
+        return devicesChannel.receiveAsFlow().map { rowDevices -> rowDevices.convert() }
     }
 
     override fun getSelectedDeviceFlow(): Flow<Device?> {

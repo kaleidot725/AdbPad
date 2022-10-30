@@ -5,6 +5,8 @@ import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetNotRunningCommandList
 import jp.kaleidot725.adbpad.domain.usecase.command.GetRunningCommandList
 import jp.kaleidot725.adbpad.domain.usecase.device.GetDevicesFlowUseCase
+import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
+import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.input.AddInputTextUseCase
 import jp.kaleidot725.adbpad.domain.usecase.input.DeleteInputTextUseCase
 import jp.kaleidot725.adbpad.domain.usecase.input.ExecuteInputTextCommandUseCase
@@ -28,7 +30,13 @@ val domainModule = module {
         GetRunningCommandList()
     }
     factory {
-        GetDevicesFlowUseCase()
+        GetDevicesFlowUseCase(get())
+    }
+    factory {
+        GetSelectedDeviceFlowUseCase(get())
+    }
+    factory {
+        SelectDeviceUseCase(get())
     }
     factory {
         AddInputTextUseCase()

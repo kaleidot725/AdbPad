@@ -13,11 +13,13 @@ import jp.kaleidot725.adbpad.view.component.command.CommandList
 @Composable
 fun CommandScreen(
     commands: List<Command>,
+    canExecute: Boolean,
     onExecute: (Command) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         CommandList(
             commands = commands,
+            canExecute = canExecute,
             onExecute = onExecute,
             modifier = Modifier.fillMaxSize()
         )
@@ -29,6 +31,7 @@ fun CommandScreen(
 private fun CommandScreen_Preview() {
     CommandScreen(
         commands = listOf(Command.DarkThemeOn(), Command.DarkThemeOff(), Command.WifiOn()),
+        canExecute = true,
         onExecute = {},
     )
 }

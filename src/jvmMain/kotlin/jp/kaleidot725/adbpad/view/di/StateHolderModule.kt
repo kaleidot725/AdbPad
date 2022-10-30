@@ -12,7 +12,8 @@ val stateHolderModule = module {
         CommandStateHolder(
             getNotRunningCommandList = get(),
             getRunningCommandList = get(),
-            executeCommandUseCase = get()
+            executeCommandUseCase = get(),
+            getSelectedDeviceFlowUseCase = get()
         )
     }
 
@@ -27,9 +28,10 @@ val stateHolderModule = module {
 
     factory {
         MenuStateHolder(
-            startAdbUseCase = get(),
             getAndroidDevicesFlowUseCase = get(),
-            getMenuListUseCase = get()
+            getMenuListUseCase = get(),
+            getSelectedDeviceFlowUseCase = get(),
+            selectDeviceUseCase = get()
         )
     }
 

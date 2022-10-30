@@ -16,8 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.malinskiy.adam.request.device.Device
-import com.malinskiy.adam.request.device.DeviceState
+import jp.kaleidot725.adbpad.domain.model.Device
+import jp.kaleidot725.adbpad.domain.model.DeviceState
 import jp.kaleidot725.adbpad.view.common.resource.StringRes
 
 @Composable

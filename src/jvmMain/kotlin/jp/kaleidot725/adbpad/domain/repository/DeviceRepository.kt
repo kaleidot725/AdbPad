@@ -4,7 +4,7 @@ import jp.kaleidot725.adbpad.domain.model.Device
 import kotlinx.coroutines.flow.Flow
 
 interface DeviceRepository {
-    suspend fun selectDevice(device: Device)
+    suspend fun selectDevice(device: Device): Boolean
     fun getDeviceFlow(): Flow<List<Device>>
     fun getSelectedDeviceFlow(): Flow<Device?>
 }

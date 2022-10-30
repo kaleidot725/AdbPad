@@ -23,6 +23,7 @@ import jp.kaleidot725.adbpad.view.common.resource.StringRes
 @Composable
 fun CommandList(
     commands: List<Command>,
+    canExecute: Boolean,
     onExecute: (Command) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -38,6 +39,7 @@ fun CommandList(
                         title = command.title,
                         detail = command.details,
                         isRunning = command.isRunning,
+                        canExecute = canExecute,
                         onExecute = { onExecute(command) },
                         modifier = Modifier.height(200.dp).fillMaxWidth().padding(2.dp)
                     )
@@ -58,12 +60,14 @@ private fun CommandList_Preview() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         CommandList(
             commands = listOf(Command.DarkThemeOn(), Command.DarkThemeOff(), Command.WifiOn()),
+            canExecute = true,
             onExecute = {},
             modifier = Modifier.fillMaxWidth().weight(0.5f)
         )
 
         CommandList(
             commands = emptyList(),
+            canExecute = true,
             onExecute = {},
             modifier = Modifier.fillMaxWidth().weight(0.5f).background(Color.LightGray)
         )

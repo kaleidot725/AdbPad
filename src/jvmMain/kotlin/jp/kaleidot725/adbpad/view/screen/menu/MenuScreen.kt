@@ -12,7 +12,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.malinskiy.adam.request.device.Device
+import jp.kaleidot725.adbpad.domain.model.Device
 import jp.kaleidot725.adbpad.domain.model.Menu
 import jp.kaleidot725.adbpad.view.common.extension.clickableNoRipple
 import jp.kaleidot725.adbpad.view.common.resource.StringRes

@@ -1,10 +1,11 @@
 package jp.kaleidot725.adbpad.view.screen.menu
 
-import com.malinskiy.adam.request.device.Device
+import jp.kaleidot725.adbpad.domain.model.Device
 import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.model.Menu
-import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.GetDevicesFlowUseCase
+import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
+import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.menu.GetMenuListUseCase
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
 import kotlinx.coroutines.CoroutineScope
@@ -21,15 +22,22 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class MenuStateHolder(
-    val startAdbUseCase: StartAdbUseCase,
-    val getAndroidDevicesFlowUseCase: GetDevicesFlowUseCase,
-    val getMenuListUseCase: GetMenuListUseCase
+    private val getAndroidDevicesFlowUseCase: GetDevicesFlowUseCase,
+    private val getMenuListUseCase: GetMenuListUseCase,
+    private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
+    private val selectDeviceUseCase: SelectDeviceUseCase
 ) : ChildStateHolder<MenuState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
+
     private val menus: MutableStateFlow<List<Menu>> = MutableStateFlow(emptyList())
     private val selectedMenu: MutableStateFlow<Menu?> = MutableStateFlow(null)
-    private val devices: MutableStateFlow<List<Device>> = MutableStateFlow(emptyList())
-    private val selectedDevice: MutableStateFlow<Device?> = MutableStateFlow(null)
+
+    private val devices: StateFlow<List<Device>> = getAndroidDevicesFlowUseCase()
+        .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), emptyList())
+
+    private val selectedDevice: StateFlow<Device?> = getSelectedDeviceFlowUseCase()
+        .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
+
     override val state: StateFlow<MenuState> = combine(
         menus, selectedMenu, devices, selectedDevice
     ) { menus, selectedMenu, devices, selectedDevice ->
@@ -42,14 +50,6 @@ class MenuStateHolder(
     override fun setup() {
         menus.value = getMenuListUseCase()
         selectedMenu.value = menus.value.firstOrNull()
-        coroutineScope.launch {
-            startAdbUseCase()
-            getAndroidDevicesFlowUseCase(coroutineScope).collect {
-                devices.value = it
-                val hasNotDevice = !it.contains(selectedDevice.value)
-                if (hasNotDevice) selectedDevice.value = it.firstOrNull()
-            }
-        }
     }
 
     override fun dispose() {
@@ -57,7 +57,9 @@ class MenuStateHolder(
     }
 
     fun selectDevice(device: Device) {
-        selectedDevice.value = device
+        coroutineScope.launch {
+            selectDeviceUseCase(device)
+        }
     }
 
     fun selectMenu(menu: Menu) {
