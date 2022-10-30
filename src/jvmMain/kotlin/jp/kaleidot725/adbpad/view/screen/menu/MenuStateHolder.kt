@@ -21,9 +21,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class MenuStateHolder(
-    val startAdbUseCase: StartAdbUseCase = StartAdbUseCase(),
-    val getAndroidDevicesFlowUseCase: GetDevicesFlowUseCase = GetDevicesFlowUseCase(),
-    val getMenuListUseCase: GetMenuListUseCase = GetMenuListUseCase(),
+    val startAdbUseCase: StartAdbUseCase,
+    val getAndroidDevicesFlowUseCase: GetDevicesFlowUseCase,
+    val getMenuListUseCase: GetMenuListUseCase
 ) : ChildStateHolder<MenuState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val menus: MutableStateFlow<List<Menu>> = MutableStateFlow(emptyList())

@@ -21,10 +21,10 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class InputTextStateHolder(
-    val addInputTextUseCase: AddInputTextUseCase = AddInputTextUseCase(),
-    val deleteInputTextUseCase: DeleteInputTextUseCase = DeleteInputTextUseCase(),
-    val getInputTextUseCase: GetInputTextUseCase = GetInputTextUseCase(),
-    val executeInputTextCommandUseCase: ExecuteInputTextCommandUseCase = ExecuteInputTextCommandUseCase(),
+    val addInputTextUseCase: AddInputTextUseCase,
+    val deleteInputTextUseCase: DeleteInputTextUseCase,
+    val getInputTextUseCase: GetInputTextUseCase,
+    val executeInputTextCommandUseCase: ExecuteInputTextCommandUseCase
 ) : ChildStateHolder<InputTextState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val inputTexts: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())

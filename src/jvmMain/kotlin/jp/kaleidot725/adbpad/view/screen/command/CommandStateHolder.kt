@@ -22,9 +22,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class CommandStateHolder(
-    val getNotRunningCommandList: GetNotRunningCommandList = GetNotRunningCommandList(),
-    val getRunningCommandList: GetRunningCommandList = GetRunningCommandList(),
-    val executeCommandUseCase: ExecuteCommandUseCase = ExecuteCommandUseCase()
+    val getNotRunningCommandList: GetNotRunningCommandList,
+    val getRunningCommandList: GetRunningCommandList,
+    val executeCommandUseCase: ExecuteCommandUseCase
 ) : ChildStateHolder<CommandState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val commands: MutableStateFlow<List<Command>> = MutableStateFlow(emptyList())

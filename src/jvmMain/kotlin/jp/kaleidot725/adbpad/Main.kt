@@ -26,6 +26,9 @@ import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.domain.model.Dialog
 import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.model.Menu
+import jp.kaleidot725.adbpad.domainModule
+import jp.kaleidot725.adbpad.repositoryModule
+import jp.kaleidot725.adbpad.stateHolderModule
 import jp.kaleidot725.adbpad.view.common.resource.AppTheme
 import jp.kaleidot725.adbpad.view.common.resource.StringRes
 import jp.kaleidot725.adbpad.view.screen.CommandScreen
@@ -33,8 +36,13 @@ import jp.kaleidot725.adbpad.view.screen.InputTextScreen
 import jp.kaleidot725.adbpad.view.screen.MenuScreen
 import jp.kaleidot725.adbpad.view.screen.ScreenLayout
 import jp.kaleidot725.adbpad.view.screen.ScreenshotScreen
+import org.koin.core.context.startKoin
 
 fun main() = application {
+    startKoin {
+        modules(repositoryModule, domainModule, stateHolderModule)
+    }
+
     Window(title = StringRes.WINDOW_TITLE, onCloseRequest = ::exitApplication) {
         AppTheme {
             var dialog by remember { mutableStateOf<Dialog?>(null) }
