@@ -27,11 +27,11 @@ import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.domain.di.domainModule
 import jp.kaleidot725.adbpad.domain.model.Dialog
 import jp.kaleidot725.adbpad.domain.model.Event
+import jp.kaleidot725.adbpad.domain.model.Language
 import jp.kaleidot725.adbpad.domain.model.Menu
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
-import jp.kaleidot725.adbpad.repository.repositoryModule
+import jp.kaleidot725.adbpad.repository.di.repositoryModule
 import jp.kaleidot725.adbpad.view.common.resource.AppTheme
-import jp.kaleidot725.adbpad.view.common.resource.StringRes
 import jp.kaleidot725.adbpad.view.di.stateHolderModule
 import jp.kaleidot725.adbpad.view.screen.CommandScreen
 import jp.kaleidot725.adbpad.view.screen.InputTextScreen
@@ -47,7 +47,7 @@ fun main() {
     }
 
     application {
-        Window(title = StringRes.WINDOW_TITLE, onCloseRequest = ::exitApplication) {
+        Window(title = Language.WINDOW_TITLE, onCloseRequest = ::exitApplication) {
             LaunchedEffect(Unit) {
                 val startAdbUseCase = GlobalContext.get().get<StartAdbUseCase>()
                 startAdbUseCase()

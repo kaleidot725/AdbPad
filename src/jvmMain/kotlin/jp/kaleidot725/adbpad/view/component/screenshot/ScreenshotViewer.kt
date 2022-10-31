@@ -12,7 +12,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.loadImageBitmap
-import jp.kaleidot725.adbpad.view.common.resource.StringRes
+import jp.kaleidot725.adbpad.domain.model.Language
 import java.io.File
 
 @Composable
@@ -51,7 +51,7 @@ fun ScreenshotViewer(
             }
         } else {
             Text(
-                text = StringRes.NOT_FOUND_SCREEN_SHOT,
+                text = Language.NOT_FOUND_SCREEN_SHOT,
                 modifier = Modifier.align(Alignment.Center)
             )
         }

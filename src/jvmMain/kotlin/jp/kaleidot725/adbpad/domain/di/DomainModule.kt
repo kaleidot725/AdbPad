@@ -2,8 +2,7 @@ package jp.kaleidot725.adbpad.domain.di
 
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.command.GetNotRunningCommandList
-import jp.kaleidot725.adbpad.domain.usecase.command.GetRunningCommandList
+import jp.kaleidot725.adbpad.domain.usecase.command.GetCommandList
 import jp.kaleidot725.adbpad.domain.usecase.device.GetDevicesFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
@@ -21,13 +20,10 @@ val domainModule = module {
         StartAdbUseCase()
     }
     factory {
-        ExecuteCommandUseCase()
+        ExecuteCommandUseCase(get())
     }
     factory {
-        GetNotRunningCommandList()
-    }
-    factory {
-        GetRunningCommandList()
+        GetCommandList(get())
     }
     factory {
         GetDevicesFlowUseCase(get())

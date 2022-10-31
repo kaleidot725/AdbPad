@@ -13,9 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.Device
+import jp.kaleidot725.adbpad.domain.model.Language
 import jp.kaleidot725.adbpad.domain.model.Menu
 import jp.kaleidot725.adbpad.view.common.extension.clickableNoRipple
-import jp.kaleidot725.adbpad.view.common.resource.StringRes
 import jp.kaleidot725.adbpad.view.component.menu.DropDownDeviceMenu
 import jp.kaleidot725.adbpad.view.component.menu.MenuItem
 import jp.kaleidot725.adbpad.view.component.menu.MenuList
@@ -36,7 +36,7 @@ fun MenuScreen(
         modifier = modifier
     ) {
         Text(
-            text = StringRes.TARGET_DEVICE,
+            text = Language.TARGET_DEVICE,
             style = MaterialTheme.typography.subtitle2
         )
 
@@ -48,7 +48,7 @@ fun MenuScreen(
         )
 
         Text(
-            text = StringRes.TOOL,
+            text = Language.TOOL,
             style = MaterialTheme.typography.subtitle2
         )
 

@@ -1,19 +1,25 @@
 package jp.kaleidot725.adbpad.domain.usecase.command
 
-import com.malinskiy.adam.AndroidDebugBridgeClientFactory
 import jp.kaleidot725.adbpad.domain.model.Command
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import jp.kaleidot725.adbpad.domain.model.Device
+import jp.kaleidot725.adbpad.domain.repository.CommandRepository
 
-class ExecuteCommandUseCase {
-    suspend operator fun invoke(serial: String?, command: Command): Boolean {
-        return withContext(Dispatchers.IO) {
-            val adbClient = AndroidDebugBridgeClientFactory().build()
-            command.requests.forEach { request ->
-                val result = adbClient.execute(request, serial)
-                if (result.exitCode != 0) return@withContext false
-            }
-            return@withContext true
-        }
+class ExecuteCommandUseCase(
+    private val commandRepository: CommandRepository
+) {
+    suspend operator fun invoke(
+        device: Device,
+        command: Command,
+        onStart: suspend () -> Unit,
+        onFailed: suspend () -> Unit,
+        onComplete: suspend () -> Unit
+    ) {
+        commandRepository.sendCommand(
+            device = device,
+            command = command,
+            onStart = onStart,
+            onFailed = onFailed,
+            onComplete = onComplete
+        )
     }
 }

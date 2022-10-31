@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.Device
 import jp.kaleidot725.adbpad.domain.model.DeviceState
-import jp.kaleidot725.adbpad.view.common.resource.StringRes
+import jp.kaleidot725.adbpad.domain.model.Language
 
 @Composable
 fun DeviceSelector(
@@ -35,7 +35,7 @@ fun DeviceSelector(
                 .padding(vertical = 8.dp, horizontal = 16.dp)
         ) {
             Text(
-                text = selectedDevice?.serial ?: StringRes.NOT_FOUND_DEVICE,
+                text = selectedDevice?.serial ?: Language.NOT_FOUND_DEVICE,
                 style = MaterialTheme.typography.subtitle2,
                 modifier = Modifier.fillMaxWidth()
             )

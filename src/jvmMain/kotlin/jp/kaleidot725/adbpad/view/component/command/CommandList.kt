@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.Command
-import jp.kaleidot725.adbpad.view.common.resource.StringRes
+import jp.kaleidot725.adbpad.domain.model.Language
 
 @Composable
 fun CommandList(
@@ -41,13 +41,13 @@ fun CommandList(
                         isRunning = command.isRunning,
                         canExecute = canExecute,
                         onExecute = { onExecute(command) },
-                        modifier = Modifier.height(200.dp).fillMaxWidth().padding(2.dp)
+                        modifier = Modifier.height(150.dp).fillMaxWidth().padding(2.dp)
                     )
                 }
             }
         } else {
             Text(
-                text = StringRes.NOT_FOUND_COMMAND,
+                text = Language.NOT_FOUND_COMMAND,
                 modifier = Modifier.align(Alignment.Center)
             )
         }

@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.view.common.resource.StringRes
+import jp.kaleidot725.adbpad.domain.model.Language
 
 @Composable
 fun InputTextActionMenu(
@@ -43,7 +43,7 @@ fun InputTextActionMenu(
             modifier = Modifier.fillMaxHeight().wrapContentWidth()
         ) {
             Text(
-                text = StringRes.SAVE,
+                text = Language.SAVE,
                 textAlign = TextAlign.Center
             )
         }
@@ -54,7 +54,7 @@ fun InputTextActionMenu(
             modifier = Modifier.fillMaxHeight().wrapContentWidth()
         ) {
             Text(
-                text = StringRes.SEND,
+                text = Language.SEND,
                 textAlign = TextAlign.Center
             )
         }
