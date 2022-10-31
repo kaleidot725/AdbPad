@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.Language
 
@@ -29,6 +30,7 @@ fun InputTextItem(
         ) {
             Text(
                 text = text,
+                fontWeight = FontWeight.Bold,
                 maxLines = 2,
                 modifier = Modifier
                     .fillMaxWidth()
