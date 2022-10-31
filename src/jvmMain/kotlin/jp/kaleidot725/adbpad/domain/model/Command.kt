@@ -46,7 +46,7 @@ interface Command {
         override val title: String = Language.COMMAND_SLEEP_MODE_OFF_TITLE
         override val details: String = Language.COMMAND_SLEEP_MODE_OFF_DETAILS
         override val requests: List<ShellCommandRequest> = listOf(
-            ShellCommandRequest("setting put global stay_on_while_plugged_in 7")
+            ShellCommandRequest("settings put global stay_on_while_plugged_in 7")
         )
     }
 
@@ -54,7 +54,7 @@ interface Command {
         override val title: String = Language.COMMAND_SLEEP_MODE_ON_TITLE
         override val details: String = Language.COMMAND_SLEEP_MODE_ON_DETAILS
         override val requests: List<ShellCommandRequest> = listOf(
-            ShellCommandRequest("setting put global stay_on_while_plugged_in 0")
+            ShellCommandRequest("settings put global stay_on_while_plugged_in 0")
         )
     }
 
