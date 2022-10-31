@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.Command
-import jp.kaleidot725.adbpad.view.common.resource.StringRes
+import jp.kaleidot725.adbpad.domain.model.Language
 
 @Composable
 fun CommandList(
@@ -47,7 +47,7 @@ fun CommandList(
             }
         } else {
             Text(
-                text = StringRes.NOT_FOUND_COMMAND,
+                text = Language.NOT_FOUND_COMMAND,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
