@@ -10,8 +10,7 @@ import org.koin.dsl.module
 val stateHolderModule = module {
     factory {
         CommandStateHolder(
-            getNotRunningCommandList = get(),
-            getRunningCommandList = get(),
+            getCommandList = get(),
             executeCommandUseCase = get(),
             getSelectedDeviceFlowUseCase = get()
         )
