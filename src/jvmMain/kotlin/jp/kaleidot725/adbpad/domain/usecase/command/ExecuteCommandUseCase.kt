@@ -2,9 +2,12 @@ package jp.kaleidot725.adbpad.domain.usecase.command
 
 import jp.kaleidot725.adbpad.domain.model.Command
 import jp.kaleidot725.adbpad.domain.model.Device
+import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.repository.CommandRepository
+import jp.kaleidot725.adbpad.domain.repository.EventRepository
 
 class ExecuteCommandUseCase(
+    private val eventRepository: EventRepository,
     private val commandRepository: CommandRepository
 ) {
     suspend operator fun invoke(
@@ -17,9 +20,18 @@ class ExecuteCommandUseCase(
         commandRepository.sendCommand(
             device = device,
             command = command,
-            onStart = onStart,
-            onFailed = onFailed,
-            onComplete = onComplete
+            onStart = {
+                eventRepository.sendEvent(Event.StartCommand(command.title))
+                onStart()
+            },
+            onFailed = {
+                eventRepository.sendEvent(Event.ErrorCommand(command.title))
+                onFailed()
+            },
+            onComplete = {
+                eventRepository.sendEvent(Event.EndCommand(command.title))
+                onComplete()
+            }
         )
     }
 }

@@ -1,7 +1,6 @@
 package jp.kaleidot725.adbpad.view.screen.menu
 
 import jp.kaleidot725.adbpad.domain.model.Device
-import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.model.Menu
 import jp.kaleidot725.adbpad.domain.usecase.device.GetDevicesFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
@@ -12,9 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -43,9 +40,6 @@ class MenuStateHolder(
     ) { menus, selectedMenu, devices, selectedDevice ->
         MenuState(menus, selectedMenu, devices, selectedDevice)
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), MenuState())
-
-    private val _event: MutableSharedFlow<Event> = MutableSharedFlow()
-    override val event: SharedFlow<Event> = _event
 
     override fun setup() {
         menus.value = getMenuListUseCase()
