@@ -56,7 +56,7 @@ fun main() {
             AppTheme {
                 var dialog by remember { mutableStateOf<Dialog?>(null) }
                 val mainStateHolder by remember { mutableStateOf(GlobalContext.get().get<MainStateHolder>()) }
-                val event by mainStateHolder.event.collectAsState(Event.NULL_EVENT)
+                val event by mainStateHolder.event.collectAsState(Event.NULL)
 
                 val menuStateHolder = mainStateHolder.menuStateHolder
                 val menuState by menuStateHolder.state.collectAsState()
@@ -150,7 +150,15 @@ fun main() {
                     },
                     notificationArea = {
                         Box(Modifier.fillMaxWidth().height(25.dp).padding(horizontal = 8.dp, vertical = 4.dp)) {
-                            Text(event.message, style = MaterialTheme.typography.caption)
+                            Text(
+                                text = event.message,
+                                color = when (event.level) {
+                                    Event.Level.INFO -> Color.Black
+                                    Event.Level.WARN -> Color.Yellow
+                                    Event.Level.ERROR -> Color.Red
+                                },
+                                style = MaterialTheme.typography.caption
+                            )
                         }
                     },
                     dialog = {

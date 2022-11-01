@@ -55,16 +55,16 @@ class CommandStateHolder(
                 device = selectedDevice,
                 command = command,
                 onStart = {
-                    _event.emit(Event("${command.title} コマンド実行開始"))
+                    _event.emit(Event.StartCommand(command.title))
                     commands.value = getCommandList()
                 },
                 onFailed = {
                     commands.value = getCommandList()
-                    _event.emit(Event("${command.title} コマンド実行失敗"))
+                    _event.emit(Event.ErrorCommand(command.title))
                 },
                 onComplete = {
                     commands.value = getCommandList()
-                    _event.emit(Event("${command.title} コマンド実行終了"))
+                    _event.emit(Event.EndCommand(command.title))
                 }
             )
         }
