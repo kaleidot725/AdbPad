@@ -2,7 +2,6 @@ package jp.kaleidot725.adbpad.view.screen.command
 
 import jp.kaleidot725.adbpad.domain.model.Command
 import jp.kaleidot725.adbpad.domain.model.Device
-import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetCommandList
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
@@ -11,9 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -37,9 +34,6 @@ class CommandStateHolder(
         CommandState(commands, selectedDevice)
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), CommandState())
 
-    private val _event: MutableSharedFlow<Event> = MutableSharedFlow()
-    override val event: SharedFlow<Event> = _event
-
     override fun setup() {
         commands.value = getCommandList()
     }
@@ -54,18 +48,9 @@ class CommandStateHolder(
             executeCommandUseCase(
                 device = selectedDevice,
                 command = command,
-                onStart = {
-                    _event.emit(Event.StartCommand(command.title))
-                    commands.value = getCommandList()
-                },
-                onFailed = {
-                    commands.value = getCommandList()
-                    _event.emit(Event.ErrorCommand(command.title))
-                },
-                onComplete = {
-                    commands.value = getCommandList()
-                    _event.emit(Event.EndCommand(command.title))
-                }
+                onStart = { commands.value = getCommandList() },
+                onFailed = { commands.value = getCommandList() },
+                onComplete = { commands.value = getCommandList() }
             )
         }
     }

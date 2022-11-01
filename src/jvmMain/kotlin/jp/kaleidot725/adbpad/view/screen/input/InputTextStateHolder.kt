@@ -1,7 +1,6 @@
 package jp.kaleidot725.adbpad.view.screen.input
 
 import jp.kaleidot725.adbpad.domain.model.Device
-import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.usecase.input.AddInputTextUseCase
 import jp.kaleidot725.adbpad.domain.usecase.input.DeleteInputTextUseCase
 import jp.kaleidot725.adbpad.domain.usecase.input.ExecuteInputTextCommandUseCase
@@ -11,9 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -32,9 +29,6 @@ class InputTextStateHolder(
     override val state: StateFlow<InputTextState> = combine(inputTexts, userInputText) { inputTexts, userInputText ->
         InputTextState(inputTexts, userInputText)
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), InputTextState())
-
-    private val _event: MutableSharedFlow<Event> = MutableSharedFlow()
-    override val event: SharedFlow<Event> = _event
 
     override fun setup() {
         coroutineScope.launch {

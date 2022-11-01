@@ -1,16 +1,13 @@
 package jp.kaleidot725.adbpad.view.screen.screenshot
 
 import jp.kaleidot725.adbpad.domain.model.Device
-import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeThemeScreenshotUseCase
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -28,9 +25,6 @@ class ScreenshotStateHolder(
     override val state: StateFlow<ScreenshotState> = combine(previewImage1, previewImage2) { image1, image2 ->
         ScreenshotState(image1, image2)
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), ScreenshotState())
-
-    private val _event: MutableSharedFlow<Event> = MutableSharedFlow()
-    override val event: SharedFlow<Event> = _event
 
     override fun setup() {}
     override fun dispose() {}
