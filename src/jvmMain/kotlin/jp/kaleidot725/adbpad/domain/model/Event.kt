@@ -10,9 +10,8 @@ sealed class Event(val message: String, val level: Level) {
     ) : Event(message = String.format(Language.COMMAND_END_EVENT_FORMAT, commandName), Level.INFO)
 
     data class ErrorCommand(
-        val commandName: String,
-        val error: String
-    ) : Event(message = String.format(Language.COMMAND_ERROR_EVENT_FORMAT, commandName, error), Level.ERROR)
+        val commandName: String
+    ) : Event(message = String.format(Language.COMMAND_ERROR_EVENT_FORMAT, commandName), Level.ERROR)
 
     object NULL : Event("", Level.INFO)
 
