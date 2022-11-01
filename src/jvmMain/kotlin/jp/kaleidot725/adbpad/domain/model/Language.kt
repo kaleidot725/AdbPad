@@ -15,6 +15,11 @@ object Language {
     const val TAKE_SCREENSHOT = "Shoot"
     const val TAKE_THEME_SCREENSHOT = "Shoot(each theme)"
 
+    const val COMMAND_START_EVENT_FORMAT = "Start 「%s」"
+    const val COMMAND_END_EVENT_FORMAT = "End 「%s」"
+    const val COMMAND_ERROR_EVENT_FORMAT = "Error 「%s」(%s)."
+    const val COMMAND_UNKNOWN_ERROR = "UNKNOWN ERROR"
+
     const val COMMAND_LAYOUT_BORDER_ON_TITLE = "Show layout bounds: ON"
     const val COMMAND_LAYOUT_BORDER_ON_DETAILS = "Enable showing clip bounds, margins, etc."
     const val COMMAND_LAYOUT_BORDER_OFF_TITLE = "Show layout bonds: OFF"

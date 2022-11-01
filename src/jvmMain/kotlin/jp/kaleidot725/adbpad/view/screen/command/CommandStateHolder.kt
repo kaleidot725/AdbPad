@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.view.screen.command
 import jp.kaleidot725.adbpad.domain.model.Command
 import jp.kaleidot725.adbpad.domain.model.Device
 import jp.kaleidot725.adbpad.domain.model.Event
+import jp.kaleidot725.adbpad.domain.model.Language
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetCommandList
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
@@ -55,16 +56,16 @@ class CommandStateHolder(
                 device = selectedDevice,
                 command = command,
                 onStart = {
-                    _event.emit(Event("${command.title} コマンド実行開始"))
+                    _event.emit(Event.StartCommand(command.title))
                     commands.value = getCommandList()
                 },
                 onFailed = {
                     commands.value = getCommandList()
-                    _event.emit(Event("${command.title} コマンド実行失敗"))
+                    _event.emit(Event.ErrorCommand(command.title, Language.COMMAND_UNKNOWN_ERROR))
                 },
                 onComplete = {
                     commands.value = getCommandList()
-                    _event.emit(Event("${command.title} コマンド実行終了"))
+                    _event.emit(Event.EndCommand(command.title))
                 }
             )
         }
