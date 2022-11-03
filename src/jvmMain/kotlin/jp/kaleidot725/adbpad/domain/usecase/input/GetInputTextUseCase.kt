@@ -1,14 +1,9 @@
 package jp.kaleidot725.adbpad.domain.usecase.input
 
-import jp.kaleidot725.adbpad.domain.service.SettingFileCreator
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import jp.kaleidot725.adbpad.domain.repository.TextRepository
 
-class GetInputTextUseCase {
+class GetInputTextUseCase(private val textRepository: TextRepository) {
     suspend operator fun invoke(): List<String> {
-        return withContext(Dispatchers.IO) {
-            val setting = SettingFileCreator.load()
-            return@withContext setting.inputTexts
-        }
+        return textRepository.getAllText()
     }
 }

@@ -36,16 +36,16 @@ val domainModule = module {
         SelectDeviceUseCase(get())
     }
     factory {
-        AddInputTextUseCase()
+        AddInputTextUseCase(get())
     }
     factory {
-        DeleteInputTextUseCase()
+        DeleteInputTextUseCase(get())
     }
     factory {
         ExecuteInputTextCommandUseCase()
     }
     factory {
-        GetInputTextUseCase()
+        GetInputTextUseCase(get())
     }
     factory {
         GetMenuListUseCase()
