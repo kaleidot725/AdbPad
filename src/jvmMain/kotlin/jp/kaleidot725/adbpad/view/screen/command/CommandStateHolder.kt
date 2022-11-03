@@ -18,9 +18,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class CommandStateHolder(
-    val getCommandList: GetCommandList,
-    val executeCommandUseCase: ExecuteCommandUseCase,
-    val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase
+    private val getCommandList: GetCommandList,
+    private val executeCommandUseCase: ExecuteCommandUseCase,
+    private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase
 ) : ChildStateHolder<CommandState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val commands: MutableStateFlow<List<Command>> = MutableStateFlow(emptyList())
