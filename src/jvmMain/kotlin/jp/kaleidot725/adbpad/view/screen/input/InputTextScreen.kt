@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.screen
+package jp.kaleidot725.adbpad.view.screen.input
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Box
@@ -19,7 +19,8 @@ fun InputTextScreen(
     onTextChange: (String) -> Unit,
     inputTexts: List<String>,
     onSend: (String) -> Unit,
-    canSend: Boolean,
+    canSendListText: Boolean,
+    canSendInputText: Boolean,
     onSave: (String) -> Unit,
     canSave: Boolean,
     onDelete: (String) -> Unit
@@ -28,6 +29,7 @@ fun InputTextScreen(
         InputTextList(
             inputTexts = inputTexts,
             onSend = onSend,
+            canSend = canSendListText,
             onDelete = onDelete,
             modifier = Modifier.fillMaxSize().padding(bottom = 60.dp)
         )
@@ -36,7 +38,7 @@ fun InputTextScreen(
             inputText = inputText,
             onTextChange = onTextChange,
             onSend = onSend,
-            canSend = canSend,
+            canSend = canSendInputText,
             onSave = onSave,
             canSave = canSave,
             modifier = Modifier.height(50.dp).fillMaxWidth().align(Alignment.BottomEnd)
@@ -52,7 +54,8 @@ private fun InputTextScreen_Preview() {
         onTextChange = {},
         inputTexts = listOf("A", "B", "C"),
         onSend = {},
-        canSend = true,
+        canSendListText = true,
+        canSendInputText = true,
         onSave = {},
         canSave = true,
         onDelete = {}

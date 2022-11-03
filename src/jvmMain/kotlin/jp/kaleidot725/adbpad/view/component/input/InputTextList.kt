@@ -22,6 +22,7 @@ import jp.kaleidot725.adbpad.domain.model.Language
 fun InputTextList(
     inputTexts: List<String>,
     onSend: (String) -> Unit,
+    canSend: Boolean,
     onDelete: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -35,6 +36,7 @@ fun InputTextList(
                     InputTextItem(
                         text = text,
                         onSend = { onSend(text) },
+                        canSend = canSend,
                         onDelete = { onDelete(text) },
                         modifier = Modifier.height(60.dp).fillMaxWidth().padding(2.dp)
                     )
@@ -56,6 +58,7 @@ private fun InputTextList_Preview() {
         InputTextList(
             inputTexts = listOf("A", "B", "C"),
             onSend = {},
+            canSend = true,
             onDelete = {},
             modifier = Modifier.fillMaxWidth().weight(0.5f, true)
         )
@@ -63,6 +66,7 @@ private fun InputTextList_Preview() {
         InputTextList(
             inputTexts = emptyList(),
             onSend = {},
+            canSend = true,
             onDelete = {},
             modifier = Modifier.fillMaxWidth().weight(0.5f, true).background(Color.LightGray)
         )

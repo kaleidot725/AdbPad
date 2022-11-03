@@ -7,6 +7,7 @@ data class InputTextState(
     val userInputText: String = "",
     val selectedDevice: Device? = null
 ) {
-    val canSendUserInputText: Boolean get() = userInputText.isNotEmpty()
+    val canSendListText: Boolean get() = selectedDevice != null
+    val canSendUserInputText: Boolean get() = selectedDevice != null && userInputText.isNotEmpty()
     val canSaveUserInputText: Boolean get() = userInputText.isNotEmpty()
 }
