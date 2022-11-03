@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -40,7 +40,7 @@ fun InputTextActionMenu(
         Button(
             enabled = canSave,
             onClick = { onSave(inputText) },
-            modifier = Modifier.fillMaxHeight().wrapContentWidth()
+            modifier = Modifier.fillMaxHeight().width(85.dp)
         ) {
             Text(
                 text = Language.SAVE,
@@ -51,7 +51,7 @@ fun InputTextActionMenu(
         Button(
             enabled = canSend,
             onClick = { onSend(inputText) },
-            modifier = Modifier.fillMaxHeight().wrapContentWidth()
+            modifier = Modifier.fillMaxHeight().width(85.dp)
         ) {
             Text(
                 text = Language.SEND,
