@@ -20,6 +20,7 @@ import jp.kaleidot725.adbpad.domain.model.Language
 fun InputTextItem(
     text: String,
     onSend: () -> Unit,
+    canSend: Boolean,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -45,6 +46,7 @@ fun InputTextItem(
             }
             Button(
                 onClick = { onSend() },
+                enabled = canSend,
                 modifier = Modifier.align(Alignment.CenterVertically)
             ) {
                 Text(Language.SEND)
@@ -59,6 +61,7 @@ private fun CommandItem_Preview() {
     InputTextItem(
         text = "いろはにほへと",
         onSend = {},
+        canSend = true,
         onDelete = {},
         modifier = Modifier.fillMaxWidth().height(50.dp)
     )

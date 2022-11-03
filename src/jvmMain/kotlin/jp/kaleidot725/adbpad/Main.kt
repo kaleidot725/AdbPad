@@ -34,10 +34,10 @@ import jp.kaleidot725.adbpad.repository.di.repositoryModule
 import jp.kaleidot725.adbpad.view.common.resource.AppTheme
 import jp.kaleidot725.adbpad.view.di.stateHolderModule
 import jp.kaleidot725.adbpad.view.screen.CommandScreen
-import jp.kaleidot725.adbpad.view.screen.InputTextScreen
 import jp.kaleidot725.adbpad.view.screen.MenuScreen
 import jp.kaleidot725.adbpad.view.screen.ScreenLayout
 import jp.kaleidot725.adbpad.view.screen.ScreenshotScreen
+import jp.kaleidot725.adbpad.view.screen.input.InputTextScreen
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
 
@@ -98,9 +98,7 @@ fun main() {
                                     commands = commandState.commands,
                                     canExecute = commandState.canExecuteCommand,
                                     onExecute = { command ->
-                                        menuState.selectedDevice?.let { device ->
-                                            commandStateHolder.executeCommand(command)
-                                        }
+                                        commandStateHolder.executeCommand(command)
                                     }
                                 )
                             }
@@ -113,11 +111,10 @@ fun main() {
                                     },
                                     inputTexts = inputTextState.inputTexts,
                                     onSend = { text ->
-                                        menuState.selectedDevice?.let { device ->
-                                            inputTextStateHolder.sendInputText(device, text)
-                                        }
+                                        inputTextStateHolder.sendInputText(text)
                                     },
-                                    canSend = inputTextState.canSendUserInputText,
+                                    canSendListText = inputTextState.canSendListText,
+                                    canSendInputText = inputTextState.canSendUserInputText,
                                     onSave = { text ->
                                         inputTextStateHolder.saveInputText(text)
                                     },

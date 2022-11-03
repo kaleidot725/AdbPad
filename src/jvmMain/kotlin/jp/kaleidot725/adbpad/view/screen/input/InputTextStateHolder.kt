@@ -1,6 +1,7 @@
 package jp.kaleidot725.adbpad.view.screen.input
 
 import jp.kaleidot725.adbpad.domain.model.Device
+import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.input.AddInputTextUseCase
 import jp.kaleidot725.adbpad.domain.usecase.input.DeleteInputTextUseCase
 import jp.kaleidot725.adbpad.domain.usecase.input.ExecuteInputTextCommandUseCase
@@ -18,16 +19,24 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class InputTextStateHolder(
-    val addInputTextUseCase: AddInputTextUseCase,
-    val deleteInputTextUseCase: DeleteInputTextUseCase,
-    val getInputTextUseCase: GetInputTextUseCase,
-    val executeInputTextCommandUseCase: ExecuteInputTextCommandUseCase
+    private val addInputTextUseCase: AddInputTextUseCase,
+    private val deleteInputTextUseCase: DeleteInputTextUseCase,
+    private val getInputTextUseCase: GetInputTextUseCase,
+    private val executeInputTextCommandUseCase: ExecuteInputTextCommandUseCase,
+    private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase
 ) : ChildStateHolder<InputTextState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val inputTexts: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
     private val userInputText: MutableStateFlow<String> = MutableStateFlow("")
-    override val state: StateFlow<InputTextState> = combine(inputTexts, userInputText) { inputTexts, userInputText ->
-        InputTextState(inputTexts, userInputText)
+    private val selectedDevice: StateFlow<Device?> = getSelectedDeviceFlowUseCase()
+        .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
+
+    override val state: StateFlow<InputTextState> = combine(
+        inputTexts,
+        userInputText,
+        selectedDevice
+    ) { inputTexts, userInputText, selectedDevice ->
+        InputTextState(inputTexts, userInputText, selectedDevice)
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), InputTextState())
 
     override fun setup() {
@@ -47,9 +56,10 @@ class InputTextStateHolder(
         if (isLettersOrDigits) this.userInputText.value = text
     }
 
-    fun sendInputText(device: Device, text: String) {
+    fun sendInputText(text: String) {
+        val selectedDevice = state.value.selectedDevice ?: return
         coroutineScope.launch {
-            executeInputTextCommandUseCase(device.serial, text)
+            executeInputTextCommandUseCase(selectedDevice.serial, text)
         }
     }
 
