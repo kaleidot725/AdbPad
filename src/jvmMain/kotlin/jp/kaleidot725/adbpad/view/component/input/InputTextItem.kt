@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -40,14 +41,14 @@ fun InputTextItem(
             )
             Button(
                 onClick = { onDelete() },
-                modifier = Modifier.align(Alignment.CenterVertically)
+                modifier = Modifier.align(Alignment.CenterVertically).width(85.dp)
             ) {
                 Text(Language.DELETE)
             }
             Button(
                 onClick = { onSend() },
                 enabled = canSend,
-                modifier = Modifier.align(Alignment.CenterVertically)
+                modifier = Modifier.align(Alignment.CenterVertically).width(85.dp)
             ) {
                 Text(Language.SEND)
             }
