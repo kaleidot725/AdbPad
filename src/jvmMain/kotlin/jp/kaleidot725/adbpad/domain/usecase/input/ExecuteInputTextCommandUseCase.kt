@@ -21,18 +21,15 @@ class ExecuteInputTextCommandUseCase(
             device = device,
             command = command,
             onStart = {
-                // FIXME
-                eventRepository.sendEvent(Event.StartCommand(command.title))
+                eventRepository.sendEvent(Event.StartInputTextCommand(command.text))
                 onStart()
             },
             onFailed = {
-                // FIXME
-                eventRepository.sendEvent(Event.ErrorCommand(command.title))
+                eventRepository.sendEvent(Event.ErrorInputTextCommand(command.text))
                 onFailed()
             },
             onComplete = {
-                // FIXME
-                eventRepository.sendEvent(Event.EndCommand(command.title))
+                eventRepository.sendEvent(Event.EndInputTextCommand(command.text))
                 onComplete()
             }
         )
