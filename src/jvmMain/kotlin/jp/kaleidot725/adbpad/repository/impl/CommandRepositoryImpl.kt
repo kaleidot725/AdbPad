@@ -49,7 +49,7 @@ class CommandRepositoryImpl : CommandRepository {
                 if (result.exitCode != 0) {
                     runningCommands.remove(command)
                     onFailed()
-                    return@forEach
+                    return@withContext
                 }
             }
 

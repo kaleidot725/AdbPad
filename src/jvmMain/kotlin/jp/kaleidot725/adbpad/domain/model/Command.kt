@@ -94,15 +94,6 @@ interface Command {
         override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("svc data disable"))
     }
 
-    data class InputText(
-        private val text: String,
-        override val isRunning: Boolean = false,
-    ) : Command {
-        override val title: String = Language.COMMAND_INPUT_TEXT_TITLE
-        override val details: String = Language.COMMAND_INPUT_TEXT_DETAILS
-        override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("input text $text"))
-    }
-
     data class WifiAndDataOn(override val isRunning: Boolean = false) : Command {
         override val title: String = Language.COMMAND_WIFI_AND_DATA_ON_TITLE
         override val details: String = Language.COMMAND_WIFI_AND_DATA_ON_DETAILS

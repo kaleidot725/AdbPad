@@ -15,11 +15,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.domain.model.InputTextCommand
 import jp.kaleidot725.adbpad.domain.model.Language
 
 @Composable
-fun InputTextItem(
-    text: String,
+fun InputTextCommandItem(
+    command: InputTextCommand,
     onSend: () -> Unit,
     canSend: Boolean,
     onDelete: () -> Unit,
@@ -31,7 +32,7 @@ fun InputTextItem(
             modifier = Modifier.padding(8.dp)
         ) {
             Text(
-                text = text,
+                text = command.text,
                 fontWeight = FontWeight.Bold,
                 maxLines = 2,
                 modifier = Modifier
@@ -58,9 +59,9 @@ fun InputTextItem(
 
 @Preview
 @Composable
-private fun CommandItem_Preview() {
-    InputTextItem(
-        text = "いろはにほへと",
+private fun InputTextCommandItem_Preview() {
+    InputTextCommandItem(
+        command = InputTextCommand("いろはにほへと"),
         onSend = {},
         canSend = true,
         onDelete = {},

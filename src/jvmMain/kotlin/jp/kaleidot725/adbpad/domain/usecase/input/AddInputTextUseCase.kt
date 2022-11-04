@@ -1,9 +1,10 @@
 package jp.kaleidot725.adbpad.domain.usecase.input
 
-import jp.kaleidot725.adbpad.domain.repository.TextRepository
+import jp.kaleidot725.adbpad.domain.repository.InputTextCommandRepository
+import jp.kaleidot725.adbpad.domain.service.InputTextCommandFactory
 
-class AddInputTextUseCase(private val textRepository: TextRepository) {
+class AddInputTextUseCase(private val inputTextCommandRepository: InputTextCommandRepository) {
     suspend operator fun invoke(text: String): Boolean {
-        return textRepository.addText(text)
+        return inputTextCommandRepository.addTextCommand(InputTextCommandFactory.createNew(text))
     }
 }

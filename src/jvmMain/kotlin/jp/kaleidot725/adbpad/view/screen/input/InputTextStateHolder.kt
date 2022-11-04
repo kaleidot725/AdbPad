@@ -1,6 +1,7 @@
 package jp.kaleidot725.adbpad.view.screen.input
 
 import jp.kaleidot725.adbpad.domain.model.Device
+import jp.kaleidot725.adbpad.domain.model.InputTextCommand
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.input.AddInputTextUseCase
 import jp.kaleidot725.adbpad.domain.usecase.input.DeleteInputTextUseCase
@@ -26,13 +27,13 @@ class InputTextStateHolder(
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase
 ) : ChildStateHolder<InputTextState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
-    private val inputTexts: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
+    private val commands: MutableStateFlow<List<InputTextCommand>> = MutableStateFlow(emptyList())
     private val userInputText: MutableStateFlow<String> = MutableStateFlow("")
     private val selectedDevice: StateFlow<Device?> = getSelectedDeviceFlowUseCase()
         .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
 
     override val state: StateFlow<InputTextState> = combine(
-        inputTexts,
+        commands,
         userInputText,
         selectedDevice
     ) { inputTexts, userInputText, selectedDevice ->
@@ -41,7 +42,7 @@ class InputTextStateHolder(
 
     override fun setup() {
         coroutineScope.launch {
-            inputTexts.value = getInputTextUseCase()
+            commands.value = getInputTextUseCase()
         }
     }
 
@@ -56,24 +57,43 @@ class InputTextStateHolder(
         if (isLettersOrDigits) this.userInputText.value = text
     }
 
-    fun sendInputText(text: String) {
+    fun sendCommand(command: InputTextCommand) {
         val selectedDevice = state.value.selectedDevice ?: return
         coroutineScope.launch {
-            executeInputTextCommandUseCase(selectedDevice.serial, text)
+            executeInputTextCommandUseCase(
+                device = selectedDevice,
+                command = command,
+                onStart = {},
+                onFailed = {},
+                onComplete = {}
+            )
         }
     }
 
-    fun saveInputText(text: String) {
+    fun sendInputText() {
+        val selectedDevice = state.value.selectedDevice ?: return
         coroutineScope.launch {
-            addInputTextUseCase(text)
-            inputTexts.value = getInputTextUseCase()
+            executeInputTextCommandUseCase(
+                device = selectedDevice,
+                command = InputTextCommand(state.value.inputText),
+                onStart = {},
+                onFailed = {},
+                onComplete = {}
+            )
         }
     }
 
-    fun deleteInputText(text: String) {
+    fun saveInputText() {
         coroutineScope.launch {
-            deleteInputTextUseCase(text)
-            inputTexts.value = getInputTextUseCase()
+            addInputTextUseCase(state.value.inputText)
+            commands.value = getInputTextUseCase()
+        }
+    }
+
+    fun deleteInputText(command: InputTextCommand) {
+        coroutineScope.launch {
+            deleteInputTextUseCase(command)
+            commands.value = getInputTextUseCase()
         }
     }
 }

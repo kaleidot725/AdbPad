@@ -19,9 +19,9 @@ import jp.kaleidot725.adbpad.domain.model.Language
 fun InputTextActionMenu(
     inputText: String,
     onTextChange: (String) -> Unit,
-    onSend: (String) -> Unit,
+    onSend: () -> Unit,
     canSend: Boolean,
-    onSave: (String) -> Unit,
+    onSave: () -> Unit,
     canSave: Boolean,
     modifier: Modifier = Modifier
 ) {
@@ -39,7 +39,7 @@ fun InputTextActionMenu(
 
         Button(
             enabled = canSave,
-            onClick = { onSave(inputText) },
+            onClick = { onSave() },
             modifier = Modifier.fillMaxHeight().width(85.dp)
         ) {
             Text(
@@ -50,7 +50,7 @@ fun InputTextActionMenu(
 
         Button(
             enabled = canSend,
-            onClick = { onSend(inputText) },
+            onClick = { onSend() },
             modifier = Modifier.fillMaxHeight().width(85.dp)
         ) {
             Text(

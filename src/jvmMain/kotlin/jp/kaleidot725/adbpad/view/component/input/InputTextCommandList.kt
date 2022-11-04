@@ -16,28 +16,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.domain.model.InputTextCommand
 import jp.kaleidot725.adbpad.domain.model.Language
 
 @Composable
-fun InputTextList(
-    inputTexts: List<String>,
-    onSend: (String) -> Unit,
+fun InputTextCommandList(
+    commands: List<InputTextCommand>,
+    onSend: (InputTextCommand) -> Unit,
     canSend: Boolean,
-    onDelete: (String) -> Unit,
+    onDelete: (InputTextCommand) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
-        if (inputTexts.isNotEmpty()) {
+        if (commands.isNotEmpty()) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.verticalScroll(rememberScrollState())
             ) {
-                inputTexts.forEach { text ->
-                    InputTextItem(
-                        text = text,
-                        onSend = { onSend(text) },
+                commands.forEach { command ->
+                    InputTextCommandItem(
+                        command = command,
+                        onSend = { onSend(command) },
                         canSend = canSend,
-                        onDelete = { onDelete(text) },
+                        onDelete = { onDelete(command) },
                         modifier = Modifier.height(60.dp).fillMaxWidth().padding(2.dp)
                     )
                 }
@@ -53,18 +54,18 @@ fun InputTextList(
 
 @Preview
 @Composable
-private fun InputTextList_Preview() {
+private fun InputTextCommandList_Preview() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        InputTextList(
-            inputTexts = listOf("A", "B", "C"),
+        InputTextCommandList(
+            commands = listOf(InputTextCommand("TEST1"), InputTextCommand("TEST2")),
             onSend = {},
             canSend = true,
             onDelete = {},
             modifier = Modifier.fillMaxWidth().weight(0.5f, true)
         )
 
-        InputTextList(
-            inputTexts = emptyList(),
+        InputTextCommandList(
+            commands = emptyList(),
             onSend = {},
             canSend = true,
             onDelete = {},

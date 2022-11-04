@@ -10,37 +10,42 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.domain.model.InputTextCommand
 import jp.kaleidot725.adbpad.view.component.input.InputTextActionMenu
-import jp.kaleidot725.adbpad.view.component.input.InputTextList
+import jp.kaleidot725.adbpad.view.component.input.InputTextCommandList
 
 @Composable
 fun InputTextScreen(
+    // InputText
     inputText: String,
     onTextChange: (String) -> Unit,
-    inputTexts: List<String>,
-    onSend: (String) -> Unit,
-    canSendListText: Boolean,
+    onSendInputText: () -> Unit,
     canSendInputText: Boolean,
-    onSave: (String) -> Unit,
-    canSave: Boolean,
-    onDelete: (String) -> Unit
+    onSaveInputText: () -> Unit,
+    canSaveInputText: Boolean,
+
+    // Commands
+    commands: List<InputTextCommand>,
+    onSendCommand: (InputTextCommand) -> Unit,
+    canSendCommand: Boolean,
+    onDeleteCommand: (InputTextCommand) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        InputTextList(
-            inputTexts = inputTexts,
-            onSend = onSend,
-            canSend = canSendListText,
-            onDelete = onDelete,
+        InputTextCommandList(
+            commands = commands,
+            onSend = onSendCommand,
+            canSend = canSendCommand,
+            onDelete = onDeleteCommand,
             modifier = Modifier.fillMaxSize().padding(bottom = 60.dp)
         )
 
         InputTextActionMenu(
             inputText = inputText,
             onTextChange = onTextChange,
-            onSend = onSend,
+            onSend = onSendInputText,
             canSend = canSendInputText,
-            onSave = onSave,
-            canSave = canSave,
+            onSave = onSaveInputText,
+            canSave = canSaveInputText,
             modifier = Modifier.height(50.dp).fillMaxWidth().align(Alignment.BottomEnd)
         )
     }
@@ -52,12 +57,13 @@ private fun InputTextScreen_Preview() {
     InputTextScreen(
         inputText = "SAMPLE INPUT TEXT",
         onTextChange = {},
-        inputTexts = listOf("A", "B", "C"),
-        onSend = {},
-        canSendListText = true,
+        onSendInputText = {},
+        onSaveInputText = {},
+        canSaveInputText = true,
+        commands = listOf(InputTextCommand("TEST1"), InputTextCommand("TEST2")),
+        onSendCommand = {},
+        canSendCommand = true,
         canSendInputText = true,
-        onSave = {},
-        canSave = true,
-        onDelete = {}
+        onDeleteCommand = {}
     )
 }
