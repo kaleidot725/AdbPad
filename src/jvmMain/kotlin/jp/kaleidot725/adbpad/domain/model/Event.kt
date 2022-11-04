@@ -25,7 +25,6 @@ sealed class Event(val message: String, val level: Level) {
         val text: String
     ) : Event(message = String.format(Language.TEXT_COMMAND_ERROR_EVENT_FORMAT, text), Level.ERROR)
 
-
     object NULL : Event("", Level.INFO)
 
     enum class Level {
