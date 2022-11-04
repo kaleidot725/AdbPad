@@ -20,7 +20,7 @@ val repositoryModule = module {
     single<EventRepository> {
         EventRepositoryImpl()
     }
-    factory<InputTextCommandRepository> {
+    single<InputTextCommandRepository> {
         InputTextCommandRepositoryImpl()
     }
 }

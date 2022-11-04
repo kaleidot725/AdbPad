@@ -35,7 +35,8 @@ fun InputTextCommandList(
             ) {
                 commands.forEach { command ->
                     InputTextCommandItem(
-                        command = command,
+                        text = command.text,
+                        isRunning = command.isRunning,
                         onSend = { onSend(command) },
                         canSend = canSend,
                         onDelete = { onDelete(command) },

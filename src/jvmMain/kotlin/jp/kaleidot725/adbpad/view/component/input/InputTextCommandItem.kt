@@ -15,12 +15,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.InputTextCommand
 import jp.kaleidot725.adbpad.domain.model.Language
+import jp.kaleidot725.adbpad.view.component.RunningIndicator
 
 @Composable
 fun InputTextCommandItem(
-    command: InputTextCommand,
+    text: String,
+    isRunning: Boolean,
     onSend: () -> Unit,
     canSend: Boolean,
     onDelete: () -> Unit,
@@ -32,7 +33,7 @@ fun InputTextCommandItem(
             modifier = Modifier.padding(8.dp)
         ) {
             Text(
-                text = command.text,
+                text = text,
                 fontWeight = FontWeight.Bold,
                 maxLines = 2,
                 modifier = Modifier
@@ -51,7 +52,10 @@ fun InputTextCommandItem(
                 enabled = canSend,
                 modifier = Modifier.align(Alignment.CenterVertically).width(85.dp)
             ) {
-                Text(Language.SEND)
+                when {
+                    isRunning -> RunningIndicator()
+                    else -> Text(text = Language.SEND)
+                }
             }
         }
     }
@@ -61,7 +65,8 @@ fun InputTextCommandItem(
 @Composable
 private fun InputTextCommandItem_Preview() {
     InputTextCommandItem(
-        command = InputTextCommand("いろはにほへと"),
+        text = "あいうえお",
+        isRunning = false,
         onSend = {},
         canSend = true,
         onDelete = {},
