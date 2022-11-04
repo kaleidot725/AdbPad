@@ -14,12 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.Language
+import jp.kaleidot725.adbpad.view.component.RunningIndicator
 
 @Composable
 fun InputTextActionMenu(
     inputText: String,
     onTextChange: (String) -> Unit,
     onSend: () -> Unit,
+    isSending: Boolean,
     canSend: Boolean,
     onSave: () -> Unit,
     canSave: Boolean,
@@ -53,10 +55,15 @@ fun InputTextActionMenu(
             onClick = { onSend() },
             modifier = Modifier.fillMaxHeight().width(85.dp)
         ) {
-            Text(
-                text = Language.SEND,
-                textAlign = TextAlign.Center
-            )
+            when (isSending) {
+                true -> RunningIndicator()
+                else -> {
+                    Text(
+                        text = Language.SEND,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
         }
     }
 }
@@ -67,6 +74,7 @@ private fun InputTextActionMenu_Preview() {
     InputTextActionMenu(
         inputText = "INPUT TEXT SAMPLE",
         onSend = {},
+        isSending = false,
         canSend = true,
         onSave = {},
         canSave = true,

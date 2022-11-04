@@ -19,6 +19,7 @@ fun TextCommandScreen(
     // InputText
     inputText: String,
     onTextChange: (String) -> Unit,
+    isSendingInputText: Boolean,
     onSendInputText: () -> Unit,
     canSendInputText: Boolean,
     onSaveInputText: () -> Unit,
@@ -42,6 +43,7 @@ fun TextCommandScreen(
         InputTextActionMenu(
             inputText = inputText,
             onTextChange = onTextChange,
+            isSending = isSendingInputText,
             onSend = onSendInputText,
             canSend = canSendInputText,
             onSave = onSaveInputText,
@@ -57,6 +59,7 @@ private fun InputTextScreen_Preview() {
     TextCommandScreen(
         inputText = "SAMPLE INPUT TEXT",
         onTextChange = {},
+        isSendingInputText = false,
         onSendInputText = {},
         onSaveInputText = {},
         canSaveInputText = true,

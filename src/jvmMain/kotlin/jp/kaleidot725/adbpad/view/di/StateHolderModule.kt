@@ -22,7 +22,8 @@ val stateHolderModule = module {
             deleteTextCommandUseCase = get(),
             getTextCommandUseCase = get(),
             executeTextCommandUseCase = get(),
-            getSelectedDeviceFlowUseCase = get()
+            getSelectedDeviceFlowUseCase = get(),
+            sendUserInputTextCommandUseCase = get()
         )
     }
 

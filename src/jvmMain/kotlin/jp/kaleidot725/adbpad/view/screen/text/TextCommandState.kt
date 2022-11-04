@@ -5,10 +5,11 @@ import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 
 data class TextCommandState(
     val commands: List<TextCommand> = emptyList(),
-    val inputText: String = "",
+    val userInputText: String = "",
+    val isSendingUserInputText: Boolean = false,
     val selectedDevice: Device? = null
 ) {
     val canSendCommand: Boolean get() = selectedDevice != null
-    val canSendInputText: Boolean get() = selectedDevice != null && inputText.isNotEmpty()
-    val canSaveInputText: Boolean get() = inputText.isNotEmpty()
+    val canSendInputText: Boolean get() = selectedDevice != null && userInputText.isNotEmpty()
+    val canSaveInputText: Boolean get() = userInputText.isNotEmpty()
 }

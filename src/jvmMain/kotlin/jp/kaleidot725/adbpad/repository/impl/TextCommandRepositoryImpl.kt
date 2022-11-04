@@ -69,4 +69,30 @@ class TextCommandRepositoryImpl : TextCommandRepository {
             onComplete()
         }
     }
+
+    override suspend fun sendUserInputText(
+        device: Device,
+        text: String,
+        onStart: suspend () -> Unit,
+        onComplete: suspend () -> Unit,
+        onFailed: suspend () -> Unit
+    ) {
+        withContext(Dispatchers.IO) {
+            onStart()
+
+            delay(300)
+
+            val command = TextCommand(text)
+            command.requests.forEach { request ->
+                val result = adbClient.execute(request, device.serial)
+                if (result.exitCode != 0) {
+                    runningCommands.remove(command)
+                    onFailed()
+                    return@withContext
+                }
+            }
+
+            onComplete()
+        }
+    }
 }
