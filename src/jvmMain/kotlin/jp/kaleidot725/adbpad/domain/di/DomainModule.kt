@@ -7,10 +7,10 @@ import jp.kaleidot725.adbpad.domain.usecase.device.GetDevicesFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
-import jp.kaleidot725.adbpad.domain.usecase.input.AddInputTextUseCase
-import jp.kaleidot725.adbpad.domain.usecase.input.DeleteInputTextUseCase
+import jp.kaleidot725.adbpad.domain.usecase.input.AddInputTextCommandUseCase
+import jp.kaleidot725.adbpad.domain.usecase.input.DeleteInputTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.input.ExecuteInputTextCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.input.GetInputTextUseCase
+import jp.kaleidot725.adbpad.domain.usecase.input.GetInputTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.menu.GetMenuListUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeThemeScreenshotUseCase
@@ -36,16 +36,16 @@ val domainModule = module {
         SelectDeviceUseCase(get())
     }
     factory {
-        AddInputTextUseCase(get())
+        AddInputTextCommandUseCase(get())
     }
     factory {
-        DeleteInputTextUseCase(get())
+        DeleteInputTextCommandUseCase(get())
     }
     factory {
-        ExecuteInputTextCommandUseCase()
+        ExecuteInputTextCommandUseCase(get(), get())
     }
     factory {
-        GetInputTextUseCase(get())
+        GetInputTextCommandUseCase(get())
     }
     factory {
         GetMenuListUseCase()

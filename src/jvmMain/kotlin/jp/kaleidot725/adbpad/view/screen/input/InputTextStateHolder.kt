@@ -3,10 +3,10 @@ package jp.kaleidot725.adbpad.view.screen.input
 import jp.kaleidot725.adbpad.domain.model.Device
 import jp.kaleidot725.adbpad.domain.model.InputTextCommand
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
-import jp.kaleidot725.adbpad.domain.usecase.input.AddInputTextUseCase
-import jp.kaleidot725.adbpad.domain.usecase.input.DeleteInputTextUseCase
+import jp.kaleidot725.adbpad.domain.usecase.input.AddInputTextCommandUseCase
+import jp.kaleidot725.adbpad.domain.usecase.input.DeleteInputTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.input.ExecuteInputTextCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.input.GetInputTextUseCase
+import jp.kaleidot725.adbpad.domain.usecase.input.GetInputTextCommandUseCase
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,9 +20,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class InputTextStateHolder(
-    private val addInputTextUseCase: AddInputTextUseCase,
-    private val deleteInputTextUseCase: DeleteInputTextUseCase,
-    private val getInputTextUseCase: GetInputTextUseCase,
+    private val addInputTextCommandUseCase: AddInputTextCommandUseCase,
+    private val deleteInputTextCommandUseCase: DeleteInputTextCommandUseCase,
+    private val getInputTextCommandUseCase: GetInputTextCommandUseCase,
     private val executeInputTextCommandUseCase: ExecuteInputTextCommandUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase
 ) : ChildStateHolder<InputTextState> {
@@ -42,7 +42,7 @@ class InputTextStateHolder(
 
     override fun setup() {
         coroutineScope.launch {
-            commands.value = getInputTextUseCase()
+            commands.value = getInputTextCommandUseCase()
         }
     }
 
@@ -63,9 +63,9 @@ class InputTextStateHolder(
             executeInputTextCommandUseCase(
                 device = selectedDevice,
                 command = command,
-                onStart = {},
-                onFailed = {},
-                onComplete = {}
+                onStart = { commands.value = getInputTextCommandUseCase() },
+                onFailed = { commands.value = getInputTextCommandUseCase() },
+                onComplete = { commands.value = getInputTextCommandUseCase() }
             )
         }
     }
@@ -76,24 +76,24 @@ class InputTextStateHolder(
             executeInputTextCommandUseCase(
                 device = selectedDevice,
                 command = InputTextCommand(state.value.inputText),
-                onStart = {},
-                onFailed = {},
-                onComplete = {}
+                onStart = { commands.value = getInputTextCommandUseCase() },
+                onFailed = { commands.value = getInputTextCommandUseCase() },
+                onComplete = { commands.value = getInputTextCommandUseCase() }
             )
         }
     }
 
     fun saveInputText() {
         coroutineScope.launch {
-            addInputTextUseCase(state.value.inputText)
-            commands.value = getInputTextUseCase()
+            addInputTextCommandUseCase(state.value.inputText)
+            commands.value = getInputTextCommandUseCase()
         }
     }
 
     fun deleteInputText(command: InputTextCommand) {
         coroutineScope.launch {
-            deleteInputTextUseCase(command)
-            commands.value = getInputTextUseCase()
+            deleteInputTextCommandUseCase(command)
+            commands.value = getInputTextCommandUseCase()
         }
     }
 }

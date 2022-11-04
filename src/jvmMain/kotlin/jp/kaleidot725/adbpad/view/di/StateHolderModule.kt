@@ -18,9 +18,9 @@ val stateHolderModule = module {
 
     factory {
         InputTextStateHolder(
-            addInputTextUseCase = get(),
-            deleteInputTextUseCase = get(),
-            getInputTextUseCase = get(),
+            addInputTextCommandUseCase = get(),
+            deleteInputTextCommandUseCase = get(),
+            getInputTextCommandUseCase = get(),
             executeInputTextCommandUseCase = get(),
             getSelectedDeviceFlowUseCase = get()
         )
