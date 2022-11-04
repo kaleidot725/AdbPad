@@ -7,13 +7,13 @@ import jp.kaleidot725.adbpad.domain.usecase.device.GetDevicesFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
-import jp.kaleidot725.adbpad.domain.usecase.input.AddInputTextCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.input.DeleteInputTextCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.input.ExecuteInputTextCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.input.GetInputTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.menu.GetMenuListUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeThemeScreenshotUseCase
+import jp.kaleidot725.adbpad.domain.usecase.text.AddTextCommandUseCase
+import jp.kaleidot725.adbpad.domain.usecase.text.DeleteTextCommandUseCase
+import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
+import jp.kaleidot725.adbpad.domain.usecase.text.GetTextCommandUseCase
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -36,16 +36,16 @@ val domainModule = module {
         SelectDeviceUseCase(get())
     }
     factory {
-        AddInputTextCommandUseCase(get())
+        AddTextCommandUseCase(get())
     }
     factory {
-        DeleteInputTextCommandUseCase(get())
+        DeleteTextCommandUseCase(get())
     }
     factory {
-        ExecuteInputTextCommandUseCase(get(), get())
+        ExecuteTextCommandUseCase(get(), get())
     }
     factory {
-        GetInputTextCommandUseCase(get())
+        GetTextCommandUseCase(get())
     }
     factory {
         GetMenuListUseCase()

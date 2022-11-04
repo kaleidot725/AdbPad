@@ -1,10 +1,10 @@
-package jp.kaleidot725.adbpad.view.screen.input
+package jp.kaleidot725.adbpad.view.screen.text
 
 import jp.kaleidot725.adbpad.domain.model.Device
-import jp.kaleidot725.adbpad.domain.model.InputTextCommand
+import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 
-data class InputTextState(
-    val commands: List<InputTextCommand> = emptyList(),
+data class TextCommandState(
+    val commands: List<TextCommand> = emptyList(),
     val inputText: String = "",
     val selectedDevice: Device? = null
 ) {

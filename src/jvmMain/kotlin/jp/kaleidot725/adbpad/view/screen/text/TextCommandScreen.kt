@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.screen.input
+package jp.kaleidot725.adbpad.view.screen.text
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Box
@@ -10,12 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.InputTextCommand
-import jp.kaleidot725.adbpad.view.component.input.InputTextActionMenu
-import jp.kaleidot725.adbpad.view.component.input.InputTextCommandList
+import jp.kaleidot725.adbpad.domain.model.command.TextCommand
+import jp.kaleidot725.adbpad.view.component.text.InputTextActionMenu
+import jp.kaleidot725.adbpad.view.component.text.TextCommandList
 
 @Composable
-fun InputTextScreen(
+fun TextCommandScreen(
     // InputText
     inputText: String,
     onTextChange: (String) -> Unit,
@@ -25,13 +25,13 @@ fun InputTextScreen(
     canSaveInputText: Boolean,
 
     // Commands
-    commands: List<InputTextCommand>,
-    onSendCommand: (InputTextCommand) -> Unit,
+    commands: List<TextCommand>,
+    onSendCommand: (TextCommand) -> Unit,
     canSendCommand: Boolean,
-    onDeleteCommand: (InputTextCommand) -> Unit
+    onDeleteCommand: (TextCommand) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        InputTextCommandList(
+        TextCommandList(
             commands = commands,
             onSend = onSendCommand,
             canSend = canSendCommand,
@@ -54,13 +54,13 @@ fun InputTextScreen(
 @Preview
 @Composable
 private fun InputTextScreen_Preview() {
-    InputTextScreen(
+    TextCommandScreen(
         inputText = "SAMPLE INPUT TEXT",
         onTextChange = {},
         onSendInputText = {},
         onSaveInputText = {},
         canSaveInputText = true,
-        commands = listOf(InputTextCommand("TEST1"), InputTextCommand("TEST2")),
+        commands = listOf(TextCommand("TEST1"), TextCommand("TEST2")),
         onSendCommand = {},
         canSendCommand = true,
         canSendInputText = true,

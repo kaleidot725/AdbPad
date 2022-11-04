@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.input
+package jp.kaleidot725.adbpad.view.component.text
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +19,7 @@ import jp.kaleidot725.adbpad.domain.model.Language
 import jp.kaleidot725.adbpad.view.component.RunningIndicator
 
 @Composable
-fun InputTextCommandItem(
+fun TextCommandItem(
     text: String,
     isRunning: Boolean,
     onSend: () -> Unit,
@@ -63,8 +63,8 @@ fun InputTextCommandItem(
 
 @Preview
 @Composable
-private fun InputTextCommandItem_Preview() {
-    InputTextCommandItem(
+private fun TextCommandItem_Preview() {
+    TextCommandItem(
         text = "あいうえお",
         isRunning = false,
         onSend = {},

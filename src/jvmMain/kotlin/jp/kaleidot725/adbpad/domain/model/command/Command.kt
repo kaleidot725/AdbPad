@@ -1,6 +1,7 @@
-package jp.kaleidot725.adbpad.domain.model
+package jp.kaleidot725.adbpad.domain.model.command
 
 import com.malinskiy.adam.request.shell.v1.ShellCommandRequest
+import jp.kaleidot725.adbpad.domain.model.Language
 
 interface Command {
     val title: String

@@ -48,11 +48,11 @@ object Language {
     const val COMMAND_WIFI_AND_DATA_OFF_TITLE = "Wi-Fi and cellular: OFF"
     const val COMMAND_WIFI_AND_DATA_OFF_DETAILS = "Disable Wi-Fi and cellular communication."
 
-    const val INPUT_COMMAND_START_EVENT_FORMAT = "Start sending input text「%s」"
-    const val INPUT_COMMAND_END_EVENT_FORMAT = "End sending input text「%s」"
-    const val INPUT_COMMAND_ERROR_EVENT_FORMAT = "Error sending input text「%s」"
+    const val TEXT_COMMAND_START_EVENT_FORMAT = "Start sending text「%s」"
+    const val TEXT_COMMAND_END_EVENT_FORMAT = "End sending text「%s」"
+    const val TEXT_COMMAND_ERROR_EVENT_FORMAT = "Error sending text「%s」"
 
     const val MENU_COMMAND_TITLE = "Command"
-    const val MENU_INPUT_TEXT_TITLE = "Input Text"
+    const val MENU_INPUT_TEXT_TITLE = "Send Text"
     const val MENU_SCREENSHOT = "Screenshot"
 }

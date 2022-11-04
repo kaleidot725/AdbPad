@@ -1,8 +1,8 @@
 package jp.kaleidot725.adbpad.domain.usecase.command
 
-import jp.kaleidot725.adbpad.domain.model.Command
 import jp.kaleidot725.adbpad.domain.model.Device
 import jp.kaleidot725.adbpad.domain.model.Event
+import jp.kaleidot725.adbpad.domain.model.command.Command
 import jp.kaleidot725.adbpad.domain.repository.CommandRepository
 import jp.kaleidot725.adbpad.domain.repository.EventRepository
 

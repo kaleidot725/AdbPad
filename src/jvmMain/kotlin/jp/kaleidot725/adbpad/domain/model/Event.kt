@@ -13,17 +13,17 @@ sealed class Event(val message: String, val level: Level) {
         val commandName: String
     ) : Event(message = String.format(Language.COMMAND_ERROR_EVENT_FORMAT, commandName), Level.ERROR)
 
-    data class StartInputTextCommand(
+    data class StartSendTextCommand(
         val text: String
-    ) : Event(message = String.format(Language.INPUT_COMMAND_START_EVENT_FORMAT, text), Level.INFO)
+    ) : Event(message = String.format(Language.TEXT_COMMAND_START_EVENT_FORMAT, text), Level.INFO)
 
-    data class EndInputTextCommand(
+    data class EndSendTextCommand(
         val text: String
-    ) : Event(message = String.format(Language.INPUT_COMMAND_END_EVENT_FORMAT, text), Level.INFO)
+    ) : Event(message = String.format(Language.TEXT_COMMAND_END_EVENT_FORMAT, text), Level.INFO)
 
-    data class ErrorInputTextCommand(
+    data class ErrorSendTextCommand(
         val text: String
-    ) : Event(message = String.format(Language.INPUT_COMMAND_ERROR_EVENT_FORMAT, text), Level.ERROR)
+    ) : Event(message = String.format(Language.TEXT_COMMAND_ERROR_EVENT_FORMAT, text), Level.ERROR)
 
 
     object NULL : Event("", Level.INFO)

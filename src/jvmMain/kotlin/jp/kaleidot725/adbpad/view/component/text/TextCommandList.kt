@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.input
+package jp.kaleidot725.adbpad.view.component.text
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
@@ -16,15 +16,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.InputTextCommand
 import jp.kaleidot725.adbpad.domain.model.Language
+import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 
 @Composable
-fun InputTextCommandList(
-    commands: List<InputTextCommand>,
-    onSend: (InputTextCommand) -> Unit,
+fun TextCommandList(
+    commands: List<TextCommand>,
+    onSend: (TextCommand) -> Unit,
     canSend: Boolean,
-    onDelete: (InputTextCommand) -> Unit,
+    onDelete: (TextCommand) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
@@ -34,7 +34,7 @@ fun InputTextCommandList(
                 modifier = Modifier.verticalScroll(rememberScrollState())
             ) {
                 commands.forEach { command ->
-                    InputTextCommandItem(
+                    TextCommandItem(
                         text = command.text,
                         isRunning = command.isRunning,
                         onSend = { onSend(command) },
@@ -55,17 +55,17 @@ fun InputTextCommandList(
 
 @Preview
 @Composable
-private fun InputTextCommandList_Preview() {
+private fun TextCommandList_Preview() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        InputTextCommandList(
-            commands = listOf(InputTextCommand("TEST1"), InputTextCommand("TEST2")),
+        TextCommandList(
+            commands = listOf(TextCommand("TEST1"), TextCommand("TEST2")),
             onSend = {},
             canSend = true,
             onDelete = {},
             modifier = Modifier.fillMaxWidth().weight(0.5f, true)
         )
 
-        InputTextCommandList(
+        TextCommandList(
             commands = emptyList(),
             onSend = {},
             canSend = true,

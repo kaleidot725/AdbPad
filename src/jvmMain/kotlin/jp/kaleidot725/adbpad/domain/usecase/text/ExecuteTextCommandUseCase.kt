@@ -1,35 +1,35 @@
-package jp.kaleidot725.adbpad.domain.usecase.input
+package jp.kaleidot725.adbpad.domain.usecase.text
 
 import jp.kaleidot725.adbpad.domain.model.Device
 import jp.kaleidot725.adbpad.domain.model.Event
-import jp.kaleidot725.adbpad.domain.model.InputTextCommand
+import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.domain.repository.EventRepository
-import jp.kaleidot725.adbpad.domain.repository.InputTextCommandRepository
+import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
 
-class ExecuteInputTextCommandUseCase(
+class ExecuteTextCommandUseCase(
     private val eventRepository: EventRepository,
-    private val inputTextCommandRepository: InputTextCommandRepository
+    private val textCommandRepository: TextCommandRepository
 ) {
     suspend operator fun invoke(
         device: Device,
-        command: InputTextCommand,
+        command: TextCommand,
         onStart: suspend () -> Unit,
         onFailed: suspend () -> Unit,
         onComplete: suspend () -> Unit
     ) {
-        inputTextCommandRepository.sendCommand(
+        textCommandRepository.sendCommand(
             device = device,
             command = command,
             onStart = {
-                eventRepository.sendEvent(Event.StartInputTextCommand(command.text))
+                eventRepository.sendEvent(Event.StartSendTextCommand(command.text))
                 onStart()
             },
             onFailed = {
-                eventRepository.sendEvent(Event.ErrorInputTextCommand(command.text))
+                eventRepository.sendEvent(Event.ErrorSendTextCommand(command.text))
                 onFailed()
             },
             onComplete = {
-                eventRepository.sendEvent(Event.EndInputTextCommand(command.text))
+                eventRepository.sendEvent(Event.EndSendTextCommand(command.text))
                 onComplete()
             }
         )

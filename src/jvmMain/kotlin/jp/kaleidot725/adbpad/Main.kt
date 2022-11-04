@@ -37,7 +37,7 @@ import jp.kaleidot725.adbpad.view.screen.CommandScreen
 import jp.kaleidot725.adbpad.view.screen.MenuScreen
 import jp.kaleidot725.adbpad.view.screen.ScreenLayout
 import jp.kaleidot725.adbpad.view.screen.ScreenshotScreen
-import jp.kaleidot725.adbpad.view.screen.input.InputTextScreen
+import jp.kaleidot725.adbpad.view.screen.text.TextCommandScreen
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
 
@@ -64,7 +64,7 @@ fun main() {
                 val commandStateHolder = mainStateHolder.commandStateHolder
                 val commandState by commandStateHolder.state.collectAsState()
 
-                val inputTextStateHolder = mainStateHolder.inputTextStateHolder
+                val inputTextStateHolder = mainStateHolder.textCommandStateHolder
                 val inputTextState by inputTextStateHolder.state.collectAsState()
 
                 val screenshotStateHolder = mainStateHolder.screenshotStateHolder
@@ -104,7 +104,7 @@ fun main() {
                             }
 
                             Menu.InputText -> {
-                                InputTextScreen(
+                                TextCommandScreen(
                                     // InputText
                                     inputText = inputTextState.inputText,
                                     onTextChange = { text ->
