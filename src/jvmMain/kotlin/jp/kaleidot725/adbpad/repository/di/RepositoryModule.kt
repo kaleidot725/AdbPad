@@ -3,11 +3,11 @@ package jp.kaleidot725.adbpad.repository.di
 import jp.kaleidot725.adbpad.domain.repository.CommandRepository
 import jp.kaleidot725.adbpad.domain.repository.DeviceRepository
 import jp.kaleidot725.adbpad.domain.repository.EventRepository
-import jp.kaleidot725.adbpad.domain.repository.TextRepository
+import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
 import jp.kaleidot725.adbpad.repository.impl.CommandRepositoryImpl
 import jp.kaleidot725.adbpad.repository.impl.DeviceRepositoryImpl
 import jp.kaleidot725.adbpad.repository.impl.EventRepositoryImpl
-import jp.kaleidot725.adbpad.repository.impl.TextRepositoryImpl
+import jp.kaleidot725.adbpad.repository.impl.TextCommandRepositoryImpl
 import org.koin.dsl.module
 
 val repositoryModule = module {
@@ -20,7 +20,7 @@ val repositoryModule = module {
     single<EventRepository> {
         EventRepositoryImpl()
     }
-    factory<TextRepository> {
-        TextRepositoryImpl()
+    single<TextCommandRepository> {
+        TextCommandRepositoryImpl()
     }
 }

@@ -15,9 +15,9 @@ object Language {
     const val TAKE_SCREENSHOT = "Shoot"
     const val TAKE_THEME_SCREENSHOT = "Shoot(each theme)"
 
-    const val COMMAND_START_EVENT_FORMAT = "Start 「%s」"
-    const val COMMAND_END_EVENT_FORMAT = "End 「%s」"
-    const val COMMAND_ERROR_EVENT_FORMAT = "Error 「%s」"
+    const val COMMAND_START_EVENT_FORMAT = "Start sending command 「%s」"
+    const val COMMAND_END_EVENT_FORMAT = "End sending command 「%s」"
+    const val COMMAND_ERROR_EVENT_FORMAT = "Error sending command 「%s」"
 
     const val COMMAND_LAYOUT_BORDER_ON_TITLE = "Show layout bounds: ON"
     const val COMMAND_LAYOUT_BORDER_ON_DETAILS = "Enable showing clip bounds, margins, etc."
@@ -43,14 +43,16 @@ object Language {
     const val COMMAND_DATA_ON_DETAILS = "Enable cellular communication."
     const val COMMAND_DATA_OFF_TITLE = "Cellular: OFF"
     const val COMMAND_DATA_OFF_DETAILS = "Disable cellular communication."
-    const val COMMAND_INPUT_TEXT_TITLE = "Text input"
-    const val COMMAND_INPUT_TEXT_DETAILS = "Send a text to android device."
     const val COMMAND_WIFI_AND_DATA_ON_TITLE = "Wi-Fi and cellular: ON"
     const val COMMAND_WIFI_AND_DATA_ON_DETAILS = "Enable Wi-Fi and cellular communication."
     const val COMMAND_WIFI_AND_DATA_OFF_TITLE = "Wi-Fi and cellular: OFF"
     const val COMMAND_WIFI_AND_DATA_OFF_DETAILS = "Disable Wi-Fi and cellular communication."
 
+    const val TEXT_COMMAND_START_EVENT_FORMAT = "Start sending text「%s」"
+    const val TEXT_COMMAND_END_EVENT_FORMAT = "End sending text「%s」"
+    const val TEXT_COMMAND_ERROR_EVENT_FORMAT = "Error sending text「%s」"
+
     const val MENU_COMMAND_TITLE = "Command"
-    const val MENU_INPUT_TEXT_TITLE = "Input Text"
+    const val MENU_INPUT_TEXT_TITLE = "Send Text"
     const val MENU_SCREENSHOT = "Screenshot"
 }

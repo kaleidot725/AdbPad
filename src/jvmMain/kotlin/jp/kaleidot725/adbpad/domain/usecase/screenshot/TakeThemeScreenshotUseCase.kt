@@ -3,8 +3,8 @@ package jp.kaleidot725.adbpad.domain.usecase.screenshot
 import com.malinskiy.adam.AndroidDebugBridgeClientFactory
 import com.malinskiy.adam.request.framebuffer.RawImageScreenCaptureAdapter
 import com.malinskiy.adam.request.framebuffer.ScreenCaptureRequest
-import jp.kaleidot725.adbpad.domain.model.Command
 import jp.kaleidot725.adbpad.domain.model.OSContext
+import jp.kaleidot725.adbpad.domain.model.command.Command
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File

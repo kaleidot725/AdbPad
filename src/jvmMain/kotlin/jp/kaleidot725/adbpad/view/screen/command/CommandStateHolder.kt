@@ -1,7 +1,7 @@
 package jp.kaleidot725.adbpad.view.screen.command
 
-import jp.kaleidot725.adbpad.domain.model.Command
 import jp.kaleidot725.adbpad.domain.model.Device
+import jp.kaleidot725.adbpad.domain.model.command.Command
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetCommandList
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase

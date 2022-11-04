@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.Command
+import jp.kaleidot725.adbpad.domain.model.command.Command
 import jp.kaleidot725.adbpad.view.component.command.CommandList
 
 @Composable

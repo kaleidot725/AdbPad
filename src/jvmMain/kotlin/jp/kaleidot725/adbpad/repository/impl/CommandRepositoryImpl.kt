@@ -1,8 +1,8 @@
 package jp.kaleidot725.adbpad.repository.impl
 
 import com.malinskiy.adam.AndroidDebugBridgeClientFactory
-import jp.kaleidot725.adbpad.domain.model.Command
 import jp.kaleidot725.adbpad.domain.model.Device
+import jp.kaleidot725.adbpad.domain.model.command.Command
 import jp.kaleidot725.adbpad.domain.repository.CommandRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -49,7 +49,7 @@ class CommandRepositoryImpl : CommandRepository {
                 if (result.exitCode != 0) {
                     runningCommands.remove(command)
                     onFailed()
-                    return@forEach
+                    return@withContext
                 }
             }
 

@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.screen.input
+package jp.kaleidot725.adbpad.view.screen.text
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Box
@@ -10,37 +10,42 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.view.component.input.InputTextActionMenu
-import jp.kaleidot725.adbpad.view.component.input.InputTextList
+import jp.kaleidot725.adbpad.domain.model.command.TextCommand
+import jp.kaleidot725.adbpad.view.component.text.InputTextActionMenu
+import jp.kaleidot725.adbpad.view.component.text.TextCommandList
 
 @Composable
-fun InputTextScreen(
+fun TextCommandScreen(
+    // InputText
     inputText: String,
     onTextChange: (String) -> Unit,
-    inputTexts: List<String>,
-    onSend: (String) -> Unit,
-    canSendListText: Boolean,
+    onSendInputText: () -> Unit,
     canSendInputText: Boolean,
-    onSave: (String) -> Unit,
-    canSave: Boolean,
-    onDelete: (String) -> Unit
+    onSaveInputText: () -> Unit,
+    canSaveInputText: Boolean,
+
+    // Commands
+    commands: List<TextCommand>,
+    onSendCommand: (TextCommand) -> Unit,
+    canSendCommand: Boolean,
+    onDeleteCommand: (TextCommand) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        InputTextList(
-            inputTexts = inputTexts,
-            onSend = onSend,
-            canSend = canSendListText,
-            onDelete = onDelete,
+        TextCommandList(
+            commands = commands,
+            onSend = onSendCommand,
+            canSend = canSendCommand,
+            onDelete = onDeleteCommand,
             modifier = Modifier.fillMaxSize().padding(bottom = 60.dp)
         )
 
         InputTextActionMenu(
             inputText = inputText,
             onTextChange = onTextChange,
-            onSend = onSend,
+            onSend = onSendInputText,
             canSend = canSendInputText,
-            onSave = onSave,
-            canSave = canSave,
+            onSave = onSaveInputText,
+            canSave = canSaveInputText,
             modifier = Modifier.height(50.dp).fillMaxWidth().align(Alignment.BottomEnd)
         )
     }
@@ -49,15 +54,16 @@ fun InputTextScreen(
 @Preview
 @Composable
 private fun InputTextScreen_Preview() {
-    InputTextScreen(
+    TextCommandScreen(
         inputText = "SAMPLE INPUT TEXT",
         onTextChange = {},
-        inputTexts = listOf("A", "B", "C"),
-        onSend = {},
-        canSendListText = true,
+        onSendInputText = {},
+        onSaveInputText = {},
+        canSaveInputText = true,
+        commands = listOf(TextCommand("TEST1"), TextCommand("TEST2")),
+        onSendCommand = {},
+        canSendCommand = true,
         canSendInputText = true,
-        onSave = {},
-        canSave = true,
-        onDelete = {}
+        onDeleteCommand = {}
     )
 }

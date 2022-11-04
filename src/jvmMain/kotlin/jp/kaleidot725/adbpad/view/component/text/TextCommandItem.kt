@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.input
+package jp.kaleidot725.adbpad.view.component.text
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
@@ -16,10 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.Language
+import jp.kaleidot725.adbpad.view.component.RunningIndicator
 
 @Composable
-fun InputTextItem(
+fun TextCommandItem(
     text: String,
+    isRunning: Boolean,
     onSend: () -> Unit,
     canSend: Boolean,
     onDelete: () -> Unit,
@@ -50,7 +52,10 @@ fun InputTextItem(
                 enabled = canSend,
                 modifier = Modifier.align(Alignment.CenterVertically).width(85.dp)
             ) {
-                Text(Language.SEND)
+                when {
+                    isRunning -> RunningIndicator()
+                    else -> Text(text = Language.SEND)
+                }
             }
         }
     }
@@ -58,9 +63,10 @@ fun InputTextItem(
 
 @Preview
 @Composable
-private fun CommandItem_Preview() {
-    InputTextItem(
-        text = "いろはにほへと",
+private fun TextCommandItem_Preview() {
+    TextCommandItem(
+        text = "あいうえお",
+        isRunning = false,
         onSend = {},
         canSend = true,
         onDelete = {},
