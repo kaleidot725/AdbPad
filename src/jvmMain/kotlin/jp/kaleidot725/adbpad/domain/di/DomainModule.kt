@@ -14,6 +14,7 @@ import jp.kaleidot725.adbpad.domain.usecase.text.AddTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.DeleteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.GetTextCommandUseCase
+import jp.kaleidot725.adbpad.domain.usecase.text.SendUserInputTextCommandUseCase
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -58,5 +59,8 @@ val domainModule = module {
     }
     factory {
         GetEventFlowUseCase(get())
+    }
+    factory {
+        SendUserInputTextCommandUseCase(get(), get())
     }
 }

@@ -7,6 +7,7 @@ import jp.kaleidot725.adbpad.domain.usecase.text.AddTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.DeleteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.GetTextCommandUseCase
+import jp.kaleidot725.adbpad.domain.usecase.text.SendUserInputTextCommandUseCase
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,20 +25,23 @@ class TextCommandStateHolder(
     private val deleteTextCommandUseCase: DeleteTextCommandUseCase,
     private val getTextCommandUseCase: GetTextCommandUseCase,
     private val executeTextCommandUseCase: ExecuteTextCommandUseCase,
+    private val sendUserInputTextCommandUseCase: SendUserInputTextCommandUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase
 ) : ChildStateHolder<TextCommandState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val commands: MutableStateFlow<List<TextCommand>> = MutableStateFlow(emptyList())
     private val userInputText: MutableStateFlow<String> = MutableStateFlow("")
+    private val isSendingUserInputText: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val selectedDevice: StateFlow<Device?> = getSelectedDeviceFlowUseCase()
         .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
 
     override val state: StateFlow<TextCommandState> = combine(
         commands,
         userInputText,
+        isSendingUserInputText,
         selectedDevice
-    ) { inputTexts, userInputText, selectedDevice ->
-        TextCommandState(inputTexts, userInputText, selectedDevice)
+    ) { inputTexts, userInputText, isSendingUserInputText, selectedDevice ->
+        TextCommandState(inputTexts, userInputText, isSendingUserInputText, selectedDevice)
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), TextCommandState())
 
     override fun setup() {
@@ -73,19 +77,19 @@ class TextCommandStateHolder(
     fun sendInputText() {
         val selectedDevice = state.value.selectedDevice ?: return
         coroutineScope.launch {
-            executeTextCommandUseCase(
+            sendUserInputTextCommandUseCase(
                 device = selectedDevice,
-                command = TextCommand(state.value.inputText),
-                onStart = { commands.value = getTextCommandUseCase() },
-                onFailed = { commands.value = getTextCommandUseCase() },
-                onComplete = { commands.value = getTextCommandUseCase() }
+                text = state.value.userInputText,
+                onStart = { isSendingUserInputText.value = true },
+                onFailed = { isSendingUserInputText.value = false },
+                onComplete = { isSendingUserInputText.value = false }
             )
         }
     }
 
     fun saveInputText() {
         coroutineScope.launch {
-            addTextCommandUseCase(state.value.inputText)
+            addTextCommandUseCase(state.value.userInputText)
             commands.value = getTextCommandUseCase()
         }
     }

@@ -106,10 +106,11 @@ fun main() {
                             Menu.InputText -> {
                                 TextCommandScreen(
                                     // InputText
-                                    inputText = inputTextState.inputText,
+                                    inputText = inputTextState.userInputText,
                                     onTextChange = { text ->
                                         inputTextStateHolder.updateInputText(text)
                                     },
+                                    isSendingInputText = inputTextState.isSendingUserInputText,
                                     onSendInputText = {
                                         inputTextStateHolder.sendInputText()
                                     },
