@@ -21,11 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.Screenshot
+import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 
 @Composable
 fun ScreenshotButton(
-    selectedScreenshot: Screenshot,
+    selectedCommand: ScreenshotCommand?,
     onTake: () -> Unit,
     onChangeType: () -> Unit,
     modifier: Modifier = Modifier
@@ -45,7 +45,7 @@ fun ScreenshotButton(
                     .clickable { onTake() }
             ) {
                 Text(
-                    text = selectedScreenshot.text,
+                    text = selectedCommand?.title ?: "",
                     color = MaterialTheme.colors.onPrimary,
                     modifier = Modifier.align(Alignment.Center)
                 )
@@ -81,7 +81,7 @@ fun ScreenshotButton(
 private fun ScreenshotButton_Preview() {
     MaterialTheme {
         ScreenshotButton(
-            selectedScreenshot = Screenshot.TAKE_BY_BOTH_THEME,
+            selectedCommand = ScreenshotCommand.Current(false),
             onTake = {},
             onChangeType = {}
         )

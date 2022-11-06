@@ -1,14 +1,14 @@
 package jp.kaleidot725.adbpad.domain.repository
 
 import jp.kaleidot725.adbpad.domain.model.Device
-import jp.kaleidot725.adbpad.domain.model.command.Command
+import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
 
-interface CommandRepository {
-    fun getCommands(): List<Command>
+interface NormalCommandRepository {
+    fun getCommands(): List<NormalCommand>
 
     suspend fun sendCommand(
         device: Device,
-        command: Command,
+        command: NormalCommand,
         onStart: suspend () -> Unit,
         onComplete: suspend () -> Unit,
         onFailed: suspend () -> Unit

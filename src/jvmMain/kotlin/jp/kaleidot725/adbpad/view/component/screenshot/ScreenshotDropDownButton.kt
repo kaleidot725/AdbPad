@@ -21,20 +21,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.Screenshot
+import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 
 @Composable
 fun ScreenshotDropDownButton(
-    onTakeScreenshot: (Screenshot) -> Unit,
+    commands: List<ScreenshotCommand>,
+    onTakeScreenshot: (ScreenshotCommand) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedScreenshot by remember { mutableStateOf(Screenshot.TAKE_BY_BOTH_THEME) }
+    var selectedCommand by remember { mutableStateOf(commands.firstOrNull()) }
 
     Box(modifier) {
         ScreenshotButton(
-            selectedScreenshot = selectedScreenshot,
-            onTake = { onTakeScreenshot(selectedScreenshot) },
+            selectedCommand = selectedCommand,
+            onTake = { selectedCommand?.let { onTakeScreenshot(it) } },
             onChangeType = { expanded = true }
         )
 
@@ -43,16 +44,16 @@ fun ScreenshotDropDownButton(
             onDismissRequest = { expanded = false },
             modifier = Modifier.width(250.dp)
         ) {
-            Screenshot.values().forEach { screenshot ->
+            commands.forEach { command ->
                 DropdownMenuItem(
                     onClick = {
-                        selectedScreenshot = screenshot
+                        selectedCommand = command
                         expanded = false
                     }
                 ) {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Box(modifier = Modifier.size(20.dp).align(Alignment.CenterVertically)) {
-                            if (screenshot == selectedScreenshot) {
+                            if (command == selectedCommand) {
                                 Icon(
                                     imageVector = Icons.Default.Check,
                                     contentDescription = "",
@@ -62,7 +63,7 @@ fun ScreenshotDropDownButton(
                         }
 
                         Text(
-                            text = screenshot.text,
+                            text = command.title,
                             style = MaterialTheme.typography.subtitle2,
                             modifier = Modifier.align(Alignment.CenterVertically)
                         )

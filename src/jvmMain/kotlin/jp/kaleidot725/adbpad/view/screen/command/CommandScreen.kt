@@ -7,14 +7,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.command.Command
+import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
 import jp.kaleidot725.adbpad.view.component.command.CommandList
 
 @Composable
 fun CommandScreen(
-    commands: List<Command>,
+    commands: List<NormalCommand>,
     canExecute: Boolean,
-    onExecute: (Command) -> Unit
+    onExecute: (NormalCommand) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         CommandList(
@@ -30,7 +30,7 @@ fun CommandScreen(
 @Composable
 private fun CommandScreen_Preview() {
     CommandScreen(
-        commands = listOf(Command.DarkThemeOn(), Command.DarkThemeOff(), Command.WifiOn()),
+        commands = listOf(NormalCommand.DarkThemeOn(), NormalCommand.DarkThemeOff(), NormalCommand.WifiOn()),
         canExecute = true,
         onExecute = {},
     )

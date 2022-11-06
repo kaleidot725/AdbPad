@@ -136,6 +136,7 @@ fun main() {
                                 ScreenshotScreen(
                                     image1 = screenshotState.imageFile1,
                                     image2 = screenshotState.imageFile2,
+                                    commands = screenshotState.commands,
                                     onTakeScreenshot = { screenshot -> screenshotStateHolder.takeScreenShot(screenshot) }
                                 )
                             }

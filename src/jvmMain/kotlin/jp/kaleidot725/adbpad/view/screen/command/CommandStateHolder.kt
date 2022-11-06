@@ -1,7 +1,7 @@
 package jp.kaleidot725.adbpad.view.screen.command
 
 import jp.kaleidot725.adbpad.domain.model.Device
-import jp.kaleidot725.adbpad.domain.model.command.Command
+import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetCommandList
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
@@ -23,7 +23,7 @@ class CommandStateHolder(
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase
 ) : ChildStateHolder<CommandState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
-    private val commands: MutableStateFlow<List<Command>> = MutableStateFlow(emptyList())
+    private val commands: MutableStateFlow<List<NormalCommand>> = MutableStateFlow(emptyList())
     private val selectedDevice: StateFlow<Device?> = getSelectedDeviceFlowUseCase()
         .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
 
@@ -42,7 +42,7 @@ class CommandStateHolder(
         coroutineScope.cancel()
     }
 
-    fun executeCommand(command: Command) {
+    fun executeCommand(command: NormalCommand) {
         val selectedDevice = state.value.selectedDevice ?: return
         coroutineScope.launch {
             executeCommandUseCase(
