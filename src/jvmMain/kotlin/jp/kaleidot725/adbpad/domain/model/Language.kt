@@ -15,10 +15,10 @@ object Language {
     const val TARGET_DEVICE = "Devices"
     const val TOOL = "Tools"
 
-    const val SCREENSHOT_TAKE_ON_CURRENT_THEME = "Take on current theme"
-    const val SCREENSHOT_TAKE_ON_DARK_THEME = "Take on dark theme"
-    const val SCREENSHOT_TAKE_ON_LIGHT_THEME = "Take on light theme"
-    const val SCREENSHOT_TAKE_ON_BOTH_THEME = "Take on both theme"
+    const val SCREENSHOT_TAKE_BY_CURRENT_THEME = "Take by current theme"
+    const val SCREENSHOT_TAKE_BY_DARK_THEME = "Take by dark theme"
+    const val SCREENSHOT_TAKE_BY_LIGHT_THEME = "Take by light theme"
+    const val SCREENSHOT_TAKE_BY_BOTH_THEME = "Take by both theme"
 
     const val COMMAND_START_EVENT_FORMAT = "Start sending command 「%s」"
     const val COMMAND_END_EVENT_FORMAT = "End sending command 「%s」"

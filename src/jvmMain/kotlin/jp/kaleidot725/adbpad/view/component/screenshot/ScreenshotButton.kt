@@ -82,7 +82,7 @@ fun ScreenshotButton(
 private fun ScreenshotButton_Preview() {
     MaterialTheme {
         ScreenshotButton(
-            selectedScreenshot = Screenshot.TAKE_ON_BOTH_THEME,
+            selectedScreenshot = Screenshot.TAKE_BY_BOTH_THEME,
             onTake = {},
             onChangeType = {}
         )

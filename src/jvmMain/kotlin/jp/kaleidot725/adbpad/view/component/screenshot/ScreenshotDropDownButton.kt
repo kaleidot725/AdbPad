@@ -29,7 +29,7 @@ fun ScreenshotDropDownButton(
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedScreenshot by remember { mutableStateOf(Screenshot.TAKE_ON_BOTH_THEME) }
+    var selectedScreenshot by remember { mutableStateOf(Screenshot.TAKE_BY_BOTH_THEME) }
 
     Box(modifier) {
         ScreenshotButton(
