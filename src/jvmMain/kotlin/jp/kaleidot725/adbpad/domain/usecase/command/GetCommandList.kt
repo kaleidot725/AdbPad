@@ -1,9 +1,9 @@
 package jp.kaleidot725.adbpad.domain.usecase.command
 
-import jp.kaleidot725.adbpad.domain.repository.CommandRepository
+import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepository
 
 class GetCommandList(
-    private val commandRepository: CommandRepository
+    private val normalCommandRepository: NormalCommandRepository
 ) {
-    operator fun invoke() = commandRepository.getCommands()
+    operator fun invoke() = normalCommandRepository.getCommands()
 }

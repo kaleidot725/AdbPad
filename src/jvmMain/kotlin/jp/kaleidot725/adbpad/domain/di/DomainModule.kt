@@ -8,8 +8,9 @@ import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.menu.GetMenuListUseCase
+import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotCommandUseCase
+import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotPreviewUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
-import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeThemeScreenshotUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.AddTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.DeleteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
@@ -52,15 +53,18 @@ val domainModule = module {
         GetMenuListUseCase()
     }
     factory {
-        TakeScreenshotUseCase()
+        TakeScreenshotUseCase(get(), get())
     }
     factory {
-        TakeThemeScreenshotUseCase()
+        GetScreenshotCommandUseCase(get())
     }
     factory {
         GetEventFlowUseCase(get())
     }
     factory {
         SendUserInputTextCommandUseCase(get(), get())
+    }
+    factory {
+        GetScreenshotPreviewUseCase(get())
     }
 }

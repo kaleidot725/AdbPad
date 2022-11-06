@@ -57,6 +57,10 @@ object Language {
     const val TEXT_COMMAND_END_EVENT_FORMAT = "End sending text「%s」"
     const val TEXT_COMMAND_ERROR_EVENT_FORMAT = "Error sending text「%s」"
 
+    const val SCREENSHOT_COMMAND_START_EVENT_FORMAT = "Start taking screenshot"
+    const val SCREENSHOT_COMMAND_END_EVENT_FORMAT = "End taking screenshot"
+    const val SCREENSHOT_COMMAND_ERROR_EVENT_FORMAT = "Error taking screenshot"
+
     const val MENU_COMMAND_TITLE = "Command"
     const val MENU_INPUT_TEXT_TITLE = "Send Text"
     const val MENU_SCREENSHOT = "Screenshot"

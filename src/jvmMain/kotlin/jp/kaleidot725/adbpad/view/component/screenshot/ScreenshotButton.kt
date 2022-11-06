@@ -21,11 +21,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.Screenshot
+import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
+import jp.kaleidot725.adbpad.view.component.RunningIndicator
 
 @Composable
 fun ScreenshotButton(
-    selectedScreenshot: Screenshot,
+    selectedCommand: ScreenshotCommand?,
+    isCapturing: Boolean,
     onTake: () -> Unit,
     onChangeType: () -> Unit,
     modifier: Modifier = Modifier
@@ -42,13 +44,17 @@ fun ScreenshotButton(
                 modifier = Modifier
                     .fillMaxHeight()
                     .weight(0.8f)
-                    .clickable { onTake() }
+                    .clickable { if (!isCapturing) onTake() }
             ) {
-                Text(
-                    text = selectedScreenshot.text,
-                    color = MaterialTheme.colors.onPrimary,
-                    modifier = Modifier.align(Alignment.Center)
-                )
+                if (isCapturing) {
+                    Box(Modifier.align(Alignment.Center)) { RunningIndicator() }
+                } else {
+                    Text(
+                        text = selectedCommand?.title ?: "",
+                        color = MaterialTheme.colors.onPrimary,
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
             }
 
             Spacer(
@@ -81,7 +87,8 @@ fun ScreenshotButton(
 private fun ScreenshotButton_Preview() {
     MaterialTheme {
         ScreenshotButton(
-            selectedScreenshot = Screenshot.TAKE_BY_BOTH_THEME,
+            selectedCommand = ScreenshotCommand.Current(false),
+            isCapturing = false,
             onTake = {},
             onChangeType = {}
         )

@@ -25,6 +25,15 @@ sealed class Event(val message: String, val level: Level) {
         val text: String
     ) : Event(message = String.format(Language.TEXT_COMMAND_ERROR_EVENT_FORMAT, text), Level.ERROR)
 
+    object StartSendScreenshotCommand :
+        Event(message = Language.SCREENSHOT_COMMAND_START_EVENT_FORMAT, Level.INFO)
+
+    object EndSendScreenshotCommand :
+        Event(message = Language.SCREENSHOT_COMMAND_END_EVENT_FORMAT, Level.INFO)
+
+    object ErrorSendScreenshotCommand :
+        Event(message = Language.SCREENSHOT_COMMAND_ERROR_EVENT_FORMAT, Level.ERROR)
+
     object NULL : Event("", Level.INFO)
 
     enum class Level {

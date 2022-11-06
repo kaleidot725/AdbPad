@@ -2,22 +2,22 @@ package jp.kaleidot725.adbpad.domain.usecase.command
 
 import jp.kaleidot725.adbpad.domain.model.Device
 import jp.kaleidot725.adbpad.domain.model.Event
-import jp.kaleidot725.adbpad.domain.model.command.Command
-import jp.kaleidot725.adbpad.domain.repository.CommandRepository
+import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
 import jp.kaleidot725.adbpad.domain.repository.EventRepository
+import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepository
 
 class ExecuteCommandUseCase(
     private val eventRepository: EventRepository,
-    private val commandRepository: CommandRepository
+    private val normalCommandRepository: NormalCommandRepository
 ) {
     suspend operator fun invoke(
         device: Device,
-        command: Command,
+        command: NormalCommand,
         onStart: suspend () -> Unit,
         onFailed: suspend () -> Unit,
         onComplete: suspend () -> Unit
     ) {
-        commandRepository.sendCommand(
+        normalCommandRepository.sendCommand(
             device = device,
             command = command,
             onStart = {

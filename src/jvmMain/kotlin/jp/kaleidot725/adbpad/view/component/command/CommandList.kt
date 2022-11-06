@@ -18,13 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.Language
-import jp.kaleidot725.adbpad.domain.model.command.Command
+import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
 
 @Composable
 fun CommandList(
-    commands: List<Command>,
+    commands: List<NormalCommand>,
     canExecute: Boolean,
-    onExecute: (Command) -> Unit,
+    onExecute: (NormalCommand) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
@@ -59,7 +59,7 @@ fun CommandList(
 private fun CommandList_Preview() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         CommandList(
-            commands = listOf(Command.DarkThemeOn(), Command.DarkThemeOff(), Command.WifiOn()),
+            commands = listOf(NormalCommand.DarkThemeOn(), NormalCommand.DarkThemeOff(), NormalCommand.WifiOn()),
             canExecute = true,
             onExecute = {},
             modifier = Modifier.fillMaxWidth().weight(0.5f)

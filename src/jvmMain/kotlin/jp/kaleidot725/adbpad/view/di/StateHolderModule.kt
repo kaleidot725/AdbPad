@@ -39,7 +39,9 @@ val stateHolderModule = module {
     factory {
         ScreenshotStateHolder(
             takeScreenshotUseCase = get(),
-            takeThemeScreenshotUseCase = get()
+            getScreenshotCommandUseCase = get(),
+            getSelectedDeviceFlowUseCase = get(),
+            getScreenshotPreviewUseCase = get()
         )
     }
 
