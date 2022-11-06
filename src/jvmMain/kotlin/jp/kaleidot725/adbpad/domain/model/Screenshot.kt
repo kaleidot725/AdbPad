@@ -1,0 +1,8 @@
+package jp.kaleidot725.adbpad.domain.model
+
+enum class Screenshot(val text: String) {
+    TAKE_ON_CURRENT_THEME(Language.SCREENSHOT_TAKE_ON_CURRENT_THEME),
+    TAKE_ON_DARK_THEME(Language.SCREENSHOT_TAKE_ON_DARK_THEME),
+    TAKE_ON_LIGHT_THEME(Language.SCREENSHOT_TAKE_ON_LIGHT_THEME),
+    TAKE_ON_BOTH_THEME(Language.SCREENSHOT_TAKE_ON_BOTH_THEME)
+}
