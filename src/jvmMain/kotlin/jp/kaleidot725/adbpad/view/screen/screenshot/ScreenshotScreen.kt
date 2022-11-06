@@ -14,22 +14,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.domain.model.ScreenshotPreview
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.view.component.screenshot.ScreenshotDropDownButton
 import jp.kaleidot725.adbpad.view.component.screenshot.ScreenshotViewer
-import java.io.File
 
 @Composable
 fun ScreenshotScreen(
-    image1: File?,
-    image2: File?,
+    preview: ScreenshotPreview,
+    isCapturing: Boolean,
     commands: List<ScreenshotCommand>,
     onTakeScreenshot: (ScreenshotCommand) -> Unit,
 ) {
     Column(Modifier.fillMaxSize().padding(16.dp)) {
         ScreenshotViewer(
-            image1 = image1,
-            image2 = image2,
+            screenshotPreview = preview,
+            isCapturing = isCapturing,
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(0.5f)
@@ -41,6 +41,7 @@ fun ScreenshotScreen(
 
         ScreenshotDropDownButton(
             commands = commands,
+            isCapturing = isCapturing,
             onTakeScreenshot = onTakeScreenshot,
             modifier = Modifier.wrapContentSize().align(Alignment.End)
         )
@@ -51,8 +52,8 @@ fun ScreenshotScreen(
 @Preview
 private fun ScreenshotScreen_Preview() {
     ScreenshotScreen(
-        image1 = null,
-        image2 = null,
+        preview = ScreenshotPreview(emptyList()),
+        isCapturing = false,
         commands = emptyList(),
         onTakeScreenshot = {}
     )

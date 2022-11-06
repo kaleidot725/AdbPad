@@ -134,8 +134,8 @@ fun main() {
 
                             Menu.Screenshot -> {
                                 ScreenshotScreen(
-                                    image1 = screenshotState.imageFile1,
-                                    image2 = screenshotState.imageFile2,
+                                    preview = screenshotState.preview,
+                                    isCapturing = screenshotState.isCapturing,
                                     commands = screenshotState.commands,
                                     onTakeScreenshot = { screenshot -> screenshotStateHolder.takeScreenShot(screenshot) }
                                 )

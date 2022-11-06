@@ -9,6 +9,7 @@ import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.menu.GetMenuListUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotCommandUseCase
+import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotPreviewUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.AddTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.DeleteTextCommandUseCase
@@ -62,5 +63,8 @@ val domainModule = module {
     }
     factory {
         SendUserInputTextCommandUseCase(get(), get())
+    }
+    factory {
+        GetScreenshotPreviewUseCase(get())
     }
 }

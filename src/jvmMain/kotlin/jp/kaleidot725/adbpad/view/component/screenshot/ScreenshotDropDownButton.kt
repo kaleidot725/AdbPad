@@ -26,6 +26,7 @@ import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 @Composable
 fun ScreenshotDropDownButton(
     commands: List<ScreenshotCommand>,
+    isCapturing: Boolean,
     onTakeScreenshot: (ScreenshotCommand) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -35,6 +36,7 @@ fun ScreenshotDropDownButton(
     Box(modifier) {
         ScreenshotButton(
             selectedCommand = selectedCommand,
+            isCapturing = isCapturing,
             onTake = { selectedCommand?.let { onTakeScreenshot(it) } },
             onChangeType = { expanded = true }
         )
