@@ -136,11 +136,7 @@ fun main() {
                                 ScreenshotScreen(
                                     image1 = screenshotState.imageFile1,
                                     image2 = screenshotState.imageFile2,
-                                    onTakeScreenshot = { _ ->
-                                        menuState.selectedDevice?.let {
-                                            screenshotStateHolder.takeScreenShot(it)
-                                        }
-                                    }
+                                    onTakeScreenshot = { screenshot -> screenshotStateHolder.takeScreenShot(screenshot) }
                                 )
                             }
 

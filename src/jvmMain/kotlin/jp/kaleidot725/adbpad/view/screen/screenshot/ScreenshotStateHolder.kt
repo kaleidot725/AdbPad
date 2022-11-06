@@ -1,6 +1,8 @@
 package jp.kaleidot725.adbpad.view.screen.screenshot
 
 import jp.kaleidot725.adbpad.domain.model.Device
+import jp.kaleidot725.adbpad.domain.model.Screenshot
+import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeThemeScreenshotUseCase
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
@@ -17,31 +19,32 @@ import java.io.File
 
 class ScreenshotStateHolder(
     private val takeScreenshotUseCase: TakeScreenshotUseCase,
-    private val takeThemeScreenshotUseCase: TakeThemeScreenshotUseCase
+    private val takeThemeScreenshotUseCase: TakeThemeScreenshotUseCase,
+    private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase
 ) : ChildStateHolder<ScreenshotState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val previewImage1: MutableStateFlow<File?> = MutableStateFlow(null)
     private val previewImage2: MutableStateFlow<File?> = MutableStateFlow(null)
-    override val state: StateFlow<ScreenshotState> = combine(previewImage1, previewImage2) { image1, image2 ->
-        ScreenshotState(image1, image2)
+    private val selectedDevice: StateFlow<Device?> = getSelectedDeviceFlowUseCase()
+        .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
+
+    override val state: StateFlow<ScreenshotState> = combine(
+        previewImage1,
+        previewImage2,
+        selectedDevice
+    ) { image1, image2, selectedDevice ->
+        ScreenshotState(image1, image2, selectedDevice)
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), ScreenshotState())
 
     override fun setup() {}
     override fun dispose() {}
 
-    fun takeScreenShot(device: Device) {
+    fun takeScreenShot(screenshot: Screenshot) {
+        val selectedDevice = state.value.selectedDevice ?: return
         coroutineScope.launch {
-            val filePath = takeScreenshotUseCase(device.serial) ?: return@launch
+            val filePath = takeScreenshotUseCase(selectedDevice.serial) ?: return@launch
             previewImage1.value = File(filePath)
             previewImage2.value = null
-        }
-    }
-
-    fun takeThemeScreenShot(device: Device) {
-        coroutineScope.launch {
-            val filePathPair = takeThemeScreenshotUseCase(device.serial) ?: return@launch
-            previewImage1.value = File(filePathPair.first)
-            previewImage2.value = File(filePathPair.second)
         }
     }
 }
