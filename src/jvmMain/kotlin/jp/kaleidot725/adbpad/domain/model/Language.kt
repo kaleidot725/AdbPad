@@ -2,18 +2,23 @@ package jp.kaleidot725.adbpad.domain.model
 
 object Language {
     const val WINDOW_TITLE = "AdbPad(v0.1.0)"
+
     const val NOT_FOUND_DEVICE = "Not found device"
     const val NOT_FOUND_COMMAND = "Not found command"
     const val NOT_FOUND_INPUT_TEXT = "Not found input text"
     const val NOT_FOUND_SCREEN_SHOT = "Not found screenshot"
+
     const val EXECUTE = "Run"
     const val SAVE = "Save"
     const val DELETE = "Delete"
     const val SEND = "Send"
-    const val TARGET_DEVICE = "Target Device"
+    const val TARGET_DEVICE = "Devices"
     const val TOOL = "Tools"
-    const val TAKE_SCREENSHOT = "Shoot"
-    const val TAKE_THEME_SCREENSHOT = "Shoot(each theme)"
+
+    const val SCREENSHOT_TAKE_BY_CURRENT_THEME = "Take by current theme"
+    const val SCREENSHOT_TAKE_BY_DARK_THEME = "Take by dark theme"
+    const val SCREENSHOT_TAKE_BY_LIGHT_THEME = "Take by light theme"
+    const val SCREENSHOT_TAKE_BY_BOTH_THEME = "Take by both theme"
 
     const val COMMAND_START_EVENT_FORMAT = "Start sending command 「%s」"
     const val COMMAND_END_EVENT_FORMAT = "End sending command 「%s」"
