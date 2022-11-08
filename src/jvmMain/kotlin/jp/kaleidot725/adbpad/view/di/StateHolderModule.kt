@@ -51,7 +51,9 @@ val stateHolderModule = module {
             commandStateHolder = get(),
             textCommandStateHolder = get(),
             screenshotStateHolder = get(),
-            getEventFlowUseCase = get()
+            getEventFlowUseCase = get(),
+            getWindowSizeUseCase = get(),
+            saveWindowSizeUseCase = get()
         )
     }
 }
