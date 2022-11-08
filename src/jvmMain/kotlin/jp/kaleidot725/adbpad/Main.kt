@@ -63,7 +63,7 @@ fun main() {
         val windowState by remember(state.size) {
             derivedStateOf { WindowState(width = state.size.width.dp, height = state.size.height.dp) }
         }
-   
+
         Window(title = Language.WINDOW_TITLE, onCloseRequest = ::exitApplication, state = windowState) {
             val frameWindowScope = this
             LaunchedEffect(Unit) {
