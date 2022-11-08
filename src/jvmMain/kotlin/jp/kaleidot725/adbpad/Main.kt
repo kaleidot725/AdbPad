@@ -14,6 +14,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.domain.di.domainModule
@@ -29,6 +31,8 @@ import jp.kaleidot725.adbpad.domain.model.Dialog
 import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.model.Language
 import jp.kaleidot725.adbpad.domain.model.Menu
+import jp.kaleidot725.adbpad.domain.model.WindowSize
+import jp.kaleidot725.adbpad.domain.model.getWindowSize
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.repository.di.repositoryModule
 import jp.kaleidot725.adbpad.view.common.resource.AppTheme
@@ -47,16 +51,27 @@ fun main() {
     }
 
     application {
-        Window(title = Language.WINDOW_TITLE, onCloseRequest = ::exitApplication) {
+        var dialog by remember { mutableStateOf<Dialog?>(null) }
+        val mainStateHolder by remember { mutableStateOf(GlobalContext.get().get<MainStateHolder>()) }
+        val event by mainStateHolder.event.collectAsState(Event.NULL)
+        val state by mainStateHolder.state.collectAsState()
+
+        if (state.size == WindowSize.UNKNOWN) {
+            return@application
+        }
+
+        val windowState by remember(state.size) {
+            derivedStateOf { WindowState(width = state.size.width.dp, height = state.size.height.dp) }
+        }
+
+        Window(title = Language.WINDOW_TITLE, onCloseRequest = ::exitApplication, state = windowState) {
+            val frameWindowScope = this
             LaunchedEffect(Unit) {
                 val startAdbUseCase = GlobalContext.get().get<StartAdbUseCase>()
                 startAdbUseCase()
             }
 
             AppTheme {
-                var dialog by remember { mutableStateOf<Dialog?>(null) }
-                val mainStateHolder by remember { mutableStateOf(GlobalContext.get().get<MainStateHolder>()) }
-                val event by mainStateHolder.event.collectAsState(Event.NULL)
 
                 val menuStateHolder = mainStateHolder.menuStateHolder
                 val menuState by menuStateHolder.state.collectAsState()
@@ -72,7 +87,10 @@ fun main() {
 
                 DisposableEffect(mainStateHolder) {
                     mainStateHolder.setup()
-                    onDispose { mainStateHolder.dispose() }
+                    onDispose {
+                        mainStateHolder.saveSetting(frameWindowScope.getWindowSize())
+                        mainStateHolder.dispose()
+                    }
                 }
 
                 ScreenLayout(

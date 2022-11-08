@@ -16,6 +16,8 @@ import jp.kaleidot725.adbpad.domain.usecase.text.DeleteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.GetTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.SendUserInputTextCommandUseCase
+import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
+import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -66,5 +68,11 @@ val domainModule = module {
     }
     factory {
         GetScreenshotPreviewUseCase(get())
+    }
+    factory {
+        GetWindowSizeUseCase(get())
+    }
+    factory {
+        SaveWindowSizeUseCase(get())
     }
 }
