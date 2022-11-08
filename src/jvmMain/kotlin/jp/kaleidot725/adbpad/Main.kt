@@ -31,6 +31,7 @@ import jp.kaleidot725.adbpad.domain.model.Dialog
 import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.model.Language
 import jp.kaleidot725.adbpad.domain.model.Menu
+import jp.kaleidot725.adbpad.domain.model.WindowSize
 import jp.kaleidot725.adbpad.domain.model.getWindowSize
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.repository.di.repositoryModule
@@ -54,11 +55,15 @@ fun main() {
         val mainStateHolder by remember { mutableStateOf(GlobalContext.get().get<MainStateHolder>()) }
         val event by mainStateHolder.event.collectAsState(Event.NULL)
         val state by mainStateHolder.state.collectAsState()
-        
+
+        if (state.size == WindowSize.UNKNOWN) {
+            return@application
+        }
+
         val windowState by remember(state.size) {
             derivedStateOf { WindowState(width = state.size.width.dp, height = state.size.height.dp) }
         }
-
+   
         Window(title = Language.WINDOW_TITLE, onCloseRequest = ::exitApplication, state = windowState) {
             val frameWindowScope = this
             LaunchedEffect(Unit) {

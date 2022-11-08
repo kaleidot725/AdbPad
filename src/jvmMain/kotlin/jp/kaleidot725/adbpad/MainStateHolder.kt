@@ -42,9 +42,12 @@ class MainStateHolder(
         menuStateHolder, commandStateHolder, textCommandStateHolder, screenshotStateHolder
     )
 
+    init {
+        coroutineScope.launch { windowSize.value = getWindowSizeUseCase() }
+    }
+
     override fun setup() {
         children.forEach { it.setup() }
-        coroutineScope.launch { windowSize.value = getWindowSizeUseCase() }
     }
 
     fun saveSetting(windowSize: WindowSize) {

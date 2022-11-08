@@ -1,7 +1,7 @@
 package jp.kaleidot725.adbpad.domain.model
 
 object Language {
-    const val WINDOW_TITLE = "AdbPad(v0.1.0)"
+    const val WINDOW_TITLE = "AdbPad(v0.2.0)"
 
     const val NOT_FOUND_DEVICE = "Not found device"
     const val NOT_FOUND_COMMAND = "Not found command"

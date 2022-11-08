@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Setting(
     val inputTexts: List<String> = emptyList(),
-    val windowSize: WindowSize = WindowSize.UNKNOWN
+    val windowSize: WindowSize = WindowSize.DEFAULT
 )
