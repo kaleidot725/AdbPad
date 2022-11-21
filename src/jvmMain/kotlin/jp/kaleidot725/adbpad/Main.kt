@@ -1,5 +1,4 @@
 // Copyright 2000-2021 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,8 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Button
-import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.DisposableEffect
@@ -41,6 +38,7 @@ import jp.kaleidot725.adbpad.view.screen.CommandScreen
 import jp.kaleidot725.adbpad.view.screen.MenuScreen
 import jp.kaleidot725.adbpad.view.screen.ScreenLayout
 import jp.kaleidot725.adbpad.view.screen.ScreenshotScreen
+import jp.kaleidot725.adbpad.view.screen.setting.SettingCommandScreen
 import jp.kaleidot725.adbpad.view.screen.text.TextCommandScreen
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
@@ -178,13 +176,7 @@ fun main() {
                     dialog = {
                         when (dialog) {
                             Dialog.Setting -> {
-                                Box(Modifier.background(Color.DarkGray.copy(alpha = 0.5f))) {
-                                    Card(Modifier.fillMaxSize().padding(32.dp)) {
-                                        Button(onClick = { dialog = null }) {
-                                            Text("Close")
-                                        }
-                                    }
-                                }
+                                SettingCommandScreen(onClose = { dialog = null })
                             }
 
                             null -> Unit
