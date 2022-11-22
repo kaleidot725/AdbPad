@@ -12,6 +12,7 @@ object Language {
     const val SAVE = "Save"
     const val DELETE = "Delete"
     const val SEND = "Send"
+    const val CANCEL = "Cancel"
     const val TARGET_DEVICE = "Devices"
     const val TOOL = "Tools"
 
@@ -64,4 +65,11 @@ object Language {
     const val MENU_COMMAND_TITLE = "Command"
     const val MENU_INPUT_TEXT_TITLE = "Send Text"
     const val MENU_SCREENSHOT = "Screenshot"
+
+    const val SETTING_ADB_HEADER = "ADB"
+    const val SETTING_ADB_DIRECTORY_PATH_TITLE = "Directory Path"
+    const val SETTING_ADB_PORT_NUMBER_TITLE = "Server Port"
+
+    const val SETTING_ANDROID_SDK_HEADER = "Android SDK"
+    const val SETTING_ANDROID_SDK_DIRECTORY_PATH_TITLE = "Directory Path"
 }

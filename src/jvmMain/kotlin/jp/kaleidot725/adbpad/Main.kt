@@ -38,7 +38,7 @@ import jp.kaleidot725.adbpad.view.screen.CommandScreen
 import jp.kaleidot725.adbpad.view.screen.MenuScreen
 import jp.kaleidot725.adbpad.view.screen.ScreenLayout
 import jp.kaleidot725.adbpad.view.screen.ScreenshotScreen
-import jp.kaleidot725.adbpad.view.screen.setting.SettingCommandScreen
+import jp.kaleidot725.adbpad.view.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.view.screen.text.TextCommandScreen
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
@@ -82,6 +82,9 @@ fun main() {
 
                 val screenshotStateHolder = mainStateHolder.screenshotStateHolder
                 val screenshotState by screenshotStateHolder.state.collectAsState()
+
+                val settingStateHolder = mainStateHolder.settingStateHolder
+                val settingState by settingStateHolder.state.collectAsState()
 
                 DisposableEffect(mainStateHolder) {
                     mainStateHolder.setup()
@@ -176,7 +179,15 @@ fun main() {
                     dialog = {
                         when (dialog) {
                             Dialog.Setting -> {
-                                SettingCommandScreen(onClose = { dialog = null })
+                                SettingScreen(
+                                    adbDirectoryPath = settingState.adbDirectoryPath,
+                                    onChangeAdbDirectoryPath = settingStateHolder::updateAdbDirectoryPath,
+                                    adbPortNumberPath = settingState.adbPortNumberPath,
+                                    onChangeAdbPortNumberPath = settingStateHolder::updateAdbPortNumberPath,
+                                    sdkAndroidDirectoryPath = settingState.sdkAndroidDirectoryPath,
+                                    onChangeSdkAndroidDirectoryPath = settingStateHolder::updateSdkAndroidDirectoryPath,
+                                    onClose = { dialog = null }
+                                )
                             }
 
                             null -> Unit

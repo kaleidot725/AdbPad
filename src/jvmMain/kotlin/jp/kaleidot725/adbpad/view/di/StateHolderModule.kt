@@ -4,6 +4,7 @@ import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.view.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.view.screen.menu.MenuStateHolder
 import jp.kaleidot725.adbpad.view.screen.screenshot.ScreenshotStateHolder
+import jp.kaleidot725.adbpad.view.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.view.screen.text.TextCommandStateHolder
 import org.koin.dsl.module
 
@@ -46,11 +47,16 @@ val stateHolderModule = module {
     }
 
     factory {
+        SettingStateHolder()
+    }
+    
+    factory {
         MainStateHolder(
             menuStateHolder = get(),
             commandStateHolder = get(),
             textCommandStateHolder = get(),
             screenshotStateHolder = get(),
+            settingStateHolder = get(),
             getEventFlowUseCase = get(),
             getWindowSizeUseCase = get(),
             saveWindowSizeUseCase = get()
