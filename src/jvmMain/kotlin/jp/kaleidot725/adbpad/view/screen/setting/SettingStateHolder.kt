@@ -4,6 +4,7 @@ import jp.kaleidot725.adbpad.view.common.ChildStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -27,6 +28,10 @@ class SettingStateHolder() : ChildStateHolder<SettingState> {
 
     }
 
+    override fun dispose() {
+        coroutineScope.cancel()
+    }
+
     fun updateAdbDirectoryPath(value: String) {
         adbDirectoryPath.value = value
     }
@@ -37,8 +42,5 @@ class SettingStateHolder() : ChildStateHolder<SettingState> {
 
     fun updateSdkAndroidDirectoryPath(value: String) {
         sdkAndroidDirectoryPath.value = value
-    }
-
-    override fun dispose() {
     }
 }

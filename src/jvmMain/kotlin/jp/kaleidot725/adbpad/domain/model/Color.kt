@@ -1,8 +1,8 @@
-package jp.kaleidot725.adbpad.view.common.resource
+package jp.kaleidot725.adbpad.domain.model
 
 import androidx.compose.ui.graphics.Color
 
-object ColorRes {
+object Color {
     val PRIMARY = Color(0xFF006B5D)
     val PRIMARY_VARIANT = Color(0xFFFFFFFF)
     val ON_PRIMARY = Color(0xFFFFFFFF)
