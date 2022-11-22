@@ -13,8 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.Language
 import jp.kaleidot725.adbpad.view.component.RunningIndicator
+import jp.kaleidot725.adbpad.view.model.resource.Language
 
 @Composable
 fun InputTextActionMenu(

@@ -1,7 +1,7 @@
 package jp.kaleidot725.adbpad.view.screen.menu
 
-import jp.kaleidot725.adbpad.domain.model.Device
-import jp.kaleidot725.adbpad.domain.model.Menu
+import jp.kaleidot725.adbpad.domain.model.device.Device
+import jp.kaleidot725.adbpad.view.model.Menu
 
 data class MenuState(
     val menus: List<Menu> = emptyList(),

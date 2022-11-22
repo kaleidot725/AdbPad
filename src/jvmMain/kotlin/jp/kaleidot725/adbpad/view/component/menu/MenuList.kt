@@ -10,8 +10,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.Menu
 import jp.kaleidot725.adbpad.view.common.extension.clickableNoRipple
+import jp.kaleidot725.adbpad.view.model.Menu
 
 @Composable
 fun MenuList(

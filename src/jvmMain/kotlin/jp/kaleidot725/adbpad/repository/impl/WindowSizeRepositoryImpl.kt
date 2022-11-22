@@ -1,8 +1,8 @@
 package jp.kaleidot725.adbpad.repository.impl
 
-import jp.kaleidot725.adbpad.domain.model.WindowSize
 import jp.kaleidot725.adbpad.domain.repository.WindowSizeRepository
 import jp.kaleidot725.adbpad.domain.service.SettingFileCreator
+import jp.kaleidot725.adbpad.view.model.WindowSize
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

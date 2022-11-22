@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.domain.model
+package jp.kaleidot725.adbpad.view.model
 
 sealed class Dialog {
     object Setting : Dialog()

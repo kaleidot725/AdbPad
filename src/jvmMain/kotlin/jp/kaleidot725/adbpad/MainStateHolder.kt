@@ -1,12 +1,12 @@
 package jp.kaleidot725.adbpad
 
-import jp.kaleidot725.adbpad.domain.model.Event
-import jp.kaleidot725.adbpad.domain.model.WindowSize
 import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
 import jp.kaleidot725.adbpad.view.common.ParentStateHolder
+import jp.kaleidot725.adbpad.view.model.Event
+import jp.kaleidot725.adbpad.view.model.WindowSize
 import jp.kaleidot725.adbpad.view.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.view.screen.menu.MenuStateHolder
 import jp.kaleidot725.adbpad.view.screen.screenshot.ScreenshotStateHolder

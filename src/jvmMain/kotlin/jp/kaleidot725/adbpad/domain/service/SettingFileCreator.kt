@@ -1,7 +1,7 @@
 package jp.kaleidot725.adbpad.domain.service
 
-import jp.kaleidot725.adbpad.domain.model.OSContext
-import jp.kaleidot725.adbpad.domain.model.Setting
+import jp.kaleidot725.adbpad.domain.model.os.OSContext
+import jp.kaleidot725.adbpad.domain.model.setting.Setting
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

@@ -14,8 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.ScreenshotPreview
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
+import jp.kaleidot725.adbpad.domain.model.screenshot.ScreenshotPreview
 import jp.kaleidot725.adbpad.view.component.screenshot.ScreenshotDropDownButton
 import jp.kaleidot725.adbpad.view.component.screenshot.ScreenshotViewer
 

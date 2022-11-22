@@ -15,8 +15,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.view.model.resource.Color
 
 @Composable
 fun ScreenLayout(
@@ -45,13 +45,13 @@ fun ScreenLayout(
 private fun ScreenLayout_Preview() {
     ScreenLayout(
         leftPane = {
-            Box(Modifier.width(200.dp).fillMaxHeight().background(Color.Red))
+            Box(Modifier.width(200.dp).fillMaxHeight().background(androidx.compose.ui.graphics.Color.Red))
         },
         rightPane = {
-            Box(Modifier.fillMaxSize().background(Color.Blue))
+            Box(Modifier.fillMaxSize().background(androidx.compose.ui.graphics.Color.Blue))
         },
         notificationArea = {
-            Box(Modifier.fillMaxWidth().height(50.dp).background(Color.Green))
+            Box(Modifier.fillMaxWidth().height(50.dp).background(androidx.compose.ui.graphics.Color.Green))
         },
         dialog = {
         },
@@ -64,13 +64,13 @@ private fun ScreenLayout_Preview() {
 private fun AppTemplateDialog_Preview() {
     ScreenLayout(
         leftPane = {
-            Box(Modifier.width(200.dp).fillMaxHeight().background(Color.LightGray))
+            Box(Modifier.width(200.dp).fillMaxHeight().background(androidx.compose.ui.graphics.Color.LightGray))
         },
         rightPane = {
-            Box(Modifier.fillMaxSize().background(Color.White))
+            Box(Modifier.fillMaxSize().background(androidx.compose.ui.graphics.Color.White))
         },
         notificationArea = {
-            Box(Modifier.fillMaxWidth().height(50.dp).background(Color.Green))
+            Box(Modifier.fillMaxWidth().height(50.dp).background(androidx.compose.ui.graphics.Color.Green))
         },
         dialog = {
         },

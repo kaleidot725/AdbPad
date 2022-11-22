@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.domain.model
+package jp.kaleidot725.adbpad.view.model.resource
 
 object Language {
     const val WINDOW_TITLE = "AdbPad(v0.2.0)"

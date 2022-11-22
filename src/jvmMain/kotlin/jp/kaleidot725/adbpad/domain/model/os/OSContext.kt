@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.domain.model
+package jp.kaleidot725.adbpad.domain.model.os
 
 sealed class OSContext(val directory: String = "") {
     object Mac : OSContext(System.getProperty("user.home") + "/Library/Application Support/adbpad/")
