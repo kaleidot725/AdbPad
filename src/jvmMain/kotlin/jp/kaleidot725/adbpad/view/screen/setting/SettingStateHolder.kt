@@ -30,13 +30,21 @@ class SettingStateHolder(
         SettingState(adbDirectoryPath, adbPortNumber, androidSdkDirectoryPath)
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), SettingState())
 
-    override fun setup() = loadPath()
+    override fun setup() {
+        loadPath()
+    }
 
-    override fun dispose() = coroutineScope.cancel()
+    override fun dispose() {
+        coroutineScope.cancel()
+    }
 
-    fun save() = savePath()
+    fun save() {
+        savePath()
+    }
 
-    fun cancel() = loadPath()
+    fun cancel() {
+        loadPath()
+    }
 
     fun updateAdbDirectoryPath(value: String) {
         adbDirectoryPath.value = value

@@ -29,11 +29,15 @@ import jp.kaleidot725.adbpad.view.component.setting.SettingTitle
 fun SettingScreen(
     adbDirectoryPath: String,
     onChangeAdbDirectoryPath: (String) -> Unit,
-    adbPortNumberPath: String,
-    onChangeAdbPortNumberPath: (String) -> Unit,
+    isValidAdbDirectoryPath: Boolean,
+    adbPortNumber: String,
+    onChangeAdbPortNumber: (String) -> Unit,
+    isValidAdbPortNumber: Boolean,
     sdkAndroidDirectoryPath: String,
     onChangeSdkAndroidDirectoryPath: (String) -> Unit,
+    isValidSdkAndroidDirectoryPath: Boolean,
     onSave: () -> Unit,
+    canSave: Boolean,
     onCancel: () -> Unit,
     onClose: () -> Unit
 ) {
@@ -59,13 +63,15 @@ fun SettingScreen(
                     SettingField(
                         title = Language.SETTING_ADB_DIRECTORY_PATH_TITLE,
                         input = adbDirectoryPath,
+                        isError = !isValidAdbDirectoryPath,
                         onValueChange = onChangeAdbDirectoryPath
                     )
 
                     SettingField(
                         title = Language.SETTING_ADB_PORT_NUMBER_TITLE,
-                        input = adbPortNumberPath,
-                        onValueChange = onChangeAdbPortNumberPath
+                        input = adbPortNumber,
+                        isError = !isValidAdbPortNumber,
+                        onValueChange = onChangeAdbPortNumber
                     )
 
                     SettingTitle(
@@ -76,6 +82,7 @@ fun SettingScreen(
                     SettingField(
                         title = Language.SETTING_ANDROID_SDK_DIRECTORY_PATH_TITLE,
                         input = sdkAndroidDirectoryPath,
+                        isError = !isValidSdkAndroidDirectoryPath,
                         onValueChange = onChangeSdkAndroidDirectoryPath
                     )
                 }
@@ -84,11 +91,19 @@ fun SettingScreen(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.align(Alignment.BottomEnd)
                 ) {
-                    Button(onClick = {}) {
-                        Text(text = Language.CANCEL, modifier = Modifier.width(75.dp), textAlign = TextAlign.Center)
+                    Button(onClick = onCancel) {
+                        Text(
+                            text = Language.CANCEL,
+                            modifier = Modifier.width(75.dp),
+                            textAlign = TextAlign.Center
+                        )
                     }
-                    Button(onClick = {}) {
-                        Text(text = Language.SAVE, modifier = Modifier.width(75.dp), textAlign = TextAlign.Center)
+                    Button(onClick = onSave, enabled = canSave) {
+                        Text(
+                            text = Language.SAVE,
+                            modifier = Modifier.width(75.dp),
+                            textAlign = TextAlign.Center
+                        )
                     }
                 }
             }

@@ -11,13 +11,19 @@ import androidx.compose.ui.Modifier
 fun SettingField(
     title: String,
     input: String,
+    isError: Boolean,
     onValueChange: (String) -> Unit,
 ) {
-    TextField(value = input, onValueChange = onValueChange, label = { Text(title) }, modifier = Modifier.fillMaxWidth())
+    TextField(
+        value = input,
+        onValueChange = onValueChange,
+        label = { Text(title) }, modifier = Modifier.fillMaxWidth(),
+        isError = isError
+    )
 }
 
 @Preview
 @Composable
 private fun SettingField_Preview() {
-    SettingField("TITLE", "INPUT") {}
+    SettingField("TITLE", "INPUT", false) {}
 }

@@ -10,7 +10,6 @@ import jp.kaleidot725.adbpad.view.common.ParentStateHolder
 import jp.kaleidot725.adbpad.view.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.view.screen.menu.MenuStateHolder
 import jp.kaleidot725.adbpad.view.screen.screenshot.ScreenshotStateHolder
-import jp.kaleidot725.adbpad.view.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.view.screen.text.TextCommandStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +27,6 @@ class MainStateHolder(
     val commandStateHolder: CommandStateHolder,
     val textCommandStateHolder: TextCommandStateHolder,
     val screenshotStateHolder: ScreenshotStateHolder,
-    val settingStateHolder: SettingStateHolder,
     val getEventFlowUseCase: GetEventFlowUseCase,
     val getWindowSizeUseCase: GetWindowSizeUseCase,
     val saveWindowSizeUseCase: SaveWindowSizeUseCase,

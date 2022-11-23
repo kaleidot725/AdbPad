@@ -39,6 +39,7 @@ import jp.kaleidot725.adbpad.view.screen.MenuScreen
 import jp.kaleidot725.adbpad.view.screen.ScreenLayout
 import jp.kaleidot725.adbpad.view.screen.ScreenshotScreen
 import jp.kaleidot725.adbpad.view.screen.setting.SettingScreen
+import jp.kaleidot725.adbpad.view.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.view.screen.text.TextCommandScreen
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
@@ -70,7 +71,6 @@ fun main() {
             }
 
             AppTheme {
-
                 val menuStateHolder = mainStateHolder.menuStateHolder
                 val menuState by menuStateHolder.state.collectAsState()
 
@@ -82,9 +82,6 @@ fun main() {
 
                 val screenshotStateHolder = mainStateHolder.screenshotStateHolder
                 val screenshotState by screenshotStateHolder.state.collectAsState()
-
-                val settingStateHolder = mainStateHolder.settingStateHolder
-                val settingState by settingStateHolder.state.collectAsState()
 
                 DisposableEffect(mainStateHolder) {
                     mainStateHolder.setup()
@@ -179,14 +176,28 @@ fun main() {
                     dialog = {
                         when (dialog) {
                             Dialog.Setting -> {
+                                val settingStateHolder by remember {
+                                    mutableStateOf(GlobalContext.get().get<SettingStateHolder>())
+                                }
+                                val settingState by settingStateHolder.state.collectAsState()
+                                
+                                DisposableEffect(mainStateHolder) {
+                                    settingStateHolder.setup()
+                                    onDispose { settingStateHolder.dispose() }
+                                }
+
                                 SettingScreen(
                                     adbDirectoryPath = settingState.adbDirectoryPath,
                                     onChangeAdbDirectoryPath = settingStateHolder::updateAdbDirectoryPath,
-                                    adbPortNumberPath = settingState.adbPortNumberPath,
-                                    onChangeAdbPortNumberPath = settingStateHolder::updateAdbPortNumberPath,
+                                    isValidAdbDirectoryPath = settingState.isValidAdbDirectoryPath,
+                                    adbPortNumber = settingState.adbPortNumber,
+                                    onChangeAdbPortNumber = settingStateHolder::updateAdbPortNumberPath,
+                                    isValidAdbPortNumber = settingState.isValidAdbPortNumber,
                                     sdkAndroidDirectoryPath = settingState.sdkAndroidDirectoryPath,
                                     onChangeSdkAndroidDirectoryPath = settingStateHolder::updateAndroidSdkDirectoryPath,
+                                    isValidSdkAndroidDirectoryPath = settingState.isValidSdkAndroidDirectoryPath,
                                     onSave = settingStateHolder::save,
+                                    canSave = settingState.canSave,
                                     onCancel = settingStateHolder::cancel,
                                     onClose = { dialog = null }
                                 )
