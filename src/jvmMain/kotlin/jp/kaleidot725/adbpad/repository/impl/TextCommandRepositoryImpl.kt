@@ -3,7 +3,6 @@ package jp.kaleidot725.adbpad.repository.impl
 import com.malinskiy.adam.AndroidDebugBridgeClientFactory
 import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
-import jp.kaleidot725.adbpad.domain.model.setting.Setting
 import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
 import jp.kaleidot725.adbpad.domain.service.SettingFileCreator
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +24,7 @@ class TextCommandRepositoryImpl : TextCommandRepository {
 
     override suspend fun addTextCommand(command: TextCommand): Boolean {
         return withContext(Dispatchers.IO) {
-            val oldSetting = SettingFileCreator.load() ?: Setting()
+            val oldSetting = SettingFileCreator.load()
             if (oldSetting.inputTexts.any { it == command.text }) return@withContext true
 
             val newInputTexts = oldSetting.inputTexts.toMutableList().apply { add(command.text) }

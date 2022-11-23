@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.model.resource
+package jp.kaleidot725.adbpad.domain.model
 
 object Language {
     const val WINDOW_TITLE = "AdbPad(v0.2.0)"
@@ -15,6 +15,7 @@ object Language {
     const val CANCEL = "Cancel"
     const val TARGET_DEVICE = "Devices"
     const val TOOL = "Tools"
+    const val SETTING = "Setting"
 
     const val SCREENSHOT_TAKE_BY_CURRENT_THEME = "Take by current theme"
     const val SCREENSHOT_TAKE_BY_DARK_THEME = "Take by dark theme"

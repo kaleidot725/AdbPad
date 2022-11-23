@@ -1,7 +1,5 @@
 package jp.kaleidot725.adbpad.domain.model
 
-import jp.kaleidot725.adbpad.view.model.resource.Language
-
 sealed class Event(val message: String, val level: Level) {
     data class StartCommand(
         val commandName: String

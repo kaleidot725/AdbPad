@@ -26,6 +26,7 @@ import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.domain.di.domainModule
 import jp.kaleidot725.adbpad.domain.model.Dialog
 import jp.kaleidot725.adbpad.domain.model.Event
+import jp.kaleidot725.adbpad.domain.model.Language
 import jp.kaleidot725.adbpad.domain.model.Menu
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.model.setting.getWindowSize
@@ -33,7 +34,6 @@ import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.repository.di.repositoryModule
 import jp.kaleidot725.adbpad.view.common.resource.AppTheme
 import jp.kaleidot725.adbpad.view.di.stateHolderModule
-import jp.kaleidot725.adbpad.view.model.resource.Language
 import jp.kaleidot725.adbpad.view.screen.CommandScreen
 import jp.kaleidot725.adbpad.view.screen.MenuScreen
 import jp.kaleidot725.adbpad.view.screen.ScreenLayout
@@ -185,7 +185,9 @@ fun main() {
                                     adbPortNumberPath = settingState.adbPortNumberPath,
                                     onChangeAdbPortNumberPath = settingStateHolder::updateAdbPortNumberPath,
                                     sdkAndroidDirectoryPath = settingState.sdkAndroidDirectoryPath,
-                                    onChangeSdkAndroidDirectoryPath = settingStateHolder::updateSdkAndroidDirectoryPath,
+                                    onChangeSdkAndroidDirectoryPath = settingStateHolder::updateAndroidSdkDirectoryPath,
+                                    onSave = settingStateHolder::save,
+                                    onCancel = settingStateHolder::cancel,
                                     onClose = { dialog = null }
                                 )
                             }

@@ -20,10 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.domain.model.Language
 import jp.kaleidot725.adbpad.view.component.setting.SettingField
 import jp.kaleidot725.adbpad.view.component.setting.SettingHeader
 import jp.kaleidot725.adbpad.view.component.setting.SettingTitle
-import jp.kaleidot725.adbpad.view.model.resource.Language
 
 @Composable
 fun SettingScreen(
@@ -33,6 +33,8 @@ fun SettingScreen(
     onChangeAdbPortNumberPath: (String) -> Unit,
     sdkAndroidDirectoryPath: String,
     onChangeSdkAndroidDirectoryPath: (String) -> Unit,
+    onSave: () -> Unit,
+    onCancel: () -> Unit,
     onClose: () -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray.copy(alpha = 0.5f))) {

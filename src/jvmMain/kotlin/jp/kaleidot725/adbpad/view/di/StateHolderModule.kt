@@ -47,9 +47,12 @@ val stateHolderModule = module {
     }
 
     factory {
-        SettingStateHolder()
+        SettingStateHolder(
+            getSdkPathUseCase = get(),
+            saveSdkPathUseCase = get()
+        )
     }
-    
+
     factory {
         MainStateHolder(
             menuStateHolder = get(),

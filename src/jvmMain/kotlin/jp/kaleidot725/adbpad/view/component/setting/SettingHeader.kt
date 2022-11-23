@@ -15,15 +15,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.domain.model.Language
 
 @Composable
 fun SettingHeader(
-    onClose : () -> Unit,
+    onClose: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier) {
         Text(
-            text = "Setting",
+            text = Language.SETTING,
             style = MaterialTheme.typography.h5,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(horizontal = 4.dp).weight(1.0f, true).align(Alignment.CenterVertically)

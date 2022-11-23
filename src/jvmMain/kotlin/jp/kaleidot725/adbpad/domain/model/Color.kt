@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.model.resource
+package jp.kaleidot725.adbpad.domain.model
 
 import androidx.compose.ui.graphics.Color
 

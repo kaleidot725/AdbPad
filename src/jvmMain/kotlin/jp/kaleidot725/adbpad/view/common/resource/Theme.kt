@@ -3,7 +3,7 @@ package jp.kaleidot725.adbpad.view.common.resource
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import jp.kaleidot725.adbpad.view.model.resource.Color
+import jp.kaleidot725.adbpad.domain.model.Color
 
 private val LightColors = Colors(
     primary = Color.PRIMARY,

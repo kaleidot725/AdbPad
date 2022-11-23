@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.view.model.resource.Color
+import jp.kaleidot725.adbpad.domain.model.Color
 
 @Composable
 fun ScreenLayout(
