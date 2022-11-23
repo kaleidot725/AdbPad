@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.loadImageBitmap
 import jp.kaleidot725.adbpad.domain.model.Language
-import jp.kaleidot725.adbpad.domain.model.ScreenshotPreview
+import jp.kaleidot725.adbpad.domain.model.screenshot.ScreenshotPreview
 
 @Composable
 fun ScreenshotViewer(

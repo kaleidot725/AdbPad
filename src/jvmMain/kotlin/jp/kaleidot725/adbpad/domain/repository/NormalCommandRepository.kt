@@ -1,7 +1,7 @@
 package jp.kaleidot725.adbpad.domain.repository
 
-import jp.kaleidot725.adbpad.domain.model.Device
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
+import jp.kaleidot725.adbpad.domain.model.device.Device
 
 interface NormalCommandRepository {
     fun getCommands(): List<NormalCommand>

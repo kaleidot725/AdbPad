@@ -1,6 +1,6 @@
 package jp.kaleidot725.adbpad.domain.repository
 
-import jp.kaleidot725.adbpad.domain.model.Device
+import jp.kaleidot725.adbpad.domain.model.device.Device
 import kotlinx.coroutines.flow.Flow
 
 interface DeviceRepository {

@@ -1,8 +1,8 @@
 package jp.kaleidot725.adbpad.repository.impl
 
 import com.malinskiy.adam.AndroidDebugBridgeClientFactory
-import jp.kaleidot725.adbpad.domain.model.Device
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
+import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

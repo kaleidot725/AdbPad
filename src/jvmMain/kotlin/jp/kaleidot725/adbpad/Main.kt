@@ -1,5 +1,4 @@
 // Copyright 2000-2021 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,8 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Button
-import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.DisposableEffect
@@ -31,8 +28,8 @@ import jp.kaleidot725.adbpad.domain.model.Dialog
 import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.model.Language
 import jp.kaleidot725.adbpad.domain.model.Menu
-import jp.kaleidot725.adbpad.domain.model.WindowSize
-import jp.kaleidot725.adbpad.domain.model.getWindowSize
+import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
+import jp.kaleidot725.adbpad.domain.model.setting.getWindowSize
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.repository.di.repositoryModule
 import jp.kaleidot725.adbpad.view.common.resource.AppTheme
@@ -41,6 +38,8 @@ import jp.kaleidot725.adbpad.view.screen.CommandScreen
 import jp.kaleidot725.adbpad.view.screen.MenuScreen
 import jp.kaleidot725.adbpad.view.screen.ScreenLayout
 import jp.kaleidot725.adbpad.view.screen.ScreenshotScreen
+import jp.kaleidot725.adbpad.view.screen.setting.SettingScreen
+import jp.kaleidot725.adbpad.view.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.view.screen.text.TextCommandScreen
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
@@ -72,7 +71,6 @@ fun main() {
             }
 
             AppTheme {
-
                 val menuStateHolder = mainStateHolder.menuStateHolder
                 val menuState by menuStateHolder.state.collectAsState()
 
@@ -178,13 +176,31 @@ fun main() {
                     dialog = {
                         when (dialog) {
                             Dialog.Setting -> {
-                                Box(Modifier.background(Color.DarkGray.copy(alpha = 0.5f))) {
-                                    Card(Modifier.fillMaxSize().padding(32.dp)) {
-                                        Button(onClick = { dialog = null }) {
-                                            Text("Close")
-                                        }
-                                    }
+                                val settingStateHolder by remember {
+                                    mutableStateOf(GlobalContext.get().get<SettingStateHolder>())
                                 }
+                                val settingState by settingStateHolder.state.collectAsState()
+
+                                DisposableEffect(mainStateHolder) {
+                                    settingStateHolder.setup()
+                                    onDispose { settingStateHolder.dispose() }
+                                }
+
+                                SettingScreen(
+                                    adbDirectoryPath = settingState.adbDirectoryPath,
+                                    onChangeAdbDirectoryPath = settingStateHolder::updateAdbDirectoryPath,
+                                    isValidAdbDirectoryPath = settingState.isValidAdbDirectoryPath,
+                                    adbPortNumber = settingState.adbPortNumber,
+                                    onChangeAdbPortNumber = settingStateHolder::updateAdbPortNumberPath,
+                                    isValidAdbPortNumber = settingState.isValidAdbPortNumber,
+                                    sdkAndroidDirectoryPath = settingState.sdkAndroidDirectoryPath,
+                                    onChangeSdkAndroidDirectoryPath = settingStateHolder::updateAndroidSdkDirectoryPath,
+                                    isValidSdkAndroidDirectoryPath = settingState.isValidSdkAndroidDirectoryPath,
+                                    onSave = settingStateHolder::save,
+                                    canSave = settingState.canSave,
+                                    onCancel = settingStateHolder::cancel,
+                                    onClose = { dialog = null }
+                                )
                             }
 
                             null -> Unit

@@ -3,11 +3,11 @@ package jp.kaleidot725.adbpad.repository.impl
 import com.malinskiy.adam.AndroidDebugBridgeClientFactory
 import com.malinskiy.adam.request.framebuffer.RawImageScreenCaptureAdapter
 import com.malinskiy.adam.request.framebuffer.ScreenCaptureRequest
-import jp.kaleidot725.adbpad.domain.model.Device
-import jp.kaleidot725.adbpad.domain.model.OSContext
-import jp.kaleidot725.adbpad.domain.model.ScreenshotPreview
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
+import jp.kaleidot725.adbpad.domain.model.device.Device
+import jp.kaleidot725.adbpad.domain.model.os.OSContext
+import jp.kaleidot725.adbpad.domain.model.screenshot.ScreenshotPreview
 import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

@@ -1,7 +1,7 @@
 package jp.kaleidot725.adbpad
 
 import jp.kaleidot725.adbpad.domain.model.Event
-import jp.kaleidot725.adbpad.domain.model.WindowSize
+import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
@@ -29,7 +29,7 @@ class MainStateHolder(
     val screenshotStateHolder: ScreenshotStateHolder,
     val getEventFlowUseCase: GetEventFlowUseCase,
     val getWindowSizeUseCase: GetWindowSizeUseCase,
-    val saveWindowSizeUseCase: SaveWindowSizeUseCase
+    val saveWindowSizeUseCase: SaveWindowSizeUseCase,
 ) : ParentStateHolder {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val windowSize: MutableStateFlow<WindowSize> = MutableStateFlow(WindowSize.UNKNOWN)
