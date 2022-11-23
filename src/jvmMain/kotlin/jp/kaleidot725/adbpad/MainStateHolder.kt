@@ -1,7 +1,7 @@
 package jp.kaleidot725.adbpad
 
 import jp.kaleidot725.adbpad.domain.model.Event
-import jp.kaleidot725.adbpad.domain.model.WindowSize
+import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase

@@ -1,6 +1,5 @@
 package jp.kaleidot725.adbpad.domain.model.setting
 
-import jp.kaleidot725.adbpad.domain.model.WindowSize
 import kotlinx.serialization.Serializable
 
 @Serializable
