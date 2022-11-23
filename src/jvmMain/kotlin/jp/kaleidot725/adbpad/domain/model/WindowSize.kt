@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.model
+package jp.kaleidot725.adbpad.domain.model
 
 import androidx.compose.ui.window.FrameWindowScope
 import kotlinx.serialization.Serializable

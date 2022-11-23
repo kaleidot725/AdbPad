@@ -1,7 +1,7 @@
 package jp.kaleidot725.adbpad.repository.impl
 
+import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.repository.EventRepository
-import jp.kaleidot725.adbpad.view.model.Event
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 

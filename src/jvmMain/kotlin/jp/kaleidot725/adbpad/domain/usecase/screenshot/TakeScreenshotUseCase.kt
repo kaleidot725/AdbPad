@@ -1,10 +1,10 @@
 package jp.kaleidot725.adbpad.domain.usecase.screenshot
 
+import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.repository.EventRepository
 import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
-import jp.kaleidot725.adbpad.view.model.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

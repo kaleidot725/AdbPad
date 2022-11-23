@@ -1,10 +1,10 @@
 package jp.kaleidot725.adbpad.domain.usecase.command
 
+import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.repository.EventRepository
 import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepository
-import jp.kaleidot725.adbpad.view.model.Event
 
 class ExecuteCommandUseCase(
     private val eventRepository: EventRepository,

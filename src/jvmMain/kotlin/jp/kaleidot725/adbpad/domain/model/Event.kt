@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.model
+package jp.kaleidot725.adbpad.domain.model
 
 import jp.kaleidot725.adbpad.view.model.resource.Language
 
