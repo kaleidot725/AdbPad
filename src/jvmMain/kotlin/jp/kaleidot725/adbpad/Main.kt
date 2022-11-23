@@ -180,7 +180,7 @@ fun main() {
                                     mutableStateOf(GlobalContext.get().get<SettingStateHolder>())
                                 }
                                 val settingState by settingStateHolder.state.collectAsState()
-                                
+
                                 DisposableEffect(mainStateHolder) {
                                     settingStateHolder.setup()
                                     onDispose { settingStateHolder.dispose() }
