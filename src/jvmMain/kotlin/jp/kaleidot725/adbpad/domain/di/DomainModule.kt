@@ -24,7 +24,7 @@ import org.koin.dsl.module
 
 val domainModule = module {
     factory {
-        StartAdbUseCase()
+        StartAdbUseCase(get())
     }
     factory {
         ExecuteCommandUseCase(get(), get())
