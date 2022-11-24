@@ -70,7 +70,10 @@ object Language {
     const val SETTING_ADB_HEADER = "ADB"
     const val SETTING_ADB_DIRECTORY_PATH_TITLE = "Directory Path"
     const val SETTING_ADB_PORT_NUMBER_TITLE = "Server Port"
-
     const val SETTING_ANDROID_SDK_HEADER = "Android SDK"
     const val SETTING_ANDROID_SDK_DIRECTORY_PATH_TITLE = "Directory Path"
+
+    const val ADB_ERROR_TITLE = "Adb Error"
+    const val ADB_ERROR_MESSAGE = "Can't start adb server, Please change adb setting."
+    const val ADB_ERROR_OPEN_SETTING = "Open Setting"
 }

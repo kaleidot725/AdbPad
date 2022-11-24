@@ -1,12 +1,10 @@
 // Copyright 2000-2021 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -37,6 +35,7 @@ import jp.kaleidot725.adbpad.view.screen.CommandScreen
 import jp.kaleidot725.adbpad.view.screen.MenuScreen
 import jp.kaleidot725.adbpad.view.screen.ScreenLayout
 import jp.kaleidot725.adbpad.view.screen.ScreenshotScreen
+import jp.kaleidot725.adbpad.view.screen.adberror.AdbErrorScreen
 import jp.kaleidot725.adbpad.view.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.view.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.view.screen.text.TextCommandScreen
@@ -75,10 +74,10 @@ fun main() {
                 val screenshotStateHolder = mainStateHolder.screenshotStateHolder
                 val screenshotState by screenshotStateHolder.state.collectAsState()
 
-                val frameWindowScope = this
                 DisposableEffect(mainStateHolder) {
                     mainStateHolder.setup()
                     onDispose {
+                        val frameWindowScope = this@Window
                         mainStateHolder.saveSetting(frameWindowScope.getWindowSize())
                         mainStateHolder.dispose()
                     }
@@ -197,7 +196,9 @@ fun main() {
                             }
 
                             Dialog.AdbError -> {
-                                Text("ERROR", Modifier.size(50.dp).background(Color.Red))
+                                AdbErrorScreen(
+                                    onOpenSetting = { mainStateHolder.openSetting() }
+                                )
                             }
 
                             null -> Unit
