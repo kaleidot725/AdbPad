@@ -1,21 +1,21 @@
 // Copyright 2000-2021 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -30,7 +30,6 @@ import jp.kaleidot725.adbpad.domain.model.Language
 import jp.kaleidot725.adbpad.domain.model.Menu
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.model.setting.getWindowSize
-import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.repository.di.repositoryModule
 import jp.kaleidot725.adbpad.view.common.resource.AppTheme
 import jp.kaleidot725.adbpad.view.di.stateHolderModule
@@ -50,7 +49,6 @@ fun main() {
     }
 
     application {
-        var dialog by remember { mutableStateOf<Dialog?>(null) }
         val mainStateHolder by remember { mutableStateOf(GlobalContext.get().get<MainStateHolder>()) }
         val event by mainStateHolder.event.collectAsState(Event.NULL)
         val state by mainStateHolder.state.collectAsState()
@@ -64,12 +62,6 @@ fun main() {
         }
 
         Window(title = Language.WINDOW_TITLE, onCloseRequest = ::exitApplication, state = windowState) {
-            val frameWindowScope = this
-            LaunchedEffect(Unit) {
-                val startAdbUseCase = GlobalContext.get().get<StartAdbUseCase>()
-                startAdbUseCase()
-            }
-
             AppTheme {
                 val menuStateHolder = mainStateHolder.menuStateHolder
                 val menuState by menuStateHolder.state.collectAsState()
@@ -83,6 +75,7 @@ fun main() {
                 val screenshotStateHolder = mainStateHolder.screenshotStateHolder
                 val screenshotState by screenshotStateHolder.state.collectAsState()
 
+                val frameWindowScope = this
                 DisposableEffect(mainStateHolder) {
                     mainStateHolder.setup()
                     onDispose {
@@ -100,7 +93,7 @@ fun main() {
                             menus = menuState.menus,
                             selectedMenu = menuState.selectedMenu,
                             onSelectMenu = { menuStateHolder.selectMenu(it) },
-                            onShowSetting = { dialog = Dialog.Setting },
+                            onShowSetting = { mainStateHolder.openSetting() },
                             modifier = Modifier
                                 .width(250.dp)
                                 .fillMaxHeight()
@@ -174,7 +167,7 @@ fun main() {
                         }
                     },
                     dialog = {
-                        when (dialog) {
+                        when (state.dialog) {
                             Dialog.Setting -> {
                                 val settingStateHolder by remember {
                                     mutableStateOf(GlobalContext.get().get<SettingStateHolder>())
@@ -199,8 +192,12 @@ fun main() {
                                     onSave = settingStateHolder::save,
                                     canSave = settingState.canSave,
                                     onCancel = settingStateHolder::cancel,
-                                    onClose = { dialog = null }
+                                    onClose = { mainStateHolder.closeSetting() }
                                 )
+                            }
+
+                            Dialog.AdbError -> {
+                                Text("ERROR", Modifier.size(50.dp).background(Color.Red))
                             }
 
                             null -> Unit

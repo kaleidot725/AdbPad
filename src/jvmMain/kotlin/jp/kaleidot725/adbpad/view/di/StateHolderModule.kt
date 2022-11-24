@@ -61,7 +61,8 @@ val stateHolderModule = module {
             screenshotStateHolder = get(),
             getEventFlowUseCase = get(),
             getWindowSizeUseCase = get(),
-            saveWindowSizeUseCase = get()
+            saveWindowSizeUseCase = get(),
+            startAdbUseCase = get()
         )
     }
 }

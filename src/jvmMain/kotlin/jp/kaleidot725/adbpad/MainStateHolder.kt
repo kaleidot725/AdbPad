@@ -1,7 +1,9 @@
 package jp.kaleidot725.adbpad
 
+import jp.kaleidot725.adbpad.domain.model.Dialog
 import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
+import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
@@ -18,7 +20,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -30,12 +32,14 @@ class MainStateHolder(
     val getEventFlowUseCase: GetEventFlowUseCase,
     val getWindowSizeUseCase: GetWindowSizeUseCase,
     val saveWindowSizeUseCase: SaveWindowSizeUseCase,
+    val startAdbUseCase: StartAdbUseCase,
 ) : ParentStateHolder {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val windowSize: MutableStateFlow<WindowSize> = MutableStateFlow(WindowSize.UNKNOWN)
+    private val dialog: MutableStateFlow<Dialog?> = MutableStateFlow(null)
     val event: SharedFlow<Event> = getEventFlowUseCase()
-    val state: StateFlow<MainState> = windowSize.map {
-        MainState(it)
+    val state: StateFlow<MainState> = combine(windowSize, dialog) { windowSize, dialog ->
+        MainState(windowSize, dialog)
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), MainState())
 
     private val children: List<ChildStateHolder<*>> = listOf(
@@ -43,7 +47,10 @@ class MainStateHolder(
     )
 
     init {
-        coroutineScope.launch { windowSize.value = getWindowSizeUseCase() }
+        coroutineScope.launch {
+            windowSize.value = getWindowSizeUseCase()
+            dialog.value = if (startAdbUseCase()) null else Dialog.AdbError
+        }
     }
 
     override fun setup() {
@@ -52,6 +59,16 @@ class MainStateHolder(
 
     fun saveSetting(windowSize: WindowSize) {
         coroutineScope.launch { saveWindowSizeUseCase(windowSize) }
+    }
+
+    fun openSetting() {
+        dialog.value = Dialog.Setting
+    }
+
+    fun closeSetting() {
+        coroutineScope.launch {
+            dialog.value = if (startAdbUseCase()) null else Dialog.AdbError
+        }
     }
 
     override fun dispose() {
