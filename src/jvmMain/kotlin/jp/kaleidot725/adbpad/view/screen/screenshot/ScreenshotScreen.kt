@@ -12,7 +12,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.screenshot.ScreenshotPreview
@@ -34,7 +33,7 @@ fun ScreenshotScreen(
                 .fillMaxWidth()
                 .weight(0.5f)
                 .border(
-                    border = BorderStroke(1.dp, Color.LightGray),
+                    border = BorderStroke(1.dp, jp.kaleidot725.adbpad.domain.model.Color.SPLITTER),
                     shape = RoundedCornerShape(4.dp)
                 )
         )
