@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.screen
+package jp.kaleidot725.adbpad.view.screen.screenshot
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.BorderStroke
@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.domain.model.Color
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.screenshot.ScreenshotPreview
 import jp.kaleidot725.adbpad.view.component.screenshot.ScreenshotDropDownButton
@@ -33,7 +34,7 @@ fun ScreenshotScreen(
                 .fillMaxWidth()
                 .weight(0.5f)
                 .border(
-                    border = BorderStroke(1.dp, jp.kaleidot725.adbpad.domain.model.Color.SPLITTER),
+                    border = BorderStroke(1.dp, Color.getSplitterColor()),
                     shape = RoundedCornerShape(4.dp)
                 )
         )

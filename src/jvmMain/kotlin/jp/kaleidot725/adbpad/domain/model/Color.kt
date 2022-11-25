@@ -1,9 +1,15 @@
 package jp.kaleidot725.adbpad.domain.model
 
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 object Color {
-    val SPLITTER = Color(0x0FFDDDDDD).copy(alpha = 0.2f)
+    @Composable
+    fun getSplitterColor(): Color {
+        val isLight = MaterialTheme.colors.isLight
+        return if (isLight) Color(0xFF333333).copy(alpha = 0.2f) else Color(0x0FFDDDDDD).copy(alpha = 0.3f)
+    }
 
     object Light {
         val PRIMARY = Color(0xFF006B5D)

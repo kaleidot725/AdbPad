@@ -31,10 +31,10 @@ fun ScreenLayout(
         Column {
             Row(modifier = Modifier.weight(0.9f, true)) {
                 Box(Modifier.background(MaterialTheme.colors.background)) { leftPane() }
-                Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, Color.SPLITTER)))
+                Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, Color.getSplitterColor())))
                 Box(Modifier.background(MaterialTheme.colors.background)) { rightPane() }
             }
-            Spacer(Modifier.height(1.dp).fillMaxWidth().border(BorderStroke(1.dp, Color.SPLITTER)))
+            Spacer(Modifier.height(1.dp).fillMaxWidth().border(BorderStroke(1.dp, Color.getSplitterColor())))
             Box(Modifier.background(MaterialTheme.colors.background)) { notificationArea() }
         }
         dialog()

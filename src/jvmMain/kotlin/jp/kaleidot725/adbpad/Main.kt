@@ -35,8 +35,8 @@ import jp.kaleidot725.adbpad.view.di.stateHolderModule
 import jp.kaleidot725.adbpad.view.screen.CommandScreen
 import jp.kaleidot725.adbpad.view.screen.MenuScreen
 import jp.kaleidot725.adbpad.view.screen.ScreenLayout
-import jp.kaleidot725.adbpad.view.screen.ScreenshotScreen
 import jp.kaleidot725.adbpad.view.screen.adberror.AdbErrorScreen
+import jp.kaleidot725.adbpad.view.screen.screenshot.ScreenshotScreen
 import jp.kaleidot725.adbpad.view.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.view.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.view.screen.text.TextCommandScreen
