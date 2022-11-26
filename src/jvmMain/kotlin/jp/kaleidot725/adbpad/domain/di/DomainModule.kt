@@ -1,6 +1,8 @@
 package jp.kaleidot725.adbpad.domain.di
 
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
+import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAppearanceUseCase
+import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetCommandList
 import jp.kaleidot725.adbpad.domain.usecase.device.GetDevicesFlowUseCase
@@ -82,5 +84,11 @@ val domainModule = module {
     }
     factory {
         SaveSdkPathUseCase(get())
+    }
+    factory {
+        GetAppearanceUseCase(get())
+    }
+    factory {
+        SaveAppearanceUseCase(get())
     }
 }

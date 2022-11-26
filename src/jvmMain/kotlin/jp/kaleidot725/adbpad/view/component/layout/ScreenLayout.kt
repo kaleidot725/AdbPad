@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -29,12 +30,12 @@ fun ScreenLayout(
     Box(modifier) {
         Column {
             Row(modifier = Modifier.weight(0.9f, true)) {
-                Box(Modifier.background(Color.LEFT_PANE)) { leftPane() }
-                Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, Color.PANE_SPLITTER)))
-                Box(Modifier.background(Color.RIGHT_PANE)) { rightPane() }
+                Box(Modifier.background(MaterialTheme.colors.background)) { leftPane() }
+                Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, Color.getSplitterColor())))
+                Box(Modifier.background(MaterialTheme.colors.background)) { rightPane() }
             }
-            Spacer(Modifier.height(1.dp).fillMaxWidth().border(BorderStroke(1.dp, Color.PANE_SPLITTER)))
-            Box(Modifier.background(Color.NOTIFICATION_AREA)) { notificationArea() }
+            Spacer(Modifier.height(1.dp).fillMaxWidth().border(BorderStroke(1.dp, Color.getSplitterColor())))
+            Box(Modifier.background(MaterialTheme.colors.background)) { notificationArea() }
         }
         dialog()
     }

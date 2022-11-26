@@ -1,12 +1,12 @@
 package jp.kaleidot725.adbpad.domain.usecase.window
 
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
-import jp.kaleidot725.adbpad.domain.repository.WindowSizeRepository
+import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 
 class SaveWindowSizeUseCase(
-    private val windowSizeRepository: WindowSizeRepository
+    private val settingRepository: SettingRepository
 ) {
     suspend operator fun invoke(size: WindowSize): Boolean {
-        return windowSizeRepository.updateWindowSize(size)
+        return settingRepository.updateWindowSize(size)
     }
 }

@@ -67,6 +67,8 @@ object Language {
     const val MENU_INPUT_TEXT_TITLE = "Send Text"
     const val MENU_SCREENSHOT = "Screenshot"
 
+    const val SETTING_APPEARANCE_HEADER = "Appearance"
+
     const val SETTING_ADB_HEADER = "ADB"
     const val SETTING_ADB_DIRECTORY_PATH_TITLE = "Directory Path"
     const val SETTING_ADB_PORT_NUMBER_TITLE = "Server Port"

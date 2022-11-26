@@ -2,8 +2,10 @@ package jp.kaleidot725.adbpad
 
 import jp.kaleidot725.adbpad.domain.model.Dialog
 import jp.kaleidot725.adbpad.domain.model.Event
+import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
+import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
@@ -33,13 +35,15 @@ class MainStateHolder(
     val getWindowSizeUseCase: GetWindowSizeUseCase,
     val saveWindowSizeUseCase: SaveWindowSizeUseCase,
     val startAdbUseCase: StartAdbUseCase,
+    val getAppearanceUseCase: GetAppearanceUseCase
 ) : ParentStateHolder {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
+    private val appearance: MutableStateFlow<Appearance> = MutableStateFlow(Appearance.DARK)
     private val windowSize: MutableStateFlow<WindowSize> = MutableStateFlow(WindowSize.UNKNOWN)
     private val dialog: MutableStateFlow<Dialog?> = MutableStateFlow(null)
     val event: SharedFlow<Event> = getEventFlowUseCase()
-    val state: StateFlow<MainState> = combine(windowSize, dialog) { windowSize, dialog ->
-        MainState(windowSize, dialog)
+    val state: StateFlow<MainState> = combine(appearance, windowSize, dialog) { appearance, windowSize, dialog ->
+        MainState(appearance, windowSize, dialog)
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), MainState())
 
     private val children: List<ChildStateHolder<*>> = listOf(
@@ -49,6 +53,7 @@ class MainStateHolder(
     init {
         coroutineScope.launch {
             windowSize.value = getWindowSizeUseCase()
+            appearance.value = getAppearanceUseCase()
             dialog.value = if (startAdbUseCase()) null else Dialog.AdbError
         }
     }
@@ -67,6 +72,7 @@ class MainStateHolder(
 
     fun closeSetting() {
         coroutineScope.launch {
+            appearance.value = getAppearanceUseCase()
             dialog.value = if (startAdbUseCase()) null else Dialog.AdbError
         }
     }

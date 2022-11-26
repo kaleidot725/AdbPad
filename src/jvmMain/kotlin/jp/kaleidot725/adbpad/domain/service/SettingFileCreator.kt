@@ -1,7 +1,10 @@
 package jp.kaleidot725.adbpad.domain.service
 
 import jp.kaleidot725.adbpad.domain.model.os.OSContext
-import jp.kaleidot725.adbpad.domain.model.setting.Setting
+import jp.kaleidot725.adbpad.domain.model.setting.Appearance
+import jp.kaleidot725.adbpad.domain.model.setting.SdkPath
+import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -42,4 +45,12 @@ object SettingFileCreator {
             return
         }
     }
+
+    @Serializable
+    data class Setting(
+        val appearance: Appearance = Appearance.SYSTEM,
+        val sdkPath: SdkPath = SdkPath(),
+        val inputTexts: List<String> = emptyList(),
+        val windowSize: WindowSize = WindowSize.DEFAULT
+    )
 }

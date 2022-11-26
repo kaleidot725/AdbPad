@@ -49,7 +49,9 @@ val stateHolderModule = module {
     factory {
         SettingStateHolder(
             getSdkPathUseCase = get(),
-            saveSdkPathUseCase = get()
+            saveSdkPathUseCase = get(),
+            getAppearanceUseCase = get(),
+            saveAppearanceUseCase = get()
         )
     }
 
@@ -62,7 +64,8 @@ val stateHolderModule = module {
             getEventFlowUseCase = get(),
             getWindowSizeUseCase = get(),
             saveWindowSizeUseCase = get(),
-            startAdbUseCase = get()
+            startAdbUseCase = get(),
+            getAppearanceUseCase = get()
         )
     }
 }
