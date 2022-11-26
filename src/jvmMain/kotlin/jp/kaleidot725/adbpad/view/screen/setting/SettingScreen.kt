@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.Language
 import jp.kaleidot725.adbpad.view.component.FloatingDialog
+import jp.kaleidot725.adbpad.view.component.RadioButtons
 import jp.kaleidot725.adbpad.view.component.setting.SettingField
 import jp.kaleidot725.adbpad.view.component.setting.SettingHeader
 import jp.kaleidot725.adbpad.view.component.setting.SettingTitle
@@ -49,6 +50,20 @@ fun SettingScreen(
                 Divider(modifier = Modifier.fillMaxWidth())
 
                 SettingTitle(
+                    text = Language.SETTING_APPEARANCE_HEADER,
+                    modifier = Modifier.padding(horizontal = 4.dp)
+                )
+
+                RadioButtons(
+                    "Dark",
+                    listOf("Dark", "Light", "System"),
+                    {},
+                    Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
+                )
+
+                Divider(modifier = Modifier.fillMaxWidth())
+
+                SettingTitle(
                     text = Language.SETTING_ADB_HEADER,
                     modifier = Modifier.padding(horizontal = 4.dp)
                 )
@@ -66,6 +81,8 @@ fun SettingScreen(
                     isError = !isValidAdbPortNumber,
                     onValueChange = onChangeAdbPortNumber
                 )
+
+                Divider(modifier = Modifier.fillMaxWidth())
 
                 SettingTitle(
                     text = Language.SETTING_ANDROID_SDK_HEADER,

@@ -20,7 +20,7 @@ object Color {
         val ON_SECONDARY = Color(0xFFFFFFFF)
         val ERROR = Color(0xFFBA1A1A)
         val ON_ERROR = Color(0xFFFFFFFF)
-        val BACKGROUND = Color(0xFFFAFDFA)
+        val BACKGROUND = Color(0xFFF8F8F8)
         val ON_BACKGROUND = Color(0xFF191C1B)
         val SURFACE = Color(0xFFFAFDFA)
         val ON_SURFACE = Color(0xFF191C1B)

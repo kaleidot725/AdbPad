@@ -42,7 +42,7 @@ fun AppTheme(
     content: @Composable() () -> Unit
 ) {
     MaterialTheme(
-        colors = DarkColors,
+        colors = LightColors,
         content = content
     )
 }
