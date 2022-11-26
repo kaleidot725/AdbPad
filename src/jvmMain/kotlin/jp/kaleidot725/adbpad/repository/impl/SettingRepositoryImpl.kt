@@ -1,5 +1,6 @@
 package jp.kaleidot725.adbpad.repository.impl
 
+import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.domain.model.setting.SdkPath
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.repository.SettingRepository
@@ -8,6 +9,21 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class SettingRepositoryImpl : SettingRepository {
+    override suspend fun updateAppearance(appearance: Appearance): Boolean {
+        return withContext(Dispatchers.IO) {
+            val oldSetting = SettingFileCreator.load()
+            val newSetting = oldSetting.copy(appearance = appearance)
+            return@withContext SettingFileCreator.save(newSetting)
+        }
+    }
+
+    override suspend fun getAppearance(): Appearance {
+        return withContext(Dispatchers.IO) {
+            val setting = SettingFileCreator.load()
+            return@withContext setting.appearance
+        }
+    }
+
     override suspend fun updateSdkPath(sdkPath: SdkPath): Boolean {
         return withContext(Dispatchers.IO) {
             val oldSetting = SettingFileCreator.load()
