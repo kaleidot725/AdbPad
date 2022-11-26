@@ -4,6 +4,7 @@ import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import jp.kaleidot725.adbpad.domain.model.Color
+import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 
 private val LightColors = Colors(
     primary = Color.Light.PRIMARY,
@@ -39,10 +40,15 @@ private val DarkColors = Colors(
 
 @Composable
 fun AppTheme(
+    appearance: Appearance,
     content: @Composable() () -> Unit
 ) {
     MaterialTheme(
-        colors = LightColors,
+        colors = when (appearance) {
+            Appearance.DARK -> DarkColors
+            Appearance.LIGHT -> LightColors
+            Appearance.SYSTEM -> LightColors
+        },
         content = content
     )
 }

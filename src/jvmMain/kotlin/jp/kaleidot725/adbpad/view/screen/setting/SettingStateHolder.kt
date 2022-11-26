@@ -1,5 +1,8 @@
 package jp.kaleidot725.adbpad.view.screen.setting
 
+import jp.kaleidot725.adbpad.domain.model.setting.Appearance
+import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAppearanceUseCase
+import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.sdkpath.GetSdkPathUseCase
 import jp.kaleidot725.adbpad.domain.usecase.sdkpath.SaveSdkPathUseCase
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
@@ -16,18 +19,22 @@ import kotlinx.coroutines.launch
 
 class SettingStateHolder(
     private val getSdkPathUseCase: GetSdkPathUseCase,
-    private val saveSdkPathUseCase: SaveSdkPathUseCase
+    private val saveSdkPathUseCase: SaveSdkPathUseCase,
+    private val getAppearanceUseCase: GetAppearanceUseCase,
+    private val saveAppearanceUseCase: SaveAppearanceUseCase
 ) : ChildStateHolder<SettingState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
+    private val appearance: MutableStateFlow<Appearance> = MutableStateFlow(Appearance.DARK)
     private val adbDirectoryPath: MutableStateFlow<String> = MutableStateFlow("")
     private val adbPortNumber: MutableStateFlow<String> = MutableStateFlow("")
     private val androidSdkDirectoryPath: MutableStateFlow<String> = MutableStateFlow("")
     override val state: StateFlow<SettingState> = combine(
+        appearance,
         adbDirectoryPath,
         adbPortNumber,
         androidSdkDirectoryPath
-    ) { adbDirectoryPath, adbPortNumber, androidSdkDirectoryPath ->
-        SettingState(adbDirectoryPath, adbPortNumber, androidSdkDirectoryPath)
+    ) { appearance, adbDirectoryPath, adbPortNumber, androidSdkDirectoryPath ->
+        SettingState(appearance, adbDirectoryPath, adbPortNumber, androidSdkDirectoryPath)
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), SettingState())
 
     override fun setup() {
@@ -44,6 +51,10 @@ class SettingStateHolder(
 
     fun cancel() {
         loadPath()
+    }
+
+    fun updateAppearance(value: Appearance) {
+        appearance.value = value
     }
 
     fun updateAdbDirectoryPath(value: String) {
@@ -65,6 +76,9 @@ class SettingStateHolder(
                 adbPortNumber.value.toIntOrNull(),
                 androidSdkDirectoryPath.value
             )
+            saveAppearanceUseCase(
+                appearance = appearance.value
+            )
         }
     }
 
@@ -74,6 +88,7 @@ class SettingStateHolder(
             adbDirectoryPath.value = sdkPath.adbDirectory
             adbPortNumber.value = sdkPath.adbServerPort.toString()
             androidSdkDirectoryPath.value = sdkPath.androidSdkDirectory
+            appearance.value = getAppearanceUseCase()
         }
     }
 }

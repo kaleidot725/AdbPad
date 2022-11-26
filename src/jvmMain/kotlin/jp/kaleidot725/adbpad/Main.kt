@@ -62,7 +62,7 @@ fun main() {
         }
 
         Window(title = Language.WINDOW_TITLE, onCloseRequest = ::exitApplication, state = windowState) {
-            AppTheme {
+            AppTheme(appearance = state.appearance) {
                 val menuStateHolder = mainStateHolder.menuStateHolder
                 val menuState by menuStateHolder.state.collectAsState()
 
@@ -185,6 +185,8 @@ fun main() {
                                     }
 
                                     SettingScreen(
+                                        appearance = settingState.appearance,
+                                        updateAppearance = settingStateHolder::updateAppearance,
                                         adbDirectoryPath = settingState.adbDirectoryPath,
                                         onChangeAdbDirectoryPath = settingStateHolder::updateAdbDirectoryPath,
                                         isValidAdbDirectoryPath = settingState.isValidAdbDirectoryPath,

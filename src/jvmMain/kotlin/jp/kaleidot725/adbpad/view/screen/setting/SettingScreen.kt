@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.Language
+import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.view.component.FloatingDialog
 import jp.kaleidot725.adbpad.view.component.RadioButtons
 import jp.kaleidot725.adbpad.view.component.setting.SettingField
@@ -25,6 +26,8 @@ import jp.kaleidot725.adbpad.view.component.setting.SettingTitle
 
 @Composable
 fun SettingScreen(
+    appearance: Appearance,
+    updateAppearance: (Appearance) -> Unit,
     adbDirectoryPath: String,
     onChangeAdbDirectoryPath: (String) -> Unit,
     isValidAdbDirectoryPath: Boolean,
@@ -55,10 +58,10 @@ fun SettingScreen(
                 )
 
                 RadioButtons(
-                    "Dark",
-                    listOf("Dark", "Light", "System"),
-                    {},
-                    Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
+                    selectedItem = appearance.value,
+                    items = Appearance.values().map { it.value },
+                    onSelect = { value -> updateAppearance(Appearance.values().first { it.value == value }) },
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
                 )
 
                 Divider(modifier = Modifier.fillMaxWidth())
