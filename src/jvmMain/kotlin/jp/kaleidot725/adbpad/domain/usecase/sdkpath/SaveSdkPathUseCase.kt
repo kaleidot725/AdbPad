@@ -1,10 +1,10 @@
 package jp.kaleidot725.adbpad.domain.usecase.sdkpath
 
 import jp.kaleidot725.adbpad.domain.model.setting.SdkPath
-import jp.kaleidot725.adbpad.domain.repository.SdkPathRepository
+import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 
 class SaveSdkPathUseCase(
-    private val sdkPathRepository: SdkPathRepository
+    private val settingRepository: SettingRepository
 ) {
     suspend operator fun invoke(
         adbDirectory: String,
@@ -12,6 +12,6 @@ class SaveSdkPathUseCase(
         androidSdkDirectory: String
     ): Boolean {
         val sdkPath = SdkPath(adbDirectory, adbServerPort ?: 30000, androidSdkDirectory)
-        return sdkPathRepository.update(sdkPath)
+        return settingRepository.updateSdkPath(sdkPath)
     }
 }

@@ -4,16 +4,14 @@ import jp.kaleidot725.adbpad.domain.repository.DeviceRepository
 import jp.kaleidot725.adbpad.domain.repository.EventRepository
 import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepository
 import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
-import jp.kaleidot725.adbpad.domain.repository.SdkPathRepository
+import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
-import jp.kaleidot725.adbpad.domain.repository.WindowSizeRepository
 import jp.kaleidot725.adbpad.repository.impl.DeviceRepositoryImpl
 import jp.kaleidot725.adbpad.repository.impl.EventRepositoryImpl
 import jp.kaleidot725.adbpad.repository.impl.NormalCommandRepositoryImpl
 import jp.kaleidot725.adbpad.repository.impl.ScreenshotCommandRepositoryImpl
-import jp.kaleidot725.adbpad.repository.impl.SdkPathRepositoryImpl
+import jp.kaleidot725.adbpad.repository.impl.SettingRepositoryImpl
 import jp.kaleidot725.adbpad.repository.impl.TextCommandRepositoryImpl
-import jp.kaleidot725.adbpad.repository.impl.WindowSizeRepositoryImpl
 import org.koin.dsl.module
 
 val repositoryModule = module {
@@ -32,10 +30,7 @@ val repositoryModule = module {
     single<ScreenshotCommandRepository> {
         ScreenshotCommandRepositoryImpl()
     }
-    factory<WindowSizeRepository> {
-        WindowSizeRepositoryImpl()
-    }
-    factory<SdkPathRepository> {
-        SdkPathRepositoryImpl()
+    factory<SettingRepository> {
+        SettingRepositoryImpl()
     }
 }
