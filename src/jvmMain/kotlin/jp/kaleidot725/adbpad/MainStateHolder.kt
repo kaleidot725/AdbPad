@@ -50,21 +50,23 @@ class MainStateHolder(
     private val children: List<ChildStateHolder<*>> = listOf(
         menuStateHolder, commandStateHolder, textCommandStateHolder, screenshotStateHolder
     )
-    
+
     init {
         startSyncDarkMode()
-        coroutineScope.launch {
-            windowSize.value = getWindowSizeUseCase()
-            dialog.value = if (startAdbUseCase()) null else Dialog.AdbError
-        }
+        restoreWindowSize()
+        checkAdbServer()
     }
 
     override fun setup() {
         children.forEach { it.setup() }
     }
 
+    override fun dispose() {
+        children.forEach { it.dispose() }
+    }
+
     fun saveSetting(windowSize: WindowSize) {
-        coroutineScope.launch { saveWindowSizeUseCase(windowSize) }
+        saveWindowSize(windowSize)
     }
 
     fun openSetting() {
@@ -73,13 +75,7 @@ class MainStateHolder(
 
     fun closeSetting() {
         startSyncDarkMode()
-        coroutineScope.launch {
-            dialog.value = if (startAdbUseCase()) null else Dialog.AdbError
-        }
-    }
-
-    override fun dispose() {
-        children.forEach { it.dispose() }
+        checkAdbServer()
     }
 
     private var themeFlowJob: Job? = null
@@ -87,7 +83,27 @@ class MainStateHolder(
         themeFlowJob?.cancel()
         themeFlowJob = coroutineScope.launch {
             val flow = getDarkModeFlowUseCase()
-            flow.collectLatest { isDark.value = it }
+            flow.collectLatest {
+                isDark.value = it
+            }
+        }
+    }
+
+    private fun saveWindowSize(windowSize: WindowSize) {
+        coroutineScope.launch {
+            saveWindowSizeUseCase(windowSize)
+        }
+    }
+
+    private fun restoreWindowSize() {
+        coroutineScope.launch {
+            windowSize.value = getWindowSizeUseCase()
+        }
+    }
+
+    private fun checkAdbServer() {
+        coroutineScope.launch {
+            dialog.value = if (startAdbUseCase()) null else Dialog.AdbError
         }
     }
 }

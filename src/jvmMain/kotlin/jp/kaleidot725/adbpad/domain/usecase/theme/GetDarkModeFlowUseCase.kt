@@ -1,8 +1,6 @@
 package jp.kaleidot725.adbpad.domain.usecase.theme
 
-import androidx.compose.material.Colors
 import com.jthemedetecor.OsThemeDetector
-import jp.kaleidot725.adbpad.domain.model.Color
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +21,7 @@ class GetDarkModeFlowUseCase(
             Appearance.SYSTEM -> {
                 val detector = OsThemeDetector.getDetector()
                 callbackFlow {
+                    this.trySend(detector.isDark)
                     val listener: Consumer<Boolean> = Consumer<Boolean> { isDark ->
                         this@callbackFlow.trySend(isDark)
                     }
@@ -33,35 +32,3 @@ class GetDarkModeFlowUseCase(
         }
     }
 }
-
-private val LightColors = Colors(
-    primary = Color.Light.PRIMARY,
-    primaryVariant = Color.Light.PRIMARY_VARIANT,
-    secondary = Color.Light.SECONDARY,
-    secondaryVariant = Color.Light.SECONDARY_VARIANT,
-    background = Color.Light.BACKGROUND,
-    surface = Color.Light.SURFACE,
-    error = Color.Light.ERROR,
-    onPrimary = Color.Light.ON_PRIMARY,
-    onSecondary = Color.Light.ON_SECONDARY,
-    onError = Color.Light.ON_ERROR,
-    onBackground = Color.Light.ON_BACKGROUND,
-    onSurface = Color.Light.ON_SURFACE,
-    isLight = true
-)
-
-private val DarkColors = Colors(
-    primary = Color.Dark.PRIMARY,
-    primaryVariant = Color.Dark.PRIMARY_VARIANT,
-    secondary = Color.Dark.SECONDARY,
-    secondaryVariant = Color.Dark.SECONDARY_VARIANT,
-    background = Color.Dark.BACKGROUND,
-    surface = Color.Dark.SURFACE,
-    error = Color.Dark.ERROR,
-    onPrimary = Color.Dark.ON_PRIMARY,
-    onSecondary = Color.Dark.ON_SECONDARY,
-    onError = Color.Dark.ON_ERROR,
-    onBackground = Color.Dark.ON_BACKGROUND,
-    onSurface = Color.Dark.ON_SURFACE,
-    isLight = false
-)
