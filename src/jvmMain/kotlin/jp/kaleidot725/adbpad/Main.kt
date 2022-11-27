@@ -12,7 +12,6 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -57,8 +56,8 @@ fun main() {
             return@application
         }
 
-        val windowState by remember(state.size) {
-            derivedStateOf { WindowState(width = state.size.width.dp, height = state.size.height.dp) }
+        val windowState by remember(state.size.width, state.size.height) {
+            mutableStateOf(WindowState(width = state.size.width.dp, height = state.size.height.dp))
         }
 
         Window(title = Language.WINDOW_TITLE, onCloseRequest = ::exitApplication, state = windowState) {

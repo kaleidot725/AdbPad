@@ -50,8 +50,7 @@ class MainStateHolder(
     private val children: List<ChildStateHolder<*>> = listOf(
         menuStateHolder, commandStateHolder, textCommandStateHolder, screenshotStateHolder
     )
-
-
+    
     init {
         startSyncDarkMode()
         coroutineScope.launch {
