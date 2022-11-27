@@ -65,7 +65,7 @@ val stateHolderModule = module {
             getWindowSizeUseCase = get(),
             saveWindowSizeUseCase = get(),
             startAdbUseCase = get(),
-            getAppearanceUseCase = get()
+            getDarkModeFlowUseCase = get(),
         )
     }
 }

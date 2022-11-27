@@ -13,6 +13,7 @@ version = "1.0"
 repositories {
     google()
     mavenCentral()
+    maven("https://jitpack.io")
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 }
 
@@ -33,6 +34,7 @@ kotlin {
                 implementation(libs.kotlin.coroutines)
                 implementation(libs.kotlin.serialization)
                 implementation(libs.koin)
+                implementation(libs.jSystemThemeDetectorVer)
             }
         }
         val jvmMain by getting {
@@ -44,6 +46,7 @@ kotlin {
                 implementation(libs.kotlin.coroutines)
                 implementation(libs.kotlin.serialization)
                 implementation(libs.koin)
+                implementation(libs.jSystemThemeDetectorVer)
             }
         }
         val jvmTest by getting {

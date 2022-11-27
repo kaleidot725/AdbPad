@@ -33,6 +33,8 @@ dependencyResolutionManagement {
             library("junit5", "org.junit.jupiter:junit-jupiter:$junitVer")
             val koin = extra["library.koin"] as String
             library("koin", "io.insert-koin:koin-core:$koin")
+            val jSystemThemeDetectorVer = extra["library.system_theme_detector"] as String
+            library("jSystemThemeDetectorVer", "com.github.Dansoftowner:jSystemThemeDetector:$jSystemThemeDetectorVer")
         }
     }
 }
