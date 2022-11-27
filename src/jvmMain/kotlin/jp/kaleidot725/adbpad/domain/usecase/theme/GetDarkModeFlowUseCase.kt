@@ -1,10 +1,38 @@
-package jp.kaleidot725.adbpad.view.common.resource
+package jp.kaleidot725.adbpad.domain.usecase.theme
 
 import androidx.compose.material.Colors
-import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
+import com.jthemedetecor.OsThemeDetector
 import jp.kaleidot725.adbpad.domain.model.Color
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
+import jp.kaleidot725.adbpad.domain.repository.SettingRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
+import java.util.function.Consumer
+
+class GetDarkModeFlowUseCase(
+    private val settingRepository: SettingRepository
+) {
+    suspend operator fun invoke(): Flow<Boolean> {
+        return when (withContext(Dispatchers.IO) { settingRepository.getAppearance() }) {
+            Appearance.DARK -> flow { emit(true) }
+            Appearance.LIGHT -> flow { emit(false) }
+            Appearance.SYSTEM -> {
+                val detector = OsThemeDetector.getDetector()
+                callbackFlow {
+                    val listener: Consumer<Boolean> = Consumer<Boolean> { isDark ->
+                        this@callbackFlow.trySend(isDark)
+                    }
+                    detector.registerListener(listener)
+                    awaitClose { detector.removeListener(listener) }
+                }
+            }
+        }
+    }
+}
 
 private val LightColors = Colors(
     primary = Color.Light.PRIMARY,
@@ -37,18 +65,3 @@ private val DarkColors = Colors(
     onSurface = Color.Dark.ON_SURFACE,
     isLight = false
 )
-
-@Composable
-fun AppTheme(
-    appearance: Appearance,
-    content: @Composable() () -> Unit
-) {
-    MaterialTheme(
-        colors = when (appearance) {
-            Appearance.DARK -> DarkColors
-            Appearance.LIGHT -> LightColors
-            Appearance.SYSTEM -> LightColors
-        },
-        content = content
-    )
-}
