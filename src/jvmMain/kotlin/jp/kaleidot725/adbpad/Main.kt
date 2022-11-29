@@ -60,7 +60,11 @@ fun main() {
             mutableStateOf(WindowState(width = state.size.width.dp, height = state.size.height.dp))
         }
 
-        Window(title = Language.WINDOW_TITLE, onCloseRequest = ::exitApplication, state = windowState) {
+        Window(
+            title = Language.WINDOW_TITLE,
+            onCloseRequest = ::exitApplication,
+            state = windowState
+        ) {
             MaterialTheme(colors = if (state.isDark) DarkColors else LightColors) {
                 val menuStateHolder = mainStateHolder.menuStateHolder
                 val menuState by menuStateHolder.state.collectAsState()
@@ -144,6 +148,7 @@ fun main() {
                                 Menu.Screenshot -> {
                                     ScreenshotScreen(
                                         preview = screenshotState.preview,
+                                        canCapture = screenshotState.canExecute,
                                         isCapturing = screenshotState.isCapturing,
                                         commands = screenshotState.commands,
                                         onTakeScreenshot = { screenshot ->
