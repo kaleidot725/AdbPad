@@ -19,7 +19,7 @@ class DeviceRepositoryImpl : DeviceRepository {
     private val adbClient = AndroidDebugBridgeClientFactory().build()
 
     private var lastSelectedDevice: Device? = null
-    private val selectedDevice: MutableSharedFlow<Device?> = MutableSharedFlow()
+    private val selectedDevice: MutableSharedFlow<Device?> = MutableSharedFlow(replay = 1)
 
     init {
         coroutineScope.launch {
