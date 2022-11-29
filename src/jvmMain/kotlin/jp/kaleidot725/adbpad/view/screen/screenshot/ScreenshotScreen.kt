@@ -22,6 +22,7 @@ import jp.kaleidot725.adbpad.view.component.screenshot.ScreenshotViewer
 @Composable
 fun ScreenshotScreen(
     preview: ScreenshotPreview,
+    canCapture: Boolean,
     isCapturing: Boolean,
     commands: List<ScreenshotCommand>,
     onTakeScreenshot: (ScreenshotCommand) -> Unit,
@@ -41,6 +42,7 @@ fun ScreenshotScreen(
 
         ScreenshotDropDownButton(
             commands = commands,
+            canCapture = canCapture,
             isCapturing = isCapturing,
             onTakeScreenshot = onTakeScreenshot,
             modifier = Modifier.wrapContentSize().align(Alignment.End)
@@ -53,6 +55,7 @@ fun ScreenshotScreen(
 private fun ScreenshotScreen_Preview() {
     ScreenshotScreen(
         preview = ScreenshotPreview(emptyList()),
+        canCapture = true,
         isCapturing = false,
         commands = emptyList(),
         onTakeScreenshot = {}
