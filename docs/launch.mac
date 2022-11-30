@@ -6,8 +6,8 @@
 
 set -e
 
-mac_amd64_zip_url="https://io.github.kaleidot725.adbpad/adbpad-1.0.0-mac-amd64.zip"
-mac_aarch64_zip_url="https://io.github.kaleidot725.adbpad/adbpad-1.0.0-mac-aarch64.zip"
+mac_amd64_zip_url="https://kaleidot725.github.io/AdbPad/adbpad-1.0.0-mac-amd64.zip"
+mac_aarch64_zip_url="https://kaleidot725.github.io/AdbPad/adbpad-1.0.0-mac-aarch64.zip"
 app_name="AdbPad"
 
 arch=$( arch )

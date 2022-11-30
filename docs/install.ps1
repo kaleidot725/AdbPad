@@ -4,7 +4,7 @@
 $CertName = "CN=AdbPad"
 $FSName = "adbpad"
 $PackageName = "Adbpad"
-$Site = "https://io.github.kaleidot725.adbpad"
+$Site = "https://kaleidot725.github.io/AdbPad"
 
 
 $CertURL = "${Site}/${FSName}.crt"
