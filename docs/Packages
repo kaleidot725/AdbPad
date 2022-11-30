@@ -1,0 +1,14 @@
+Architecture: amd64
+Built-With: Hydraulic Conveyor
+Depends: libxi6, libasound2 | liboss4-salsa-asound2, libx11-6, libgcc-s1, libgl1 | nvidia-340, libxtst6, zlib1g, libfontconfig1, libxext6, libc6, libfreetype6, libxrender1, libstdc++6
+Description: AdbPad
+Installed-Size: 170562
+Maintainer: <nobody@io.github.kaleidot725.adbpad>
+Package: adbpad
+Priority: optional
+Provides: adbpad
+Section: misc
+Version: 1.0.0
+Filename: ./adbpad_1.0.0_amd64.deb
+Size: 90795044
+SHA256: 90f2ac9b3f443ad24af4a737d91a560a177ff0363e4857efacd6bfccab6c8ece

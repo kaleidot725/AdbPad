@@ -1,0 +1,22 @@
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+    <channel>
+        <title>AdbPad Changelog</title>
+        <link>https://io.github.kaleidot725.adbpad/appcast-amd64.rss</link>
+        <description>Most recent changes with links to updates.</description>
+        <language>en</language>
+        <item>
+            <title>Version 1.0.0</title>
+            <link>https://io.github.kaleidot725.adbpad/</link>
+            <sparkle:version>1.0.0</sparkle:version>
+            <description>
+                <![CDATA[ New release: version 1.0.0 ]]>
+            </description>
+            <pubDate>Wed, 30 Nov 2022 12:54:54 GMT</pubDate>
+            <enclosure url="https://io.github.kaleidot725.adbpad/adbpad-1.0.0-mac-amd64.zip" 
+                       length="102940191" 
+                       type="application/octet-stream" 
+                       sparkle:edSignature="07gguGdhfj/q29BQFNY8j1UhL8ZG9GQsLcWr2RPgcAhpvD+p4e3DHR2x5FT73F9Gr6QfigaLVBoKMqB2xm7wCA=="/>
+        </item>
+            
+    </channel>
+</rss>
