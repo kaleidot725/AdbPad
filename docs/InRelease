@@ -3,26 +3,26 @@ Hash: SHA256
 
 Architectures: amd64
 Components: main
-Date: Wed, 30 Nov 2022 12:57:38 GMT
+Date: Wed, 30 Nov 2022 13:18:42 GMT
 Description: Public archive for AdbPad
 Origin: AdbPad
 Suite: stable
 MD5Sum:
- 66311b6118bb1af47d0e01b5fbce4831               532 Packages
- c94a76997a6cf0ab0f5a1ae93a86cfad               448 Packages.xz
+ 1ecd0d45b36906523b47b18d0ee14bb4               525 Packages
+ e83d2b81dab2486fe9bc474a07bc59aa               448 Packages.xz
 SHA1:
- 70a935bbed6f39a6b000cbdc98e8bb8955ac2aaf               532 Packages
- 011d9382981a48e2ddef9d0bb1d5af6e4bfec16d               448 Packages.xz
+ 1a39fc75cf242f353d4a7616951228c7af9bf5cb               525 Packages
+ 414091ef911b813aec5afcf61594f40f6c2e643b               448 Packages.xz
 SHA256:
- 447bd9bdebb263c82dfa676af62ed19bf1b5a2667899dd2911122d66e9a19f48               532 Packages
- f89ea2552cb5aa6c6ceb5c0837374105ff2473698d8ea460643fcffdb62783d3               448 Packages.xz
+ d747a5f58e6af6fc71b92c50cad819bee76d817c46403b19485f96c03892c1d1               525 Packages
+ 5b0df3c5ec2bbd319baf48f19b219180a907935684fe524c54e81be31116d252               448 Packages.xz
 SHA512:
- 6b401518b98b86186c778726e988b26ba9ec79d4ae7dac6f7ce85a50183ffaee17946693092cf462ed3c781b74a4baa40b77e21492af925d77f665f6e3d7201f               532 Packages
- c1bb40c01deffe90cb03fa3a5f7d1220647eceedf7a1a52a34a567b6192d2d9673dfe90083b8c7eb5b97f16aee5affc39ae36f52aca80d23348903eadc961ee5               448 Packages.xz
+ bf0b8919ae60a867c97574d3a6357b28174d39073e4e545c67590bd9f031b428bce0c89d2b23f8bfc89976b891824aae98134bc79b6affc5bab0f1c2bbb3e6e6               525 Packages
+ 5f752b7bd7b61cb8875861113b8f6db87fe0a44151397ade4ae8256fc32e444f1754cd4baca596a231fdf7e30cbd415a2c5aed36c5fc5e65cbbc760e554f71dc               448 Packages.xz
 -----BEGIN PGP SIGNATURE-----
 Version: BCPG v1.69
 
-iF4EARMIAAYFAmOHU0IACgkQmDTtQhQUjpMwxwD+Ml0w0O+ArGNut+P8+8bTxCYc
-nAaQ3DFZHUHOzLugwq8BANL+kv4wjkMPw++c4X5cQapXGjux05/IzjLhdbCTkpPY
-=Sv4V
+iF4EARMIAAYFAmOHWDMACgkQmDTtQhQUjpMsbwEA5ToTn5a116StOZT5JOKakEhX
+8Dab2qs22vZpnofr0jEA/2ZVH2SxeVTbh91mlEXbu0ZRaPePNwE9HtRGHQWvF8gq
+=P2Fi
 -----END PGP SIGNATURE-----
