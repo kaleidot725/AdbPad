@@ -1,0 +1,28 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Architectures: amd64
+Components: main
+Date: Wed, 30 Nov 2022 12:57:38 GMT
+Description: Public archive for AdbPad
+Origin: AdbPad
+Suite: stable
+MD5Sum:
+ 66311b6118bb1af47d0e01b5fbce4831               532 Packages
+ c94a76997a6cf0ab0f5a1ae93a86cfad               448 Packages.xz
+SHA1:
+ 70a935bbed6f39a6b000cbdc98e8bb8955ac2aaf               532 Packages
+ 011d9382981a48e2ddef9d0bb1d5af6e4bfec16d               448 Packages.xz
+SHA256:
+ 447bd9bdebb263c82dfa676af62ed19bf1b5a2667899dd2911122d66e9a19f48               532 Packages
+ f89ea2552cb5aa6c6ceb5c0837374105ff2473698d8ea460643fcffdb62783d3               448 Packages.xz
+SHA512:
+ 6b401518b98b86186c778726e988b26ba9ec79d4ae7dac6f7ce85a50183ffaee17946693092cf462ed3c781b74a4baa40b77e21492af925d77f665f6e3d7201f               532 Packages
+ c1bb40c01deffe90cb03fa3a5f7d1220647eceedf7a1a52a34a567b6192d2d9673dfe90083b8c7eb5b97f16aee5affc39ae36f52aca80d23348903eadc961ee5               448 Packages.xz
+-----BEGIN PGP SIGNATURE-----
+Version: BCPG v1.69
+
+iF4EARMIAAYFAmOHU0IACgkQmDTtQhQUjpMwxwD+Ml0w0O+ArGNut+P8+8bTxCYc
+nAaQ3DFZHUHOzLugwq8BANL+kv4wjkMPw++c4X5cQapXGjux05/IzjLhdbCTkpPY
+=Sv4V
+-----END PGP SIGNATURE-----
