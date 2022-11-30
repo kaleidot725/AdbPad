@@ -1,20 +1,25 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     kotlin("plugin.serialization")
     id("org.jlleitschuh.gradle.ktlint")
+    id("dev.hydraulic.conveyor")
 }
 
 group = "jp.kaleidot725"
-version = "1.0"
+version = "1.0.0"
 
 repositories {
-    google()
     mavenCentral()
-    maven("https://jitpack.io")
-    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    google()
+    maven { url = uri("https://jitpack.io") }
+    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
 }
 
 kotlin {
@@ -25,18 +30,6 @@ kotlin {
         withJava()
     }
     sourceSets {
-        all {
-            dependencies {
-                implementation(compose.desktop.currentOs)
-                implementation(compose.material)
-                implementation(compose.materialIconsExtended)
-                implementation(libs.adam)
-                implementation(libs.kotlin.coroutines)
-                implementation(libs.kotlin.serialization)
-                implementation(libs.koin)
-                implementation(libs.jSystemThemeDetectorVer)
-            }
-        }
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
@@ -60,21 +53,6 @@ kotlin {
 compose.desktop {
     application {
         mainClass = "MainKt"
-        nativeDistributions {
-            packageName = "AdbPad"
-            packageVersion = "1.0.0"
-
-            modules("jdk.management")
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi)
-
-            macOS {
-                iconFile.set(project.file("icon.icns"))
-            }
-
-            windows {
-                iconFile.set(project.file("icon.ico"))
-            }
-        }
     }
 }
 
@@ -106,3 +84,28 @@ configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         include("**/kotlin/**")
     }
 }
+
+dependencies {
+    macAmd64(compose.desktop.macos_x64)
+    macAarch64(compose.desktop.macos_arm64)
+    windowsAmd64(compose.desktop.windows_x64)
+}
+
+// region Work around temporary Compose bugs.
+configurations.all {
+    attributes {
+        // https://github.com/JetBrains/compose-jb/issues/1404#issuecomment-1146894731
+        attribute(Attribute.of("ui", String::class.java), "awt")
+    }
+}
+
+// Force override the Kotlin stdlib version used by Compose to 1.7, as otherwise we can end up with a mix of 1.6 and 1.7 on our classpath.
+dependencies {
+    val v = "1.7.10"
+    for (m in setOf("linuxAmd64", "macAmd64", "macAarch64", "windowsAmd64")) {
+        m("org.jetbrains.kotlin:kotlin-stdlib:$v")
+        m("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$v")
+        m("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$v")
+    }
+}
+// endregion

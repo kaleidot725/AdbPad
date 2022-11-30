@@ -27,3 +27,4 @@ build/*
 
 *.probe
 .gradle/kotlin
+output
