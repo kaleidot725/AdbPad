@@ -1,7 +1,8 @@
 package jp.kaleidot725.adbpad.domain.model
 
 object Language {
-    const val WINDOW_TITLE = "AdbPad(v0.2.0)"
+    const val VERSION = "v1.0.0"
+    const val WINDOW_TITLE = "AdbPad($VERSION)"
 
     const val NOT_FOUND_DEVICE = "Not found device"
     const val NOT_FOUND_COMMAND = "Not found command"
@@ -70,7 +71,7 @@ object Language {
     const val SETTING_APPEARANCE_HEADER = "Appearance"
 
     const val SETTING_ADB_HEADER = "ADB"
-    const val SETTING_ADB_DIRECTORY_PATH_TITLE = "Directory Path"
+    const val SETTING_ADB_DIRECTORY_PATH_TITLE = "Binary Path"
     const val SETTING_ADB_PORT_NUMBER_TITLE = "Server Port"
     const val SETTING_ANDROID_SDK_HEADER = "Android SDK"
     const val SETTING_ANDROID_SDK_DIRECTORY_PATH_TITLE = "Directory Path"
