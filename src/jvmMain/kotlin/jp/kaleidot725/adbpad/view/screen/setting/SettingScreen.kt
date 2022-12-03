@@ -34,21 +34,14 @@ fun SettingScreen(
     adbPortNumber: String,
     onChangeAdbPortNumber: (String) -> Unit,
     isValidAdbPortNumber: Boolean,
-    sdkAndroidDirectoryPath: String,
-    onChangeSdkAndroidDirectoryPath: (String) -> Unit,
-    isValidSdkAndroidDirectoryPath: Boolean,
     onSave: () -> Unit,
     canSave: Boolean,
     onCancel: () -> Unit,
-    onClose: () -> Unit
 ) {
     FloatingDialog(modifier = Modifier.fillMaxSize().padding(32.dp)) {
         Box(modifier = Modifier.padding(16.dp)) {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                SettingHeader(
-                    onClose = onClose,
-                    modifier = Modifier.fillMaxWidth()
-                )
+                SettingHeader(modifier = Modifier.fillMaxWidth())
 
                 Divider(modifier = Modifier.fillMaxWidth())
 
@@ -84,20 +77,6 @@ fun SettingScreen(
                     isError = !isValidAdbPortNumber,
                     onValueChange = onChangeAdbPortNumber
                 )
-
-//                Divider(modifier = Modifier.fillMaxWidth())
-//
-//                SettingTitle(
-//                    text = Language.SETTING_ANDROID_SDK_HEADER,
-//                    modifier = Modifier.padding(horizontal = 4.dp)
-//                )
-//
-//                SettingField(
-//                    title = Language.SETTING_ANDROID_SDK_DIRECTORY_PATH_TITLE,
-//                    input = sdkAndroidDirectoryPath,
-//                    isError = !isValidSdkAndroidDirectoryPath,
-//                    onValueChange = onChangeSdkAndroidDirectoryPath
-//                )
             }
 
             Row(
@@ -107,14 +86,14 @@ fun SettingScreen(
                 Button(onClick = onCancel) {
                     Text(
                         text = Language.CANCEL,
-                        modifier = Modifier.width(75.dp),
+                        modifier = Modifier.width(100.dp),
                         textAlign = TextAlign.Center
                     )
                 }
                 Button(onClick = onSave, enabled = canSave) {
                     Text(
                         text = Language.SAVE,
-                        modifier = Modifier.width(75.dp),
+                        modifier = Modifier.width(100.dp),
                         textAlign = TextAlign.Center
                     )
                 }

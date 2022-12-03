@@ -14,7 +14,6 @@ class StartAdbUseCase(
             val sdkPath = settingRepository.getSdkPath()
             return@withContext StartAdbInteractor().execute(
                 adbBinary = File(sdkPath.adbDirectory),
-                androidHome = File(sdkPath.androidSdkDirectory),
                 serverPort = sdkPath.adbServerPort
             )
         }
