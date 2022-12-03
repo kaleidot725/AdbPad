@@ -30,6 +30,19 @@ kotlin {
         withJava()
     }
     sourceSets {
+        all {
+            dependencies {
+                implementation(compose.desktop.currentOs)
+                implementation(compose.material)
+                implementation(compose.materialIconsExtended)
+                implementation(libs.adam)
+                implementation(libs.kotlin.coroutines)
+                implementation(libs.kotlin.serialization)
+                implementation(libs.koin)
+                implementation(libs.jSystemThemeDetectorVer)
+                implementation(libs.jetbrainsExpUiTheme)
+            }
+        }
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
@@ -40,6 +53,7 @@ kotlin {
                 implementation(libs.kotlin.serialization)
                 implementation(libs.koin)
                 implementation(libs.jSystemThemeDetectorVer)
+                implementation(libs.jetbrainsExpUiTheme)
             }
         }
         val jvmTest by getting {
