@@ -205,10 +205,15 @@ fun main() {
                                         sdkAndroidDirectoryPath = settingState.sdkAndroidDirectoryPath,
                                         onChangeSdkAndroidDirectoryPath = settingStateHolder::updateAndroidSdkDirectoryPath,
                                         isValidSdkAndroidDirectoryPath = settingState.isValidSdkAndroidDirectoryPath,
-                                        onSave = settingStateHolder::save,
+                                        onSave = {
+                                            settingStateHolder.save()
+                                            mainStateHolder.closeSetting()
+                                        },
                                         canSave = settingState.canSave,
-                                        onCancel = settingStateHolder::cancel,
-                                        onClose = { mainStateHolder.closeSetting() }
+                                        onCancel = {
+                                            settingStateHolder.cancel()
+                                            mainStateHolder.closeSetting()
+                                        }
                                     )
                                 }
 
