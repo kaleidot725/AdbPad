@@ -34,9 +34,6 @@ fun SettingScreen(
     adbPortNumber: String,
     onChangeAdbPortNumber: (String) -> Unit,
     isValidAdbPortNumber: Boolean,
-    sdkAndroidDirectoryPath: String,
-    onChangeSdkAndroidDirectoryPath: (String) -> Unit,
-    isValidSdkAndroidDirectoryPath: Boolean,
     onSave: () -> Unit,
     canSave: Boolean,
     onCancel: () -> Unit,
@@ -80,20 +77,6 @@ fun SettingScreen(
                     isError = !isValidAdbPortNumber,
                     onValueChange = onChangeAdbPortNumber
                 )
-
-//                Divider(modifier = Modifier.fillMaxWidth())
-//
-//                SettingTitle(
-//                    text = Language.SETTING_ANDROID_SDK_HEADER,
-//                    modifier = Modifier.padding(horizontal = 4.dp)
-//                )
-//
-//                SettingField(
-//                    title = Language.SETTING_ANDROID_SDK_DIRECTORY_PATH_TITLE,
-//                    input = sdkAndroidDirectoryPath,
-//                    isError = !isValidSdkAndroidDirectoryPath,
-//                    onValueChange = onChangeSdkAndroidDirectoryPath
-//                )
             }
 
             Row(

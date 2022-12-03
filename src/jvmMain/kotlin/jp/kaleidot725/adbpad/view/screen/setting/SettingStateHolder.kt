@@ -27,14 +27,12 @@ class SettingStateHolder(
     private val appearance: MutableStateFlow<Appearance> = MutableStateFlow(Appearance.DARK)
     private val adbDirectoryPath: MutableStateFlow<String> = MutableStateFlow("")
     private val adbPortNumber: MutableStateFlow<String> = MutableStateFlow("")
-    private val androidSdkDirectoryPath: MutableStateFlow<String> = MutableStateFlow("")
     override val state: StateFlow<SettingState> = combine(
         appearance,
         adbDirectoryPath,
-        adbPortNumber,
-        androidSdkDirectoryPath
-    ) { appearance, adbDirectoryPath, adbPortNumber, androidSdkDirectoryPath ->
-        SettingState(appearance, adbDirectoryPath, adbPortNumber, androidSdkDirectoryPath)
+        adbPortNumber
+    ) { appearance, adbDirectoryPath, adbPortNumber ->
+        SettingState(appearance, adbDirectoryPath, adbPortNumber)
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), SettingState())
 
     override fun setup() {
@@ -65,16 +63,11 @@ class SettingStateHolder(
         adbPortNumber.value = value
     }
 
-    fun updateAndroidSdkDirectoryPath(value: String) {
-        androidSdkDirectoryPath.value = value
-    }
-
     private fun savePath() {
         coroutineScope.launch {
             saveSdkPathUseCase(
                 adbDirectoryPath.value,
-                adbPortNumber.value.toIntOrNull(),
-                androidSdkDirectoryPath.value
+                adbPortNumber.value.toIntOrNull()
             )
             saveAppearanceUseCase(
                 appearance = appearance.value
@@ -87,7 +80,6 @@ class SettingStateHolder(
             val sdkPath = getSdkPathUseCase()
             adbDirectoryPath.value = sdkPath.adbDirectory
             adbPortNumber.value = sdkPath.adbServerPort.toString()
-            androidSdkDirectoryPath.value = sdkPath.androidSdkDirectory
             appearance.value = getAppearanceUseCase()
         }
     }

@@ -8,10 +8,9 @@ class SaveSdkPathUseCase(
 ) {
     suspend operator fun invoke(
         adbDirectory: String,
-        adbServerPort: Int?,
-        androidSdkDirectory: String
+        adbServerPort: Int?
     ): Boolean {
-        val sdkPath = SdkPath(adbDirectory, adbServerPort ?: 30000, androidSdkDirectory)
+        val sdkPath = SdkPath(adbDirectory, adbServerPort ?: 30000)
         return settingRepository.updateSdkPath(sdkPath)
     }
 }

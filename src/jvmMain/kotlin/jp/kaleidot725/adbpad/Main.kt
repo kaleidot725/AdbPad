@@ -202,9 +202,6 @@ fun main() {
                                         adbPortNumber = settingState.adbPortNumber,
                                         onChangeAdbPortNumber = settingStateHolder::updateAdbPortNumberPath,
                                         isValidAdbPortNumber = settingState.isValidAdbPortNumber,
-                                        sdkAndroidDirectoryPath = settingState.sdkAndroidDirectoryPath,
-                                        onChangeSdkAndroidDirectoryPath = settingStateHolder::updateAndroidSdkDirectoryPath,
-                                        isValidSdkAndroidDirectoryPath = settingState.isValidSdkAndroidDirectoryPath,
                                         onSave = {
                                             settingStateHolder.save()
                                             mainStateHolder.closeSetting()
