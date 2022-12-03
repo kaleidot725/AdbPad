@@ -17,10 +17,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import io.kanro.compose.jetbrains.expui.theme.DarkTheme
+import io.kanro.compose.jetbrains.expui.window.JBWindow
 import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.domain.di.domainModule
 import jp.kaleidot725.adbpad.domain.model.Dialog
@@ -60,9 +62,12 @@ fun main() {
             mutableStateOf(WindowState(width = state.size.width.dp, height = state.size.height.dp))
         }
 
-        Window(
+        JBWindow(
             title = Language.WINDOW_TITLE,
+            showTitle = true,
+            icon = painterResource("icon.png"),
             onCloseRequest = ::exitApplication,
+            theme = DarkTheme,
             state = windowState
         ) {
             MaterialTheme(colors = if (state.isDark) DarkColors else LightColors) {
@@ -81,7 +86,7 @@ fun main() {
                 DisposableEffect(mainStateHolder) {
                     mainStateHolder.setup()
                     onDispose {
-                        val frameWindowScope = this@Window
+                        val frameWindowScope = this@JBWindow
                         mainStateHolder.saveSetting(frameWindowScope.getWindowSize())
                         mainStateHolder.dispose()
                     }

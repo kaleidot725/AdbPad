@@ -85,19 +85,19 @@ fun SettingScreen(
                     onValueChange = onChangeAdbPortNumber
                 )
 
-                Divider(modifier = Modifier.fillMaxWidth())
-
-                SettingTitle(
-                    text = Language.SETTING_ANDROID_SDK_HEADER,
-                    modifier = Modifier.padding(horizontal = 4.dp)
-                )
-
-                SettingField(
-                    title = Language.SETTING_ANDROID_SDK_DIRECTORY_PATH_TITLE,
-                    input = sdkAndroidDirectoryPath,
-                    isError = !isValidSdkAndroidDirectoryPath,
-                    onValueChange = onChangeSdkAndroidDirectoryPath
-                )
+//                Divider(modifier = Modifier.fillMaxWidth())
+//
+//                SettingTitle(
+//                    text = Language.SETTING_ANDROID_SDK_HEADER,
+//                    modifier = Modifier.padding(horizontal = 4.dp)
+//                )
+//
+//                SettingField(
+//                    title = Language.SETTING_ANDROID_SDK_DIRECTORY_PATH_TITLE,
+//                    input = sdkAndroidDirectoryPath,
+//                    isError = !isValidSdkAndroidDirectoryPath,
+//                    onValueChange = onChangeSdkAndroidDirectoryPath
+//                )
             }
 
             Row(
