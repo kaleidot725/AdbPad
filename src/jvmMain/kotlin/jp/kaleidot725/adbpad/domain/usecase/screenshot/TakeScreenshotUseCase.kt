@@ -1,8 +1,8 @@
 package jp.kaleidot725.adbpad.domain.usecase.screenshot
 
-import jp.kaleidot725.adbpad.domain.model.Event
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
+import jp.kaleidot725.adbpad.domain.model.log.Event
 import jp.kaleidot725.adbpad.domain.repository.EventRepository
 import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
 import kotlinx.coroutines.Dispatchers
