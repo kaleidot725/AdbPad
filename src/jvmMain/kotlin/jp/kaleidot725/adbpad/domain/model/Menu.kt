@@ -5,6 +5,7 @@ import androidx.compose.material.icons.filled.DoubleArrow
 import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.ui.graphics.vector.ImageVector
+import jp.kaleidot725.adbpad.domain.model.language.Language
 
 sealed class Menu(val title: String, val icon: ImageVector) {
     object Command : Menu(Language.MENU_COMMAND_TITLE, Icons.Default.DoubleArrow)

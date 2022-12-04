@@ -1,6 +1,6 @@
 package jp.kaleidot725.adbpad.domain.model.log
 
-import jp.kaleidot725.adbpad.domain.model.Language
+import jp.kaleidot725.adbpad.domain.model.language.Language
 
 interface Event {
     val message: String

@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.Language
+import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.view.component.RunningIndicator
 
 @Composable
@@ -32,11 +32,11 @@ fun CommandItem(
             Text(text = title, fontWeight = FontWeight.Bold)
             Text(text = detail, modifier = Modifier.weight(0.9f, true))
             Button(onClick = { onExecute() }, enabled = canExecute, modifier = Modifier.align(Alignment.End)) {
-            when {
-                isRunning -> RunningIndicator()
-                else -> Text(text = Language.EXECUTE)
+                when {
+                    isRunning -> RunningIndicator()
+                    else -> Text(text = Language.EXECUTE)
+                }
             }
-        }
         }
     }
 }

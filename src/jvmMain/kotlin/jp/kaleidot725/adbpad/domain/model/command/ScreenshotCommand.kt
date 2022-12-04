@@ -1,6 +1,6 @@
 package jp.kaleidot725.adbpad.domain.model.command
 
-import jp.kaleidot725.adbpad.domain.model.Language
+import jp.kaleidot725.adbpad.domain.model.language.Language
 
 interface ScreenshotCommand {
     val title: String

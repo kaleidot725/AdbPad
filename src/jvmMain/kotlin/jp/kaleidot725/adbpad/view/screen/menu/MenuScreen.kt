@@ -12,9 +12,9 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.Language
 import jp.kaleidot725.adbpad.domain.model.Menu
 import jp.kaleidot725.adbpad.domain.model.device.Device
+import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.view.common.extension.clickableNoRipple
 import jp.kaleidot725.adbpad.view.component.menu.DropDownDeviceMenu
 import jp.kaleidot725.adbpad.view.component.menu.MenuItem

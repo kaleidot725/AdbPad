@@ -26,8 +26,8 @@ import io.kanro.compose.jetbrains.expui.window.JBWindow
 import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.domain.di.domainModule
 import jp.kaleidot725.adbpad.domain.model.Dialog
-import jp.kaleidot725.adbpad.domain.model.Language
 import jp.kaleidot725.adbpad.domain.model.Menu
+import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.log.Event
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.model.setting.getWindowSize
