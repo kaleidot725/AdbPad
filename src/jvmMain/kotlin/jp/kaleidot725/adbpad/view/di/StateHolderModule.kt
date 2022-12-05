@@ -51,7 +51,9 @@ val stateHolderModule = module {
             getSdkPathUseCase = get(),
             saveSdkPathUseCase = get(),
             getAppearanceUseCase = get(),
-            saveAppearanceUseCase = get()
+            saveAppearanceUseCase = get(),
+            getLanguageUseCase = get(),
+            saveLanguageUseCase = get()
         )
     }
 
@@ -66,6 +68,7 @@ val stateHolderModule = module {
             saveWindowSizeUseCase = get(),
             startAdbUseCase = get(),
             getDarkModeFlowUseCase = get(),
+            getLanguageUseCase = get()
         )
     }
 }

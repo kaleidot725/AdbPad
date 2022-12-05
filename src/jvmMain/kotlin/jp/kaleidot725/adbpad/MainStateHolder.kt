@@ -1,10 +1,12 @@
 package jp.kaleidot725.adbpad
 
 import jp.kaleidot725.adbpad.domain.model.Dialog
-import jp.kaleidot725.adbpad.domain.model.Event
+import jp.kaleidot725.adbpad.domain.model.language.Language
+import jp.kaleidot725.adbpad.domain.model.log.Event
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
+import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.theme.GetDarkModeFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
@@ -36,16 +38,19 @@ class MainStateHolder(
     val getWindowSizeUseCase: GetWindowSizeUseCase,
     val saveWindowSizeUseCase: SaveWindowSizeUseCase,
     val startAdbUseCase: StartAdbUseCase,
-    val getDarkModeFlowUseCase: GetDarkModeFlowUseCase
+    val getDarkModeFlowUseCase: GetDarkModeFlowUseCase,
+    val getLanguageUseCase: GetLanguageUseCase,
 ) : ParentStateHolder {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
+    private val language: MutableStateFlow<Language.Type> = MutableStateFlow(Language.Type.ENGLISH)
     private val windowSize: MutableStateFlow<WindowSize> = MutableStateFlow(WindowSize.UNKNOWN)
     private val isDark: MutableStateFlow<Boolean> = MutableStateFlow(true)
     private val dialog: MutableStateFlow<Dialog?> = MutableStateFlow(null)
     val event: SharedFlow<Event> = getEventFlowUseCase()
-    val state: StateFlow<MainState> = combine(isDark, windowSize, dialog) { isDark, windowSize, dialog ->
-        MainState(isDark, windowSize, dialog)
-    }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), MainState())
+    val state: StateFlow<MainState> =
+        combine(language, isDark, windowSize, dialog) { language, isDark, windowSize, dialog ->
+            MainState(language, isDark, windowSize, dialog)
+        }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), MainState())
 
     private val children: List<ChildStateHolder<*>> = listOf(
         menuStateHolder, commandStateHolder, textCommandStateHolder, screenshotStateHolder
@@ -55,6 +60,7 @@ class MainStateHolder(
         startSyncDarkMode()
         restoreWindowSize()
         checkAdbServer()
+        syncLanguage()
     }
 
     override fun setup() {
@@ -76,6 +82,7 @@ class MainStateHolder(
     fun closeSetting() {
         startSyncDarkMode()
         checkAdbServer()
+        syncLanguage()
     }
 
     private var themeFlowJob: Job? = null
@@ -104,6 +111,14 @@ class MainStateHolder(
     private fun checkAdbServer() {
         coroutineScope.launch {
             dialog.value = if (startAdbUseCase()) null else Dialog.AdbError
+        }
+    }
+
+    private fun syncLanguage() {
+        coroutineScope.launch {
+            val type = getLanguageUseCase()
+            Language.switch(type)
+            language.value = type
         }
     }
 }

@@ -16,16 +16,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.Language
+import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.view.component.FloatingDialog
 import jp.kaleidot725.adbpad.view.component.RadioButtons
+import jp.kaleidot725.adbpad.view.component.language.LanguageDropButton
 import jp.kaleidot725.adbpad.view.component.setting.SettingField
 import jp.kaleidot725.adbpad.view.component.setting.SettingHeader
 import jp.kaleidot725.adbpad.view.component.setting.SettingTitle
 
 @Composable
 fun SettingScreen(
+    languages: List<Language.Type>,
+    selectLanguage: Language.Type,
+    onUpdateLanguage: (Language.Type) -> Unit,
     appearance: Appearance,
     updateAppearance: (Appearance) -> Unit,
     adbDirectoryPath: String,
@@ -42,6 +46,20 @@ fun SettingScreen(
         Box(modifier = Modifier.padding(16.dp)) {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 SettingHeader(modifier = Modifier.fillMaxWidth())
+
+                Divider(modifier = Modifier.fillMaxWidth())
+
+                SettingTitle(
+                    text = Language.SETTING_LANGUAGE_HEADER,
+                    modifier = Modifier.padding(horizontal = 4.dp)
+                )
+
+                LanguageDropButton(
+                    languages = languages,
+                    selectedLanguage = selectLanguage,
+                    onSelect = onUpdateLanguage,
+                    modifier = Modifier.padding(horizontal = 4.dp)
+                )
 
                 Divider(modifier = Modifier.fillMaxWidth())
 

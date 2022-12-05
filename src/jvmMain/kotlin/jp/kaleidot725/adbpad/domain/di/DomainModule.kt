@@ -9,6 +9,8 @@ import jp.kaleidot725.adbpad.domain.usecase.device.GetDevicesFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
+import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
+import jp.kaleidot725.adbpad.domain.usecase.language.SaveLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.menu.GetMenuListUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotPreviewUseCase
@@ -94,5 +96,11 @@ val domainModule = module {
     }
     factory {
         GetDarkModeFlowUseCase(get())
+    }
+    factory {
+        SaveLanguageUseCase(get())
+    }
+    factory {
+        GetLanguageUseCase(get())
     }
 }
