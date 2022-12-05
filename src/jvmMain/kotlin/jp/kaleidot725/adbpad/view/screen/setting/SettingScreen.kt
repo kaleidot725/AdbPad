@@ -46,6 +46,13 @@ fun SettingScreen(
                 Divider(modifier = Modifier.fillMaxWidth())
 
                 SettingTitle(
+                    text = Language.SETTING_LANGUAGE_HEADER,
+                    modifier = Modifier.padding(horizontal = 4.dp)
+                )
+
+                Divider(modifier = Modifier.fillMaxWidth())
+
+                SettingTitle(
                     text = Language.SETTING_APPEARANCE_HEADER,
                     modifier = Modifier.padding(horizontal = 4.dp)
                 )

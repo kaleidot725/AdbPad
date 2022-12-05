@@ -72,6 +72,10 @@ interface StringResources {
 
     val SETTING_APPEARANCE_HEADER: String
 
+    val SETTING_LANGUAGE_HEADER: String
+    val SETTING_LANGUAGE_ENGLISH: String
+    val SETTING_LANGUAGE_JAPANESE: String
+    
     val SETTING_ADB_HEADER: String
     val SETTING_ADB_DIRECTORY_PATH_TITLE: String
     val SETTING_ADB_PORT_NUMBER_TITLE: String

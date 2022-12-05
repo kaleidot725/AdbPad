@@ -203,12 +203,10 @@ fun main() {
                                         onChangeAdbPortNumber = settingStateHolder::updateAdbPortNumberPath,
                                         isValidAdbPortNumber = settingState.isValidAdbPortNumber,
                                         onSave = {
-                                            settingStateHolder.save()
-                                            mainStateHolder.closeSetting()
+                                            settingStateHolder.save { mainStateHolder.closeSetting() }
                                         },
                                         canSave = settingState.canSave,
                                         onCancel = {
-                                            settingStateHolder.cancel()
                                             mainStateHolder.closeSetting()
                                         }
                                     )

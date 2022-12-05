@@ -71,8 +71,11 @@ object EnglishResources : StringResources {
     override val MENU_INPUT_TEXT_TITLE = "Send Text"
     override val MENU_SCREENSHOT = "Screenshot"
 
-    override val SETTING_APPEARANCE_HEADER = "Appearance"
+    override val SETTING_LANGUAGE_HEADER = "Language"
+    override val SETTING_LANGUAGE_ENGLISH = "English"
+    override val SETTING_LANGUAGE_JAPANESE = "Japanese(日本語)"
 
+    override val SETTING_APPEARANCE_HEADER = "Appearance"
     override val SETTING_ADB_HEADER = "ADB"
     override val SETTING_ADB_DIRECTORY_PATH_TITLE = "Binary Path"
     override val SETTING_ADB_PORT_NUMBER_TITLE = "Server Port"

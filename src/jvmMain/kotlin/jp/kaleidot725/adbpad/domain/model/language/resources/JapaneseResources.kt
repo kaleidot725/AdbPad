@@ -71,8 +71,11 @@ object JapaneseResources : StringResources {
     override val MENU_INPUT_TEXT_TITLE = "テキスト送信"
     override val MENU_SCREENSHOT = "スクリーンショット"
 
-    override val SETTING_APPEARANCE_HEADER = "テーマ"
+    override val SETTING_LANGUAGE_HEADER = "表示言語"
+    override val SETTING_LANGUAGE_ENGLISH = "英語(English)"
+    override val SETTING_LANGUAGE_JAPANESE = "日本語"
 
+    override val SETTING_APPEARANCE_HEADER = "テーマ"
     override val SETTING_ADB_HEADER = "ADB"
     override val SETTING_ADB_DIRECTORY_PATH_TITLE = "Binary Path"
     override val SETTING_ADB_PORT_NUMBER_TITLE = "Server Port"

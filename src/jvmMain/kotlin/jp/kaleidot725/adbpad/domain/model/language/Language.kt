@@ -128,6 +128,12 @@ object Language : StringResources {
         get() = getCurrentResources().MENU_INPUT_TEXT_TITLE
     override val MENU_SCREENSHOT: String
         get() = getCurrentResources().MENU_SCREENSHOT
+    override val SETTING_LANGUAGE_HEADER: String
+        get() = getCurrentResources().SETTING_LANGUAGE_HEADER
+    override val SETTING_LANGUAGE_ENGLISH: String
+        get() = getCurrentResources().SETTING_LANGUAGE_ENGLISH
+    override val SETTING_LANGUAGE_JAPANESE: String
+        get() = getCurrentResources().SETTING_LANGUAGE_JAPANESE
     override val SETTING_APPEARANCE_HEADER: String
         get() = getCurrentResources().SETTING_APPEARANCE_HEADER
     override val SETTING_ADB_HEADER: String

@@ -43,12 +43,8 @@ class SettingStateHolder(
         coroutineScope.cancel()
     }
 
-    fun save() {
-        savePath()
-    }
-
-    fun cancel() {
-        loadPath()
+    fun save(onSaved: () -> Unit) {
+        savePath(onSaved)
     }
 
     fun updateAppearance(value: Appearance) {
@@ -63,7 +59,7 @@ class SettingStateHolder(
         adbPortNumber.value = value
     }
 
-    private fun savePath() {
+    private fun savePath(onSaved: () -> Unit) {
         coroutineScope.launch {
             saveSdkPathUseCase(
                 adbDirectoryPath.value,
@@ -72,6 +68,7 @@ class SettingStateHolder(
             saveAppearanceUseCase(
                 appearance = appearance.value
             )
+            onSaved()
         }
     }
 
