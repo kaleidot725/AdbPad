@@ -194,6 +194,9 @@ fun main() {
                                     }
 
                                     SettingScreen(
+                                        languages = settingState.languages,
+                                        selectLanguage = settingState.selectedLanguage,
+                                        onUpdateLanguage = settingStateHolder::updateLanguage,
                                         appearance = settingState.appearance,
                                         updateAppearance = settingStateHolder::updateAppearance,
                                         adbDirectoryPath = settingState.adbDirectoryPath,

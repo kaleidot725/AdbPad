@@ -20,12 +20,16 @@ import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.view.component.FloatingDialog
 import jp.kaleidot725.adbpad.view.component.RadioButtons
+import jp.kaleidot725.adbpad.view.component.language.LanguageDropButton
 import jp.kaleidot725.adbpad.view.component.setting.SettingField
 import jp.kaleidot725.adbpad.view.component.setting.SettingHeader
 import jp.kaleidot725.adbpad.view.component.setting.SettingTitle
 
 @Composable
 fun SettingScreen(
+    languages: List<Language.Type>,
+    selectLanguage: Language.Type,
+    onUpdateLanguage: (Language.Type) -> Unit,
     appearance: Appearance,
     updateAppearance: (Appearance) -> Unit,
     adbDirectoryPath: String,
@@ -47,6 +51,13 @@ fun SettingScreen(
 
                 SettingTitle(
                     text = Language.SETTING_LANGUAGE_HEADER,
+                    modifier = Modifier.padding(horizontal = 4.dp)
+                )
+
+                LanguageDropButton(
+                    languages = languages,
+                    selectedLanguage = selectLanguage,
+                    onSelect = onUpdateLanguage,
                     modifier = Modifier.padding(horizontal = 4.dp)
                 )
 
