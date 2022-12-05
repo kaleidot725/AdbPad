@@ -1,5 +1,6 @@
 package jp.kaleidot725.adbpad.repository.impl
 
+import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.domain.model.setting.SdkPath
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
@@ -51,6 +52,21 @@ class SettingRepositoryImpl : SettingRepository {
         return withContext(Dispatchers.IO) {
             val setting = SettingFileCreator.load()
             return@withContext setting.windowSize
+        }
+    }
+
+    override suspend fun updateLanguage(language: Language.Type): Boolean {
+        return withContext(Dispatchers.IO) {
+            val oldSetting = SettingFileCreator.load()
+            val newSetting = oldSetting.copy(language = language)
+            return@withContext SettingFileCreator.save(newSetting)
+        }
+    }
+
+    override suspend fun getLanguage(): Language.Type {
+        return withContext(Dispatchers.IO) {
+            val setting = SettingFileCreator.load()
+            return@withContext setting.language
         }
     }
 }

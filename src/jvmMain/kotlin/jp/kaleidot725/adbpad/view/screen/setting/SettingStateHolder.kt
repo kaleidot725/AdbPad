@@ -4,6 +4,8 @@ import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAppearanceUseCase
+import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
+import jp.kaleidot725.adbpad.domain.usecase.language.SaveLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.sdkpath.GetSdkPathUseCase
 import jp.kaleidot725.adbpad.domain.usecase.sdkpath.SaveSdkPathUseCase
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
@@ -22,7 +24,9 @@ class SettingStateHolder(
     private val getSdkPathUseCase: GetSdkPathUseCase,
     private val saveSdkPathUseCase: SaveSdkPathUseCase,
     private val getAppearanceUseCase: GetAppearanceUseCase,
-    private val saveAppearanceUseCase: SaveAppearanceUseCase
+    private val saveAppearanceUseCase: SaveAppearanceUseCase,
+    private val getLanguageUseCase: GetLanguageUseCase,
+    private val saveLanguageUseCase: SaveLanguageUseCase
 ) : ChildStateHolder<SettingState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val language: MutableStateFlow<Language.Type> = MutableStateFlow(Language.Type.ENGLISH)
@@ -39,7 +43,7 @@ class SettingStateHolder(
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), SettingState())
 
     override fun setup() {
-        loadPath()
+        loadSetting()
     }
 
     override fun dispose() {
@@ -47,7 +51,7 @@ class SettingStateHolder(
     }
 
     fun save(onSaved: () -> Unit) {
-        savePath(onSaved)
+        saveSetting(onSaved)
     }
 
     fun updateLanguage(value: Language.Type) {
@@ -66,25 +70,25 @@ class SettingStateHolder(
         adbPortNumber.value = value
     }
 
-    private fun savePath(onSaved: () -> Unit) {
+    private fun saveSetting(onSaved: () -> Unit) {
         coroutineScope.launch {
+            saveLanguageUseCase(language.value)
+            saveAppearanceUseCase(appearance = appearance.value)
             saveSdkPathUseCase(
                 adbDirectoryPath.value,
                 adbPortNumber.value.toIntOrNull()
-            )
-            saveAppearanceUseCase(
-                appearance = appearance.value
             )
             onSaved()
         }
     }
 
-    private fun loadPath() {
+    private fun loadSetting() {
         coroutineScope.launch {
+            language.value = getLanguageUseCase()
+            appearance.value = getAppearanceUseCase()
             val sdkPath = getSdkPathUseCase()
             adbDirectoryPath.value = sdkPath.adbDirectory
             adbPortNumber.value = sdkPath.adbServerPort.toString()
-            appearance.value = getAppearanceUseCase()
         }
     }
 }

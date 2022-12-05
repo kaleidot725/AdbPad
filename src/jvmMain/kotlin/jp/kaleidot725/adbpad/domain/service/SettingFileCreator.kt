@@ -1,5 +1,6 @@
 package jp.kaleidot725.adbpad.domain.service
 
+import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.os.OSContext
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.domain.model.setting.SdkPath
@@ -48,6 +49,7 @@ object SettingFileCreator {
 
     @Serializable
     data class Setting(
+        val language: Language.Type = Language.Type.ENGLISH,
         val appearance: Appearance = Appearance.SYSTEM,
         val sdkPath: SdkPath = SdkPath(),
         val inputTexts: List<String> = emptyList(),

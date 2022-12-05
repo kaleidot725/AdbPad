@@ -7,8 +7,28 @@ import androidx.compose.material.icons.filled.Send
 import androidx.compose.ui.graphics.vector.ImageVector
 import jp.kaleidot725.adbpad.domain.model.language.Language
 
-sealed class Menu(val title: String, val icon: ImageVector) {
-    object Command : Menu(Language.MENU_COMMAND_TITLE, Icons.Default.DoubleArrow)
-    object InputText : Menu(Language.MENU_INPUT_TEXT_TITLE, Icons.Default.Send)
-    object Screenshot : Menu(Language.MENU_SCREENSHOT, Icons.Default.PhotoCamera)
+interface Menu {
+    val title: String
+    val icon: ImageVector
+
+    object Command : Menu {
+        override val title: String
+            get() = Language.MENU_COMMAND_TITLE
+        override val icon: ImageVector
+            get() = Icons.Default.DoubleArrow
+    }
+
+    object InputText : Menu {
+        override val title: String
+            get() = Language.MENU_INPUT_TEXT_TITLE
+        override val icon: ImageVector
+            get() = Icons.Default.Send
+    }
+
+    object Screenshot : Menu {
+        override val title: String
+            get() = Language.MENU_SCREENSHOT
+        override val icon: ImageVector
+            get() = Icons.Default.PhotoCamera
+    }
 }
