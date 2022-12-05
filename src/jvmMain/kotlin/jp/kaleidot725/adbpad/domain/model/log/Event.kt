@@ -30,7 +30,6 @@ interface Event {
             get() = Level.ERROR
     }
 
-
     data class StartSendTextCommand(val text: String) : Event {
         override val message: String
             get() = String.format(Language.TEXT_COMMAND_START_EVENT_FORMAT, text)
@@ -38,7 +37,6 @@ interface Event {
         override val level: Level
             get() = Level.INFO
     }
-
 
     data class EndSendTextCommand(val text: String) : Event {
         override val message: String
@@ -48,7 +46,6 @@ interface Event {
             get() = Level.INFO
     }
 
-
     data class ErrorSendTextCommand(val text: String) : Event {
         override val message: String
             get() = String.format(Language.TEXT_COMMAND_ERROR_EVENT_FORMAT)
@@ -56,7 +53,6 @@ interface Event {
         override val level: Level
             get() = Level.ERROR
     }
-
 
     object StartSendScreenshotCommand : Event {
         override val message: String
@@ -66,7 +62,6 @@ interface Event {
             get() = Level.INFO
     }
 
-
     object EndSendScreenshotCommand : Event {
         override val message: String
             get() = Language.SCREENSHOT_COMMAND_END_EVENT_FORMAT
@@ -75,7 +70,6 @@ interface Event {
             get() = Level.INFO
     }
 
-
     object ErrorSendScreenshotCommand : Event {
         override val message: String
             get() = Language.SCREENSHOT_COMMAND_ERROR_EVENT_FORMAT
@@ -83,7 +77,6 @@ interface Event {
         override val level: Level
             get() = Level.ERROR
     }
-
 
     object NULL : Event {
         override val message: String

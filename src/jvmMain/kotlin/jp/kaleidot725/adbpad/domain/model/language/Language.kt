@@ -4,7 +4,6 @@ import jp.kaleidot725.adbpad.domain.model.language.resources.EnglishResources
 import jp.kaleidot725.adbpad.domain.model.language.resources.JapaneseResources
 import jp.kaleidot725.adbpad.domain.model.language.resources.StringResources
 
-
 object Language : StringResources {
     override val VERSION: String
         get() = getCurrentResources().VERSION
