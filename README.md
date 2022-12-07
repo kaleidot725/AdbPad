@@ -1,19 +1,20 @@
 # <img align="center" width=40 src="https://raw.githubusercontent.com/kaleidot725/AdbPad/main/icon.ico"> AdbPad
 
-AdpPad is a GUI application to use adb. adb is a command line tool to control android device.
+AdpPad is a GUI software to test android apps using adb.  
+This software is running Windows and macOS, Linux.
 
 https://user-images.githubusercontent.com/23740796/206174953-ce266413-1767-4a5d-8bf3-d91f4d40c2f3.mp4
 
 # ✨ Feature
 
-- Observe a connected android device list.
+- Get a connected android device list.
 - Execute adb shell command.
 - Input text to android device.
 - Take a screenshot for each theme.
 
 # ⬇️ Install
 
-Download from [here](https://adbpad.netlify.app).
+- Download from [here](https://adbpad.netlify.app).
 
 # 🎫 Licence
 
