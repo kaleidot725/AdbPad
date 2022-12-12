@@ -16,12 +16,6 @@ repositories {
     maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
 }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
-}
-
 kotlin {
     jvm {
         compilations.all {
@@ -30,20 +24,6 @@ kotlin {
         withJava()
     }
     sourceSets {
-        all {
-            dependencies {
-                implementation(kotlin("stdlib-jdk8"))
-                implementation(compose.desktop.currentOs)
-                implementation(compose.material)
-                implementation(compose.materialIconsExtended)
-                implementation(libs.adam)
-                implementation(libs.kotlin.coroutines)
-                implementation(libs.kotlin.serialization)
-                implementation(libs.koin)
-                implementation(libs.jSystemThemeDetectorVer)
-                implementation(libs.jetbrainsExpUiTheme)
-            }
-        }
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
@@ -69,6 +49,9 @@ kotlin {
 compose.desktop {
     application {
         mainClass = "MainKt"
+        nativeDistributions {
+            modules("jdk.unsupported")
+        }
     }
 }
 
