@@ -28,6 +28,7 @@ class NormalCommandRepositoryImpl : NormalCommandRepository {
             NormalCommand.DataOff(runningCommands.any { it is NormalCommand.DataOff }),
             NormalCommand.WifiAndDataOn(runningCommands.any { it is NormalCommand.WifiAndDataOn }),
             NormalCommand.WifiAndDataOff(runningCommands.any { it is NormalCommand.WifiAndDataOff }),
+            NormalCommand.ScreenPinningOff(runningCommands.any { it is NormalCommand.ScreenPinningOff })
         )
     }
 

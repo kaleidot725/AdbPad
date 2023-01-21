@@ -58,6 +58,8 @@ object EnglishResources : StringResources {
     override val COMMAND_WIFI_AND_DATA_ON_DETAILS = "Enable Wi-Fi and cellular communication."
     override val COMMAND_WIFI_AND_DATA_OFF_TITLE = "Wi-Fi and cellular: OFF"
     override val COMMAND_WIFI_AND_DATA_OFF_DETAILS = "Disable Wi-Fi and cellular communication."
+    override val COMMAND_SCREEN_PINNING_OFF_TITLE = "Screen pinning: OFF"
+    override val COMMAND_SCREEN_PINNING_OFF_DETAILS = "Disable screen pinning."
 
     override val TEXT_COMMAND_START_EVENT_FORMAT = "Start sending text「%s」"
     override val TEXT_COMMAND_END_EVENT_FORMAT = "End sending text「%s」"

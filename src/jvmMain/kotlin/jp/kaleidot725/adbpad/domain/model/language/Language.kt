@@ -109,6 +109,11 @@ object Language : StringResources {
         get() = getCurrentResources().COMMAND_WIFI_AND_DATA_OFF_TITLE
     override val COMMAND_WIFI_AND_DATA_OFF_DETAILS: String
         get() = getCurrentResources().COMMAND_WIFI_AND_DATA_OFF_DETAILS
+    override val COMMAND_SCREEN_PINNING_OFF_TITLE: String
+        get() = getCurrentResources().COMMAND_SCREEN_PINNING_OFF_TITLE
+    override val COMMAND_SCREEN_PINNING_OFF_DETAILS: String
+        get() = getCurrentResources().COMMAND_SCREEN_PINNING_OFF_DETAILS
+
     override val TEXT_COMMAND_START_EVENT_FORMAT: String
         get() = getCurrentResources().TEXT_COMMAND_START_EVENT_FORMAT
     override val TEXT_COMMAND_END_EVENT_FORMAT: String
