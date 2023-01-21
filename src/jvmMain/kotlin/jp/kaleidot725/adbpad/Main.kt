@@ -33,6 +33,7 @@ import jp.kaleidot725.adbpad.domain.model.log.Event
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.model.setting.getWindowSize
 import jp.kaleidot725.adbpad.repository.di.repositoryModule
+import jp.kaleidot725.adbpad.view.component.navigationrail.NavigationRail
 import jp.kaleidot725.adbpad.view.di.stateHolderModule
 import jp.kaleidot725.adbpad.view.screen.CommandScreen
 import jp.kaleidot725.adbpad.view.screen.MenuScreen
@@ -96,6 +97,12 @@ fun main() {
 
                     Surface {
                         ScreenLayout(
+                            navigationRail = {
+                                NavigationRail(
+                                    onSelectDevice = {},
+                                    onOpenSetting = mainStateHolder::openSetting
+                                )
+                            },
                             leftPane = {
                                 MenuScreen(
                                     devices = menuState.devices,
@@ -104,7 +111,6 @@ fun main() {
                                     menus = menuState.menus,
                                     selectedMenu = menuState.selectedMenu,
                                     onSelectMenu = { menuStateHolder.selectMenu(it) },
-                                    onShowSetting = { mainStateHolder.openSetting() },
                                     modifier = Modifier
                                         .width(250.dp)
                                         .fillMaxHeight()
@@ -234,33 +240,33 @@ fun main() {
 }
 
 private val LightColors = Colors(
-    primary = jp.kaleidot725.adbpad.domain.model.Color.Light.PRIMARY,
-    primaryVariant = jp.kaleidot725.adbpad.domain.model.Color.Light.PRIMARY_VARIANT,
-    secondary = jp.kaleidot725.adbpad.domain.model.Color.Light.SECONDARY,
-    secondaryVariant = jp.kaleidot725.adbpad.domain.model.Color.Light.SECONDARY_VARIANT,
-    background = jp.kaleidot725.adbpad.domain.model.Color.Light.BACKGROUND,
-    surface = jp.kaleidot725.adbpad.domain.model.Color.Light.SURFACE,
-    error = jp.kaleidot725.adbpad.domain.model.Color.Light.ERROR,
-    onPrimary = jp.kaleidot725.adbpad.domain.model.Color.Light.ON_PRIMARY,
-    onSecondary = jp.kaleidot725.adbpad.domain.model.Color.Light.ON_SECONDARY,
-    onError = jp.kaleidot725.adbpad.domain.model.Color.Light.ON_ERROR,
-    onBackground = jp.kaleidot725.adbpad.domain.model.Color.Light.ON_BACKGROUND,
-    onSurface = jp.kaleidot725.adbpad.domain.model.Color.Light.ON_SURFACE,
+    primary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.PRIMARY,
+    primaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Light.PRIMARY_VARIANT,
+    secondary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.SECONDARY,
+    secondaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Light.SECONDARY_VARIANT,
+    background = jp.kaleidot725.adbpad.domain.model.UserColor.Light.BACKGROUND,
+    surface = jp.kaleidot725.adbpad.domain.model.UserColor.Light.SURFACE,
+    error = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ERROR,
+    onPrimary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_PRIMARY,
+    onSecondary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_SECONDARY,
+    onError = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_ERROR,
+    onBackground = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_BACKGROUND,
+    onSurface = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_SURFACE,
     isLight = true
 )
 
 private val DarkColors = Colors(
-    primary = jp.kaleidot725.adbpad.domain.model.Color.Dark.PRIMARY,
-    primaryVariant = jp.kaleidot725.adbpad.domain.model.Color.Dark.PRIMARY_VARIANT,
-    secondary = jp.kaleidot725.adbpad.domain.model.Color.Dark.SECONDARY,
-    secondaryVariant = jp.kaleidot725.adbpad.domain.model.Color.Dark.SECONDARY_VARIANT,
-    background = jp.kaleidot725.adbpad.domain.model.Color.Dark.BACKGROUND,
-    surface = jp.kaleidot725.adbpad.domain.model.Color.Dark.SURFACE,
-    error = jp.kaleidot725.adbpad.domain.model.Color.Dark.ERROR,
-    onPrimary = jp.kaleidot725.adbpad.domain.model.Color.Dark.ON_PRIMARY,
-    onSecondary = jp.kaleidot725.adbpad.domain.model.Color.Dark.ON_SECONDARY,
-    onError = jp.kaleidot725.adbpad.domain.model.Color.Dark.ON_ERROR,
-    onBackground = jp.kaleidot725.adbpad.domain.model.Color.Dark.ON_BACKGROUND,
-    onSurface = jp.kaleidot725.adbpad.domain.model.Color.Dark.ON_SURFACE,
+    primary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.PRIMARY,
+    primaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.PRIMARY_VARIANT,
+    secondary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.SECONDARY,
+    secondaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.SECONDARY_VARIANT,
+    background = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.BACKGROUND,
+    surface = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.SURFACE,
+    error = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ERROR,
+    onPrimary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_PRIMARY,
+    onSecondary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_SECONDARY,
+    onError = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_ERROR,
+    onBackground = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_BACKGROUND,
+    onSurface = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_SURFACE,
     isLight = false
 )

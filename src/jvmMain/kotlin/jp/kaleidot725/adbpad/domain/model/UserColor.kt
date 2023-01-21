@@ -4,7 +4,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-object Color {
+object UserColor {
     @Composable
     fun getSplitterColor(): Color {
         val isLight = MaterialTheme.colors.isLight
