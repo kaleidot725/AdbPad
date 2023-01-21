@@ -8,7 +8,11 @@ object UserColor {
     @Composable
     fun getSplitterColor(): Color {
         val isLight = MaterialTheme.colors.isLight
-        return if (isLight) Color(0xFF333333).copy(alpha = 0.2f) else Color(0x0FFDDDDDD).copy(alpha = 0.3f)
+        return if (isLight) {
+            Color(0xFF333333).copy(alpha = 0.15f)
+        } else {
+            Color(0x0FFDDDDDD).copy(alpha = 0.15f)
+        }
     }
 
     object Light {
