@@ -112,4 +112,12 @@ interface NormalCommand {
             ShellCommandRequest("svc data disable")
         )
     }
+
+    data class ScreenPinningOff(override val isRunning: Boolean = false) : NormalCommand {
+        override val title: String get() = Language.COMMAND_SCREEN_PINNING_OFF_TITLE
+        override val details: String get() = Language.COMMAND_SCREEN_PINNING_OFF_DETAILS
+        override val requests: List<ShellCommandRequest> = listOf(
+            ShellCommandRequest("am task lock stop"),
+        )
+    }
 }
