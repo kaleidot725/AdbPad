@@ -11,7 +11,6 @@ pluginManagement {
         kotlin("plugin.serialization").version(extra["kotlin.version"] as String)
         id("org.jetbrains.compose").version(extra["compose.version"] as String)
         id("org.jlleitschuh.gradle.ktlint").version(extra["library.ktlint.plugin"] as String)
-        id("dev.hydraulic.conveyor").version(extra["library.conveyor"] as String)
     }
 }
 
