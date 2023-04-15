@@ -12,8 +12,12 @@ import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import java.awt.image.BufferedImage
 import java.io.File
+import java.io.IOException
 import javax.imageio.ImageIO
+import kotlin.math.max
+
 
 class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
     private val runningCommands: MutableSet<ScreenshotCommand> = mutableSetOf()
@@ -30,13 +34,9 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
 
     override fun getPreview(): ScreenshotPreview {
         val files = buildList {
-            val fileA = File(getPathA())
-            if (fileA.exists()) add(fileA)
-
-            val fileB = File(getPathB())
-            if (fileB.exists()) add(fileB)
+            val fileResult = getFileResult()
+            if (fileResult.exists()) add(fileResult)
         }
-
         return ScreenshotPreview(files)
     }
 
@@ -50,7 +50,6 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         withContext(Dispatchers.IO) {
             runningCommands.add(command)
             onStart()
-
             deleteAll()
 
             val result = when (command) {
@@ -73,7 +72,7 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
             return false
         }
 
-        if (!capture(device, getPathA())) {
+        if (!capture(device, getFileA())) {
             return false
         }
 
@@ -81,11 +80,11 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
             return false
         }
 
-        if (!capture(device, getPathB())) {
+        if (!capture(device, getFileB())) {
             return false
         }
 
-        return true
+        return concat(getFileA(), getFileB(), getFileResult())
     }
 
     private suspend fun sendDarkCommand(device: Device): Boolean {
@@ -93,11 +92,7 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
             return false
         }
 
-        if (!capture(device, getPathA())) {
-            return false
-        }
-
-        return true
+        return capture(device, getFileResult())
     }
 
     private suspend fun sendLightCommand(device: Device): Boolean {
@@ -105,27 +100,37 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
             return false
         }
 
-        if (!capture(device, getPathA())) {
-            return false
-        }
-
-        return true
+        return capture(device, getFileResult())
     }
 
     private suspend fun sendCurrentCommand(device: Device): Boolean {
-        if (!capture(device, getPathA())) {
-            return false
-        }
-
-        return true
+        return capture(device, getFileResult())
     }
 
-    private suspend fun capture(device: Device, path: String, delay: Long = DEFAULT_DELAY): Boolean {
+    private suspend fun capture(device: Device, file: File, delay: Long = DEFAULT_DELAY): Boolean {
         delay(delay)
         val adb = AndroidDebugBridgeClientFactory().build()
         val adapter = RawImageScreenCaptureAdapter()
         val image = adb.execute(request = ScreenCaptureRequest(adapter), serial = device.serial).toBufferedImage()
-        return ImageIO.write(image, EXTENSION_NAME, File(path))
+        return ImageIO.write(image, EXTENSION_NAME, file)
+    }
+
+    private fun concat(fileA: File, fileB: File, fileResult: File): Boolean {
+        return try {
+            val imageA = ImageIO.read(fileA)
+            val imageB = ImageIO.read(fileB)
+            val totalWidth = imageA.width + imageB.width
+            val maxHeight = max(imageA.height, imageB.height)
+            val imageC = BufferedImage(totalWidth, maxHeight, BufferedImage.TYPE_INT_ARGB)
+
+            imageC.graphics.drawImage(imageA, 0, 0, null)
+            imageC.graphics.drawImage(imageB, imageA.width, 0, null)
+            ImageIO.write(imageC, "PNG", fileResult)
+
+            true
+        } catch (e: IOException) {
+            false
+        }
     }
 
     private suspend fun sendCommand(device: Device, command: NormalCommand): Boolean {
@@ -141,24 +146,30 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
     }
 
     private fun deleteAll() {
-        val files = listOf(File(getPathA()), File(getPathB()))
+        val files = listOf(getFileA(), getFileB(), getFileB())
         files.forEach { it.delete() }
     }
 
     companion object {
         private const val FILE_NAME_A = "screenshotA.png"
         private const val FILE_NAME_B = "screenshotB.png"
+        private const val FILE_NAME_RESULT = "screenshotR.png"
         private const val EXTENSION_NAME = "png"
         private const val DEFAULT_DELAY = 500L
 
-        private fun getPathA(): String {
+        private fun getFileA(): File {
             val osContext = OSContext.resolveOSContext()
-            return osContext.directory + FILE_NAME_A
+            return File(osContext.directory + FILE_NAME_A)
         }
 
-        private fun getPathB(): String {
+        private fun getFileB(): File {
             val osContext = OSContext.resolveOSContext()
-            return osContext.directory + FILE_NAME_B
+            return File(osContext.directory + FILE_NAME_B)
+        }
+
+        private fun getFileResult(): File {
+            val osContext = OSContext.resolveOSContext()
+            return File(osContext.directory + FILE_NAME_RESULT)
         }
     }
 }
