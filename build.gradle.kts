@@ -51,6 +51,7 @@ compose.desktop {
         nativeDistributions {
             packageName = "AdbPad"
             modules("jdk.management")
+            modules("jdk.unsupported")
 
             targetFormats(
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg,
