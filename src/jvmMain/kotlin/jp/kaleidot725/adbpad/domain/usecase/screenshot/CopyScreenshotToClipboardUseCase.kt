@@ -8,7 +8,6 @@ import jp.kaleidot725.adbpad.utils.ClipBoardUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-
 class CopyScreenshotToClipboardUseCase(
     private val eventRepository: EventRepository,
     private val screenshotCommandRepository: ScreenshotCommandRepository
@@ -21,7 +20,6 @@ class CopyScreenshotToClipboardUseCase(
                 eventRepository.sendEvent(Event.CopyScreenshotToClipBoard)
             } else {
                 eventRepository.sendEvent(Event.CantCopyScreenshotToClipBoard)
-
             }
         }
     }

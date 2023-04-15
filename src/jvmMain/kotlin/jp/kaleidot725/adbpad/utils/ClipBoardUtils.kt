@@ -9,11 +9,10 @@ import java.awt.datatransfer.UnsupportedFlavorException
 import java.io.File
 import java.io.IOException
 
-
 object ClipBoardUtils {
     private val clipboard get() = Toolkit.getDefaultToolkit().systemClipboard
 
-    fun copyFile(file: File) : Boolean {
+    fun copyFile(file: File): Boolean {
         return try {
             val fileSelection = FileSelection(file)
             clipboard.setContents(fileSelection, fileSelection)

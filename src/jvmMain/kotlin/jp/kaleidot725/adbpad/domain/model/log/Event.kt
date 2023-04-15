@@ -78,7 +78,7 @@ interface Event {
             get() = Level.ERROR
     }
 
-    object CopyScreenshotToClipBoard: Event {
+    object CopyScreenshotToClipBoard : Event {
         override val message: String
             get() = Language.SCREENSHOT_COPY_TO_CLIPBAORD_EVENT_FORMAT
 
@@ -86,7 +86,7 @@ interface Event {
             get() = Level.INFO
     }
 
-    object CantCopyScreenshotToClipBoard: Event {
+    object CantCopyScreenshotToClipBoard : Event {
         override val message: String
             get() = Language.SCREENSHOT_COPY_TO_CLIPBAORD_EVENT_FORMAT
 
@@ -94,7 +94,7 @@ interface Event {
             get() = Level.ERROR
     }
 
-    object ClearScreenshotCache: Event {
+    object ClearScreenshotCache : Event {
         override val message: String
             get() = Language.SCREENSHOT_CLEAR_CACHE
 

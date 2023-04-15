@@ -18,7 +18,6 @@ import java.io.IOException
 import javax.imageio.ImageIO
 import kotlin.math.max
 
-
 class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
     private val runningCommands: MutableSet<ScreenshotCommand> = mutableSetOf()
     private val adbClient = AndroidDebugBridgeClientFactory().build()
