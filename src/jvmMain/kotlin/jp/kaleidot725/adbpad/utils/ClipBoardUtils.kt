@@ -1,53 +1,37 @@
 package jp.kaleidot725.adbpad.utils
 
-import java.awt.Image
 import java.awt.Toolkit
 import java.awt.datatransfer.Clipboard
 import java.awt.datatransfer.ClipboardOwner
 import java.awt.datatransfer.DataFlavor
 import java.awt.datatransfer.Transferable
 import java.awt.datatransfer.UnsupportedFlavorException
-import java.awt.image.BufferedImage
+import java.io.File
 import java.io.IOException
 
 
 object ClipBoardUtils {
     private val clipboard get() = Toolkit.getDefaultToolkit().systemClipboard
-    private val owner get() = Owner()
 
-    fun copyImage(image: BufferedImage) {
-        val transferableImage = TransferableImage(image)
-        clipboard.setContents(transferableImage, owner)
+    fun copyFile(file: File) {
+        val fileSelection = FileSelection(file)
+        clipboard.setContents(fileSelection, fileSelection)
     }
 
-    private class Owner : ClipboardOwner {
-        override fun lostOwnership(arg0: Clipboard, arg1: Transferable) {
-            println("Lost Clipboard Ownership")
-        }
-    }
-
-    private class TransferableImage(val i: BufferedImage) : Transferable {
-        @Throws(UnsupportedFlavorException::class, IOException::class)
-        override fun getTransferData(flavor: DataFlavor): Any {
-            return if (flavor.equals(DataFlavor.imageFlavor)) {
-                i
-            } else {
-                throw UnsupportedFlavorException(flavor)
-            }
-        }
-
+    internal class FileSelection(private val file: File) : Transferable, ClipboardOwner {
         override fun getTransferDataFlavors(): Array<DataFlavor> {
-            return arrayOf(DataFlavor.imageFlavor)
+            return arrayOf(DataFlavor.javaFileListFlavor)
         }
 
         override fun isDataFlavorSupported(flavor: DataFlavor): Boolean {
-            val flavors = transferDataFlavors
-            for (i in flavors.indices) {
-                if (flavor.equals(flavors[i])) {
-                    return true
-                }
-            }
-            return false
+            return DataFlavor.javaFileListFlavor.equals(flavor)
         }
+
+        @Throws(UnsupportedFlavorException::class, IOException::class)
+        override fun getTransferData(flavor: DataFlavor): Any {
+            return arrayOf(file)
+        }
+
+        override fun lostOwnership(clipboard: Clipboard?, contents: Transferable?) {}
     }
 }

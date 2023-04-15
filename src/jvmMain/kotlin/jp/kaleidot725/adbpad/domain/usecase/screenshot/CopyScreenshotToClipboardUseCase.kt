@@ -17,7 +17,7 @@ class CopyScreenshotToClipboardUseCase(
         withContext(Dispatchers.IO) {
             val preview = screenshotCommandRepository.getPreview()
             val target = preview.file ?: return@withContext
-            ClipBoardUtils.copyImage(ImageIO.read(target))
+            ClipBoardUtils.copyFile(target)
             eventRepository.sendEvent(Event.CopyScreenshotToClipBoard)
         }
     }
