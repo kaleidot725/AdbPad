@@ -17,12 +17,12 @@ object ClipBoardUtils {
             val fileSelection = FileSelection(file)
             clipboard.setContents(fileSelection, fileSelection)
             true
-        } catch (e: Exception) {
+        } catch (e: IllegalStateException) {
             false
         }
     }
 
-    internal class FileSelection(private val file: File) : Transferable, ClipboardOwner {
+    private class FileSelection(private val file: File) : Transferable, ClipboardOwner {
         override fun getTransferDataFlavors(): Array<DataFlavor> {
             return arrayOf(DataFlavor.javaFileListFlavor)
         }
