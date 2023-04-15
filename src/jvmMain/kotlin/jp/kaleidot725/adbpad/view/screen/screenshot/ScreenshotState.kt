@@ -5,7 +5,7 @@ import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.screenshot.ScreenshotPreview
 
 data class ScreenshotState(
-    val preview: ScreenshotPreview = ScreenshotPreview(emptyList()),
+    val preview: ScreenshotPreview = ScreenshotPreview(null),
     val commands: List<ScreenshotCommand> = emptyList(),
     val selectedDevice: Device? = null,
     val isCapturing: Boolean = false

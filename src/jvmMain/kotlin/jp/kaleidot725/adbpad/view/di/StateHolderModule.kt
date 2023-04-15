@@ -42,7 +42,8 @@ val stateHolderModule = module {
             takeScreenshotUseCase = get(),
             getScreenshotCommandUseCase = get(),
             getSelectedDeviceFlowUseCase = get(),
-            getScreenshotPreviewUseCase = get()
+            getScreenshotPreviewUseCase = get(),
+            copyScreenshotToClipboardUseCase = get(),
         )
     }
 

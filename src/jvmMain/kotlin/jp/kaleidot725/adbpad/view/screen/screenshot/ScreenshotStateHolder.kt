@@ -4,6 +4,7 @@ import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.screenshot.ScreenshotPreview
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
+import jp.kaleidot725.adbpad.domain.usecase.screenshot.CopyScreenshotToClipboardUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotPreviewUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
@@ -23,11 +24,12 @@ class ScreenshotStateHolder(
     private val takeScreenshotUseCase: TakeScreenshotUseCase,
     private val getScreenshotCommandUseCase: GetScreenshotCommandUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
-    private val getScreenshotPreviewUseCase: GetScreenshotPreviewUseCase
+    private val getScreenshotPreviewUseCase: GetScreenshotPreviewUseCase,
+    private val copyScreenshotToClipboardUseCase: CopyScreenshotToClipboardUseCase,
 ) : ChildStateHolder<ScreenshotState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val commands: MutableStateFlow<List<ScreenshotCommand>> = MutableStateFlow(emptyList())
-    private val preview: MutableStateFlow<ScreenshotPreview> = MutableStateFlow(ScreenshotPreview(emptyList()))
+    private val preview: MutableStateFlow<ScreenshotPreview> = MutableStateFlow(ScreenshotPreview(null))
     private val isCapturing: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val selectedDevice: StateFlow<Device?> = getSelectedDeviceFlowUseCase()
         .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
@@ -49,6 +51,12 @@ class ScreenshotStateHolder(
         coroutineScope.cancel()
     }
 
+    fun copyScreenShotToClipboard() {
+        coroutineScope.launch {
+            copyScreenshotToClipboardUseCase()
+        }
+    }
+
     fun takeScreenShot(command: ScreenshotCommand) {
         val selectedDevice = state.value.selectedDevice ?: return
         coroutineScope.launch {
@@ -57,7 +65,7 @@ class ScreenshotStateHolder(
                 command = command,
                 onStart = {
                     commands.value = getScreenshotCommandUseCase()
-                    preview.value = ScreenshotPreview(emptyList())
+                    preview.value = ScreenshotPreview(null)
                     isCapturing.value = true
                 },
                 onFailed = {

@@ -165,6 +165,9 @@ fun main() {
                                             canCapture = screenshotState.canExecute,
                                             isCapturing = screenshotState.isCapturing,
                                             commands = screenshotState.commands,
+                                            onCopyScreenshot = {
+                                                screenshotStateHolder.copyScreenShotToClipboard()
+                                            },
                                             onTakeScreenshot = { screenshot ->
                                                 screenshotStateHolder.takeScreenShot(
                                                     screenshot
@@ -172,7 +175,6 @@ fun main() {
                                             }
                                         )
                                     }
-
                                     null -> Unit
                                 }
                             },

@@ -33,11 +33,12 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
     }
 
     override fun getPreview(): ScreenshotPreview {
-        val files = buildList {
-            val fileResult = getFileResult()
-            if (fileResult.exists()) add(fileResult)
+        val fileResult = getFileResult()
+        return if (fileResult.exists()) {
+            ScreenshotPreview(fileResult)
+        } else {
+            ScreenshotPreview(null)
         }
-        return ScreenshotPreview(files)
     }
 
     override suspend fun sendCommand(

@@ -25,12 +25,14 @@ fun ScreenshotScreen(
     canCapture: Boolean,
     isCapturing: Boolean,
     commands: List<ScreenshotCommand>,
+    onCopyScreenshot: () -> Unit,
     onTakeScreenshot: (ScreenshotCommand) -> Unit,
 ) {
     Column(Modifier.fillMaxSize().padding(16.dp)) {
         ScreenshotViewer(
             screenshotPreview = preview,
             isCapturing = isCapturing,
+            onCopyScreenshot = onCopyScreenshot,
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(0.5f)
@@ -54,10 +56,11 @@ fun ScreenshotScreen(
 @Preview
 private fun ScreenshotScreen_Preview() {
     ScreenshotScreen(
-        preview = ScreenshotPreview(emptyList()),
+        preview = ScreenshotPreview(null),
         canCapture = true,
         isCapturing = false,
         commands = emptyList(),
+        onCopyScreenshot = {},
         onTakeScreenshot = {}
     )
 }
