@@ -57,6 +57,11 @@ class ScreenshotStateHolder(
         }
     }
 
+    fun deleteScreenShotToClipboard() {
+        coroutineScope.launch {
+        }
+    }
+
     fun takeScreenShot(command: ScreenshotCommand) {
         val selectedDevice = state.value.selectedDevice ?: return
         coroutineScope.launch {

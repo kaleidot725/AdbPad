@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.view.screen.screenshot
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,13 +27,18 @@ fun ScreenshotScreen(
     isCapturing: Boolean,
     commands: List<ScreenshotCommand>,
     onCopyScreenshot: () -> Unit,
+    onDeleteScreenshot: () -> Unit,
     onTakeScreenshot: (ScreenshotCommand) -> Unit,
 ) {
-    Column(Modifier.fillMaxSize().padding(16.dp)) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.fillMaxSize().padding(16.dp)
+    ) {
         ScreenshotViewer(
             screenshotPreview = preview,
             isCapturing = isCapturing,
             onCopyScreenshot = onCopyScreenshot,
+            onDeleteScreenshot = onDeleteScreenshot,
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(0.5f)
@@ -61,6 +67,7 @@ private fun ScreenshotScreen_Preview() {
         isCapturing = false,
         commands = emptyList(),
         onCopyScreenshot = {},
+        onDeleteScreenshot = {},
         onTakeScreenshot = {}
     )
 }

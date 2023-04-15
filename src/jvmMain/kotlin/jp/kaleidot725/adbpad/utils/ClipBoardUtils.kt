@@ -13,9 +13,14 @@ import java.io.IOException
 object ClipBoardUtils {
     private val clipboard get() = Toolkit.getDefaultToolkit().systemClipboard
 
-    fun copyFile(file: File) {
-        val fileSelection = FileSelection(file)
-        clipboard.setContents(fileSelection, fileSelection)
+    fun copyFile(file: File) : Boolean {
+        return try {
+            val fileSelection = FileSelection(file)
+            clipboard.setContents(fileSelection, fileSelection)
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
     internal class FileSelection(private val file: File) : Transferable, ClipboardOwner {
@@ -29,7 +34,7 @@ object ClipBoardUtils {
 
         @Throws(UnsupportedFlavorException::class, IOException::class)
         override fun getTransferData(flavor: DataFlavor): Any {
-            return arrayOf(file)
+            return listOf(file)
         }
 
         override fun lostOwnership(clipboard: Clipboard?, contents: Transferable?) {}

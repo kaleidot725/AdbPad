@@ -147,14 +147,14 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
     }
 
     private fun deleteAll() {
-        val files = listOf(getFileA(), getFileB(), getFileB())
+        val files = listOf(getFileA(), getFileB(), getFileResult())
         files.forEach { it.delete() }
     }
 
     companion object {
         private const val FILE_NAME_A = "screenshotA.png"
         private const val FILE_NAME_B = "screenshotB.png"
-        private const val FILE_NAME_RESULT = "screenshotR.png"
+        private const val FILE_NAME_RESULT = "Screenshot.png"
         private const val EXTENSION_NAME = "png"
         private const val DEFAULT_DELAY = 500L
 

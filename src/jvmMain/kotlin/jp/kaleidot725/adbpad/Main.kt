@@ -168,6 +168,9 @@ fun main() {
                                             onCopyScreenshot = {
                                                 screenshotStateHolder.copyScreenShotToClipboard()
                                             },
+                                            onDeleteScreenshot = {
+                                                screenshotStateHolder.deleteScreenShotToClipboard()
+                                            },
                                             onTakeScreenshot = { screenshot ->
                                                 screenshotStateHolder.takeScreenShot(
                                                     screenshot
