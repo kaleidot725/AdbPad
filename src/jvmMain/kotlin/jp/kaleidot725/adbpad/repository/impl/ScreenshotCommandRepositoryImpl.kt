@@ -7,7 +7,7 @@ import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.os.OSContext
-import jp.kaleidot725.adbpad.domain.model.screenshot.ScreenshotPreview
+import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -32,26 +32,17 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         )
     }
 
-    override fun getPreview(): ScreenshotPreview {
-        val fileResult = getFileResult()
-        return if (fileResult.exists()) {
-            ScreenshotPreview(fileResult)
-        } else {
-            ScreenshotPreview(null)
-        }
-    }
-
-    override suspend fun sendCommand(
+    override suspend fun captureScreenshot(
         device: Device,
         command: ScreenshotCommand,
         onStart: suspend () -> Unit,
-        onComplete: suspend () -> Unit,
+        onComplete: suspend (Screenshot) -> Unit,
         onFailed: suspend () -> Unit
     ) {
         withContext(Dispatchers.IO) {
             runningCommands.add(command)
             onStart()
-            deleteAll()
+            deleteScreenshotCache()
 
             val result = when (command) {
                 is ScreenshotCommand.Both -> sendBothCommand(device)
@@ -64,7 +55,23 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
             delay(300)
 
             runningCommands.remove(command)
-            if (result) onComplete() else onFailed()
+            if (result) onComplete(getScreenshotCache()) else onFailed()
+        }
+    }
+
+    override suspend fun getScreenshotCache(): Screenshot {
+        val fileResult = getFileResult()
+        return if (fileResult.exists()) {
+            Screenshot(fileResult)
+        } else {
+            Screenshot.EMPTY
+        }
+    }
+
+    override suspend fun deleteScreenshotCache() {
+        withContext(Dispatchers.IO) {
+            val files = listOf(getFileA(), getFileB(), getFileResult())
+            files.forEach { it.delete() }
         }
     }
 
@@ -144,11 +151,6 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
             }
             return@withContext true
         }
-    }
-
-    private fun deleteAll() {
-        val files = listOf(getFileA(), getFileB(), getFileResult())
-        files.forEach { it.delete() }
     }
 
     companion object {

@@ -69,6 +69,8 @@ object EnglishResources : StringResources {
     override val SCREENSHOT_COMMAND_END_EVENT_FORMAT = "End taking screenshot"
     override val SCREENSHOT_COMMAND_ERROR_EVENT_FORMAT = "Error taking screenshot"
     override val SCREENSHOT_COPY_TO_CLIPBAORD_EVENT_FORMAT: String = "Copy screenshot to clipboard"
+    override val CANT_SCREENSHOT_COPY_TO_CLIPBAORD_EVENT_FORMAT: String = "Can't copy screen to clipboard"
+    override val SCREENSHOT_CLEAR_CACHE: String = "Delete screenshot"
 
     override val MENU_COMMAND_TITLE = "Command"
     override val MENU_INPUT_TEXT_TITLE = "Send Text"

@@ -69,6 +69,8 @@ object JapaneseResources : StringResources {
     override val SCREENSHOT_COMMAND_END_EVENT_FORMAT = "スクリーンショットの撮影が完了しました"
     override val SCREENSHOT_COMMAND_ERROR_EVENT_FORMAT = "スクリーンショットの撮影に失敗しました"
     override val SCREENSHOT_COPY_TO_CLIPBAORD_EVENT_FORMAT: String = "スクリーンショットをクリップボードにコピーしました"
+    override val CANT_SCREENSHOT_COPY_TO_CLIPBAORD_EVENT_FORMAT: String = "スクリーンショットをクリップボードにコピーできません"
+    override val SCREENSHOT_CLEAR_CACHE: String = "スクリーンショットを削除しました"
 
     override val MENU_COMMAND_TITLE = "コマンド"
     override val MENU_INPUT_TEXT_TITLE = "テキスト送信"

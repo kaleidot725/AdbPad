@@ -8,14 +8,11 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -26,11 +23,11 @@ import androidx.compose.ui.res.loadImageBitmap
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.domain.model.language.Language
-import jp.kaleidot725.adbpad.domain.model.screenshot.ScreenshotPreview
+import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 
 @Composable
 fun ScreenshotViewer(
-    screenshotPreview: ScreenshotPreview,
+    screenshot: Screenshot,
     isCapturing: Boolean,
     onCopyScreenshot: () -> Unit,
     onDeleteScreenshot: () -> Unit,
@@ -39,8 +36,8 @@ fun ScreenshotViewer(
     Box(modifier) {
         Column {
             ScreenshotHeader(
-                name = screenshotPreview.file?.name ?: "",
-                enabled = screenshotPreview.file != null,
+                name = screenshot.file?.name ?: "",
+                enabled = screenshot.file != null,
                 onCopy = onCopyScreenshot,
                 onDelete = onDeleteScreenshot,
                 modifier = Modifier
@@ -59,7 +56,7 @@ fun ScreenshotViewer(
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
             } else {
-                val file = screenshotPreview.file
+                val file = screenshot.file
                 val bitmap = rememberUpdatedState(file?.let { loadImageBitmap(it.inputStream()) })
                 val bitmapValue = bitmap.value
                 if (bitmapValue != null) {
@@ -89,7 +86,7 @@ fun ScreenshotViewer(
 @Composable
 private fun ScreenshotViewer_Preview() {
     ScreenshotViewer(
-        screenshotPreview = ScreenshotPreview(null),
+        screenshot = Screenshot(null),
         isCapturing = false,
         onCopyScreenshot = {},
         onDeleteScreenshot = {},

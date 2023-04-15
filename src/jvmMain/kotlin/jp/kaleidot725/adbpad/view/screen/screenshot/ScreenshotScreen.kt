@@ -16,13 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
-import jp.kaleidot725.adbpad.domain.model.screenshot.ScreenshotPreview
+import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.view.component.screenshot.ScreenshotDropDownButton
 import jp.kaleidot725.adbpad.view.component.screenshot.ScreenshotViewer
 
 @Composable
 fun ScreenshotScreen(
-    preview: ScreenshotPreview,
+    screenshot: Screenshot,
     canCapture: Boolean,
     isCapturing: Boolean,
     commands: List<ScreenshotCommand>,
@@ -35,7 +35,7 @@ fun ScreenshotScreen(
         modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
         ScreenshotViewer(
-            screenshotPreview = preview,
+            screenshot = screenshot,
             isCapturing = isCapturing,
             onCopyScreenshot = onCopyScreenshot,
             onDeleteScreenshot = onDeleteScreenshot,
@@ -62,7 +62,7 @@ fun ScreenshotScreen(
 @Preview
 private fun ScreenshotScreen_Preview() {
     ScreenshotScreen(
-        preview = ScreenshotPreview(null),
+        screenshot = Screenshot(null),
         canCapture = true,
         isCapturing = false,
         commands = emptyList(),

@@ -128,6 +128,11 @@ object Language : StringResources {
         get() = getCurrentResources().SCREENSHOT_COMMAND_ERROR_EVENT_FORMAT
     override val SCREENSHOT_COPY_TO_CLIPBAORD_EVENT_FORMAT: String
         get() = getCurrentResources().SCREENSHOT_COPY_TO_CLIPBAORD_EVENT_FORMAT
+    override val CANT_SCREENSHOT_COPY_TO_CLIPBAORD_EVENT_FORMAT: String
+        get() = getCurrentResources().CANT_SCREENSHOT_COPY_TO_CLIPBAORD_EVENT_FORMAT
+    override val SCREENSHOT_CLEAR_CACHE: String
+        get() = getCurrentResources().SCREENSHOT_CLEAR_CACHE
+
     override val MENU_COMMAND_TITLE: String
         get() = getCurrentResources().MENU_COMMAND_TITLE
     override val MENU_INPUT_TEXT_TITLE: String
