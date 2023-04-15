@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.view.screen.screenshot
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,22 +16,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
-import jp.kaleidot725.adbpad.domain.model.screenshot.ScreenshotPreview
+import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.view.component.screenshot.ScreenshotDropDownButton
 import jp.kaleidot725.adbpad.view.component.screenshot.ScreenshotViewer
 
 @Composable
 fun ScreenshotScreen(
-    preview: ScreenshotPreview,
+    screenshot: Screenshot,
     canCapture: Boolean,
     isCapturing: Boolean,
     commands: List<ScreenshotCommand>,
+    onCopyScreenshot: () -> Unit,
+    onDeleteScreenshot: () -> Unit,
     onTakeScreenshot: (ScreenshotCommand) -> Unit,
 ) {
-    Column(Modifier.fillMaxSize().padding(16.dp)) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.fillMaxSize().padding(16.dp)
+    ) {
         ScreenshotViewer(
-            screenshotPreview = preview,
+            screenshot = screenshot,
             isCapturing = isCapturing,
+            onCopyScreenshot = onCopyScreenshot,
+            onDeleteScreenshot = onDeleteScreenshot,
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(0.5f)
@@ -54,10 +62,12 @@ fun ScreenshotScreen(
 @Preview
 private fun ScreenshotScreen_Preview() {
     ScreenshotScreen(
-        preview = ScreenshotPreview(emptyList()),
+        screenshot = Screenshot(null),
         canCapture = true,
         isCapturing = false,
         commands = emptyList(),
+        onCopyScreenshot = {},
+        onDeleteScreenshot = {},
         onTakeScreenshot = {}
     )
 }

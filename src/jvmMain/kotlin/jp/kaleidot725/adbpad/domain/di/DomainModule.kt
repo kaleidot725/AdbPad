@@ -12,8 +12,9 @@ import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.SaveLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.menu.GetMenuListUseCase
+import jp.kaleidot725.adbpad.domain.usecase.screenshot.CopyScreenshotToClipboardUseCase
+import jp.kaleidot725.adbpad.domain.usecase.screenshot.DeleteScreenshotPreviewUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotPreviewUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
 import jp.kaleidot725.adbpad.domain.usecase.sdkpath.GetSdkPathUseCase
 import jp.kaleidot725.adbpad.domain.usecase.sdkpath.SaveSdkPathUseCase
@@ -74,7 +75,7 @@ val domainModule = module {
         SendUserInputTextCommandUseCase(get(), get())
     }
     factory {
-        GetScreenshotPreviewUseCase(get())
+        DeleteScreenshotPreviewUseCase(get(), get())
     }
     factory {
         GetWindowSizeUseCase(get())
@@ -102,5 +103,8 @@ val domainModule = module {
     }
     factory {
         GetLanguageUseCase(get())
+    }
+    factory {
+        CopyScreenshotToClipboardUseCase(get(), get())
     }
 }

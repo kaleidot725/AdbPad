@@ -2,10 +2,11 @@ package jp.kaleidot725.adbpad.view.screen.screenshot
 
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
-import jp.kaleidot725.adbpad.domain.model.screenshot.ScreenshotPreview
+import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
+import jp.kaleidot725.adbpad.domain.usecase.screenshot.CopyScreenshotToClipboardUseCase
+import jp.kaleidot725.adbpad.domain.usecase.screenshot.DeleteScreenshotPreviewUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotPreviewUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
 import kotlinx.coroutines.CoroutineScope
@@ -23,11 +24,12 @@ class ScreenshotStateHolder(
     private val takeScreenshotUseCase: TakeScreenshotUseCase,
     private val getScreenshotCommandUseCase: GetScreenshotCommandUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
-    private val getScreenshotPreviewUseCase: GetScreenshotPreviewUseCase
+    private val deleteScreenshotPreviewUseCase: DeleteScreenshotPreviewUseCase,
+    private val copyScreenshotToClipboardUseCase: CopyScreenshotToClipboardUseCase,
 ) : ChildStateHolder<ScreenshotState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val commands: MutableStateFlow<List<ScreenshotCommand>> = MutableStateFlow(emptyList())
-    private val preview: MutableStateFlow<ScreenshotPreview> = MutableStateFlow(ScreenshotPreview(emptyList()))
+    private val preview: MutableStateFlow<Screenshot> = MutableStateFlow(Screenshot(null))
     private val isCapturing: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val selectedDevice: StateFlow<Device?> = getSelectedDeviceFlowUseCase()
         .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
@@ -57,20 +59,33 @@ class ScreenshotStateHolder(
                 command = command,
                 onStart = {
                     commands.value = getScreenshotCommandUseCase()
-                    preview.value = ScreenshotPreview(emptyList())
+                    preview.value = Screenshot.EMPTY
                     isCapturing.value = true
                 },
                 onFailed = {
                     commands.value = getScreenshotCommandUseCase()
-                    preview.value = getScreenshotPreviewUseCase()
+                    preview.value = Screenshot.EMPTY
                     isCapturing.value = false
                 },
                 onComplete = {
                     commands.value = getScreenshotCommandUseCase()
-                    preview.value = getScreenshotPreviewUseCase()
+                    preview.value = it
                     isCapturing.value = false
                 }
             )
+        }
+    }
+
+    fun copyScreenShotToClipboard() {
+        coroutineScope.launch {
+            copyScreenshotToClipboardUseCase()
+        }
+    }
+
+    fun deleteScreenShotToClipboard() {
+        coroutineScope.launch {
+            deleteScreenshotPreviewUseCase()
+            preview.value = Screenshot.EMPTY
         }
     }
 }
