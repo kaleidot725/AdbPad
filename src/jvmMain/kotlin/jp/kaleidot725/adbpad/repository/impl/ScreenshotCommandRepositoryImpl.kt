@@ -122,17 +122,17 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         return ImageIO.write(image, EXTENSION_NAME, file)
     }
 
-    private fun concat(fileA: File, fileB: File, fileResult: File): Boolean {
+    private fun concat(fileA: File, fileB: File, outputFile: File): Boolean {
         return try {
-            val imageA = ImageIO.read(fileA)
-            val imageB = ImageIO.read(fileB)
-            val totalWidth = imageA.width + imageB.width
-            val maxHeight = max(imageA.height, imageB.height)
-            val imageC = BufferedImage(totalWidth, maxHeight, BufferedImage.TYPE_INT_ARGB)
+            val inputA = ImageIO.read(fileA)
+            val inputB = ImageIO.read(fileB)
+            val totalWidth = inputA.width + inputB.width
+            val maxHeight = max(inputA.height, inputB.height)
+            val output = BufferedImage(totalWidth, maxHeight, BufferedImage.TYPE_INT_ARGB)
 
-            imageC.graphics.drawImage(imageA, 0, 0, null)
-            imageC.graphics.drawImage(imageB, imageA.width, 0, null)
-            ImageIO.write(imageC, "PNG", fileResult)
+            output.graphics.drawImage(inputA, 0, 0, null)
+            output.graphics.drawImage(inputB, inputA.width, 0, null)
+            ImageIO.write(output, "PNG", outputFile)
 
             true
         } catch (e: IOException) {
