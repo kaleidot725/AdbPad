@@ -1,7 +1,7 @@
 package jp.kaleidot725.adbpad.domain.model.language.resources
 
 object JapaneseResources : StringResources {
-    override val VERSION = "v1.0.0"
+    override val VERSION = "v1.1.0"
     override val WINDOW_TITLE = "AdbPad($VERSION)"
 
     override val NOT_FOUND_DEVICE = "デバイスがありません"
