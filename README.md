@@ -1,3 +1,7 @@
+<h3 align="center">
+     <img align="center" width=256 src="https://user-images.githubusercontent.com/23740796/230079295-4f3a816e-ce22-4aa1-a44a-6a08c6ab0971.png">
+</h3>
+
 # <img align="center" width=40 src="https://user-images.githubusercontent.com/23740796/230079295-4f3a816e-ce22-4aa1-a44a-6a08c6ab0971.png"> AdbPad
 
 AdpPad is a GUI software to test android apps using adb.  
