@@ -14,7 +14,7 @@ https://user-images.githubusercontent.com/23740796/206174953-ce266413-1767-4a5d-
 
 # ⬇️ Install
 
-- Download from [here](https://adbpad.netlify.app).
+- Download from [here](https://github.com/kaleidot725/AdbPad/releases/tag/v1.1.0).
 
 # 🎫 Licence
 
