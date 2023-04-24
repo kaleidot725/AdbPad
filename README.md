@@ -1,4 +1,4 @@
-![バナー](https://user-images.githubusercontent.com/23740796/234045009-2faf9e97-25de-46b8-ac4f-c10b3d8fb655.png)
+![adbpad](https://user-images.githubusercontent.com/23740796/234049222-d8f803d2-b1fb-44e0-823a-c3bc858b6140.jpeg)
 
 # <img align="center" width=40 src="https://user-images.githubusercontent.com/23740796/230079295-4f3a816e-ce22-4aa1-a44a-6a08c6ab0971.png"> AdbPad
 
