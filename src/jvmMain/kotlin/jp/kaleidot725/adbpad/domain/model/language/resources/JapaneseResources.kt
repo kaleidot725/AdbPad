@@ -58,7 +58,7 @@ object JapaneseResources : StringResources {
     override val COMMAND_WIFI_AND_DATA_ON_DETAILS = "Wi-Fi通信とモバイル通信の両方を有効化する"
     override val COMMAND_WIFI_AND_DATA_OFF_TITLE = "Wi-Fi&モバイル通信: OFF"
     override val COMMAND_WIFI_AND_DATA_OFF_DETAILS = "Wi-Fi通信とモバイル通信の両方を無効化する"
-    override val COMMAND_SCREEN_PINNING_OFF_TITLE = "画面ピン留め解除: OFF"
+    override val COMMAND_SCREEN_PINNING_OFF_TITLE = "画面ピン留め: OFF"
     override val COMMAND_SCREEN_PINNING_OFF_DETAILS = "ピン留め中のアプリのピン留めを解除する"
 
     override val TEXT_COMMAND_START_EVENT_FORMAT = "「%s」のテキスト送信を開始しました"
