@@ -1,8 +1,8 @@
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
-    kotlin("plugin.serialization")
-    id("org.jlleitschuh.gradle.ktlint")
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.ktlint)
 }
 
 group = "jp.kaleidot725"
