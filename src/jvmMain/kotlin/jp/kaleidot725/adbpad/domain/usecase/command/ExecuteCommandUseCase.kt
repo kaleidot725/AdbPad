@@ -8,14 +8,14 @@ import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepository
 
 class ExecuteCommandUseCase(
     private val eventRepository: EventRepository,
-    private val normalCommandRepository: NormalCommandRepository
+    private val normalCommandRepository: NormalCommandRepository,
 ) {
     suspend operator fun invoke(
         device: Device,
         command: NormalCommand,
         onStart: suspend () -> Unit,
         onFailed: suspend () -> Unit,
-        onComplete: suspend () -> Unit
+        onComplete: suspend () -> Unit,
     ) {
         normalCommandRepository.sendCommand(
             device = device,
@@ -31,7 +31,7 @@ class ExecuteCommandUseCase(
             onComplete = {
                 eventRepository.sendEvent(Event.EndCommand(command.title))
                 onComplete()
-            }
+            },
         )
     }
 }

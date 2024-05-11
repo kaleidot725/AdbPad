@@ -11,5 +11,5 @@ enum class DeviceState {
     UNAUTHORIZED,
     AUTHORIZING,
     CONNECTING,
-    UNKNOWN
+    UNKNOWN,
 }

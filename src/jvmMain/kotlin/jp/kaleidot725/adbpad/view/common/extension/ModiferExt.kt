@@ -12,7 +12,7 @@ fun Modifier.clickableNoRipple(
     enabled: Boolean = true,
     onClickLabel: String? = null,
     role: Role? = null,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ): Modifier {
     return this.clickable(
         enabled = enabled,
@@ -20,6 +20,6 @@ fun Modifier.clickableNoRipple(
         role = role,
         onClick = onClick,
         interactionSource = remember { MutableInteractionSource() },
-        indication = null
+        indication = null,
     )
 }

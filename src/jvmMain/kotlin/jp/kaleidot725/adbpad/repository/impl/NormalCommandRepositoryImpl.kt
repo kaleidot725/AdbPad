@@ -28,7 +28,7 @@ class NormalCommandRepositoryImpl : NormalCommandRepository {
             NormalCommand.DataOff(runningCommands.any { it is NormalCommand.DataOff }),
             NormalCommand.WifiAndDataOn(runningCommands.any { it is NormalCommand.WifiAndDataOn }),
             NormalCommand.WifiAndDataOff(runningCommands.any { it is NormalCommand.WifiAndDataOff }),
-            NormalCommand.ScreenPinningOff(runningCommands.any { it is NormalCommand.ScreenPinningOff })
+            NormalCommand.ScreenPinningOff(runningCommands.any { it is NormalCommand.ScreenPinningOff }),
         )
     }
 
@@ -37,7 +37,7 @@ class NormalCommandRepositoryImpl : NormalCommandRepository {
         command: NormalCommand,
         onStart: suspend () -> Unit,
         onComplete: suspend () -> Unit,
-        onFailed: suspend () -> Unit
+        onFailed: suspend () -> Unit,
     ) {
         withContext(Dispatchers.IO) {
             runningCommands.add(command)

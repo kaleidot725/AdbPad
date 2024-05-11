@@ -52,9 +52,13 @@ class MainStateHolder(
             MainState(language, isDark, windowSize, dialog)
         }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), MainState())
 
-    private val children: List<ChildStateHolder<*>> = listOf(
-        menuStateHolder, commandStateHolder, textCommandStateHolder, screenshotStateHolder
-    )
+    private val children: List<ChildStateHolder<*>> =
+        listOf(
+            menuStateHolder,
+            commandStateHolder,
+            textCommandStateHolder,
+            screenshotStateHolder,
+        )
 
     init {
         startSyncDarkMode()
@@ -86,14 +90,16 @@ class MainStateHolder(
     }
 
     private var themeFlowJob: Job? = null
+
     private fun startSyncDarkMode() {
         themeFlowJob?.cancel()
-        themeFlowJob = coroutineScope.launch {
-            val flow = getDarkModeFlowUseCase()
-            flow.collectLatest {
-                isDark.value = it
+        themeFlowJob =
+            coroutineScope.launch {
+                val flow = getDarkModeFlowUseCase()
+                flow.collectLatest {
+                    isDark.value = it
+                }
             }
-        }
     }
 
     private fun saveWindowSize(windowSize: WindowSize) {

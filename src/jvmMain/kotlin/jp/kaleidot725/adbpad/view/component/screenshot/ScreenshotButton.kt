@@ -33,22 +33,24 @@ fun ScreenshotButton(
     isCapturing: Boolean,
     onTake: () -> Unit,
     onChangeType: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
         Row(
-            modifier = Modifier
-                .padding(8.dp)
-                .width(250.dp)
-                .height(35.dp)
-                .alpha(if (canCapture) 1f else ContentAlpha.disabled)
-                .background(MaterialTheme.colors.primary, RoundedCornerShape(4.dp))
+            modifier =
+                Modifier
+                    .padding(8.dp)
+                    .width(250.dp)
+                    .height(35.dp)
+                    .alpha(if (canCapture) 1f else ContentAlpha.disabled)
+                    .background(MaterialTheme.colors.primary, RoundedCornerShape(4.dp)),
         ) {
             Box(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(0.8f)
-                    .clickable(enabled = canCapture) { if (!isCapturing) onTake() }
+                modifier =
+                    Modifier
+                        .fillMaxHeight()
+                        .weight(0.8f)
+                        .clickable(enabled = canCapture) { if (!isCapturing) onTake() },
             ) {
                 if (isCapturing) {
                     Box(Modifier.align(Alignment.Center)) { RunningIndicator() }
@@ -56,30 +58,32 @@ fun ScreenshotButton(
                     Text(
                         text = selectedCommand?.title ?: "",
                         color = MaterialTheme.colors.onPrimary,
-                        modifier = Modifier.align(Alignment.Center)
+                        modifier = Modifier.align(Alignment.Center),
                     )
                 }
             }
 
             Spacer(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .width(1.dp)
-                    .background(Color.Black.copy(alpha = 0.6f))
+                modifier =
+                    Modifier
+                        .fillMaxHeight()
+                        .width(1.dp)
+                        .background(Color.Black.copy(alpha = 0.6f)),
             )
 
             Box(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .width(50.dp)
-                    .background(Color.Black.copy(alpha = 0.3f))
-                    .clickable(enabled = canCapture) { onChangeType() }
+                modifier =
+                    Modifier
+                        .fillMaxHeight()
+                        .width(50.dp)
+                        .background(Color.Black.copy(alpha = 0.3f))
+                        .clickable(enabled = canCapture) { onChangeType() },
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowDropDown,
                     contentDescription = "",
                     tint = MaterialTheme.colors.onPrimary,
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center),
                 )
             }
         }
@@ -95,7 +99,7 @@ private fun ScreenshotButton_Preview() {
             canCapture = true,
             isCapturing = false,
             onTake = {},
-            onChangeType = {}
+            onChangeType = {},
         )
     }
 }

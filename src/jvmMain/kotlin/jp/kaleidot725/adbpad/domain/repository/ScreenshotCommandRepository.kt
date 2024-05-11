@@ -12,8 +12,10 @@ interface ScreenshotCommandRepository {
         command: ScreenshotCommand,
         onStart: suspend () -> Unit,
         onComplete: suspend (Screenshot) -> Unit,
-        onFailed: suspend () -> Unit
+        onFailed: suspend () -> Unit,
     )
+
     suspend fun getScreenshotCache(): Screenshot
+
     suspend fun deleteScreenshotCache()
 }

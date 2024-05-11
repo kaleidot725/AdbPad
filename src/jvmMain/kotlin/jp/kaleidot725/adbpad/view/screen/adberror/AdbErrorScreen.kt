@@ -21,19 +21,17 @@ import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.view.component.FloatingDialog
 
 @Composable
-fun AdbErrorScreen(
-    onOpenSetting: () -> Unit
-) {
+fun AdbErrorScreen(onOpenSetting: () -> Unit) {
     FloatingDialog(modifier = Modifier.width(400.dp).wrapContentHeight()) {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp),
         ) {
             Text(
                 text = Language.ADB_ERROR_TITLE,
                 style = MaterialTheme.typography.subtitle1,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 4.dp)
+                modifier = Modifier.padding(horizontal = 4.dp),
             )
 
             Divider(modifier = Modifier.fillMaxWidth())
@@ -42,18 +40,18 @@ fun AdbErrorScreen(
                 text = Language.ADB_ERROR_MESSAGE,
                 style = MaterialTheme.typography.subtitle2,
                 maxLines = 2,
-                modifier = Modifier.padding(horizontal = 4.dp)
+                modifier = Modifier.padding(horizontal = 4.dp),
             )
 
             Button(
                 onClick = onOpenSetting,
-                modifier = Modifier.align(Alignment.End)
+                modifier = Modifier.align(Alignment.End),
             ) {
                 Text(
                     text = Language.ADB_ERROR_OPEN_SETTING,
                     style = MaterialTheme.typography.subtitle2,
                     modifier = Modifier.wrapContentWidth(),
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
         }

@@ -31,48 +31,51 @@ fun ScreenshotHeader(
     enabled: Boolean,
     onCopy: () -> Unit,
     onDelete: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(4.dp),
-        modifier = modifier
+        modifier = modifier,
     ) {
         Text(
             text = name,
-            modifier = Modifier
-                .weight(1.0f)
-                .align(Alignment.CenterVertically)
+            modifier =
+                Modifier
+                    .weight(1.0f)
+                    .align(Alignment.CenterVertically),
         )
 
         Box(
-            modifier = Modifier
-                .padding(vertical = 4.dp)
-                .size(32.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .align(Alignment.CenterVertically)
-                .focusable(enabled)
-                .clickable(enabled) { onCopy() },
+            modifier =
+                Modifier
+                    .padding(vertical = 4.dp)
+                    .size(32.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .align(Alignment.CenterVertically)
+                    .focusable(enabled)
+                    .clickable(enabled) { onCopy() },
         ) {
             Icon(
                 imageVector = Icons.Default.FileCopy,
                 contentDescription = "copy",
-                modifier = Modifier.height(20.dp).align(Alignment.Center)
+                modifier = Modifier.height(20.dp).align(Alignment.Center),
             )
         }
 
         Box(
-            modifier = Modifier
-                .padding(vertical = 4.dp)
-                .size(32.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .align(Alignment.CenterVertically)
-                .focusable(enabled)
-                .clickable(enabled) { onDelete() },
+            modifier =
+                Modifier
+                    .padding(vertical = 4.dp)
+                    .size(32.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .align(Alignment.CenterVertically)
+                    .focusable(enabled)
+                    .clickable(enabled) { onDelete() },
         ) {
             Icon(
                 imageVector = Icons.Default.Delete,
                 contentDescription = "delete",
-                modifier = Modifier.height(20.dp).align(Alignment.Center)
+                modifier = Modifier.height(20.dp).align(Alignment.Center),
             )
         }
     }
@@ -86,9 +89,10 @@ private fun ScreenshotHeader_Preview() {
         enabled = true,
         onCopy = {},
         onDelete = {},
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .background(Color.Gray)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .background(Color.Gray),
     )
 }

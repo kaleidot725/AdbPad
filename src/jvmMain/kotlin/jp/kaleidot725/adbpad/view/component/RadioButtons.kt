@@ -15,14 +15,14 @@ fun RadioButtons(
     selectedItem: String,
     items: List<String>,
     onSelect: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(modifier = modifier) {
         items.forEach { item ->
             RadioButton(
                 selected = (item == selectedItem),
                 onClick = { onSelect(item) },
-                modifier = Modifier.size(16.dp)
+                modifier = Modifier.size(16.dp),
             )
             Text(text = item, modifier = Modifier.padding(horizontal = 16.dp))
         }

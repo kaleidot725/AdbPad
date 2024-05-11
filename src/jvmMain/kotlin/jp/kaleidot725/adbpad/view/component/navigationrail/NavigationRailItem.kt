@@ -17,24 +17,31 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun NavigationRailItem(icon: ImageVector, contentDescription: String?, isSelected: Boolean, onClick: () -> Unit) {
-    val borderStroke = if (isSelected) {
-        BorderStroke(2.dp, MaterialTheme.colors.primary)
-    } else {
-        BorderStroke(0.dp, Color.Transparent)
-    }
+fun NavigationRailItem(
+    icon: ImageVector,
+    contentDescription: String?,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+) {
+    val borderStroke =
+        if (isSelected) {
+            BorderStroke(2.dp, MaterialTheme.colors.primary)
+        } else {
+            BorderStroke(0.dp, Color.Transparent)
+        }
 
     Box(
-        modifier = Modifier
-            .size(36.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .border(borderStroke, RoundedCornerShape(8.dp))
-            .clickable(onClick = onClick)
+        modifier =
+            Modifier
+                .size(36.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .border(borderStroke, RoundedCornerShape(8.dp))
+                .clickable(onClick = onClick),
     ) {
         Icon(
             imageVector = icon,
             contentDescription = contentDescription,
-            modifier = Modifier.size(24.dp).align(Alignment.Center)
+            modifier = Modifier.size(24.dp).align(Alignment.Center),
         )
     }
 }

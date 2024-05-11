@@ -25,13 +25,13 @@ fun TextCommandList(
     onSend: (TextCommand) -> Unit,
     canSend: Boolean,
     onDelete: (TextCommand) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
         if (commands.isNotEmpty()) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.verticalScroll(rememberScrollState())
+                modifier = Modifier.verticalScroll(rememberScrollState()),
             ) {
                 commands.forEach { command ->
                     TextCommandItem(
@@ -40,14 +40,14 @@ fun TextCommandList(
                         onSend = { onSend(command) },
                         canSend = canSend,
                         onDelete = { onDelete(command) },
-                        modifier = Modifier.height(60.dp).fillMaxWidth().padding(2.dp)
+                        modifier = Modifier.height(60.dp).fillMaxWidth().padding(2.dp),
                     )
                 }
             }
         } else {
             Text(
                 text = Language.NOT_FOUND_INPUT_TEXT,
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             )
         }
     }
@@ -62,7 +62,7 @@ private fun TextCommandList_Preview() {
             onSend = {},
             canSend = true,
             onDelete = {},
-            modifier = Modifier.fillMaxWidth().weight(0.5f, true)
+            modifier = Modifier.fillMaxWidth().weight(0.5f, true),
         )
 
         TextCommandList(
@@ -70,7 +70,7 @@ private fun TextCommandList_Preview() {
             onSend = {},
             canSend = true,
             onDelete = {},
-            modifier = Modifier.fillMaxWidth().weight(0.5f, true).background(Color.LightGray)
+            modifier = Modifier.fillMaxWidth().weight(0.5f, true).background(Color.LightGray),
         )
     }
 }

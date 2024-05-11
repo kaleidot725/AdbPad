@@ -25,18 +25,18 @@ fun CommandItem(
     isRunning: Boolean,
     canExecute: Boolean,
     onExecute: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Card(modifier, elevation = 1.dp) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxHeight().padding(8.dp)) {
             Text(text = title, fontWeight = FontWeight.Bold)
             Text(text = detail, modifier = Modifier.weight(0.9f, true))
             Button(onClick = { onExecute() }, enabled = canExecute, modifier = Modifier.align(Alignment.End)) {
-            when {
-                isRunning -> RunningIndicator()
-                else -> Text(text = Language.EXECUTE)
+                when {
+                    isRunning -> RunningIndicator()
+                    else -> Text(text = Language.EXECUTE)
+                }
             }
-        }
         }
     }
 }
@@ -50,7 +50,7 @@ private fun CommandItem_Running_Preview() {
         isRunning = true,
         canExecute = true,
         onExecute = {},
-        modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp)
+        modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp),
     )
 }
 
@@ -63,7 +63,7 @@ private fun CommandItem_NotRunning_Preview() {
         isRunning = false,
         canExecute = true,
         onExecute = {},
-        modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp)
+        modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp),
     )
 }
 
@@ -76,6 +76,6 @@ private fun CommandItem_NotExecute_Preview() {
         isRunning = false,
         canExecute = false,
         onExecute = {},
-        modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp)
+        modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp),
     )
 }

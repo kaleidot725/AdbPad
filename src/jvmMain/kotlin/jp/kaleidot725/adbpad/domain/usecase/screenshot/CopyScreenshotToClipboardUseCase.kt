@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 
 class CopyScreenshotToClipboardUseCase(
     private val eventRepository: EventRepository,
-    private val screenshotCommandRepository: ScreenshotCommandRepository
+    private val screenshotCommandRepository: ScreenshotCommandRepository,
 ) {
     suspend operator fun invoke() {
         withContext(Dispatchers.IO) {

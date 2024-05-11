@@ -26,23 +26,25 @@ class TextCommandStateHolder(
     private val getTextCommandUseCase: GetTextCommandUseCase,
     private val executeTextCommandUseCase: ExecuteTextCommandUseCase,
     private val sendUserInputTextCommandUseCase: SendUserInputTextCommandUseCase,
-    private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase
+    private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
 ) : ChildStateHolder<TextCommandState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val commands: MutableStateFlow<List<TextCommand>> = MutableStateFlow(emptyList())
     private val userInputText: MutableStateFlow<String> = MutableStateFlow("")
     private val isSendingUserInputText: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val selectedDevice: StateFlow<Device?> = getSelectedDeviceFlowUseCase()
-        .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
+    private val selectedDevice: StateFlow<Device?> =
+        getSelectedDeviceFlowUseCase()
+            .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
 
-    override val state: StateFlow<TextCommandState> = combine(
-        commands,
-        userInputText,
-        isSendingUserInputText,
-        selectedDevice
-    ) { inputTexts, userInputText, isSendingUserInputText, selectedDevice ->
-        TextCommandState(inputTexts, userInputText, isSendingUserInputText, selectedDevice)
-    }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), TextCommandState())
+    override val state: StateFlow<TextCommandState> =
+        combine(
+            commands,
+            userInputText,
+            isSendingUserInputText,
+            selectedDevice,
+        ) { inputTexts, userInputText, isSendingUserInputText, selectedDevice ->
+            TextCommandState(inputTexts, userInputText, isSendingUserInputText, selectedDevice)
+        }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), TextCommandState())
 
     override fun setup() {
         coroutineScope.launch {
@@ -55,9 +57,10 @@ class TextCommandStateHolder(
     }
 
     fun updateInputText(text: String) {
-        val isLettersOrDigits = text.none {
-            it !in 'A'..'Z' && it !in 'a'..'z' && it !in '0'..'9'
-        }
+        val isLettersOrDigits =
+            text.none {
+                it !in 'A'..'Z' && it !in 'a'..'z' && it !in '0'..'9'
+            }
         if (isLettersOrDigits) this.userInputText.value = text
     }
 
@@ -69,7 +72,7 @@ class TextCommandStateHolder(
                 command = command,
                 onStart = { commands.value = getTextCommandUseCase() },
                 onFailed = { commands.value = getTextCommandUseCase() },
-                onComplete = { commands.value = getTextCommandUseCase() }
+                onComplete = { commands.value = getTextCommandUseCase() },
             )
         }
     }
@@ -82,7 +85,7 @@ class TextCommandStateHolder(
                 text = state.value.userInputText,
                 onStart = { isSendingUserInputText.value = true },
                 onFailed = { isSendingUserInputText.value = false },
-                onComplete = { isSendingUserInputText.value = false }
+                onComplete = { isSendingUserInputText.value = false },
             )
         }
     }

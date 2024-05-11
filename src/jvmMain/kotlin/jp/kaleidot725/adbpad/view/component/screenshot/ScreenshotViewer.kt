@@ -31,7 +31,7 @@ fun ScreenshotViewer(
     isCapturing: Boolean,
     onCopyScreenshot: () -> Unit,
     onDeleteScreenshot: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(modifier) {
         Column {
@@ -40,18 +40,20 @@ fun ScreenshotViewer(
                 enabled = screenshot.file != null,
                 onCopy = onCopyScreenshot,
                 onDelete = onDeleteScreenshot,
-                modifier = Modifier
-                    .background(MaterialTheme.colors.primary.copy(alpha = 0.1f))
-                    .padding(horizontal = 8.dp)
+                modifier =
+                    Modifier
+                        .background(MaterialTheme.colors.primary.copy(alpha = 0.1f))
+                        .padding(horizontal = 8.dp),
             )
 
             Spacer(Modifier.height(1.dp).fillMaxWidth().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
 
             if (isCapturing) {
                 Box(
-                    modifier = Modifier
-                        .weight(1.0f)
-                        .fillMaxWidth()
+                    modifier =
+                        Modifier
+                            .weight(1.0f)
+                            .fillMaxWidth(),
                 ) {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
@@ -63,17 +65,18 @@ fun ScreenshotViewer(
                     Image(
                         bitmap = bitmapValue,
                         contentDescription = "preview image",
-                        modifier = Modifier.weight(1.0f).align(Alignment.CenterHorizontally)
+                        modifier = Modifier.weight(1.0f).align(Alignment.CenterHorizontally),
                     )
                 } else {
                     Box(
-                        modifier = Modifier
-                            .weight(1.0f)
-                            .fillMaxWidth()
+                        modifier =
+                            Modifier
+                                .weight(1.0f)
+                                .fillMaxWidth(),
                     ) {
                         Text(
                             text = Language.NOT_FOUND_SCREEN_SHOT,
-                            modifier = Modifier.align(Alignment.Center)
+                            modifier = Modifier.align(Alignment.Center),
                         )
                     }
                 }
@@ -90,6 +93,6 @@ private fun ScreenshotViewer_Preview() {
         isCapturing = false,
         onCopyScreenshot = {},
         onDeleteScreenshot = {},
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     )
 }

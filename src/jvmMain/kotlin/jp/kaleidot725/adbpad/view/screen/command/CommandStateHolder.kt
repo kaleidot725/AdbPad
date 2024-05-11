@@ -20,19 +20,21 @@ import kotlinx.coroutines.launch
 class CommandStateHolder(
     private val getCommandList: GetCommandList,
     private val executeCommandUseCase: ExecuteCommandUseCase,
-    private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase
+    private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
 ) : ChildStateHolder<CommandState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val commands: MutableStateFlow<List<NormalCommand>> = MutableStateFlow(emptyList())
-    private val selectedDevice: StateFlow<Device?> = getSelectedDeviceFlowUseCase()
-        .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
+    private val selectedDevice: StateFlow<Device?> =
+        getSelectedDeviceFlowUseCase()
+            .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
 
-    override val state: StateFlow<CommandState> = combine(
-        commands,
-        selectedDevice,
-    ) { commands, selectedDevice ->
-        CommandState(commands, selectedDevice)
-    }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), CommandState())
+    override val state: StateFlow<CommandState> =
+        combine(
+            commands,
+            selectedDevice,
+        ) { commands, selectedDevice ->
+            CommandState(commands, selectedDevice)
+        }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), CommandState())
 
     override fun setup() {
         commands.value = getCommandList()
@@ -50,7 +52,7 @@ class CommandStateHolder(
                 command = command,
                 onStart = { commands.value = getCommandList() },
                 onFailed = { commands.value = getCommandList() },
-                onComplete = { commands.value = getCommandList() }
+                onComplete = { commands.value = getCommandList() },
             )
         }
     }

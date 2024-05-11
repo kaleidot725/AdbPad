@@ -26,7 +26,7 @@ fun ScreenLayout(
     rightPane: @Composable () -> Unit,
     notificationArea: @Composable () -> Unit,
     dialog: @Composable () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(modifier) {
         Column {
@@ -62,6 +62,6 @@ private fun ScreenLayout_Preview() {
         },
         dialog = {
         },
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     )
 }

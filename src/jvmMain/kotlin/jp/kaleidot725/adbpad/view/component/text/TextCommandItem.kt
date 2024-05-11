@@ -25,32 +25,33 @@ fun TextCommandItem(
     onSend: () -> Unit,
     canSend: Boolean,
     onDelete: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Card(modifier, elevation = 1.dp) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp),
         ) {
             Text(
                 text = text,
                 fontWeight = FontWeight.Bold,
                 maxLines = 2,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(weight = 0.8f, fill = true)
-                    .align(Alignment.CenterVertically)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .weight(weight = 0.8f, fill = true)
+                        .align(Alignment.CenterVertically),
             )
             Button(
                 onClick = { onDelete() },
-                modifier = Modifier.align(Alignment.CenterVertically).width(85.dp)
+                modifier = Modifier.align(Alignment.CenterVertically).width(85.dp),
             ) {
                 Text(Language.DELETE)
             }
             Button(
                 onClick = { onSend() },
                 enabled = canSend,
-                modifier = Modifier.align(Alignment.CenterVertically).width(85.dp)
+                modifier = Modifier.align(Alignment.CenterVertically).width(85.dp),
             ) {
                 when {
                     isRunning -> RunningIndicator()
@@ -70,6 +71,6 @@ private fun TextCommandItem_Preview() {
         onSend = {},
         canSend = true,
         onDelete = {},
-        modifier = Modifier.fillMaxWidth().height(50.dp)
+        modifier = Modifier.fillMaxWidth().height(50.dp),
     )
 }

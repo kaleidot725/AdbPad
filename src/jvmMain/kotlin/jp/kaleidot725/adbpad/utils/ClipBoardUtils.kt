@@ -36,6 +36,9 @@ object ClipBoardUtils {
             return listOf(file)
         }
 
-        override fun lostOwnership(clipboard: Clipboard?, contents: Transferable?) {}
+        override fun lostOwnership(
+            clipboard: Clipboard?,
+            contents: Transferable?,
+        ) {}
     }
 }

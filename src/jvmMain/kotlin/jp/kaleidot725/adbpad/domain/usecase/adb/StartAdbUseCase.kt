@@ -7,14 +7,14 @@ import kotlinx.coroutines.withContext
 import java.io.File
 
 class StartAdbUseCase(
-    private val settingRepository: SettingRepository
+    private val settingRepository: SettingRepository,
 ) {
     suspend operator fun invoke(): Boolean {
         return withContext(Dispatchers.IO) {
             val sdkPath = settingRepository.getSdkPath()
             return@withContext StartAdbInteractor().execute(
                 adbBinary = File(sdkPath.adbDirectory),
-                serverPort = sdkPath.adbServerPort
+                serverPort = sdkPath.adbServerPort,
             )
         }
     }

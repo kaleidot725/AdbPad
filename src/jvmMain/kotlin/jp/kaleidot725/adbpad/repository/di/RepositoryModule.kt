@@ -14,23 +14,24 @@ import jp.kaleidot725.adbpad.repository.impl.SettingRepositoryImpl
 import jp.kaleidot725.adbpad.repository.impl.TextCommandRepositoryImpl
 import org.koin.dsl.module
 
-val repositoryModule = module {
-    single<EventRepository> {
-        EventRepositoryImpl()
+val repositoryModule =
+    module {
+        single<EventRepository> {
+            EventRepositoryImpl()
+        }
+        single<DeviceRepository> {
+            DeviceRepositoryImpl()
+        }
+        single<NormalCommandRepository> {
+            NormalCommandRepositoryImpl()
+        }
+        single<TextCommandRepository> {
+            TextCommandRepositoryImpl()
+        }
+        single<ScreenshotCommandRepository> {
+            ScreenshotCommandRepositoryImpl()
+        }
+        factory<SettingRepository> {
+            SettingRepositoryImpl()
+        }
     }
-    single<DeviceRepository> {
-        DeviceRepositoryImpl()
-    }
-    single<NormalCommandRepository> {
-        NormalCommandRepositoryImpl()
-    }
-    single<TextCommandRepository> {
-        TextCommandRepositoryImpl()
-    }
-    single<ScreenshotCommandRepository> {
-        ScreenshotCommandRepositoryImpl()
-    }
-    factory<SettingRepository> {
-        SettingRepositoryImpl()
-    }
-}

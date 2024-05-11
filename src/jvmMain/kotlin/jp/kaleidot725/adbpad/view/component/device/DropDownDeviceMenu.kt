@@ -26,7 +26,7 @@ fun DropDownDeviceMenu(
     devices: List<Device>,
     selectedDevice: Device?,
     onSelectDevice: (Device) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
     var dropDownWidth by remember { mutableStateOf(0) }
@@ -34,23 +34,24 @@ fun DropDownDeviceMenu(
     Box(modifier) {
         DeviceSelector(
             selectedDevice = selectedDevice,
-            modifier = Modifier
-                .clickableNoRipple { if (!expanded && devices.isNotEmpty()) expanded = true }
-                .fillMaxWidth()
-                .onSizeChanged { dropDownWidth = it.width }
+            modifier =
+                Modifier
+                    .clickableNoRipple { if (!expanded && devices.isNotEmpty()) expanded = true }
+                    .fillMaxWidth()
+                    .onSizeChanged { dropDownWidth = it.width },
         )
 
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.width(with(LocalDensity.current) { dropDownWidth.toDp() })
+            modifier = Modifier.width(with(LocalDensity.current) { dropDownWidth.toDp() }),
         ) {
             devices.forEach { device ->
                 DropdownMenuItem(
                     onClick = {
                         onSelectDevice(device)
                         expanded = false
-                    }
+                    },
                 ) {
                     Text(
                         text = device.serial,
@@ -69,6 +70,6 @@ private fun DeviceList_Preview() {
     DropDownDeviceMenu(
         devices = listOf(sample),
         selectedDevice = sample,
-        onSelectDevice = {}
+        onSelectDevice = {},
     )
 }

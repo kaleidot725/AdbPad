@@ -47,7 +47,7 @@ class TextCommandRepositoryImpl : TextCommandRepository {
         command: TextCommand,
         onStart: suspend () -> Unit,
         onComplete: suspend () -> Unit,
-        onFailed: suspend () -> Unit
+        onFailed: suspend () -> Unit,
     ) {
         withContext(Dispatchers.IO) {
             runningCommands.add(command)
@@ -74,7 +74,7 @@ class TextCommandRepositoryImpl : TextCommandRepository {
         text: String,
         onStart: suspend () -> Unit,
         onComplete: suspend () -> Unit,
-        onFailed: suspend () -> Unit
+        onFailed: suspend () -> Unit,
     ) {
         withContext(Dispatchers.IO) {
             onStart()

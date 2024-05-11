@@ -13,7 +13,7 @@ fun RunningIndicator() {
     CircularProgressIndicator(
         color = MaterialTheme.colors.onPrimary,
         strokeWidth = 2.dp,
-        modifier = Modifier.size(20.dp)
+        modifier = Modifier.size(20.dp),
     )
 }
 

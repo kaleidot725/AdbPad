@@ -113,6 +113,6 @@ interface Event {
     enum class Level {
         INFO,
         WARN,
-        ERROR
+        ERROR,
     }
 }

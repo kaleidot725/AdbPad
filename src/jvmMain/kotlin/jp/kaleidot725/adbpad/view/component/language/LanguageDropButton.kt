@@ -30,45 +30,46 @@ fun LanguageDropButton(
     languages: List<Language.Type>,
     selectedLanguage: Language.Type,
     onSelect: (Language.Type) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
     Box(modifier) {
         Row(
-            modifier = Modifier
-                .width(200.dp)
-                .border(shape = RoundedCornerShape(8.dp), color = MaterialTheme.colors.primary, width = 1.dp)
-                .clickable { expanded = true }
-                .padding(vertical = 8.dp, horizontal = 12.dp)
+            modifier =
+                Modifier
+                    .width(200.dp)
+                    .border(shape = RoundedCornerShape(8.dp), color = MaterialTheme.colors.primary, width = 1.dp)
+                    .clickable { expanded = true }
+                    .padding(vertical = 8.dp, horizontal = 12.dp),
         ) {
             Text(
                 text = selectedLanguage.title(),
-                modifier = Modifier.align(Alignment.CenterVertically).weight(1.0f)
+                modifier = Modifier.align(Alignment.CenterVertically).weight(1.0f),
             )
 
             Icon(
                 imageVector = Icons.Default.ArrowDropDown,
                 contentDescription = null,
-                modifier = Modifier.align(Alignment.CenterVertically)
+                modifier = Modifier.align(Alignment.CenterVertically),
             )
         }
 
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.width(200.dp)
+            modifier = Modifier.width(200.dp),
         ) {
             languages.forEach { language ->
                 DropdownMenuItem(
                     onClick = {
                         expanded = false
                         onSelect(language)
-                    }
+                    },
                 ) {
                     Text(
                         text = language.title(),
                         style = MaterialTheme.typography.subtitle2,
-                        modifier = Modifier.align(Alignment.CenterVertically)
+                        modifier = Modifier.align(Alignment.CenterVertically),
                     )
                 }
             }

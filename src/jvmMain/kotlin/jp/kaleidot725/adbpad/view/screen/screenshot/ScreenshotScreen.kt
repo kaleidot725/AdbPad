@@ -32,20 +32,21 @@ fun ScreenshotScreen(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.fillMaxSize().padding(16.dp)
+        modifier = Modifier.fillMaxSize().padding(16.dp),
     ) {
         ScreenshotViewer(
             screenshot = screenshot,
             isCapturing = isCapturing,
             onCopyScreenshot = onCopyScreenshot,
             onDeleteScreenshot = onDeleteScreenshot,
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(0.5f)
-                .border(
-                    border = BorderStroke(1.dp, UserColor.getSplitterColor()),
-                    shape = RoundedCornerShape(4.dp)
-                )
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .weight(0.5f)
+                    .border(
+                        border = BorderStroke(1.dp, UserColor.getSplitterColor()),
+                        shape = RoundedCornerShape(4.dp),
+                    ),
         )
 
         ScreenshotDropDownButton(
@@ -53,7 +54,7 @@ fun ScreenshotScreen(
             canCapture = canCapture,
             isCapturing = isCapturing,
             onTakeScreenshot = onTakeScreenshot,
-            modifier = Modifier.wrapContentSize().align(Alignment.End)
+            modifier = Modifier.wrapContentSize().align(Alignment.End),
         )
     }
 }
@@ -68,6 +69,6 @@ private fun ScreenshotScreen_Preview() {
         commands = emptyList(),
         onCopyScreenshot = {},
         onDeleteScreenshot = {},
-        onTakeScreenshot = {}
+        onTakeScreenshot = {},
     )
 }

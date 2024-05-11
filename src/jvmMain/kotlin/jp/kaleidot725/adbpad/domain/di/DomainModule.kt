@@ -28,83 +28,84 @@ import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
 import org.koin.dsl.module
 
-val domainModule = module {
-    factory {
-        StartAdbUseCase(get())
+val domainModule =
+    module {
+        factory {
+            StartAdbUseCase(get())
+        }
+        factory {
+            ExecuteCommandUseCase(get(), get())
+        }
+        factory {
+            GetCommandList(get())
+        }
+        factory {
+            GetDevicesFlowUseCase(get())
+        }
+        factory {
+            GetSelectedDeviceFlowUseCase(get())
+        }
+        factory {
+            SelectDeviceUseCase(get())
+        }
+        factory {
+            AddTextCommandUseCase(get())
+        }
+        factory {
+            DeleteTextCommandUseCase(get())
+        }
+        factory {
+            ExecuteTextCommandUseCase(get(), get())
+        }
+        factory {
+            GetTextCommandUseCase(get())
+        }
+        factory {
+            GetMenuListUseCase()
+        }
+        factory {
+            TakeScreenshotUseCase(get(), get())
+        }
+        factory {
+            GetScreenshotCommandUseCase(get())
+        }
+        factory {
+            GetEventFlowUseCase(get())
+        }
+        factory {
+            SendUserInputTextCommandUseCase(get(), get())
+        }
+        factory {
+            DeleteScreenshotPreviewUseCase(get(), get())
+        }
+        factory {
+            GetWindowSizeUseCase(get())
+        }
+        factory {
+            SaveWindowSizeUseCase(get())
+        }
+        factory {
+            GetSdkPathUseCase(get())
+        }
+        factory {
+            SaveSdkPathUseCase(get())
+        }
+        factory {
+            GetAppearanceUseCase(get())
+        }
+        factory {
+            SaveAppearanceUseCase(get())
+        }
+        factory {
+            GetDarkModeFlowUseCase(get())
+        }
+        factory {
+            SaveLanguageUseCase(get())
+        }
+        factory {
+            GetLanguageUseCase(get())
+        }
+        factory {
+            CopyScreenshotToClipboardUseCase(get(), get())
+        }
     }
-    factory {
-        ExecuteCommandUseCase(get(), get())
-    }
-    factory {
-        GetCommandList(get())
-    }
-    factory {
-        GetDevicesFlowUseCase(get())
-    }
-    factory {
-        GetSelectedDeviceFlowUseCase(get())
-    }
-    factory {
-        SelectDeviceUseCase(get())
-    }
-    factory {
-        AddTextCommandUseCase(get())
-    }
-    factory {
-        DeleteTextCommandUseCase(get())
-    }
-    factory {
-        ExecuteTextCommandUseCase(get(), get())
-    }
-    factory {
-        GetTextCommandUseCase(get())
-    }
-    factory {
-        GetMenuListUseCase()
-    }
-    factory {
-        TakeScreenshotUseCase(get(), get())
-    }
-    factory {
-        GetScreenshotCommandUseCase(get())
-    }
-    factory {
-        GetEventFlowUseCase(get())
-    }
-    factory {
-        SendUserInputTextCommandUseCase(get(), get())
-    }
-    factory {
-        DeleteScreenshotPreviewUseCase(get(), get())
-    }
-    factory {
-        GetWindowSizeUseCase(get())
-    }
-    factory {
-        SaveWindowSizeUseCase(get())
-    }
-    factory {
-        GetSdkPathUseCase(get())
-    }
-    factory {
-        SaveSdkPathUseCase(get())
-    }
-    factory {
-        GetAppearanceUseCase(get())
-    }
-    factory {
-        SaveAppearanceUseCase(get())
-    }
-    factory {
-        GetDarkModeFlowUseCase(get())
-    }
-    factory {
-        SaveLanguageUseCase(get())
-    }
-    factory {
-        GetLanguageUseCase(get())
-    }
-    factory {
-        CopyScreenshotToClipboardUseCase(get(), get())
-    }
-}

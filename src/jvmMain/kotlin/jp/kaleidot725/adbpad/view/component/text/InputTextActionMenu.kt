@@ -25,42 +25,43 @@ fun InputTextActionMenu(
     canSend: Boolean,
     onSave: () -> Unit,
     canSave: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         OutlinedTextField(
             value = inputText,
             onValueChange = { onTextChange(it) },
-            modifier = Modifier
-                .weight(0.9f, true)
-                .fillMaxHeight()
+            modifier =
+                Modifier
+                    .weight(0.9f, true)
+                    .fillMaxHeight(),
         )
 
         Button(
             enabled = canSave,
             onClick = { onSave() },
-            modifier = Modifier.fillMaxHeight().width(85.dp)
+            modifier = Modifier.fillMaxHeight().width(85.dp),
         ) {
             Text(
                 text = Language.SAVE,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
 
         Button(
             enabled = canSend,
             onClick = { onSend() },
-            modifier = Modifier.fillMaxHeight().width(85.dp)
+            modifier = Modifier.fillMaxHeight().width(85.dp),
         ) {
             when (isSending) {
                 true -> RunningIndicator()
                 else -> {
                     Text(
                         text = Language.SEND,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
                     )
                 }
             }
@@ -79,6 +80,6 @@ private fun InputTextActionMenu_Preview() {
         onSave = {},
         canSave = true,
         onTextChange = {},
-        modifier = Modifier.height(50.dp)
+        modifier = Modifier.height(50.dp),
     )
 }

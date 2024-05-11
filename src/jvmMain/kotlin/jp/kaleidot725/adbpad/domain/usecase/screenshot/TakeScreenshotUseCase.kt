@@ -9,14 +9,14 @@ import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
 
 class TakeScreenshotUseCase(
     private val eventRepository: EventRepository,
-    private val screenshotCommandRepository: ScreenshotCommandRepository
+    private val screenshotCommandRepository: ScreenshotCommandRepository,
 ) {
     suspend operator fun invoke(
         device: Device,
         command: ScreenshotCommand,
         onStart: suspend () -> Unit,
         onFailed: suspend () -> Unit,
-        onComplete: suspend (Screenshot) -> Unit
+        onComplete: suspend (Screenshot) -> Unit,
     ) {
         screenshotCommandRepository.captureScreenshot(
             device = device,
@@ -32,7 +32,7 @@ class TakeScreenshotUseCase(
             onComplete = {
                 eventRepository.sendEvent(Event.EndSendScreenshotCommand)
                 onComplete(it)
-            }
+            },
         )
     }
 }

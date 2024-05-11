@@ -29,7 +29,7 @@ fun ScreenshotDropDownButton(
     canCapture: Boolean,
     isCapturing: Boolean,
     onTakeScreenshot: (ScreenshotCommand) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
     var selectedCommand by remember { mutableStateOf(commands.firstOrNull()) }
@@ -40,20 +40,20 @@ fun ScreenshotDropDownButton(
             canCapture = canCapture,
             isCapturing = isCapturing,
             onTake = { selectedCommand?.let { onTakeScreenshot(it) } },
-            onChangeType = { expanded = true }
+            onChangeType = { expanded = true },
         )
 
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.width(250.dp)
+            modifier = Modifier.width(250.dp),
         ) {
             commands.forEach { command ->
                 DropdownMenuItem(
                     onClick = {
                         selectedCommand = command
                         expanded = false
-                    }
+                    },
                 ) {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Box(modifier = Modifier.size(20.dp).align(Alignment.CenterVertically)) {
@@ -61,7 +61,7 @@ fun ScreenshotDropDownButton(
                                 Icon(
                                     imageVector = Icons.Default.Check,
                                     contentDescription = "",
-                                    modifier = Modifier.fillMaxSize()
+                                    modifier = Modifier.fillMaxSize(),
                                 )
                             }
                         }
@@ -69,7 +69,7 @@ fun ScreenshotDropDownButton(
                         Text(
                             text = command.title,
                             style = MaterialTheme.typography.subtitle2,
-                            modifier = Modifier.align(Alignment.CenterVertically)
+                            modifier = Modifier.align(Alignment.CenterVertically),
                         )
                     }
                 }

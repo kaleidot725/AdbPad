@@ -31,17 +31,19 @@ class ScreenshotStateHolder(
     private val commands: MutableStateFlow<List<ScreenshotCommand>> = MutableStateFlow(emptyList())
     private val preview: MutableStateFlow<Screenshot> = MutableStateFlow(Screenshot(null))
     private val isCapturing: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val selectedDevice: StateFlow<Device?> = getSelectedDeviceFlowUseCase()
-        .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
+    private val selectedDevice: StateFlow<Device?> =
+        getSelectedDeviceFlowUseCase()
+            .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
 
-    override val state: StateFlow<ScreenshotState> = combine(
-        preview,
-        commands,
-        selectedDevice,
-        isCapturing
-    ) { preview, commands, selectedDevice, isCapturing ->
-        ScreenshotState(preview, commands, selectedDevice, isCapturing)
-    }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), ScreenshotState())
+    override val state: StateFlow<ScreenshotState> =
+        combine(
+            preview,
+            commands,
+            selectedDevice,
+            isCapturing,
+        ) { preview, commands, selectedDevice, isCapturing ->
+            ScreenshotState(preview, commands, selectedDevice, isCapturing)
+        }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), ScreenshotState())
 
     override fun setup() {
         commands.value = getScreenshotCommandUseCase()
@@ -71,7 +73,7 @@ class ScreenshotStateHolder(
                     commands.value = getScreenshotCommandUseCase()
                     preview.value = it
                     isCapturing.value = false
-                }
+                },
             )
         }
     }

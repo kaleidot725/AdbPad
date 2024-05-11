@@ -15,21 +15,21 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun NavigationRail(
     onSelectDevice: () -> Unit,
-    onOpenSetting: () -> Unit
+    onOpenSetting: () -> Unit,
 ) {
     Column(modifier = Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         NavigationRailItem(
             icon = Icons.Default.PhoneAndroid,
             contentDescription = "device menu",
             isSelected = true,
-            onClick = onSelectDevice
+            onClick = onSelectDevice,
         )
         Spacer(Modifier.weight(1.0f))
         NavigationRailItem(
             icon = Icons.Default.Settings,
             contentDescription = "device menu",
             isSelected = false,
-            onClick = onOpenSetting
+            onClick = onOpenSetting,
         )
     }
 }

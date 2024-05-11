@@ -13,12 +13,15 @@ import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.view.common.extension.clickableNoRipple
 
 @Composable
-fun FloatingDialog(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+fun FloatingDialog(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
     Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray.copy(alpha = 0.5f)).clickableNoRipple { }) {
         Box(modifier = Modifier.align(Alignment.Center)) {
             Card(
                 shape = RoundedCornerShape(8.dp),
-                modifier = modifier
+                modifier = modifier,
             ) {
                 content()
             }

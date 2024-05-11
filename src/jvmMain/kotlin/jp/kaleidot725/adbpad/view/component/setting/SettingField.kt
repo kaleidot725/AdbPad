@@ -17,14 +17,14 @@ fun SettingField(
     TextField(
         value = input,
         onValueChange = onValueChange,
-        label = { Text(title) }, modifier = Modifier.fillMaxWidth(),
-            isError = isError
-        )
-    }
+        label = { Text(title) },
+        modifier = Modifier.fillMaxWidth(),
+        isError = isError,
+    )
+}
 
-    @Preview
-    @Composable
-    private fun SettingField_Preview() {
-        SettingField("TITLE", "INPUT", false) {}
-    }
-    
+@Preview
+@Composable
+private fun SettingField_Preview() {
+    SettingField("TITLE", "INPUT", false) {}
+}

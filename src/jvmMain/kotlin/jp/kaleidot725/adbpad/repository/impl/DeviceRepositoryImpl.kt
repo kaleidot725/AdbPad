@@ -46,10 +46,11 @@ class DeviceRepositoryImpl : DeviceRepository {
         return selectedDevice.asSharedFlow()
     }
 
-    private fun createDevicesFlow() = adbClient.execute(
-        request = AsyncDeviceMonitorRequest(),
-        scope = coroutineScope
-    ).receiveAsFlow().map { rowDevices -> rowDevices.convert() }
+    private fun createDevicesFlow() =
+        adbClient.execute(
+            request = AsyncDeviceMonitorRequest(),
+            scope = coroutineScope,
+        ).receiveAsFlow().map { rowDevices -> rowDevices.convert() }
 
     private fun List<com.malinskiy.adam.request.device.Device>.convert(): List<Device> {
         return map { Device(it.serial, it.state.convert()) }

@@ -22,24 +22,30 @@ class MenuStateHolder(
     private val getAndroidDevicesFlowUseCase: GetDevicesFlowUseCase,
     private val getMenuListUseCase: GetMenuListUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
-    private val selectDeviceUseCase: SelectDeviceUseCase
+    private val selectDeviceUseCase: SelectDeviceUseCase,
 ) : ChildStateHolder<MenuState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
 
     private val menus: MutableStateFlow<List<Menu>> = MutableStateFlow(emptyList())
     private val selectedMenu: MutableStateFlow<Menu?> = MutableStateFlow(null)
 
-    private val devices: StateFlow<List<Device>> = getAndroidDevicesFlowUseCase()
-        .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), emptyList())
+    private val devices: StateFlow<List<Device>> =
+        getAndroidDevicesFlowUseCase()
+            .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), emptyList())
 
-    private val selectedDevice: StateFlow<Device?> = getSelectedDeviceFlowUseCase()
-        .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
+    private val selectedDevice: StateFlow<Device?> =
+        getSelectedDeviceFlowUseCase()
+            .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
 
-    override val state: StateFlow<MenuState> = combine(
-        menus, selectedMenu, devices, selectedDevice
-    ) { menus, selectedMenu, devices, selectedDevice ->
-        MenuState(menus, selectedMenu, devices, selectedDevice)
-    }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), MenuState())
+    override val state: StateFlow<MenuState> =
+        combine(
+            menus,
+            selectedMenu,
+            devices,
+            selectedDevice,
+        ) { menus, selectedMenu, devices, selectedDevice ->
+            MenuState(menus, selectedMenu, devices, selectedDevice)
+        }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), MenuState())
 
     override fun setup() {
         menus.value = getMenuListUseCase()

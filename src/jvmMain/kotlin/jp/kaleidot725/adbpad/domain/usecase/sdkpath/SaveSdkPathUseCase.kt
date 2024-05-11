@@ -4,11 +4,11 @@ import jp.kaleidot725.adbpad.domain.model.setting.SdkPath
 import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 
 class SaveSdkPathUseCase(
-    private val settingRepository: SettingRepository
+    private val settingRepository: SettingRepository,
 ) {
     suspend operator fun invoke(
         adbDirectory: String,
-        adbServerPort: Int?
+        adbServerPort: Int?,
     ): Boolean {
         val sdkPath = SdkPath(adbDirectory, adbServerPort ?: 30000)
         return settingRepository.updateSdkPath(sdkPath)

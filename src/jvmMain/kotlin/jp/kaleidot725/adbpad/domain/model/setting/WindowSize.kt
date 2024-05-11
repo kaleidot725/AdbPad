@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class WindowSize(
     val width: Int,
-    val height: Int
+    val height: Int,
 ) {
     companion object {
         val UNKNOWN = WindowSize(-1, -1)
@@ -17,6 +17,6 @@ data class WindowSize(
 fun FrameWindowScope.getWindowSize(): WindowSize {
     return WindowSize(
         this.window.width,
-        this.window.height
+        this.window.height,
     )
 }

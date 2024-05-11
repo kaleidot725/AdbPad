@@ -20,22 +20,22 @@ fun MenuItem(
     icon: ImageVector,
     iconDescription: String,
     text: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = modifier
+        modifier = modifier,
     ) {
         Icon(
             imageVector = icon,
             contentDescription = iconDescription,
-            modifier = Modifier.align(Alignment.CenterVertically).size(20.dp)
+            modifier = Modifier.align(Alignment.CenterVertically).size(20.dp),
         )
 
         Text(
             text = text,
             style = MaterialTheme.typography.subtitle2,
-            modifier = Modifier.align(Alignment.CenterVertically)
+            modifier = Modifier.align(Alignment.CenterVertically),
         )
     }
 }
@@ -46,6 +46,6 @@ private fun MenuItem_Preview() {
     MenuItem(
         icon = Icons.Default.Menu,
         iconDescription = "menu",
-        text = "MENU_TITLE"
+        text = "MENU_TITLE",
     )
 }

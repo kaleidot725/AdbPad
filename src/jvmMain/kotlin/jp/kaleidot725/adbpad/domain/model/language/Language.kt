@@ -165,6 +165,7 @@ object Language : StringResources {
         get() = getCurrentResources().ADB_ERROR_OPEN_SETTING
 
     private var currentType: Type = Type.ENGLISH
+
     fun switch(type: Type) {
         currentType = type
     }
@@ -178,6 +179,6 @@ object Language : StringResources {
 
     enum class Type {
         ENGLISH,
-        JAPANESE
+        JAPANESE,
     }
 }

@@ -8,7 +8,7 @@ data class ScreenshotState(
     val preview: Screenshot = Screenshot(null),
     val commands: List<ScreenshotCommand> = emptyList(),
     val selectedDevice: Device? = null,
-    val isCapturing: Boolean = false
+    val isCapturing: Boolean = false,
 ) {
     val canExecute: Boolean = selectedDevice != null
 }

@@ -14,14 +14,14 @@ import jp.kaleidot725.adbpad.view.component.command.CommandList
 fun CommandScreen(
     commands: List<NormalCommand>,
     canExecute: Boolean,
-    onExecute: (NormalCommand) -> Unit
+    onExecute: (NormalCommand) -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         CommandList(
             commands = commands,
             canExecute = canExecute,
             onExecute = onExecute,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         )
     }
 }

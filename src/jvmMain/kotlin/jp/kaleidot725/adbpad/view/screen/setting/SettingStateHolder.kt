@@ -26,21 +26,22 @@ class SettingStateHolder(
     private val getAppearanceUseCase: GetAppearanceUseCase,
     private val saveAppearanceUseCase: SaveAppearanceUseCase,
     private val getLanguageUseCase: GetLanguageUseCase,
-    private val saveLanguageUseCase: SaveLanguageUseCase
+    private val saveLanguageUseCase: SaveLanguageUseCase,
 ) : ChildStateHolder<SettingState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val language: MutableStateFlow<Language.Type> = MutableStateFlow(Language.Type.ENGLISH)
     private val appearance: MutableStateFlow<Appearance> = MutableStateFlow(Appearance.DARK)
     private val adbDirectoryPath: MutableStateFlow<String> = MutableStateFlow("")
     private val adbPortNumber: MutableStateFlow<String> = MutableStateFlow("")
-    override val state: StateFlow<SettingState> = combine(
-        language,
-        appearance,
-        adbDirectoryPath,
-        adbPortNumber
-    ) { language, appearance, adbDirectoryPath, adbPortNumber ->
-        SettingState(Language.Type.values().toList(), language, appearance, adbDirectoryPath, adbPortNumber)
-    }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), SettingState())
+    override val state: StateFlow<SettingState> =
+        combine(
+            language,
+            appearance,
+            adbDirectoryPath,
+            adbPortNumber,
+        ) { language, appearance, adbDirectoryPath, adbPortNumber ->
+            SettingState(Language.Type.values().toList(), language, appearance, adbDirectoryPath, adbPortNumber)
+        }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), SettingState())
 
     override fun setup() {
         loadSetting()
@@ -76,7 +77,7 @@ class SettingStateHolder(
             saveAppearanceUseCase(appearance = appearance.value)
             saveSdkPathUseCase(
                 adbDirectoryPath.value,
-                adbPortNumber.value.toIntOrNull()
+                adbPortNumber.value.toIntOrNull(),
             )
             onSaved()
         }

@@ -24,12 +24,11 @@ fun TextCommandScreen(
     canSendInputText: Boolean,
     onSaveInputText: () -> Unit,
     canSaveInputText: Boolean,
-
     // Commands
     commands: List<TextCommand>,
     onSendCommand: (TextCommand) -> Unit,
     canSendCommand: Boolean,
-    onDeleteCommand: (TextCommand) -> Unit
+    onDeleteCommand: (TextCommand) -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         TextCommandList(
@@ -37,7 +36,7 @@ fun TextCommandScreen(
             onSend = onSendCommand,
             canSend = canSendCommand,
             onDelete = onDeleteCommand,
-            modifier = Modifier.fillMaxSize().padding(bottom = 60.dp)
+            modifier = Modifier.fillMaxSize().padding(bottom = 60.dp),
         )
 
         InputTextActionMenu(
@@ -48,7 +47,7 @@ fun TextCommandScreen(
             canSend = canSendInputText,
             onSave = onSaveInputText,
             canSave = canSaveInputText,
-            modifier = Modifier.height(50.dp).fillMaxWidth().align(Alignment.BottomEnd)
+            modifier = Modifier.height(50.dp).fillMaxWidth().align(Alignment.BottomEnd),
         )
     }
 }
@@ -67,6 +66,6 @@ private fun InputTextScreen_Preview() {
         onSendCommand = {},
         canSendCommand = true,
         canSendInputText = true,
-        onDeleteCommand = {}
+        onDeleteCommand = {},
     )
 }

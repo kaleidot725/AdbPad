@@ -51,68 +51,68 @@ fun SettingScreen(
 
                 SettingTitle(
                     text = Language.SETTING_LANGUAGE_HEADER,
-                    modifier = Modifier.padding(horizontal = 4.dp)
+                    modifier = Modifier.padding(horizontal = 4.dp),
                 )
 
                 LanguageDropButton(
                     languages = languages,
                     selectedLanguage = selectLanguage,
                     onSelect = onUpdateLanguage,
-                    modifier = Modifier.padding(horizontal = 4.dp)
+                    modifier = Modifier.padding(horizontal = 4.dp),
                 )
 
                 Divider(modifier = Modifier.fillMaxWidth())
 
                 SettingTitle(
                     text = Language.SETTING_APPEARANCE_HEADER,
-                    modifier = Modifier.padding(horizontal = 4.dp)
+                    modifier = Modifier.padding(horizontal = 4.dp),
                 )
 
                 RadioButtons(
                     selectedItem = appearance.value,
                     items = Appearance.values().map { it.value },
                     onSelect = { value -> updateAppearance(Appearance.values().first { it.value == value }) },
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                 )
 
                 Divider(modifier = Modifier.fillMaxWidth())
 
                 SettingTitle(
                     text = Language.SETTING_ADB_HEADER,
-                    modifier = Modifier.padding(horizontal = 4.dp)
+                    modifier = Modifier.padding(horizontal = 4.dp),
                 )
 
                 SettingField(
                     title = Language.SETTING_ADB_DIRECTORY_PATH_TITLE,
                     input = adbDirectoryPath,
                     isError = !isValidAdbDirectoryPath,
-                    onValueChange = onChangeAdbDirectoryPath
+                    onValueChange = onChangeAdbDirectoryPath,
                 )
 
                 SettingField(
                     title = Language.SETTING_ADB_PORT_NUMBER_TITLE,
                     input = adbPortNumber,
                     isError = !isValidAdbPortNumber,
-                    onValueChange = onChangeAdbPortNumber
+                    onValueChange = onChangeAdbPortNumber,
                 )
             }
 
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.align(Alignment.BottomEnd)
+                modifier = Modifier.align(Alignment.BottomEnd),
             ) {
                 Button(onClick = onCancel) {
                     Text(
                         text = Language.CANCEL,
                         modifier = Modifier.width(100.dp),
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
                     )
                 }
                 Button(onClick = onSave, enabled = canSave) {
                     Text(
                         text = Language.SAVE,
                         modifier = Modifier.width(100.dp),
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
                     )
                 }
             }

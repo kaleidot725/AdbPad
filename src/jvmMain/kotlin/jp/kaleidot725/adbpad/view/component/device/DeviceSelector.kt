@@ -23,27 +23,28 @@ import jp.kaleidot725.adbpad.domain.model.language.Language
 @Composable
 fun DeviceSelector(
     selectedDevice: Device?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(modifier) {
         Box(
-            modifier = Modifier
-                .border(
-                    border = BorderStroke(2.dp, MaterialTheme.colors.primary),
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .padding(vertical = 8.dp, horizontal = 16.dp)
+            modifier =
+                Modifier
+                    .border(
+                        border = BorderStroke(2.dp, MaterialTheme.colors.primary),
+                        shape = RoundedCornerShape(8.dp),
+                    )
+                    .padding(vertical = 8.dp, horizontal = 16.dp),
         ) {
             Text(
                 text = selectedDevice?.serial ?: Language.NOT_FOUND_DEVICE,
                 style = MaterialTheme.typography.subtitle2,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
 
             Icon(
                 imageVector = Icons.Filled.ArrowDropDown,
                 contentDescription = "Device DropDown Icon",
-                modifier = Modifier.align(Alignment.CenterEnd)
+                modifier = Modifier.align(Alignment.CenterEnd),
             )
         }
     }

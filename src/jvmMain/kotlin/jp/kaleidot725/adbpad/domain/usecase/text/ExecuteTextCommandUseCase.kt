@@ -8,14 +8,14 @@ import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
 
 class ExecuteTextCommandUseCase(
     private val eventRepository: EventRepository,
-    private val textCommandRepository: TextCommandRepository
+    private val textCommandRepository: TextCommandRepository,
 ) {
     suspend operator fun invoke(
         device: Device,
         command: TextCommand,
         onStart: suspend () -> Unit,
         onFailed: suspend () -> Unit,
-        onComplete: suspend () -> Unit
+        onComplete: suspend () -> Unit,
     ) {
         textCommandRepository.sendCommand(
             device = device,
@@ -31,7 +31,7 @@ class ExecuteTextCommandUseCase(
             onComplete = {
                 eventRepository.sendEvent(Event.EndSendTextCommand(command.text))
                 onComplete()
-            }
+            },
         )
     }
 }

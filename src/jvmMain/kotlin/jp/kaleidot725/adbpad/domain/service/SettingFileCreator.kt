@@ -36,6 +36,7 @@ object SettingFileCreator {
     }
 
     private fun getDirPath() = OSContext.resolveOSContext().directory
+
     private fun getFilePath() = getDirPath() + "config.json"
 
     private fun createDir() {
@@ -53,6 +54,6 @@ object SettingFileCreator {
         val appearance: Appearance = Appearance.SYSTEM,
         val sdkPath: SdkPath = SdkPath(),
         val inputTexts: List<String> = emptyList(),
-        val windowSize: WindowSize = WindowSize.DEFAULT
+        val windowSize: WindowSize = WindowSize.DEFAULT,
     )
 }

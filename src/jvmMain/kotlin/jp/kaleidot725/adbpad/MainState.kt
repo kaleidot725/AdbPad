@@ -8,5 +8,5 @@ data class MainState(
     val language: Language.Type = Language.Type.ENGLISH,
     val isDark: Boolean = false,
     val size: WindowSize = WindowSize.UNKNOWN,
-    val dialog: Dialog? = null
+    val dialog: Dialog? = null,
 )

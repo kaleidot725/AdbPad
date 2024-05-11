@@ -7,7 +7,7 @@ class GetMenuListUseCase {
         return listOf(
             Menu.Command,
             Menu.InputText,
-            Menu.Screenshot
+            Menu.Screenshot,
         )
     }
 }

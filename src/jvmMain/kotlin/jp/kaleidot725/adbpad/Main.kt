@@ -18,7 +18,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -80,22 +79,24 @@ fun main() {
 
         MaterialTheme(colors = if (state.isDark) DarkColors else LightColors) {
             IntUiTheme(
-                theme = if (state.isDark) {
-                    JewelTheme.darkThemeDefinition()
-                } else {
-                    JewelTheme.lightThemeDefinition()
-                },
-                styling = if (state.isDark) {
-                    ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.dark())
-                } else {
-                    ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.light())
-                }
+                theme =
+                    if (state.isDark) {
+                        JewelTheme.darkThemeDefinition()
+                    } else {
+                        JewelTheme.lightThemeDefinition()
+                    },
+                styling =
+                    if (state.isDark) {
+                        ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.dark())
+                    } else {
+                        ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.light())
+                    },
             ) {
                 DecoratedWindow(
                     title = Language.WINDOW_TITLE,
                     icon = painterResource("icon.png"),
                     onCloseRequest = ::exitApplication,
-                    state = windowState
+                    state = windowState,
                 ) {
                     TitleBarView()
                     App(mainStateHolder)
@@ -108,8 +109,8 @@ fun main() {
 @Composable
 fun DecoratedWindowScope.TitleBarView() {
     TitleBar(
-        style =TitleBarStyle.dark(),
-        modifier = Modifier.newFullscreenControls()
+        style = TitleBarStyle.dark(),
+        modifier = Modifier.newFullscreenControls(),
     ) {
         Text(
             text = title,
@@ -151,7 +152,7 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                 navigationRail = {
                     NavigationRail(
                         onSelectDevice = {},
-                        onOpenSetting = mainStateHolder::openSetting
+                        onOpenSetting = mainStateHolder::openSetting,
                     )
                 },
                 leftPane = {
@@ -162,10 +163,11 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                         menus = menuState.menus,
                         selectedMenu = menuState.selectedMenu,
                         onSelectMenu = { menuStateHolder.selectMenu(it) },
-                        modifier = Modifier
-                            .width(250.dp)
-                            .fillMaxHeight()
-                            .padding(horizontal = 12.dp, vertical = 16.dp)
+                        modifier =
+                            Modifier
+                                .width(250.dp)
+                                .fillMaxHeight()
+                                .padding(horizontal = 12.dp, vertical = 16.dp),
                     )
                 },
                 rightPane = {
@@ -176,7 +178,7 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                                 canExecute = commandState.canExecuteCommand,
                                 onExecute = { command ->
                                     commandStateHolder.executeCommand(command)
-                                }
+                                },
                             )
                         }
 
@@ -196,7 +198,6 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                                     inputTextStateHolder.saveInputText()
                                 },
                                 canSaveInputText = inputTextState.canSaveInputText,
-
                                 // Commands
                                 commands = inputTextState.commands,
                                 onSendCommand = { text ->
@@ -205,7 +206,7 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                                 canSendCommand = inputTextState.canSendCommand,
                                 onDeleteCommand = { text ->
                                     inputTextStateHolder.deleteInputText(text)
-                                }
+                                },
                             )
                         }
 
@@ -223,9 +224,9 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                                 },
                                 onTakeScreenshot = { screenshot ->
                                     screenshotStateHolder.takeScreenShot(
-                                        screenshot
+                                        screenshot,
                                     )
-                                }
+                                },
                             )
                         }
 
@@ -235,16 +236,17 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                 notificationArea = {
                     Box(
                         Modifier.fillMaxWidth().height(25.dp)
-                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                            .padding(horizontal = 8.dp, vertical = 4.dp),
                     ) {
                         Text(
                             text = event.message,
-                            color = when (event.level) {
-                                Event.Level.INFO -> MaterialTheme.colors.onSurface
-                                Event.Level.WARN -> Color.Yellow
-                                Event.Level.ERROR -> Color.Red
-                            },
-                            style = MaterialTheme.typography.caption
+                            color =
+                                when (event.level) {
+                                    Event.Level.INFO -> MaterialTheme.colors.onSurface
+                                    Event.Level.WARN -> Color.Yellow
+                                    Event.Level.ERROR -> Color.Red
+                                },
+                            style = MaterialTheme.typography.caption,
                         )
                     }
                 },
@@ -277,53 +279,55 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                                     settingStateHolder.save { mainStateHolder.closeSetting() }
                                 },
                                 canSave = settingState.canSave,
-                                onCancel = { mainStateHolder.closeSetting() }
+                                onCancel = { mainStateHolder.closeSetting() },
                             )
                         }
 
                         Dialog.AdbError -> {
                             AdbErrorScreen(
-                                onOpenSetting = { mainStateHolder.openSetting() }
+                                onOpenSetting = { mainStateHolder.openSetting() },
                             )
                         }
 
                         null -> Unit
                     }
                 },
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
             )
         }
     }
 }
 
-private val LightColors = Colors(
-    primary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.PRIMARY,
-    primaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Light.PRIMARY_VARIANT,
-    secondary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.SECONDARY,
-    secondaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Light.SECONDARY_VARIANT,
-    background = jp.kaleidot725.adbpad.domain.model.UserColor.Light.BACKGROUND,
-    surface = jp.kaleidot725.adbpad.domain.model.UserColor.Light.SURFACE,
-    error = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ERROR,
-    onPrimary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_PRIMARY,
-    onSecondary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_SECONDARY,
-    onError = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_ERROR,
-    onBackground = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_BACKGROUND,
-    onSurface = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_SURFACE,
-    isLight = true
-)
+private val LightColors =
+    Colors(
+        primary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.PRIMARY,
+        primaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Light.PRIMARY_VARIANT,
+        secondary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.SECONDARY,
+        secondaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Light.SECONDARY_VARIANT,
+        background = jp.kaleidot725.adbpad.domain.model.UserColor.Light.BACKGROUND,
+        surface = jp.kaleidot725.adbpad.domain.model.UserColor.Light.SURFACE,
+        error = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ERROR,
+        onPrimary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_PRIMARY,
+        onSecondary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_SECONDARY,
+        onError = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_ERROR,
+        onBackground = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_BACKGROUND,
+        onSurface = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_SURFACE,
+        isLight = true,
+    )
 
-private val DarkColors = Colors(
-    primary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.PRIMARY,
-    primaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.PRIMARY_VARIANT,
-    secondary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.SECONDARY,
-    secondaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.SECONDARY_VARIANT,
-    background = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.BACKGROUND,
-    surface = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.SURFACE,
-    error = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ERROR,
-    onPrimary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_PRIMARY,
-    onSecondary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_SECONDARY,
-    onError = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_ERROR,
-    onBackground = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_BACKGROUND,
-    onSurface = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_SURFACE,
-    isLight = false
-)
+private val DarkColors =
+    Colors(
+        primary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.PRIMARY,
+        primaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.PRIMARY_VARIANT,
+        secondary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.SECONDARY,
+        secondaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.SECONDARY_VARIANT,
+        background = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.BACKGROUND,
+        surface = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.SURFACE,
+        error = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ERROR,
+        onPrimary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_PRIMARY,
+        onSecondary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_SECONDARY,
+        onError = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_ERROR,
+        onBackground = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_BACKGROUND,
+        onSurface = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_SURFACE,
+        isLight = false,
+    )

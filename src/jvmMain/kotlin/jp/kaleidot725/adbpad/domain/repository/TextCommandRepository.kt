@@ -15,7 +15,7 @@ interface TextCommandRepository {
         command: TextCommand,
         onStart: suspend () -> Unit,
         onComplete: suspend () -> Unit,
-        onFailed: suspend () -> Unit
+        onFailed: suspend () -> Unit,
     )
 
     suspend fun sendUserInputText(
@@ -23,6 +23,6 @@ interface TextCommandRepository {
         text: String,
         onStart: suspend () -> Unit,
         onComplete: suspend () -> Unit,
-        onFailed: suspend () -> Unit
+        onFailed: suspend () -> Unit,
     )
 }

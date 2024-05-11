@@ -4,7 +4,7 @@ import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.repository.DeviceRepository
 
 class SelectDeviceUseCase(
-    private val deviceRepository: DeviceRepository
+    private val deviceRepository: DeviceRepository,
 ) {
     suspend operator fun invoke(device: Device) {
         deviceRepository.selectDevice(device)

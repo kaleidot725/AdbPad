@@ -12,7 +12,7 @@ import kotlinx.coroutines.withContext
 import java.util.function.Consumer
 
 class GetDarkModeFlowUseCase(
-    private val settingRepository: SettingRepository
+    private val settingRepository: SettingRepository,
 ) {
     suspend operator fun invoke(): Flow<Boolean> {
         return when (withContext(Dispatchers.IO) { settingRepository.getAppearance() }) {
@@ -22,9 +22,10 @@ class GetDarkModeFlowUseCase(
                 val detector = OsThemeDetector.getDetector()
                 callbackFlow {
                     this.trySend(detector.isDark)
-                    val listener: Consumer<Boolean> = Consumer<Boolean> { isDark ->
-                        this@callbackFlow.trySend(isDark)
-                    }
+                    val listener: Consumer<Boolean> =
+                        Consumer<Boolean> { isDark ->
+                            this@callbackFlow.trySend(isDark)
+                        }
                     detector.registerListener(listener)
                     awaitClose { detector.removeListener(listener) }
                 }

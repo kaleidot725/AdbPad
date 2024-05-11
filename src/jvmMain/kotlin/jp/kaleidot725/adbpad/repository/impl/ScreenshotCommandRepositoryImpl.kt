@@ -27,7 +27,7 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
             ScreenshotCommand.Both(runningCommands.any { it is ScreenshotCommand.Both }),
             ScreenshotCommand.Current(runningCommands.any { it is ScreenshotCommand.Current }),
             ScreenshotCommand.Light(runningCommands.any { it is ScreenshotCommand.Light }),
-            ScreenshotCommand.Dark(runningCommands.any { it is ScreenshotCommand.Dark })
+            ScreenshotCommand.Dark(runningCommands.any { it is ScreenshotCommand.Dark }),
         )
     }
 
@@ -36,20 +36,21 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         command: ScreenshotCommand,
         onStart: suspend () -> Unit,
         onComplete: suspend (Screenshot) -> Unit,
-        onFailed: suspend () -> Unit
+        onFailed: suspend () -> Unit,
     ) {
         withContext(Dispatchers.IO) {
             runningCommands.add(command)
             onStart()
             deleteScreenshotCache()
 
-            val result = when (command) {
-                is ScreenshotCommand.Both -> sendBothCommand(device)
-                is ScreenshotCommand.Light -> sendLightCommand(device)
-                is ScreenshotCommand.Dark -> sendDarkCommand(device)
-                is ScreenshotCommand.Current -> sendCurrentCommand(device)
-                else -> false
-            }
+            val result =
+                when (command) {
+                    is ScreenshotCommand.Both -> sendBothCommand(device)
+                    is ScreenshotCommand.Light -> sendLightCommand(device)
+                    is ScreenshotCommand.Dark -> sendDarkCommand(device)
+                    is ScreenshotCommand.Current -> sendCurrentCommand(device)
+                    else -> false
+                }
 
             delay(300)
 
@@ -114,7 +115,11 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         return capture(device, getFileResult())
     }
 
-    private suspend fun capture(device: Device, file: File, delay: Long = DEFAULT_DELAY): Boolean {
+    private suspend fun capture(
+        device: Device,
+        file: File,
+        delay: Long = DEFAULT_DELAY,
+    ): Boolean {
         delay(delay)
         val adb = AndroidDebugBridgeClientFactory().build()
         val adapter = RawImageScreenCaptureAdapter()
@@ -122,7 +127,11 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         return ImageIO.write(image, EXTENSION_NAME, file)
     }
 
-    private fun concat(fileA: File, fileB: File, outputFile: File): Boolean {
+    private fun concat(
+        fileA: File,
+        fileB: File,
+        outputFile: File,
+    ): Boolean {
         return try {
             val inputA = ImageIO.read(fileA)
             val inputB = ImageIO.read(fileB)
@@ -140,7 +149,10 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         }
     }
 
-    private suspend fun sendCommand(device: Device, command: NormalCommand): Boolean {
+    private suspend fun sendCommand(
+        device: Device,
+        command: NormalCommand,
+    ): Boolean {
         return withContext(Dispatchers.IO) {
             command.requests.forEach { request ->
                 val result = adbClient.execute(request, device.serial)

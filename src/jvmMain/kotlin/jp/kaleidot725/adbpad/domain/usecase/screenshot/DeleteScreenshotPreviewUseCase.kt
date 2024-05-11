@@ -6,7 +6,7 @@ import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
 
 class DeleteScreenshotPreviewUseCase(
     private val eventRepository: EventRepository,
-    private val screenshotCommandRepository: ScreenshotCommandRepository
+    private val screenshotCommandRepository: ScreenshotCommandRepository,
 ) {
     suspend operator fun invoke() {
         eventRepository.sendEvent(Event.ClearScreenshotCache)

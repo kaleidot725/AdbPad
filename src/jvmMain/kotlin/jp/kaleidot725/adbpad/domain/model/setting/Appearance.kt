@@ -5,5 +5,5 @@ import jp.kaleidot725.adbpad.domain.model.language.Language
 enum class Appearance(val value: String) {
     DARK(Language.DARK),
     LIGHT(Language.LIGHT),
-    SYSTEM(Language.SYSTEM)
+    SYSTEM(Language.SYSTEM),
 }

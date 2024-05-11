@@ -25,14 +25,14 @@ fun CommandList(
     commands: List<NormalCommand>,
     canExecute: Boolean,
     onExecute: (NormalCommand) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
         if (commands.isNotEmpty()) {
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(250.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 items(commands) { command ->
                     CommandItem(
@@ -41,14 +41,14 @@ fun CommandList(
                         isRunning = command.isRunning,
                         canExecute = canExecute,
                         onExecute = { onExecute(command) },
-                        modifier = Modifier.height(150.dp).fillMaxWidth().padding(2.dp)
+                        modifier = Modifier.height(150.dp).fillMaxWidth().padding(2.dp),
                     )
                 }
             }
         } else {
             Text(
                 text = Language.NOT_FOUND_COMMAND,
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             )
         }
     }
@@ -62,14 +62,14 @@ private fun CommandList_Preview() {
             commands = listOf(NormalCommand.DarkThemeOn(), NormalCommand.DarkThemeOff(), NormalCommand.WifiOn()),
             canExecute = true,
             onExecute = {},
-            modifier = Modifier.fillMaxWidth().weight(0.5f)
+            modifier = Modifier.fillMaxWidth().weight(0.5f),
         )
 
         CommandList(
             commands = emptyList(),
             canExecute = true,
             onExecute = {},
-            modifier = Modifier.fillMaxWidth().weight(0.5f).background(Color.LightGray)
+            modifier = Modifier.fillMaxWidth().weight(0.5f).background(Color.LightGray),
         )
     }
 }

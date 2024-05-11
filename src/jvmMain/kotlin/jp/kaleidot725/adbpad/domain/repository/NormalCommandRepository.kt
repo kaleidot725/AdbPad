@@ -11,6 +11,6 @@ interface NormalCommandRepository {
         command: NormalCommand,
         onStart: suspend () -> Unit,
         onComplete: suspend () -> Unit,
-        onFailed: suspend () -> Unit
+        onFailed: suspend () -> Unit,
     )
 }

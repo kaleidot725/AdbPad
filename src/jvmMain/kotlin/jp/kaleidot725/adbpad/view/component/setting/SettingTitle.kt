@@ -7,7 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun SettingTitle(text: String, modifier: Modifier = Modifier) {
+fun SettingTitle(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
     Text(text = text, style = MaterialTheme.typography.h6, modifier = modifier)
 }
 

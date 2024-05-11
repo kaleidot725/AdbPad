@@ -23,34 +23,34 @@ fun MenuScreen(
     menus: List<Menu>,
     selectedMenu: Menu?,
     onSelectMenu: (Menu) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = modifier
+        modifier = modifier,
     ) {
         Text(
             text = Language.TARGET_DEVICE,
-            style = MaterialTheme.typography.subtitle2
+            style = MaterialTheme.typography.subtitle2,
         )
 
         DropDownDeviceMenu(
             devices = devices,
             selectedDevice = selectedDevice,
             onSelectDevice = onSelectDevice,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         Text(
             text = Language.TOOL,
-            style = MaterialTheme.typography.subtitle2
+            style = MaterialTheme.typography.subtitle2,
         )
 
         MenuList(
             menus = menus,
             selectedMenu = selectedMenu,
             onSelectMenu = onSelectMenu,
-            modifier = Modifier.fillMaxWidth().weight(weight = 0.9f, fill = true)
+            modifier = Modifier.fillMaxWidth().weight(weight = 0.9f, fill = true),
         )
     }
 }
@@ -64,6 +64,6 @@ private fun MenuScreen_Preview() {
         onSelectDevice = {},
         menus = listOf(Menu.Command, Menu.InputText, Menu.Screenshot),
         selectedMenu = Menu.Command,
-        onSelectMenu = {}
+        onSelectMenu = {},
     )
 }

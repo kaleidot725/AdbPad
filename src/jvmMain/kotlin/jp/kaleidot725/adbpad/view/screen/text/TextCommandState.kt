@@ -7,7 +7,7 @@ data class TextCommandState(
     val commands: List<TextCommand> = emptyList(),
     val userInputText: String = "",
     val isSendingUserInputText: Boolean = false,
-    val selectedDevice: Device? = null
+    val selectedDevice: Device? = null,
 ) {
     val canSendCommand: Boolean get() = selectedDevice != null
     val canSendInputText: Boolean get() = selectedDevice != null && userInputText.isNotEmpty()
