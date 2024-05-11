@@ -1,14 +1,13 @@
 [versions]
-kotlin="1.7.10"
-kotlin_coroutines="1.6.4"
-kotlin_serialization="1.3.3"
-compose="1.2.1"
-ktlint_plugin="10.3.0"
-adam="0.4.5"
+kotlin="1.9.23"
+kotlin_coroutines="1.8.0"
+kotlin_serialization="1.6.0"
+compose="1.6.10-rc01"
+ktlint_plugin="12.1.0"
+adam="0.5.7"
 junit="5.9.0"
-koin="3.2.2"
+koin="3.5.6"
 system_theme_detector="3.8"
-jetbrains_expui_theme="2.1.0"
 
 [libraries]
 adam = { module = "com.malinskiy.adam:adam", version.ref = "adam" }
@@ -17,7 +16,6 @@ kotlin_serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-j
 junit5 = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 jSystemThemeDetectorVer = { module = "com.github.Dansoftowner:jSystemThemeDetector", version.ref = "system_theme_detector" }
-jetbrainsExpUiTheme = { module = "com.bybutter.compose:compose-jetbrains-expui-theme", version.ref = "jetbrains_expui_theme" }
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

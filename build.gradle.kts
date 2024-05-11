@@ -11,16 +11,17 @@ version = "1.1.0"
 repositories {
     mavenCentral()
     google()
+    maven("https://packages.jetbrains.team/maven/p/kpm/public/")
     maven { url = uri("https://jitpack.io") }
     maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
 }
 
 kotlin {
     jvm {
-        compilations.all {
-            kotlinOptions.jvmTarget = "17"
+        jvmToolchain {
+            vendor = JvmVendorSpec.JETBRAINS
+            languageVersion = JavaLanguageVersion.of(17)
         }
-        withJava()
     }
     sourceSets {
         val jvmMain by getting {
@@ -34,7 +35,9 @@ kotlin {
                 implementation(libs.kotlin.serialization)
                 implementation(libs.koin)
                 implementation(libs.jSystemThemeDetectorVer)
-                implementation(libs.jetbrainsExpUiTheme)
+                implementation("org.jetbrains.jewel:jewel-int-ui-standalone-241:0.18.1")
+                implementation("org.jetbrains.jewel:jewel-int-ui-decorated-window-241:0.18.1")
+                implementation(compose.desktop.currentOs) { exclude(group = "org.jetbrains.compose.material") }
             }
         }
         val jvmTest by getting {
