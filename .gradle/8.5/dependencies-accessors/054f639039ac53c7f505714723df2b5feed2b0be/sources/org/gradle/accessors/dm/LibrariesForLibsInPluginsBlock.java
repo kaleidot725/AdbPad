@@ -215,7 +215,7 @@ public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFa
         public KotlinVersionAccessors(ProviderFactory providers, DefaultVersionCatalog config) { super(providers, config); }
 
         /**
-         * Returns the version associated to this alias: kotlin (1.9.21)
+         * Returns the version associated to this alias: kotlin (1.9.23)
          * If the version is a rich version and that its not expressible as a
          * single version string, then an empty string is returned.
          * This version was declared in catalog libs.versions.toml
