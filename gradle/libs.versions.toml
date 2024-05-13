@@ -8,6 +8,7 @@ adam="0.5.7"
 junit="5.9.0"
 koin="3.5.6"
 system_theme_detector="3.8"
+ktor = "2.3.8"
 
 [libraries]
 adam = { module = "com.malinskiy.adam:adam", version.ref = "adam" }
@@ -16,6 +17,8 @@ kotlin_serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-j
 junit5 = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 jSystemThemeDetectorVer = { module = "com.github.Dansoftowner:jSystemThemeDetector", version.ref = "system_theme_detector" }
+ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
