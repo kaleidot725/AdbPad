@@ -13,6 +13,7 @@ import jp.kaleidot725.adbpad.repository.impl.ScreenshotCommandRepositoryImpl
 import jp.kaleidot725.adbpad.repository.impl.SettingRepositoryImpl
 import jp.kaleidot725.adbpad.repository.impl.TextCommandRepositoryImpl
 import org.koin.dsl.module
+import ui.repository.VersionRepository
 
 val repositoryModule =
     module {
@@ -33,5 +34,8 @@ val repositoryModule =
         }
         factory<SettingRepository> {
             SettingRepositoryImpl()
+        }
+        factory<VersionRepository> {
+            VersionRepository()
         }
     }

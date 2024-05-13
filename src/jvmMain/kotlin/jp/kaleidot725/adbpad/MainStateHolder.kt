@@ -1,5 +1,6 @@
 package jp.kaleidot725.adbpad
 
+import com.sun.tools.javac.Main
 import jp.kaleidot725.adbpad.domain.model.Dialog
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.log.Event
@@ -16,6 +17,7 @@ import jp.kaleidot725.adbpad.view.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.view.screen.menu.MenuStateHolder
 import jp.kaleidot725.adbpad.view.screen.screenshot.ScreenshotStateHolder
 import jp.kaleidot725.adbpad.view.screen.text.TextCommandStateHolder
+import jp.kaleidot725.adbpad.view.screen.version.VersionStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -34,6 +36,7 @@ class MainStateHolder(
     val commandStateHolder: CommandStateHolder,
     val textCommandStateHolder: TextCommandStateHolder,
     val screenshotStateHolder: ScreenshotStateHolder,
+    val versionStateHolder: VersionStateHolder,
     val getEventFlowUseCase: GetEventFlowUseCase,
     val getWindowSizeUseCase: GetWindowSizeUseCase,
     val saveWindowSizeUseCase: SaveWindowSizeUseCase,
@@ -46,10 +49,12 @@ class MainStateHolder(
     private val windowSize: MutableStateFlow<WindowSize> = MutableStateFlow(WindowSize.UNKNOWN)
     private val isDark: MutableStateFlow<Boolean> = MutableStateFlow(true)
     private val dialog: MutableStateFlow<Dialog?> = MutableStateFlow(null)
+    private val category: MutableStateFlow<MainCategory> = MutableStateFlow(MainCategory.Device)
+
     val event: SharedFlow<Event> = getEventFlowUseCase()
     val state: StateFlow<MainState> =
-        combine(language, isDark, windowSize, dialog) { language, isDark, windowSize, dialog ->
-            MainState(language, isDark, windowSize, dialog)
+        combine(language, isDark, windowSize, dialog, category) { language, isDark, windowSize, dialog, category ->
+            MainState(language, isDark, windowSize, dialog, category)
         }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), MainState())
 
     private val children: List<ChildStateHolder<*>> =
@@ -81,6 +86,10 @@ class MainStateHolder(
 
     fun openSetting() {
         dialog.value = Dialog.Setting
+    }
+
+    fun clickCategory(category: MainCategory) {
+        this.category.value = category
     }
 
     fun closeSetting() {

@@ -32,6 +32,7 @@ kotlin {
                 implementation(compose.materialIconsExtended)
                 implementation(libs.adam)
                 implementation(libs.kotlin.coroutines)
+                implementation(libs.kotlinx.coroutines.swing)
                 implementation(libs.kotlin.serialization)
                 implementation(libs.koin)
                 implementation(libs.jSystemThemeDetectorVer)

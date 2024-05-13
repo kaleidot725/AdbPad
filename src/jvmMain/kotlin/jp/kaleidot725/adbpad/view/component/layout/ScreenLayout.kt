@@ -22,8 +22,7 @@ import jp.kaleidot725.adbpad.domain.model.UserColor
 @Composable
 fun ScreenLayout(
     navigationRail: @Composable () -> Unit,
-    leftPane: @Composable () -> Unit,
-    rightPane: @Composable () -> Unit,
+    content: @Composable () -> Unit,
     notificationArea: @Composable () -> Unit,
     dialog: @Composable () -> Unit,
     modifier: Modifier = Modifier,
@@ -33,9 +32,7 @@ fun ScreenLayout(
             Row(modifier = Modifier.weight(0.9f, true)) {
                 Box(Modifier.background(MaterialTheme.colors.background)) { navigationRail() }
                 Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
-                Box(Modifier.background(MaterialTheme.colors.background)) { leftPane() }
-                Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
-                Box(Modifier.background(MaterialTheme.colors.background)) { rightPane() }
+                Box(Modifier.background(MaterialTheme.colors.background)) { content() }
             }
             Spacer(Modifier.height(1.dp).fillMaxWidth().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
             Box(Modifier.background(MaterialTheme.colors.background)) { notificationArea() }
@@ -51,10 +48,7 @@ private fun ScreenLayout_Preview() {
         navigationRail = {
             Box(Modifier.width(50.dp).fillMaxHeight().background(androidx.compose.ui.graphics.Color.Yellow))
         },
-        leftPane = {
-            Box(Modifier.width(200.dp).fillMaxHeight().background(androidx.compose.ui.graphics.Color.Red))
-        },
-        rightPane = {
+        content = {
             Box(Modifier.fillMaxSize().background(androidx.compose.ui.graphics.Color.Blue))
         },
         notificationArea = {

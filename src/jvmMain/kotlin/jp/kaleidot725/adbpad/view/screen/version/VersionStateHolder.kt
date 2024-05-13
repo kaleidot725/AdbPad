@@ -37,7 +37,12 @@ class VersionStateHolder(
     }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), VersionState(emptyList()))
 
     override fun setup() {
+        retry()
+    }
+
+    fun retry() {
         coroutineScope.launch {
+            isLoading.value = true
             val result  = versionRepository.getVersions()
             if (result != null) {
                 versions.value = result
@@ -49,7 +54,6 @@ class VersionStateHolder(
             }
         }
     }
-
     override fun dispose() {
         coroutineScope.cancel()
     }
