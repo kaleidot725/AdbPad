@@ -33,7 +33,7 @@ fun VersionTable(
                         .fillMaxWidth()
                         .weight(version.distributionPercentage.compensatePercentage())
                 )
-                Divider()
+                Divider(color = Color.White)
             }
         }
     }
