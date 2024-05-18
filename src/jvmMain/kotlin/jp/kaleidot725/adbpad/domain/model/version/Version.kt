@@ -7,10 +7,10 @@ data class Version(
     val distributionPercentage: Double,
     val cumulativeDistribution: Double?,
     val url: String,
-    val descriptionBlocks: List<DescriptionBlocks>
+    val descriptionBlocks: List<DescriptionBlocks>,
 )
 
 data class DescriptionBlocks(
     val title: String,
-    val body: String
+    val body: String,
 )

@@ -22,14 +22,14 @@ import jp.kaleidot725.adbpad.view.screen.version.component.VersionTable
 fun VersionScreen(
     state: VersionState,
     onRetry: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(modifier) {
         when {
             state.hasError -> {
                 Button(
                     onClick = onRetry,
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center),
                 ) {
                     Text(text = "Retry")
                 }
@@ -37,23 +37,24 @@ fun VersionScreen(
 
             state.isLoading -> {
                 CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center),
                 )
             }
 
             else -> {
                 VersionTable(
                     versions = state.versions,
-                    modifier = Modifier.fillMaxSize()
-                        .padding(16.dp)
-                        .border(
-                            border = BorderStroke(1.dp, UserColor.getSplitterColor()),
-                            shape = RoundedCornerShape(4.dp),
-                        )
-                        .background(
-                            color = Color.DarkGray,
-                            shape = RoundedCornerShape(4.dp)
-                        ),
+                    modifier =
+                        Modifier.fillMaxSize()
+                            .padding(16.dp)
+                            .border(
+                                border = BorderStroke(1.dp, UserColor.getSplitterColor()),
+                                shape = RoundedCornerShape(4.dp),
+                            )
+                            .background(
+                                color = Color.DarkGray,
+                                shape = RoundedCornerShape(4.dp),
+                            ),
                 )
             }
         }

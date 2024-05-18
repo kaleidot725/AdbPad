@@ -31,16 +31,16 @@ import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import jp.kaleidot725.adbpad.MainCategory
 import jp.kaleidot725.adbpad.MainStateHolder
+import jp.kaleidot725.adbpad.component.NavigationRail
 import jp.kaleidot725.adbpad.domain.di.domainModule
 import jp.kaleidot725.adbpad.domain.model.Dialog
 import jp.kaleidot725.adbpad.domain.model.Menu
+import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.log.Event
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.model.setting.getWindowSize
 import jp.kaleidot725.adbpad.repository.di.repositoryModule
-import jp.kaleidot725.adbpad.component.NavigationRail
-import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.view.di.stateHolderModule
 import jp.kaleidot725.adbpad.view.screen.CommandScreen
 import jp.kaleidot725.adbpad.view.screen.MenuScreen
@@ -147,12 +147,12 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                 navigationRail = {
                     NavigationRail(
                         category = state.category,
-                        onSelectCategory =  mainStateHolder::clickCategory,
+                        onSelectCategory = mainStateHolder::clickCategory,
                         onOpenSetting = mainStateHolder::openSetting,
                     )
                 },
                 content = {
-                    when(state.category) {
+                    when (state.category) {
                         MainCategory.Device -> {
                             DeviceContent(mainStateHolder, Modifier.fillMaxSize())
                         }
@@ -235,7 +235,10 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
 }
 
 @Composable
-private fun DeviceContent(mainStateHolder: MainStateHolder, modifier: Modifier = Modifier) {
+private fun DeviceContent(
+    mainStateHolder: MainStateHolder,
+    modifier: Modifier = Modifier,
+) {
     val menuStateHolder = mainStateHolder.menuStateHolder
     val menuState by menuStateHolder.state.collectAsState()
 
@@ -258,10 +261,10 @@ private fun DeviceContent(mainStateHolder: MainStateHolder, modifier: Modifier =
                 selectedMenu = menuState.selectedMenu,
                 onSelectMenu = { menuStateHolder.selectMenu(it) },
                 modifier =
-                Modifier
-                    .width(250.dp)
-                    .fillMaxHeight()
-                    .padding(horizontal = 12.dp, vertical = 16.dp),
+                    Modifier
+                        .width(250.dp)
+                        .fillMaxHeight()
+                        .padding(horizontal = 12.dp, vertical = 16.dp),
             )
         }
 

@@ -6,7 +6,6 @@ import jp.kaleidot725.adbpad.view.screen.menu.MenuStateHolder
 import jp.kaleidot725.adbpad.view.screen.screenshot.ScreenshotStateHolder
 import jp.kaleidot725.adbpad.view.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.view.screen.text.TextCommandStateHolder
-import jp.kaleidot725.adbpad.view.screen.version.VersionState
 import jp.kaleidot725.adbpad.view.screen.version.VersionStateHolder
 import org.koin.dsl.module
 
@@ -63,7 +62,7 @@ val stateHolderModule =
 
         factory {
             VersionStateHolder(
-                versionRepository = get()
+                versionRepository = get(),
             )
         }
 

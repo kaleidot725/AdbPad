@@ -27,14 +27,15 @@ fun AutoSizableText(
     val autoSizer = rememberAutoSizer(minFontSize, maxFontSize, granularityInPx)
 
     BoxWithConstraints(modifier = modifier) {
-        val fontSize = remember(text, autoSizer, style, constraints) {
-            autoSizer.autoSize(
-                text = text,
-                style = style,
-                constraints = constraints,
-                overflow = TextOverflow.Ellipsis,
-            )
-        }
+        val fontSize =
+            remember(text, autoSizer, style, constraints) {
+                autoSizer.autoSize(
+                    text = text,
+                    style = style,
+                    constraints = constraints,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
 
         Text(
             text = text,
@@ -52,17 +53,17 @@ class AutoSizer(
     density: Density,
     private val textMeasurer: TextMeasurer,
 ) {
-
     // 候補となるフォントサイズのリスト
     // 二分探索できるように順に並べる
-    private val fontSizes: List<TextUnit> = generateSequence(minFontSize) { previous ->
-        with(density) {
-            (previous.toPx() + granularityInPx).toSp()
+    private val fontSizes: List<TextUnit> =
+        generateSequence(minFontSize) { previous ->
+            with(density) {
+                (previous.toPx() + granularityInPx).toSp()
+            }
         }
-    }
-        .takeWhile { it < maxFontSize }
-        .plus(maxFontSize)
-        .toList()
+            .takeWhile { it < maxFontSize }
+            .plus(maxFontSize)
+            .toList()
 
     fun autoSize(
         text: String,
@@ -71,19 +72,21 @@ class AutoSizer(
         overflow: TextOverflow,
     ): TextUnit {
         // 二分探索で最適なフォントサイズを取得する
-        val index = fontSizes.binarySearch { targetFontSize ->
-            val result = textMeasurer.measure(
-                text = text,
-                style = style.copy(fontSize = targetFontSize),
-                constraints = constraints,
-                overflow = overflow,
-            )
+        val index =
+            fontSizes.binarySearch { targetFontSize ->
+                val result =
+                    textMeasurer.measure(
+                        text = text,
+                        style = style.copy(fontSize = targetFontSize),
+                        constraints = constraints,
+                        overflow = overflow,
+                    )
 
-            // はみ出していれば正、そうでなければ負を返すと、
-            // 「最適なフォントサイズの『inverted insertion point』」が得られる
-            // see: https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/binary-search.html
-            if (result.hasVisualOverflow) 1 else -1
-        }
+                // はみ出していれば正、そうでなければ負を返すと、
+                // 「最適なフォントサイズの『inverted insertion point』」が得られる
+                // see: https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/binary-search.html
+                if (result.hasVisualOverflow) 1 else -1
+            }
 
         val insertionPoint = -(index + 1)
         // 最適なフォントサイズの挿入位置は、はみ出すフォントサイズのうち最小のものの位置に等しいので、

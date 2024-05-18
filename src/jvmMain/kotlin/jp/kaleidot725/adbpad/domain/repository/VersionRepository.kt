@@ -14,6 +14,7 @@ import kotlinx.serialization.json.Json
 
 class VersionRepository {
     private val client = HttpClient(OkHttp)
+
     suspend fun getVersions(): List<Version>? {
         return withContext(Dispatchers.IO) {
             try {
@@ -31,11 +32,12 @@ class VersionRepository {
     private fun List<VersionDto>.createVersions(): List<Version> {
         var cumulativeDistribution = 100.toDouble()
         return this.sortedBy { it.apiLevel }.map { versionDto ->
-            val thisCumulativeDistribution = if (cumulativeDistribution != 100.toDouble()) {
-                cumulativeDistribution
-            } else {
-                null
-            }
+            val thisCumulativeDistribution =
+                if (cumulativeDistribution != 100.toDouble()) {
+                    cumulativeDistribution
+                } else {
+                    null
+                }
             Version(
                 name = versionDto.name,
                 version = versionDto.version,
@@ -43,12 +45,13 @@ class VersionRepository {
                 distributionPercentage = versionDto.distributionPercentage,
                 cumulativeDistribution = thisCumulativeDistribution,
                 url = versionDto.url,
-                descriptionBlocks = versionDto.descriptionBlocks.map { blocksDto ->
-                    DescriptionBlocks(
-                        title = blocksDto.title,
-                        body = blocksDto.body
-                    )
-                }
+                descriptionBlocks =
+                    versionDto.descriptionBlocks.map { blocksDto ->
+                        DescriptionBlocks(
+                            title = blocksDto.title,
+                            body = blocksDto.body,
+                        )
+                    },
             ).apply {
                 cumulativeDistribution -= versionDto.distributionPercentage * 100
             }
@@ -62,13 +65,12 @@ class VersionRepository {
         @SerialName("apiLevel") val apiLevel: Int,
         @SerialName("distributionPercentage") val distributionPercentage: Double,
         @SerialName("url") val url: String,
-        @SerialName("descriptionBlocks") val descriptionBlocks: List<DescriptionBlocksDto>
+        @SerialName("descriptionBlocks") val descriptionBlocks: List<DescriptionBlocksDto>,
     )
 
     @Serializable
     private data class DescriptionBlocksDto(
         @SerialName("title") val title: String,
-        @SerialName("body") val body: String
+        @SerialName("body") val body: String,
     )
 }
-

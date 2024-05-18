@@ -13,25 +13,27 @@ import jp.kaleidot725.adbpad.domain.model.version.Version
 @Composable
 fun VersionTable(
     versions: List<Version>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier) {
         VersionTableHeader(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
         )
 
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         ) {
             versions.forEach { version ->
                 VersionTableItem(
                     version = version,
                     color = version.apiLevel.toColor(),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(version.distributionPercentage.compensatePercentage())
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .weight(version.distributionPercentage.compensatePercentage()),
                 )
                 Divider(color = Color.White)
             }

@@ -24,102 +24,114 @@ import kotlin.math.round
 fun VersionTableItem(
     version: Version,
     color: Color,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(modifier) {
         Spacer(
-            modifier = Modifier
-                .width(12.dp)
-                .fillMaxHeight()
-                .background(color)
+            modifier =
+                Modifier
+                    .width(12.dp)
+                    .fillMaxHeight()
+                    .background(color),
         )
 
         Box(
-            modifier = Modifier
-                .weight(0.10f)
-                .fillMaxHeight()
-                .background(color)
+            modifier =
+                Modifier
+                    .weight(0.10f)
+                    .fillMaxHeight()
+                    .background(color),
         ) {
             AutoSizableText(
                 text = "${version.version}",
-                style = TextStyle(
-                    textAlign = TextAlign.Start,
-                    color = Color.Gray,
-                ),
+                style =
+                    TextStyle(
+                        textAlign = TextAlign.Start,
+                        color = Color.Gray,
+                    ),
                 minFontSize = 8.sp,
                 maxFontSize = 16.sp,
-                modifier = Modifier.align(Alignment.CenterStart)
+                modifier = Modifier.align(Alignment.CenterStart),
             )
         }
 
         Spacer(
-            modifier = Modifier
-                .width(4.dp)
-                .fillMaxHeight()
-                .background(color)
+            modifier =
+                Modifier
+                    .width(4.dp)
+                    .fillMaxHeight()
+                    .background(color),
         )
 
         Box(
-            modifier = Modifier
-                .weight(0.20f)
-                .fillMaxHeight()
-                .background(color)
+            modifier =
+                Modifier
+                    .weight(0.20f)
+                    .fillMaxHeight()
+                    .background(color),
         ) {
             AutoSizableText(
                 text = version.name,
-                style = TextStyle(
-                    textAlign = TextAlign.Start,
-                    color = Color.White,
-                    fontWeight = FontWeight.ExtraBold,
-                ),
+                style =
+                    TextStyle(
+                        textAlign = TextAlign.Start,
+                        color = Color.White,
+                        fontWeight = FontWeight.ExtraBold,
+                    ),
                 minFontSize = 8.sp,
                 maxFontSize = 16.sp,
-                modifier = Modifier.align(Alignment.CenterStart)
+                modifier = Modifier.align(Alignment.CenterStart),
             )
         }
 
         Box(
-            modifier = Modifier
-                .weight(0.30f)
-                .fillMaxHeight()
-                .background(color)
+            modifier =
+                Modifier
+                    .weight(0.30f)
+                    .fillMaxHeight()
+                    .background(color),
         ) {
             AutoSizableText(
                 text = "${version.apiLevel}",
-                style = TextStyle(
-                    textAlign = TextAlign.Start,
-                    fontSize = 100.sp,
-                    color = Color.Gray,
-                ),
+                style =
+                    TextStyle(
+                        textAlign = TextAlign.Start,
+                        fontSize = 100.sp,
+                        color = Color.Gray,
+                    ),
                 minFontSize = 8.sp,
                 maxFontSize = 40.sp,
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             )
         }
 
-        val textCumulativeDistribution = if (version.cumulativeDistribution != null) {
-            "${version.cumulativeDistribution.format(1)}%"
-        } else {
-            ""
-        }
+        val textCumulativeDistribution =
+            if (version.cumulativeDistribution != null) {
+                "${version.cumulativeDistribution.format(1)}%"
+            } else {
+                ""
+            }
         Text(
             text = textCumulativeDistribution,
-            style = TextStyle(
-                textAlign = TextAlign.End,
-                color = Color.White,
-                fontWeight = FontWeight.Bold,
-            ),
-            modifier = Modifier
-                .weight(0.3f)
-                .fillMaxHeight()
-                .align(Alignment.CenterVertically)
-                .alignByBaseline()
+            style =
+                TextStyle(
+                    textAlign = TextAlign.End,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                ),
+            modifier =
+                Modifier
+                    .weight(0.3f)
+                    .fillMaxHeight()
+                    .align(Alignment.CenterVertically)
+                    .alignByBaseline(),
         )
 
         Spacer(
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(12.dp)
+            modifier =
+                Modifier
+                    .fillMaxHeight()
+                    .width(12.dp),
         )
     }
 }

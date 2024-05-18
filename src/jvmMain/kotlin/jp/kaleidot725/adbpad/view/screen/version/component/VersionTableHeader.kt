@@ -18,47 +18,53 @@ fun VersionTableHeader(modifier: Modifier = Modifier) {
     Row(modifier) {
         Text(
             text = "ANDROID PLATFORM VERSION",
-            style = TextStyle(
-                textAlign = TextAlign.Center,
-                color = Color.White,
-                fontWeight = FontWeight.ExtraBold
-            ),
-            modifier = Modifier
-                .wrapContentHeight()
-                .weight(0.3f)
-                .align(Alignment.CenterVertically)
-                .alignByBaseline()
-                .padding(4.dp)
+            style =
+                TextStyle(
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                    fontWeight = FontWeight.ExtraBold,
+                ),
+            modifier =
+                Modifier
+                    .wrapContentHeight()
+                    .weight(0.3f)
+                    .align(Alignment.CenterVertically)
+                    .alignByBaseline()
+                    .padding(4.dp),
         )
 
         Text(
             text = "API LEVEL",
-            style = TextStyle(
-                textAlign = TextAlign.Center,
-                color = Color.White,
-                fontWeight = FontWeight.ExtraBold
-            ),
-            modifier = Modifier
-                .wrapContentHeight()
-                .weight(0.3f)
-                .align(Alignment.CenterVertically)
-                .alignByBaseline()
-                .padding(4.dp)
+            style =
+                TextStyle(
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                    fontWeight = FontWeight.ExtraBold,
+                ),
+            modifier =
+                Modifier
+                    .wrapContentHeight()
+                    .weight(0.3f)
+                    .align(Alignment.CenterVertically)
+                    .alignByBaseline()
+                    .padding(4.dp),
         )
 
         Text(
             text = "CUMULATIVE DISTRIBUTION",
-            style = TextStyle(
-                textAlign = TextAlign.Center,
-                color = Color.White,
-                fontWeight = FontWeight.ExtraBold
-            ),
-            modifier = Modifier
-                .wrapContentHeight()
-                .weight(0.3f)
-                .align(Alignment.CenterVertically)
-                .alignByBaseline()
-                .padding(4.dp)
+            style =
+                TextStyle(
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                    fontWeight = FontWeight.ExtraBold,
+                ),
+            modifier =
+                Modifier
+                    .wrapContentHeight()
+                    .weight(0.3f)
+                    .align(Alignment.CenterVertically)
+                    .alignByBaseline()
+                    .padding(4.dp),
         )
     }
 }
