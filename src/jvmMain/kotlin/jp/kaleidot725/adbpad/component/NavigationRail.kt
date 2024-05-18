@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Android
 import androidx.compose.material.icons.filled.Numbers
 import androidx.compose.material.icons.filled.PhoneAndroid
 import androidx.compose.material.icons.filled.Settings
@@ -29,7 +30,7 @@ fun NavigationRail(
         )
 
         NavigationRailItem(
-            icon = Icons.Default.Numbers,
+            icon = Icons.Default.Android,
             contentDescription = "version menu",
             isSelected = category == MainCategory.Version,
             onClick = { onSelectCategory(MainCategory.Version) },
