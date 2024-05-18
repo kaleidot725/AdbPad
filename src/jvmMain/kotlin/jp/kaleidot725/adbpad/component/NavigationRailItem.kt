@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.view.component.navigationrail
+package jp.kaleidot725.adbpad.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border

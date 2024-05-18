@@ -32,12 +32,15 @@ kotlin {
                 implementation(compose.materialIconsExtended)
                 implementation(libs.adam)
                 implementation(libs.kotlin.coroutines)
+                implementation(libs.kotlinx.coroutines.swing)
                 implementation(libs.kotlin.serialization)
                 implementation(libs.koin)
                 implementation(libs.jSystemThemeDetectorVer)
                 implementation("org.jetbrains.jewel:jewel-int-ui-standalone-241:0.18.1")
                 implementation("org.jetbrains.jewel:jewel-int-ui-decorated-window-241:0.18.1")
                 implementation(compose.desktop.currentOs) { exclude(group = "org.jetbrains.compose.material") }
+                implementation(libs.ktor.core)
+                implementation(libs.ktor.client.okhttp)
             }
         }
         val jvmTest by getting {
