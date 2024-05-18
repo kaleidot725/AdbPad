@@ -1,4 +1,3 @@
-// Copyright 2000-2021 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -338,34 +337,34 @@ private fun DeviceContent(
 
 private val LightColors =
     Colors(
-        primary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.PRIMARY,
-        primaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Light.PRIMARY_VARIANT,
-        secondary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.SECONDARY,
-        secondaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Light.SECONDARY_VARIANT,
-        background = jp.kaleidot725.adbpad.domain.model.UserColor.Light.BACKGROUND,
-        surface = jp.kaleidot725.adbpad.domain.model.UserColor.Light.SURFACE,
-        error = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ERROR,
-        onPrimary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_PRIMARY,
-        onSecondary = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_SECONDARY,
-        onError = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_ERROR,
-        onBackground = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_BACKGROUND,
-        onSurface = jp.kaleidot725.adbpad.domain.model.UserColor.Light.ON_SURFACE,
+        primary = UserColor.Light.PRIMARY,
+        primaryVariant = UserColor.Light.PRIMARY_VARIANT,
+        secondary = UserColor.Light.SECONDARY,
+        secondaryVariant = UserColor.Light.SECONDARY_VARIANT,
+        background = UserColor.Light.BACKGROUND,
+        surface = UserColor.Light.SURFACE,
+        error = UserColor.Light.ERROR,
+        onPrimary = UserColor.Light.ON_PRIMARY,
+        onSecondary = UserColor.Light.ON_SECONDARY,
+        onError = UserColor.Light.ON_ERROR,
+        onBackground = UserColor.Light.ON_BACKGROUND,
+        onSurface = UserColor.Light.ON_SURFACE,
         isLight = true,
     )
 
 private val DarkColors =
     Colors(
-        primary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.PRIMARY,
-        primaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.PRIMARY_VARIANT,
-        secondary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.SECONDARY,
-        secondaryVariant = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.SECONDARY_VARIANT,
-        background = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.BACKGROUND,
-        surface = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.SURFACE,
-        error = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ERROR,
-        onPrimary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_PRIMARY,
-        onSecondary = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_SECONDARY,
-        onError = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_ERROR,
-        onBackground = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_BACKGROUND,
-        onSurface = jp.kaleidot725.adbpad.domain.model.UserColor.Dark.ON_SURFACE,
+        primary = UserColor.Dark.PRIMARY,
+        primaryVariant = UserColor.Dark.PRIMARY_VARIANT,
+        secondary = UserColor.Dark.SECONDARY,
+        secondaryVariant = UserColor.Dark.SECONDARY_VARIANT,
+        background = UserColor.Dark.BACKGROUND,
+        surface = UserColor.Dark.SURFACE,
+        error = UserColor.Dark.ERROR,
+        onPrimary = UserColor.Dark.ON_PRIMARY,
+        onSecondary = UserColor.Dark.ON_SECONDARY,
+        onError = UserColor.Dark.ON_ERROR,
+        onBackground = UserColor.Dark.ON_BACKGROUND,
+        onSurface = UserColor.Dark.ON_SURFACE,
         isLight = false,
     )
