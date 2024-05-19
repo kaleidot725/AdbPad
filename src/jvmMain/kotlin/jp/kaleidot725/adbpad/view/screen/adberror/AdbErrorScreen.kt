@@ -28,7 +28,7 @@ fun AdbErrorScreen(onOpenSetting: () -> Unit) {
             modifier = Modifier.padding(8.dp),
         ) {
             Text(
-                text = Language.ADB_ERROR_TITLE,
+                text = Language.adbErrorTitle,
                 style = MaterialTheme.typography.subtitle1,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(horizontal = 4.dp),
@@ -37,7 +37,7 @@ fun AdbErrorScreen(onOpenSetting: () -> Unit) {
             Divider(modifier = Modifier.fillMaxWidth())
 
             Text(
-                text = Language.ADB_ERROR_MESSAGE,
+                text = Language.adbErrorMessage,
                 style = MaterialTheme.typography.subtitle2,
                 maxLines = 2,
                 modifier = Modifier.padding(horizontal = 4.dp),
@@ -48,7 +48,7 @@ fun AdbErrorScreen(onOpenSetting: () -> Unit) {
                 modifier = Modifier.align(Alignment.End),
             ) {
                 Text(
-                    text = Language.ADB_ERROR_OPEN_SETTING,
+                    text = Language.adbErrorOpenSetting,
                     style = MaterialTheme.typography.subtitle2,
                     modifier = Modifier.wrapContentWidth(),
                     textAlign = TextAlign.Center,

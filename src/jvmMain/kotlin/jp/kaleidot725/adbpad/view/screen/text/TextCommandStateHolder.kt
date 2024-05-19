@@ -57,6 +57,7 @@ class TextCommandStateHolder(
     }
 
     private val ascii = (0..255).map { it.toChar() }
+
     fun updateInputText(text: String) {
         val isAscii = text.none { it !in ascii }
         if (isAscii) this.userInputText.value = text

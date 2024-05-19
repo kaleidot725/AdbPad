@@ -99,7 +99,7 @@ fun main() {
                     },
             ) {
                 DecoratedWindow(
-                    title = Language.WINDOW_TITLE,
+                    title = Language.windowTitle,
                     icon = painterResource("icon.png"),
                     onCloseRequest = ::exitApplication,
                     state = windowState,

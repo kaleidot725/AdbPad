@@ -30,7 +30,7 @@ fun MenuScreen(
         modifier = modifier,
     ) {
         Text(
-            text = Language.TARGET_DEVICE,
+            text = Language.targetDevice,
             style = MaterialTheme.typography.subtitle2,
         )
 
@@ -42,7 +42,7 @@ fun MenuScreen(
         )
 
         Text(
-            text = Language.TOOL,
+            text = Language.tool,
             style = MaterialTheme.typography.subtitle2,
         )
 

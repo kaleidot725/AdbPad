@@ -79,8 +79,8 @@ fun LanguageDropButton(
 
 private fun Language.Type.title(): String {
     return when (this) {
-        Language.Type.ENGLISH -> Language.SETTING_LANGUAGE_ENGLISH
-        Language.Type.JAPANESE -> Language.SETTING_LANGUAGE_JAPANESE
+        Language.Type.ENGLISH -> Language.settingLanguageEnglish
+        Language.Type.JAPANESE -> Language.settingLanguageJapanese
     }
 }
 

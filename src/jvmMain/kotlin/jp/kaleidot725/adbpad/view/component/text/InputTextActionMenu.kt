@@ -46,7 +46,7 @@ fun InputTextActionMenu(
             modifier = Modifier.fillMaxHeight().width(85.dp),
         ) {
             Text(
-                text = Language.SAVE,
+                text = Language.save,
                 textAlign = TextAlign.Center,
             )
         }
@@ -60,7 +60,7 @@ fun InputTextActionMenu(
                 true -> RunningIndicator()
                 else -> {
                     Text(
-                        text = Language.SEND,
+                        text = Language.send,
                         textAlign = TextAlign.Center,
                     )
                 }
