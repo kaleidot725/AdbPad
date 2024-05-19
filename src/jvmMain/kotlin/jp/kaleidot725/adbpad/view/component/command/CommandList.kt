@@ -47,7 +47,7 @@ fun CommandList(
             }
         } else {
             Text(
-                text = Language.NOT_FOUND_COMMAND,
+                text = Language.notFoundCommand,
                 modifier = Modifier.align(Alignment.Center),
             )
         }

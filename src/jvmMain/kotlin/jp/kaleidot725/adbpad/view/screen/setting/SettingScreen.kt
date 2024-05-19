@@ -50,7 +50,7 @@ fun SettingScreen(
                 Divider(modifier = Modifier.fillMaxWidth())
 
                 SettingTitle(
-                    text = Language.SETTING_LANGUAGE_HEADER,
+                    text = Language.settingLanguageHeader,
                     modifier = Modifier.padding(horizontal = 4.dp),
                 )
 
@@ -64,7 +64,7 @@ fun SettingScreen(
                 Divider(modifier = Modifier.fillMaxWidth())
 
                 SettingTitle(
-                    text = Language.SETTING_APPEARANCE_HEADER,
+                    text = Language.settingAppearanceHeader,
                     modifier = Modifier.padding(horizontal = 4.dp),
                 )
 
@@ -78,19 +78,19 @@ fun SettingScreen(
                 Divider(modifier = Modifier.fillMaxWidth())
 
                 SettingTitle(
-                    text = Language.SETTING_ADB_HEADER,
+                    text = Language.settingAdbHeader,
                     modifier = Modifier.padding(horizontal = 4.dp),
                 )
 
                 SettingField(
-                    title = Language.SETTING_ADB_DIRECTORY_PATH_TITLE,
+                    title = Language.settingAdbDirectoryPathTitle,
                     input = adbDirectoryPath,
                     isError = !isValidAdbDirectoryPath,
                     onValueChange = onChangeAdbDirectoryPath,
                 )
 
                 SettingField(
-                    title = Language.SETTING_ADB_PORT_NUMBER_TITLE,
+                    title = Language.settingAdbPortNumberTitle,
                     input = adbPortNumber,
                     isError = !isValidAdbPortNumber,
                     onValueChange = onChangeAdbPortNumber,
@@ -103,14 +103,14 @@ fun SettingScreen(
             ) {
                 Button(onClick = onCancel) {
                     Text(
-                        text = Language.CANCEL,
+                        text = Language.cancel,
                         modifier = Modifier.width(100.dp),
                         textAlign = TextAlign.Center,
                     )
                 }
                 Button(onClick = onSave, enabled = canSave) {
                     Text(
-                        text = Language.SAVE,
+                        text = Language.save,
                         modifier = Modifier.width(100.dp),
                         textAlign = TextAlign.Center,
                     )

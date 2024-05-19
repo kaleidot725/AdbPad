@@ -36,7 +36,7 @@ fun DeviceSelector(
                     .padding(vertical = 8.dp, horizontal = 16.dp),
         ) {
             Text(
-                text = selectedDevice?.serial ?: Language.NOT_FOUND_DEVICE,
+                text = selectedDevice?.serial ?: Language.notFoundDevice,
                 style = MaterialTheme.typography.subtitle2,
                 modifier = Modifier.fillMaxWidth(),
             )

@@ -34,7 +34,7 @@ fun CommandItem(
             Button(onClick = { onExecute() }, enabled = canExecute, modifier = Modifier.align(Alignment.End)) {
                 when {
                     isRunning -> RunningIndicator()
-                    else -> Text(text = Language.EXECUTE)
+                    else -> Text(text = Language.execute)
                 }
             }
         }

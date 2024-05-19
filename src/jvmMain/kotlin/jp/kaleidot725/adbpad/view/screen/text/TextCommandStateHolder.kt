@@ -56,12 +56,11 @@ class TextCommandStateHolder(
         coroutineScope.cancel()
     }
 
+    private val ascii = (0..255).map { it.toChar() }
+
     fun updateInputText(text: String) {
-        val isLettersOrDigits =
-            text.none {
-                it !in 'A'..'Z' && it !in 'a'..'z' && it !in '0'..'9'
-            }
-        if (isLettersOrDigits) this.userInputText.value = text
+        val isAscii = text.none { it !in ascii }
+        if (isAscii) this.userInputText.value = text
     }
 
     fun sendCommand(command: TextCommand) {

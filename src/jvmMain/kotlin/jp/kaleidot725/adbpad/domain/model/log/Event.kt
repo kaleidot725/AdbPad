@@ -8,7 +8,7 @@ interface Event {
 
     data class StartCommand(val commandName: String) : Event {
         override val message: String
-            get() = String.format(Language.COMMAND_START_EVENT_FORMAT, commandName)
+            get() = String.format(Language.commandStartEventFormat, commandName)
 
         override val level: Level
             get() = Level.INFO
@@ -16,7 +16,7 @@ interface Event {
 
     data class EndCommand(val commandName: String) : Event {
         override val message: String
-            get() = String.format(Language.COMMAND_END_EVENT_FORMAT, commandName)
+            get() = String.format(Language.commandEndEventFormat, commandName)
 
         override val level: Level
             get() = Level.INFO
@@ -24,7 +24,7 @@ interface Event {
 
     data class ErrorCommand(val commandName: String) : Event {
         override val message: String
-            get() = String.format(Language.COMMAND_ERROR_EVENT_FORMAT, commandName)
+            get() = String.format(Language.commandErrorEventFormat, commandName)
 
         override val level: Level
             get() = Level.ERROR
@@ -32,7 +32,7 @@ interface Event {
 
     data class StartSendTextCommand(val text: String) : Event {
         override val message: String
-            get() = String.format(Language.TEXT_COMMAND_START_EVENT_FORMAT, text)
+            get() = String.format(Language.textCommandStartEventFormat, text)
 
         override val level: Level
             get() = Level.INFO
@@ -40,7 +40,7 @@ interface Event {
 
     data class EndSendTextCommand(val text: String) : Event {
         override val message: String
-            get() = String.format(Language.TEXT_COMMAND_END_EVENT_FORMAT, text)
+            get() = String.format(Language.textCommandEndEventFormat, text)
 
         override val level: Level
             get() = Level.INFO
@@ -48,7 +48,7 @@ interface Event {
 
     data class ErrorSendTextCommand(val text: String) : Event {
         override val message: String
-            get() = String.format(Language.TEXT_COMMAND_ERROR_EVENT_FORMAT)
+            get() = String.format(Language.textCommandErrorEventFormat)
 
         override val level: Level
             get() = Level.ERROR
@@ -56,7 +56,7 @@ interface Event {
 
     object StartSendScreenshotCommand : Event {
         override val message: String
-            get() = Language.SCREENSHOT_COMMAND_START_EVENT_FORMAT
+            get() = Language.screenshotCommandStartEventFormat
 
         override val level: Level
             get() = Level.INFO
@@ -64,7 +64,7 @@ interface Event {
 
     object EndSendScreenshotCommand : Event {
         override val message: String
-            get() = Language.SCREENSHOT_COMMAND_END_EVENT_FORMAT
+            get() = Language.screenshotCommandEndEventFormat
 
         override val level: Level
             get() = Level.INFO
@@ -72,7 +72,7 @@ interface Event {
 
     object ErrorSendScreenshotCommand : Event {
         override val message: String
-            get() = Language.SCREENSHOT_COMMAND_ERROR_EVENT_FORMAT
+            get() = Language.screenshotCommandErrorEventFormat
 
         override val level: Level
             get() = Level.ERROR
@@ -80,7 +80,7 @@ interface Event {
 
     object CopyScreenshotToClipBoard : Event {
         override val message: String
-            get() = Language.SCREENSHOT_COPY_TO_CLIPBAORD_EVENT_FORMAT
+            get() = Language.screenshotCopyToClipbaordEventFormat
 
         override val level: Level
             get() = Level.INFO
@@ -88,7 +88,7 @@ interface Event {
 
     object CantCopyScreenshotToClipBoard : Event {
         override val message: String
-            get() = Language.SCREENSHOT_COPY_TO_CLIPBAORD_EVENT_FORMAT
+            get() = Language.screenshotCopyToClipbaordEventFormat
 
         override val level: Level
             get() = Level.ERROR
@@ -96,7 +96,7 @@ interface Event {
 
     object ClearScreenshotCache : Event {
         override val message: String
-            get() = Language.SCREENSHOT_CLEAR_CACHE
+            get() = Language.screenshotClearCache
 
         override val level: Level
             get() = Level.INFO

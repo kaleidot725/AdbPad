@@ -13,21 +13,21 @@ interface Menu {
 
     object Command : Menu {
         override val title: String
-            get() = Language.MENU_COMMAND_TITLE
+            get() = Language.menuCommandTitle
         override val icon: ImageVector
             get() = Icons.Default.DoubleArrow
     }
 
     object InputText : Menu {
         override val title: String
-            get() = Language.MENU_INPUT_TEXT_TITLE
+            get() = Language.menuInputTextTitle
         override val icon: ImageVector
             get() = Icons.Default.Send
     }
 
     object Screenshot : Menu {
         override val title: String
-            get() = Language.MENU_SCREENSHOT
+            get() = Language.menuScreenshot
         override val icon: ImageVector
             get() = Icons.Default.PhotoCamera
     }

@@ -16,7 +16,7 @@ import jp.kaleidot725.adbpad.domain.model.language.Language
 fun SettingHeader(modifier: Modifier = Modifier) {
     Row(modifier = modifier) {
         Text(
-            text = Language.SETTING,
+            text = Language.setting,
             style = MaterialTheme.typography.h5,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(horizontal = 4.dp).weight(1.0f, true).align(Alignment.CenterVertically),

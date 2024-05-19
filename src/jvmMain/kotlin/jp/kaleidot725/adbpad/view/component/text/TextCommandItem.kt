@@ -46,7 +46,7 @@ fun TextCommandItem(
                 onClick = { onDelete() },
                 modifier = Modifier.align(Alignment.CenterVertically).width(85.dp),
             ) {
-                Text(Language.DELETE)
+                Text(Language.delete)
             }
             Button(
                 onClick = { onSend() },
@@ -55,7 +55,7 @@ fun TextCommandItem(
             ) {
                 when {
                     isRunning -> RunningIndicator()
-                    else -> Text(text = Language.SEND)
+                    else -> Text(text = Language.send)
                 }
             }
         }

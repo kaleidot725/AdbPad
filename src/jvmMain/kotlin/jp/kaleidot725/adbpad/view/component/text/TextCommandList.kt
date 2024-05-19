@@ -46,7 +46,7 @@ fun TextCommandList(
             }
         } else {
             Text(
-                text = Language.NOT_FOUND_INPUT_TEXT,
+                text = Language.notFoundInputText,
                 modifier = Modifier.align(Alignment.Center),
             )
         }

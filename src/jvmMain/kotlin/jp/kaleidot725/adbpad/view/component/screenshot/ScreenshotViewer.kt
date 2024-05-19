@@ -75,7 +75,7 @@ fun ScreenshotViewer(
                                 .fillMaxWidth(),
                     ) {
                         Text(
-                            text = Language.NOT_FOUND_SCREEN_SHOT,
+                            text = Language.notFoundScreenshot,
                             modifier = Modifier.align(Alignment.Center),
                         )
                     }
