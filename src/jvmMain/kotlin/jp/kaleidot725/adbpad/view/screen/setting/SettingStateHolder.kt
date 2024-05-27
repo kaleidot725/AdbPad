@@ -2,6 +2,7 @@ package jp.kaleidot725.adbpad.view.screen.setting
 
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
+import jp.kaleidot725.adbpad.domain.usecase.adb.RestartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
@@ -27,20 +28,23 @@ class SettingStateHolder(
     private val saveAppearanceUseCase: SaveAppearanceUseCase,
     private val getLanguageUseCase: GetLanguageUseCase,
     private val saveLanguageUseCase: SaveLanguageUseCase,
+    private val restartAdbUseCase: RestartAdbUseCase,
 ) : ChildStateHolder<SettingState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val language: MutableStateFlow<Language.Type> = MutableStateFlow(Language.Type.ENGLISH)
     private val appearance: MutableStateFlow<Appearance> = MutableStateFlow(Appearance.DARK)
     private val adbDirectoryPath: MutableStateFlow<String> = MutableStateFlow("")
     private val adbPortNumber: MutableStateFlow<String> = MutableStateFlow("")
+    private val isRestartingAdb: MutableStateFlow<Boolean> = MutableStateFlow(false)
     override val state: StateFlow<SettingState> =
         combine(
             language,
             appearance,
             adbDirectoryPath,
             adbPortNumber,
-        ) { language, appearance, adbDirectoryPath, adbPortNumber ->
-            SettingState(Language.Type.values().toList(), language, appearance, adbDirectoryPath, adbPortNumber)
+            isRestartingAdb,
+        ) { language, appearance, adbDirectoryPath, adbPortNumber, isRestartingAdb ->
+            SettingState(Language.Type.entries, language, appearance, adbDirectoryPath, adbPortNumber, isRestartingAdb)
         }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), SettingState())
 
     override fun setup() {
@@ -69,6 +73,14 @@ class SettingStateHolder(
 
     fun updateAdbPortNumberPath(value: String) {
         adbPortNumber.value = value
+    }
+
+    fun restartAdb() {
+        coroutineScope.launch {
+            isRestartingAdb.value = true
+            restartAdbUseCase()
+            isRestartingAdb.value = false
+        }
     }
 
     private fun saveSetting(onSaved: () -> Unit) {

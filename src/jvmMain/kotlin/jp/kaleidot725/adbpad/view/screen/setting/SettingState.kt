@@ -9,6 +9,7 @@ data class SettingState(
     val appearance: Appearance = Appearance.DARK,
     val adbDirectoryPath: String = "",
     val adbPortNumber: String = "",
+    val isRestartingAdb: Boolean = false,
 ) {
     val isValidAdbDirectoryPath: Boolean = adbDirectoryPath.isNotEmpty()
     val isValidAdbPortNumber: Boolean = adbPortNumber.toIntOrNull() != null

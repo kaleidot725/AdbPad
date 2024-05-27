@@ -210,6 +210,8 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                                 adbPortNumber = settingState.adbPortNumber,
                                 onChangeAdbPortNumber = settingStateHolder::updateAdbPortNumberPath,
                                 isValidAdbPortNumber = settingState.isValidAdbPortNumber,
+                                onRestartAdb = settingStateHolder::restartAdb,
+                                isRestartingAdb = settingState.isRestartingAdb,
                                 onSave = {
                                     settingStateHolder.save { mainStateHolder.closeSetting() }
                                 },

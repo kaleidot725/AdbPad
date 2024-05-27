@@ -153,6 +153,8 @@ object Language : StringResources {
         get() = getCurrentResources().settingAdbDirectoryPathTitle
     override val settingAdbPortNumberTitle: String
         get() = getCurrentResources().settingAdbPortNumberTitle
+    override val settingAdbRestartTitle: String
+        get() = getCurrentResources().settingAdbRestartTitle
     override val settingAndroidSdkHeader: String
         get() = getCurrentResources().settingAndroidSdkHeader
     override val settingAndroidSdkDirectoryPathTitle: String
