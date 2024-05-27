@@ -86,6 +86,7 @@ object EnglishResources : StringResources {
     override val settingAdbPortNumberTitle = "Server Port"
     override val settingAndroidSdkHeader = "Android SDK"
     override val settingAndroidSdkDirectoryPathTitle = "Directory Path"
+    override val settingAdbRestartTitle: String = "Restart ADB"
 
     override val adbErrorTitle = "Adb Error"
     override val adbErrorMessage = "Can't start adb server, Please change adb setting."

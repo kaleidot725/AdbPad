@@ -1,19 +1,18 @@
 package jp.kaleidot725.adbpad.view.component.menu
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.Menu
+import jp.kaleidot725.adbpad.view.common.resource.selectedBackground
 
 @Composable
 fun MenuList(
@@ -39,15 +38,6 @@ fun MenuList(
                         .padding(vertical = 8.dp),
             )
         }
-    }
-}
-
-@Composable
-private fun Modifier.selectedBackground(isSelected: Boolean): Modifier {
-    return if (isSelected) {
-        this.background(color = MaterialTheme.colors.primary.copy(alpha = 0.1f))
-    } else {
-        this
     }
 }
 

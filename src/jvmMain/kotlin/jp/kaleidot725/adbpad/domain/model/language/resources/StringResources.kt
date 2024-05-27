@@ -86,6 +86,7 @@ interface StringResources {
     val settingAdbPortNumberTitle: String
     val settingAndroidSdkHeader: String
     val settingAndroidSdkDirectoryPathTitle: String
+    val settingAdbRestartTitle: String
 
     val adbErrorTitle: String
     val adbErrorMessage: String

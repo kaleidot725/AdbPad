@@ -57,6 +57,7 @@ val stateHolderModule =
                 saveAppearanceUseCase = get(),
                 getLanguageUseCase = get(),
                 saveLanguageUseCase = get(),
+                restartAdbUseCase = get(),
             )
         }
 

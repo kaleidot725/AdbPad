@@ -9,11 +9,13 @@ import jp.kaleidot725.adbpad.domain.usecase.menu.GetMenuListUseCase
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -29,13 +31,13 @@ class MenuStateHolder(
     private val menus: MutableStateFlow<List<Menu>> = MutableStateFlow(emptyList())
     private val selectedMenu: MutableStateFlow<Menu?> = MutableStateFlow(null)
 
-    private val devices: StateFlow<List<Device>> =
-        getAndroidDevicesFlowUseCase()
-            .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), emptyList())
+    private var deviceJob: Job? = null
+    private val _devices: MutableStateFlow<List<Device>> = MutableStateFlow(emptyList())
+    private val devices: StateFlow<List<Device>> = _devices.asStateFlow()
 
-    private val selectedDevice: StateFlow<Device?> =
-        getSelectedDeviceFlowUseCase()
-            .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
+    private var selectedDeviceJob: Job? = null
+    private val _selectedDevice: MutableStateFlow<Device?> = MutableStateFlow(null)
+    private val selectedDevice: StateFlow<Device?> = _selectedDevice.asStateFlow()
 
     override val state: StateFlow<MenuState> =
         combine(
@@ -50,6 +52,11 @@ class MenuStateHolder(
     override fun setup() {
         menus.value = getMenuListUseCase()
         selectedMenu.value = menus.value.firstOrNull()
+        collectDevices()
+    }
+
+    fun refersh() {
+        collectDevices()
     }
 
     override fun dispose() {
@@ -64,5 +71,23 @@ class MenuStateHolder(
 
     fun selectMenu(menu: Menu) {
         selectedMenu.value = menu
+    }
+
+    private fun collectDevices() {
+        deviceJob?.cancel()
+        deviceJob =
+            coroutineScope.launch {
+                getAndroidDevicesFlowUseCase().collect {
+                    _devices.value = it
+                }
+            }
+
+        selectedDeviceJob?.cancel()
+        selectedDeviceJob =
+            coroutineScope.launch {
+                getSelectedDeviceFlowUseCase().collect {
+                    _selectedDevice.value = it
+                }
+            }
     }
 }

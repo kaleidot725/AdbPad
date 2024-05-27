@@ -40,22 +40,27 @@ class NormalCommandRepositoryImpl : NormalCommandRepository {
         onFailed: suspend () -> Unit,
     ) {
         withContext(Dispatchers.IO) {
-            runningCommands.add(command)
-            onStart()
+            try {
+                runningCommands.add(command)
+                onStart()
 
-            delay(300)
+                delay(300)
 
-            command.requests.forEach { request ->
-                val result = adbClient.execute(request, device.serial)
-                if (result.exitCode != 0) {
-                    runningCommands.remove(command)
-                    onFailed()
-                    return@withContext
+                command.requests.forEach { request ->
+                    val result = adbClient.execute(request, device.serial)
+                    if (result.exitCode != 0) {
+                        runningCommands.remove(command)
+                        onFailed()
+                        return@withContext
+                    }
                 }
-            }
 
-            runningCommands.remove(command)
-            onComplete()
+                runningCommands.remove(command)
+                onComplete()
+            } catch (e: Exception) {
+                runningCommands.remove(command)
+                onFailed()
+            }
         }
     }
 }

@@ -86,6 +86,7 @@ object JapaneseResources : StringResources {
     override val settingAdbPortNumberTitle = "Server Port"
     override val settingAndroidSdkHeader = "Android SDK"
     override val settingAndroidSdkDirectoryPathTitle = "Directory Path"
+    override val settingAdbRestartTitle: String = "ADB再起動"
 
     override val adbErrorTitle = "ADBエラー"
     override val adbErrorMessage = "ADBサーバーを開始できませんでした、ADBの設定を変更してください"

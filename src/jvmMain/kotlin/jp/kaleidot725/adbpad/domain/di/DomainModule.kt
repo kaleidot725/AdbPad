@@ -1,5 +1,6 @@
 package jp.kaleidot725.adbpad.domain.di
 
+import jp.kaleidot725.adbpad.domain.usecase.adb.RestartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAppearanceUseCase
@@ -32,6 +33,9 @@ val domainModule =
     module {
         factory {
             StartAdbUseCase(get())
+        }
+        factory {
+            RestartAdbUseCase(get())
         }
         factory {
             ExecuteCommandUseCase(get(), get())
