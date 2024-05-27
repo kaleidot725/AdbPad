@@ -23,15 +23,17 @@ fun RadioButtons(
             RadioButton(
                 selected = (item == selectedItem),
                 onClick = { onSelect(item) },
-                modifier = Modifier
-                    .size(16.dp)
-                    .align(Alignment.CenterVertically),
+                modifier =
+                    Modifier
+                        .size(16.dp)
+                        .align(Alignment.CenterVertically),
             )
             Text(
                 text = item,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .align(Alignment.CenterVertically)
+                modifier =
+                    Modifier
+                        .padding(horizontal = 16.dp)
+                        .align(Alignment.CenterVertically),
             )
         }
     }
