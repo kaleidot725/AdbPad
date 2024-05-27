@@ -49,10 +49,10 @@ fun SettingScreen(
 ) {
     FloatingDialog(
         modifier =
-        Modifier
-            .width(960.dp)
-            .fillMaxHeight()
-            .padding(vertical = 32.dp),
+            Modifier
+                .width(960.dp)
+                .fillMaxHeight()
+                .padding(vertical = 32.dp),
     ) {
         Box(modifier = Modifier.padding(16.dp)) {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -109,16 +109,18 @@ fun SettingScreen(
 
                 Button(
                     onClick = onRestartAdb,
-                    modifier = Modifier
-                        .widthIn(min = 150.dp)
-                        .align(Alignment.End)
+                    modifier =
+                        Modifier
+                            .widthIn(min = 150.dp)
+                            .align(Alignment.End),
                 ) {
                     when {
                         isRestartingAdb -> RunningIndicator()
-                        else -> Text(
-                            text = Language.settingAdbRestartTitle,
-                            textAlign = TextAlign.Center,
-                        )
+                        else ->
+                            Text(
+                                text = Language.settingAdbRestartTitle,
+                                textAlign = TextAlign.Center,
+                            )
                     }
                 }
             }

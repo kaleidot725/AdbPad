@@ -1,12 +1,9 @@
 package jp.kaleidot725.adbpad.view.component.device
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -28,7 +25,8 @@ fun DeviceSelector(
 ) {
     Box(modifier) {
         Box(
-            modifier = Modifier
+            modifier =
+                Modifier
                     .selectorBorder()
                     .padding(vertical = 8.dp, horizontal = 16.dp),
         ) {

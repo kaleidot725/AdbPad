@@ -31,7 +31,7 @@ class MenuStateHolder(
     private val menus: MutableStateFlow<List<Menu>> = MutableStateFlow(emptyList())
     private val selectedMenu: MutableStateFlow<Menu?> = MutableStateFlow(null)
 
-    private var deviceJob : Job? = null
+    private var deviceJob: Job? = null
     private val _devices: MutableStateFlow<List<Device>> = MutableStateFlow(emptyList())
     private val devices: StateFlow<List<Device>> = _devices.asStateFlow()
 //        getAndroidDevicesFlowUseCase()
@@ -79,17 +79,19 @@ class MenuStateHolder(
 
     private fun collectDevices() {
         deviceJob?.cancel()
-        deviceJob = coroutineScope.launch {
-            getAndroidDevicesFlowUseCase().collect {
-                _devices.value = it
+        deviceJob =
+            coroutineScope.launch {
+                getAndroidDevicesFlowUseCase().collect {
+                    _devices.value = it
+                }
             }
-        }
 
         selectedDeviceJob?.cancel()
-        selectedDeviceJob = coroutineScope.launch {
-            getSelectedDeviceFlowUseCase().collect {
-                _selectedDevice.value = it
+        selectedDeviceJob =
+            coroutineScope.launch {
+                getSelectedDeviceFlowUseCase().collect {
+                    _selectedDevice.value = it
+                }
             }
-        }
     }
 }
