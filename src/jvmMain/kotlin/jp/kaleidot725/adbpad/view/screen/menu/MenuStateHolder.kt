@@ -34,14 +34,10 @@ class MenuStateHolder(
     private var deviceJob: Job? = null
     private val _devices: MutableStateFlow<List<Device>> = MutableStateFlow(emptyList())
     private val devices: StateFlow<List<Device>> = _devices.asStateFlow()
-//        getAndroidDevicesFlowUseCase()
-//            .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), emptyList())
 
     private var selectedDeviceJob: Job? = null
     private val _selectedDevice: MutableStateFlow<Device?> = MutableStateFlow(null)
     private val selectedDevice: StateFlow<Device?> = _selectedDevice.asStateFlow()
-//        getSelectedDeviceFlowUseCase()
-//            .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
 
     override val state: StateFlow<MenuState> =
         combine(
