@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -42,7 +42,13 @@ fun SettingScreen(
     canSave: Boolean,
     onCancel: () -> Unit,
 ) {
-    FloatingDialog(modifier = Modifier.fillMaxSize().padding(32.dp)) {
+    FloatingDialog(
+        modifier =
+            Modifier
+                .width(960.dp)
+                .fillMaxHeight()
+                .padding(vertical = 32.dp),
+    ) {
         Box(modifier = Modifier.padding(16.dp)) {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 SettingHeader(modifier = Modifier.fillMaxWidth())
@@ -70,8 +76,8 @@ fun SettingScreen(
 
                 RadioButtons(
                     selectedItem = appearance.value,
-                    items = Appearance.values().map { it.value },
-                    onSelect = { value -> updateAppearance(Appearance.values().first { it.value == value }) },
+                    items = Appearance.entries.map { it.value },
+                    onSelect = { value -> updateAppearance(Appearance.entries.first { it.value == value }) },
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                 )
 

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
@@ -22,9 +23,18 @@ fun RadioButtons(
             RadioButton(
                 selected = (item == selectedItem),
                 onClick = { onSelect(item) },
-                modifier = Modifier.size(16.dp),
+                modifier =
+                    Modifier
+                        .size(16.dp)
+                        .align(Alignment.CenterVertically),
             )
-            Text(text = item, modifier = Modifier.padding(horizontal = 16.dp))
+            Text(
+                text = item,
+                modifier =
+                    Modifier
+                        .padding(horizontal = 16.dp)
+                        .align(Alignment.CenterVertically),
+            )
         }
     }
 }
