@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceState
 import jp.kaleidot725.adbpad.domain.model.language.Language
+import jp.kaleidot725.adbpad.view.common.resource.selectorBorder
 
 @Composable
 fun DeviceSelector(
@@ -27,12 +28,8 @@ fun DeviceSelector(
 ) {
     Box(modifier) {
         Box(
-            modifier =
-                Modifier
-                    .border(
-                        border = BorderStroke(2.dp, MaterialTheme.colors.primary),
-                        shape = RoundedCornerShape(8.dp),
-                    )
+            modifier = Modifier
+                    .selectorBorder()
                     .padding(vertical = 8.dp, horizontal = 16.dp),
         ) {
             Text(

@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.Menu
+import jp.kaleidot725.adbpad.view.common.resource.selectedBackground
 
 @Composable
 fun MenuList(
@@ -39,15 +40,6 @@ fun MenuList(
                         .padding(vertical = 8.dp),
             )
         }
-    }
-}
-
-@Composable
-private fun Modifier.selectedBackground(isSelected: Boolean): Modifier {
-    return if (isSelected) {
-        this.background(color = MaterialTheme.colors.primary.copy(alpha = 0.1f))
-    } else {
-        this
     }
 }
 
