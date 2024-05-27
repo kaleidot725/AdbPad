@@ -40,10 +40,7 @@ fun ScreenshotViewer(
                 enabled = screenshot.file != null,
                 onCopy = onCopyScreenshot,
                 onDelete = onDeleteScreenshot,
-                modifier =
-                    Modifier
-                        .background(MaterialTheme.colors.primary.copy(alpha = 0.1f))
-                        .padding(horizontal = 8.dp),
+                modifier = Modifier.padding(horizontal = 8.dp),
             )
 
             Spacer(Modifier.height(1.dp).fillMaxWidth().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
