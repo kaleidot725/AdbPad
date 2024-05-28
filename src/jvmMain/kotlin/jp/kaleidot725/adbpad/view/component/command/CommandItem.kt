@@ -30,7 +30,7 @@ fun CommandItem(
     Card(modifier, elevation = 1.dp) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxHeight().padding(8.dp)) {
             Text(text = title, fontWeight = FontWeight.Bold)
-            Text(text = detail, modifier = Modifier.weight(0.9f, true))
+            Text(text = detail)
             Button(onClick = { onExecute() }, enabled = canExecute, modifier = Modifier.align(Alignment.End)) {
                 when {
                     isRunning -> RunningIndicator()

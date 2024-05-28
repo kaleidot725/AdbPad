@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun MenuItem(
@@ -35,6 +36,7 @@ fun MenuItem(
         Text(
             text = text,
             style = MaterialTheme.typography.subtitle2,
+            lineHeight = 20.sp,
             modifier = Modifier.align(Alignment.CenterVertically),
         )
     }
