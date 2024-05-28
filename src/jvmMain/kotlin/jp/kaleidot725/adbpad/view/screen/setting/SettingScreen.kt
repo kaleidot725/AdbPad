@@ -41,8 +41,6 @@ fun SettingScreen(
     adbPortNumber: String,
     onChangeAdbPortNumber: (String) -> Unit,
     isValidAdbPortNumber: Boolean,
-    onRestartAdb: () -> Unit,
-    isRestartingAdb: Boolean,
     onSave: () -> Unit,
     canSave: Boolean,
     onCancel: () -> Unit,
@@ -106,23 +104,6 @@ fun SettingScreen(
                     isError = !isValidAdbPortNumber,
                     onValueChange = onChangeAdbPortNumber,
                 )
-
-                Button(
-                    onClick = onRestartAdb,
-                    modifier =
-                        Modifier
-                            .widthIn(min = 150.dp)
-                            .align(Alignment.End),
-                ) {
-                    when {
-                        isRestartingAdb -> RunningIndicator()
-                        else ->
-                            Text(
-                                text = Language.settingAdbRestartTitle,
-                                textAlign = TextAlign.Center,
-                            )
-                    }
-                }
             }
 
             Row(

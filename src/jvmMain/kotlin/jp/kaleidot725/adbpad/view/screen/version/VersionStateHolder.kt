@@ -31,6 +31,12 @@ class VersionStateHolder(
         retry()
     }
 
+    override fun refresh() {}
+
+    override fun dispose() {
+        coroutineScope.cancel()
+    }
+
     fun retry() {
         coroutineScope.launch {
             isLoading.value = true
@@ -44,9 +50,5 @@ class VersionStateHolder(
                 isLoading.value = false
             }
         }
-    }
-
-    override fun dispose() {
-        coroutineScope.cancel()
     }
 }

@@ -7,5 +7,7 @@ interface ChildStateHolder<T> {
 
     fun setup()
 
+    fun refresh()
+    
     fun dispose()
 }

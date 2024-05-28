@@ -86,17 +86,17 @@ fun main() {
         MaterialTheme(colors = if (state.isDark) DarkColors else LightColors) {
             IntUiTheme(
                 theme =
-                    if (state.isDark) {
-                        JewelTheme.darkThemeDefinition()
-                    } else {
-                        JewelTheme.lightThemeDefinition()
-                    },
+                if (state.isDark) {
+                    JewelTheme.darkThemeDefinition()
+                } else {
+                    JewelTheme.lightThemeDefinition()
+                },
                 styling =
-                    if (state.isDark) {
-                        ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.dark())
-                    } else {
-                        ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.light())
-                    },
+                if (state.isDark) {
+                    ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.dark())
+                } else {
+                    ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.light())
+                },
             ) {
                 DecoratedWindow(
                     title = Language.windowTitle,
@@ -155,6 +155,7 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                         MainCategory.Device -> {
                             DeviceContent(mainStateHolder, Modifier.fillMaxSize())
                         }
+
                         MainCategory.Version -> {
                             val versionStateHolder = mainStateHolder.versionStateHolder
                             val versionState by versionStateHolder.state.collectAsState()
@@ -176,11 +177,11 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                         Text(
                             text = event.message,
                             color =
-                                when (event.level) {
-                                    Event.Level.INFO -> MaterialTheme.colors.onSurface
-                                    Event.Level.WARN -> Color.Yellow
-                                    Event.Level.ERROR -> Color.Red
-                                },
+                            when (event.level) {
+                                Event.Level.INFO -> MaterialTheme.colors.onSurface
+                                Event.Level.WARN -> Color.Yellow
+                                Event.Level.ERROR -> Color.Red
+                            },
                             style = MaterialTheme.typography.caption,
                         )
                     }
@@ -210,16 +211,9 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                                 adbPortNumber = settingState.adbPortNumber,
                                 onChangeAdbPortNumber = settingStateHolder::updateAdbPortNumberPath,
                                 isValidAdbPortNumber = settingState.isValidAdbPortNumber,
-                                onRestartAdb = {
-                                    settingStateHolder.restartAdb()
-                                    mainStateHolder.menuStateHolder.refersh()
-                                },
-                                isRestartingAdb = settingState.isRestartingAdb,
-                                onSave = {
-                                    settingStateHolder.save { mainStateHolder.closeSetting() }
-                                },
+                                onSave = { settingStateHolder.save { mainStateHolder.refresh() } },
                                 canSave = settingState.canSave,
-                                onCancel = { mainStateHolder.closeSetting() },
+                                onCancel = { mainStateHolder.refresh() },
                             )
                         }
 
@@ -265,10 +259,10 @@ private fun DeviceContent(
                 selectedMenu = menuState.selectedMenu,
                 onSelectMenu = { menuStateHolder.selectMenu(it) },
                 modifier =
-                    Modifier
-                        .width(250.dp)
-                        .fillMaxHeight()
-                        .padding(horizontal = 12.dp, vertical = 16.dp),
+                Modifier
+                    .width(250.dp)
+                    .fillMaxHeight()
+                    .padding(horizontal = 12.dp, vertical = 16.dp),
             )
         }
 

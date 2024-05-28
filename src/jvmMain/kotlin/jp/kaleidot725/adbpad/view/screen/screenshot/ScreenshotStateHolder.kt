@@ -49,6 +49,8 @@ class ScreenshotStateHolder(
         commands.value = getScreenshotCommandUseCase()
     }
 
+    override fun refresh() {}
+
     override fun dispose() {
         coroutineScope.cancel()
     }
