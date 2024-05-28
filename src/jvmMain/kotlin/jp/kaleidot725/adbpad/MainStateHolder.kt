@@ -76,6 +76,13 @@ class MainStateHolder(
         children.forEach { it.setup() }
     }
 
+    override fun refresh() {
+        startSyncDarkMode()
+        checkAdbServer()
+        syncLanguage()
+        children.forEach { it.refresh() }
+    }
+
     override fun dispose() {
         children.forEach { it.dispose() }
     }
@@ -90,12 +97,6 @@ class MainStateHolder(
 
     fun clickCategory(category: MainCategory) {
         this.category.value = category
-    }
-
-    fun closeSetting() {
-        startSyncDarkMode()
-        checkAdbServer()
-        syncLanguage()
     }
 
     private var themeFlowJob: Job? = null

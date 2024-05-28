@@ -55,7 +55,7 @@ class MenuStateHolder(
         collectDevices()
     }
 
-    fun refersh() {
+    override fun refresh() {
         collectDevices()
     }
 

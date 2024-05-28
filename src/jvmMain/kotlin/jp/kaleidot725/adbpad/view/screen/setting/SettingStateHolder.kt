@@ -47,9 +47,14 @@ class SettingStateHolder(
             SettingState(Language.Type.entries, language, appearance, adbDirectoryPath, adbPortNumber, isRestartingAdb)
         }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), SettingState())
 
+    private var oldAdbDirectoryPath: String = ""
+    private var oldAdbPortNumber: Int = 0
+
     override fun setup() {
         loadSetting()
     }
+
+    override fun refresh() {}
 
     override fun dispose() {
         coroutineScope.cancel()
@@ -75,22 +80,12 @@ class SettingStateHolder(
         adbPortNumber.value = value
     }
 
-    fun restartAdb() {
-        coroutineScope.launch {
-            isRestartingAdb.value = true
-            restartAdbUseCase()
-            isRestartingAdb.value = false
-        }
-    }
-
     private fun saveSetting(onSaved: () -> Unit) {
         coroutineScope.launch {
             saveLanguageUseCase(language.value)
             saveAppearanceUseCase(appearance = appearance.value)
-            saveSdkPathUseCase(
-                adbDirectoryPath.value,
-                adbPortNumber.value.toIntOrNull(),
-            )
+            saveSdkPathUseCase(adbDirectoryPath.value, adbPortNumber.value.toIntOrNull())
+            restartAdbUseCase(oldAdbDirectory = oldAdbDirectoryPath, oldServerPort = oldAdbPortNumber)
             onSaved()
         }
     }
@@ -101,7 +96,10 @@ class SettingStateHolder(
             appearance.value = getAppearanceUseCase()
             val sdkPath = getSdkPathUseCase()
             adbDirectoryPath.value = sdkPath.adbDirectory
+            oldAdbDirectoryPath = sdkPath.adbDirectory
+
             adbPortNumber.value = sdkPath.adbServerPort.toString()
+            oldAdbPortNumber = sdkPath.adbServerPort
         }
     }
 }

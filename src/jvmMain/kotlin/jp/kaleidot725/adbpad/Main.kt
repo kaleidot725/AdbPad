@@ -12,15 +12,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Colors
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.RestartAlt
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -104,7 +109,7 @@ fun main() {
                     onCloseRequest = ::exitApplication,
                     state = windowState,
                 ) {
-                    TitleBarView()
+                    TitleBarView(mainStateHolder)
                     App(mainStateHolder)
                 }
             }
@@ -113,7 +118,7 @@ fun main() {
 }
 
 @Composable
-fun DecoratedWindowScope.TitleBarView() {
+fun DecoratedWindowScope.TitleBarView(mainStateHolder: MainStateHolder) {
     TitleBar(
         style = TitleBarStyle.dark(),
         modifier = Modifier.newFullscreenControls(),
@@ -123,6 +128,15 @@ fun DecoratedWindowScope.TitleBarView() {
             color = Color.White,
             textAlign = TextAlign.Center,
         )
+        Row(Modifier.align(Alignment.End)) {
+            IconButton(onClick = { mainStateHolder.refresh() }) {
+                Icon(
+                    imageVector = Icons.Default.RestartAlt,
+                    tint = Color.White,
+                    contentDescription = null,
+                )
+            }
+        }
     }
 }
 
@@ -155,6 +169,7 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                         MainCategory.Device -> {
                             DeviceContent(mainStateHolder, Modifier.fillMaxSize())
                         }
+
                         MainCategory.Version -> {
                             val versionStateHolder = mainStateHolder.versionStateHolder
                             val versionState by versionStateHolder.state.collectAsState()
@@ -210,16 +225,9 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                                 adbPortNumber = settingState.adbPortNumber,
                                 onChangeAdbPortNumber = settingStateHolder::updateAdbPortNumberPath,
                                 isValidAdbPortNumber = settingState.isValidAdbPortNumber,
-                                onRestartAdb = {
-                                    settingStateHolder.restartAdb()
-                                    mainStateHolder.menuStateHolder.refersh()
-                                },
-                                isRestartingAdb = settingState.isRestartingAdb,
-                                onSave = {
-                                    settingStateHolder.save { mainStateHolder.closeSetting() }
-                                },
+                                onSave = { settingStateHolder.save { mainStateHolder.refresh() } },
                                 canSave = settingState.canSave,
-                                onCancel = { mainStateHolder.closeSetting() },
+                                onCancel = { mainStateHolder.refresh() },
                             )
                         }
 
