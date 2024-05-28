@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
@@ -17,12 +16,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.min
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.view.component.FloatingDialog
 import jp.kaleidot725.adbpad.view.component.RadioButtons
-import jp.kaleidot725.adbpad.view.component.RunningIndicator
 import jp.kaleidot725.adbpad.view.component.language.LanguageDropButton
 import jp.kaleidot725.adbpad.view.component.setting.SettingField
 import jp.kaleidot725.adbpad.view.component.setting.SettingHeader

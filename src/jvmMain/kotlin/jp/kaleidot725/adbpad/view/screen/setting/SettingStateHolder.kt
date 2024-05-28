@@ -85,7 +85,7 @@ class SettingStateHolder(
             saveLanguageUseCase(language.value)
             saveAppearanceUseCase(appearance = appearance.value)
             saveSdkPathUseCase(adbDirectoryPath.value, adbPortNumber.value.toIntOrNull())
-            restartAdbUseCase(oldAdbDirectory =  oldAdbDirectoryPath, oldServerPort = oldAdbPortNumber)
+            restartAdbUseCase(oldAdbDirectory = oldAdbDirectoryPath, oldServerPort = oldAdbPortNumber)
             onSaved()
         }
     }

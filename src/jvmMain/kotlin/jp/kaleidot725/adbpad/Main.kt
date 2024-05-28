@@ -91,17 +91,17 @@ fun main() {
         MaterialTheme(colors = if (state.isDark) DarkColors else LightColors) {
             IntUiTheme(
                 theme =
-                if (state.isDark) {
-                    JewelTheme.darkThemeDefinition()
-                } else {
-                    JewelTheme.lightThemeDefinition()
-                },
+                    if (state.isDark) {
+                        JewelTheme.darkThemeDefinition()
+                    } else {
+                        JewelTheme.lightThemeDefinition()
+                    },
                 styling =
-                if (state.isDark) {
-                    ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.dark())
-                } else {
-                    ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.light())
-                },
+                    if (state.isDark) {
+                        ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.dark())
+                    } else {
+                        ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.light())
+                    },
             ) {
                 DecoratedWindow(
                     title = Language.windowTitle,
@@ -129,11 +129,11 @@ fun DecoratedWindowScope.TitleBarView(mainStateHolder: MainStateHolder) {
             textAlign = TextAlign.Center,
         )
         Row(Modifier.align(Alignment.End)) {
-            IconButton(onClick = { mainStateHolder.refresh()}) {
+            IconButton(onClick = { mainStateHolder.refresh() }) {
                 Icon(
                     imageVector = Icons.Default.RestartAlt,
                     tint = Color.White,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
         }
@@ -191,11 +191,11 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                         Text(
                             text = event.message,
                             color =
-                            when (event.level) {
-                                Event.Level.INFO -> MaterialTheme.colors.onSurface
-                                Event.Level.WARN -> Color.Yellow
-                                Event.Level.ERROR -> Color.Red
-                            },
+                                when (event.level) {
+                                    Event.Level.INFO -> MaterialTheme.colors.onSurface
+                                    Event.Level.WARN -> Color.Yellow
+                                    Event.Level.ERROR -> Color.Red
+                                },
                             style = MaterialTheme.typography.caption,
                         )
                     }
@@ -273,10 +273,10 @@ private fun DeviceContent(
                 selectedMenu = menuState.selectedMenu,
                 onSelectMenu = { menuStateHolder.selectMenu(it) },
                 modifier =
-                Modifier
-                    .width(250.dp)
-                    .fillMaxHeight()
-                    .padding(horizontal = 12.dp, vertical = 16.dp),
+                    Modifier
+                        .width(250.dp)
+                        .fillMaxHeight()
+                        .padding(horizontal = 12.dp, vertical = 16.dp),
             )
         }
 
