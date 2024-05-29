@@ -19,9 +19,5 @@ fun Modifier.selectedBackground(isSelected: Boolean): Modifier {
 
 @Composable
 fun Modifier.selectorBorder(): Modifier {
-    return this.border(
-        width = 2.dp,
-        color = MaterialTheme.colors.primary.copy(alpha = 0.5f),
-        shape = RoundedCornerShape(8.dp),
-    )
+    return this.border(shape = RoundedCornerShape(8.dp), color = MaterialTheme.colors.primary, width = 1.dp)
 }
