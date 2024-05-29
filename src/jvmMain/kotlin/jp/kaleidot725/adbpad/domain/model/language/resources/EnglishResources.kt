@@ -12,6 +12,7 @@ object EnglishResources : StringResources {
     override val execute = "Run"
     override val save = "Save"
     override val delete = "Delete"
+    override val tab = "Tab"
     override val send = "Send"
     override val cancel = "Cancel"
     override val targetDevice = "Devices"
@@ -64,6 +65,10 @@ object EnglishResources : StringResources {
     override val textCommandStartEventFormat = "Start sending text「%s」"
     override val textCommandEndEventFormat = "End sending text「%s」"
     override val textCommandErrorEventFormat = "Error sending text「%s」"
+
+    override val keyCommandStartEventFormat = "Start sending key「%s」"
+    override val keyCommandEndEventFormat = "End sending key「%s」"
+    override val keyCommandErrorEventFormat = "Error sending key「%s」"
 
     override val screenshotCommandStartEventFormat = "Start taking screenshot"
     override val screenshotCommandEndEventFormat = "End taking screenshot"

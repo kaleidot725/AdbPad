@@ -7,6 +7,7 @@ import jp.kaleidot725.adbpad.domain.usecase.text.AddTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.DeleteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.GetTextCommandUseCase
+import jp.kaleidot725.adbpad.domain.usecase.text.SendTabCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.SendUserInputTextCommandUseCase
 import jp.kaleidot725.adbpad.view.common.ChildStateHolder
 import kotlinx.coroutines.CoroutineScope
@@ -26,12 +27,14 @@ class TextCommandStateHolder(
     private val getTextCommandUseCase: GetTextCommandUseCase,
     private val executeTextCommandUseCase: ExecuteTextCommandUseCase,
     private val sendUserInputTextCommandUseCase: SendUserInputTextCommandUseCase,
+    private val sendTabCommandUseCase: SendTabCommandUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
 ) : ChildStateHolder<TextCommandState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val commands: MutableStateFlow<List<TextCommand>> = MutableStateFlow(emptyList())
     private val userInputText: MutableStateFlow<String> = MutableStateFlow("")
-    private val isSendingUserInputText: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val isSending: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val isSendingTag: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val selectedDevice: StateFlow<Device?> =
         getSelectedDeviceFlowUseCase()
             .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
@@ -40,10 +43,11 @@ class TextCommandStateHolder(
         combine(
             commands,
             userInputText,
-            isSendingUserInputText,
+            isSending,
+            isSendingTag,
             selectedDevice,
-        ) { inputTexts, userInputText, isSendingUserInputText, selectedDevice ->
-            TextCommandState(inputTexts, userInputText, isSendingUserInputText, selectedDevice)
+        ) { inputTexts, userInputText, isSending, isSendingTag, selectedDevice ->
+            TextCommandState(inputTexts, userInputText, isSending, selectedDevice, isSendingTag)
         }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), TextCommandState())
 
     override fun setup() {
@@ -65,7 +69,7 @@ class TextCommandStateHolder(
         if (isAscii) this.userInputText.value = text
     }
 
-    fun sendCommand(command: TextCommand) {
+    fun sendTextCommand(command: TextCommand) {
         val selectedDevice = state.value.selectedDevice ?: return
         coroutineScope.launch {
             executeTextCommandUseCase(
@@ -84,9 +88,21 @@ class TextCommandStateHolder(
             sendUserInputTextCommandUseCase(
                 device = selectedDevice,
                 text = state.value.userInputText,
-                onStart = { isSendingUserInputText.value = true },
-                onFailed = { isSendingUserInputText.value = false },
-                onComplete = { isSendingUserInputText.value = false },
+                onStart = { isSending.value = true },
+                onFailed = { isSending.value = false },
+                onComplete = { isSending.value = false },
+            )
+        }
+    }
+
+    fun sendTabCommand() {
+        val selectedDevice = state.value.selectedDevice ?: return
+        coroutineScope.launch {
+            sendTabCommandUseCase(
+                device = selectedDevice,
+                onStart = { isSendingTag.value = true },
+                onFailed = { isSendingTag.value = false },
+                onComplete = { isSendingTag.value = false },
             )
         }
     }

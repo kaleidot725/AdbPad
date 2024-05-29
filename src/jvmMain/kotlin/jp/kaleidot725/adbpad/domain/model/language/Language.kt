@@ -19,6 +19,8 @@ object Language : StringResources {
         get() = getCurrentResources().notFoundScreenshot
     override val execute: String
         get() = getCurrentResources().execute
+    override val tab: String
+        get() = getCurrentResources().tab
     override val save: String
         get() = getCurrentResources().save
     override val delete: String
@@ -120,6 +122,14 @@ object Language : StringResources {
         get() = getCurrentResources().textCommandEndEventFormat
     override val textCommandErrorEventFormat: String
         get() = getCurrentResources().textCommandErrorEventFormat
+
+    override val keyCommandStartEventFormat: String
+        get() = getCurrentResources().keyCommandStartEventFormat
+    override val keyCommandEndEventFormat: String
+        get() = getCurrentResources().keyCommandEndEventFormat
+    override val keyCommandErrorEventFormat: String
+        get() = getCurrentResources().keyCommandErrorEventFormat
+
     override val screenshotCommandStartEventFormat: String
         get() = getCurrentResources().screenshotCommandStartEventFormat
     override val screenshotCommandEndEventFormat: String

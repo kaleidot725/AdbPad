@@ -24,6 +24,9 @@ fun TextCommandScreen(
     canSendInputText: Boolean,
     onSaveInputText: () -> Unit,
     canSaveInputText: Boolean,
+    canSendTabKey: Boolean,
+    onSendTabKey: () -> Unit,
+    isSendingTab: Boolean,
     // Commands
     commands: List<TextCommand>,
     onSendCommand: (TextCommand) -> Unit,
@@ -45,6 +48,9 @@ fun TextCommandScreen(
             isSending = isSendingInputText,
             onSend = onSendInputText,
             canSend = canSendInputText,
+            onSendTab = onSendTabKey,
+            isSendingTag = isSendingTab,
+            canSendTab = canSendTabKey,
             onSave = onSaveInputText,
             canSave = canSaveInputText,
             modifier = Modifier.height(50.dp).fillMaxWidth().align(Alignment.BottomEnd),
@@ -64,8 +70,11 @@ private fun InputTextScreen_Preview() {
         canSaveInputText = true,
         commands = listOf(TextCommand("TEST1"), TextCommand("TEST2")),
         onSendCommand = {},
+        isSendingTab = false,
         canSendCommand = true,
         canSendInputText = true,
         onDeleteCommand = {},
+        canSendTabKey = false,
+        onSendTabKey = {},
     )
 }

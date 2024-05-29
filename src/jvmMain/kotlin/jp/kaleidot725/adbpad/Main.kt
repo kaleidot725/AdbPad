@@ -306,6 +306,10 @@ private fun DeviceContent(
                             inputTextStateHolder.sendInputText()
                         },
                         canSendInputText = inputTextState.canSendInputText,
+                        canSendTabKey = inputTextState.canSendTabKey,
+                        onSendTabKey = {
+                            inputTextStateHolder.sendTabCommand()
+                        },
                         onSaveInputText = {
                             inputTextStateHolder.saveInputText()
                         },
@@ -313,9 +317,10 @@ private fun DeviceContent(
                         // Commands
                         commands = inputTextState.commands,
                         onSendCommand = { text ->
-                            inputTextStateHolder.sendCommand(text)
+                            inputTextStateHolder.sendTextCommand(text)
                         },
                         canSendCommand = inputTextState.canSendCommand,
+                        isSendingTab = inputTextState.isSendingTab,
                         onDeleteCommand = { text ->
                             inputTextStateHolder.deleteInputText(text)
                         },
