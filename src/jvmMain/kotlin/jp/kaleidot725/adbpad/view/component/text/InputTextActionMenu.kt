@@ -14,9 +14,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardTab
 import androidx.compose.material.icons.automirrored.filled.Send
-import androidx.compose.material.icons.filled.KeyboardTab
 import androidx.compose.material.icons.filled.Save
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -48,12 +46,11 @@ fun InputTextActionMenu(
 ) {
     var text by remember { mutableStateOf(inputText) }
     Row(
-        modifier =
-            modifier
-                .clip(RoundedCornerShape(4.dp))
-                .defaultBorder()
-                .padding(horizontal = 12.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = modifier
+            .clip(RoundedCornerShape(4.dp))
+            .defaultBorder()
+            .padding(horizontal = 12.dp),
+        horizontalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         BasicTextField(
             value = text,
@@ -62,15 +59,10 @@ fun InputTextActionMenu(
                 onTextChange(it)
             },
             cursorBrush = SolidColor(MaterialTheme.colors.onBackground),
-            textStyle =
-                TextStyle(
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colors.onBackground,
-                ),
-            modifier =
-                Modifier
-                    .weight(0.9f, true)
-                    .align(Alignment.CenterVertically),
+            textStyle = TextStyle(color = MaterialTheme.colors.onBackground),
+            modifier = Modifier
+                .weight(0.9f, true)
+                .align(Alignment.CenterVertically),
         )
 
         IconButton(
