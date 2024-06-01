@@ -94,4 +94,8 @@ class TextCommandRepositoryImpl : TextCommandRepository {
             onComplete()
         }
     }
+
+    override fun clear() {
+        runningCommands.clear()
+    }
 }

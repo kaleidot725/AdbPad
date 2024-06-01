@@ -75,6 +75,10 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         }
     }
 
+    override fun clear() {
+        runningCommands.clear()
+    }
+
     private suspend fun sendBothCommand(device: Device): Boolean {
         if (!sendCommand(device, NormalCommand.DarkThemeOn())) {
             return false

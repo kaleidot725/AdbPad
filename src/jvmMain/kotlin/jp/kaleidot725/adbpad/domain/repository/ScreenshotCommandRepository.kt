@@ -18,4 +18,6 @@ interface ScreenshotCommandRepository {
     suspend fun getScreenshotCache(): Screenshot
 
     suspend fun deleteScreenshotCache()
+
+    fun clear()
 }

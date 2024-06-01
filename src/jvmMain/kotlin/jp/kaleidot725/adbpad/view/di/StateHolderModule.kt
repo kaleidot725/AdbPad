@@ -81,6 +81,7 @@ val stateHolderModule =
                 startAdbUseCase = get(),
                 getDarkModeFlowUseCase = get(),
                 getLanguageUseCase = get(),
+                refreshUseCase = get(),
             )
         }
     }

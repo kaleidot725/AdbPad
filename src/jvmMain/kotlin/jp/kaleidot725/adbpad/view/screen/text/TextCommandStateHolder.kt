@@ -56,7 +56,11 @@ class TextCommandStateHolder(
         }
     }
 
-    override fun refresh() {}
+    override fun refresh() {
+        coroutineScope.launch {
+            commands.value = getTextCommandUseCase()
+        }
+    }
 
     override fun dispose() {
         coroutineScope.cancel()

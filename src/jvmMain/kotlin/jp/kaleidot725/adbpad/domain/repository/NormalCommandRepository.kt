@@ -13,4 +13,6 @@ interface NormalCommandRepository {
         onComplete: suspend () -> Unit,
         onFailed: suspend () -> Unit,
     )
+
+    fun clear()
 }
