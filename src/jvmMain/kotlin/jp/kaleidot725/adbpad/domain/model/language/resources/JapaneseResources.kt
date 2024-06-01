@@ -12,6 +12,7 @@ object JapaneseResources : StringResources {
     override val execute = "実行"
     override val save = "保存"
     override val delete = "削除"
+    override val tab = "Tab"
     override val send = "送信"
     override val cancel = "キャンセル"
     override val targetDevice = "端末"
@@ -64,6 +65,10 @@ object JapaneseResources : StringResources {
     override val textCommandStartEventFormat = "「%s」のテキスト送信を開始しました"
     override val textCommandEndEventFormat = "「%s」のテキスト送信が完了しました"
     override val textCommandErrorEventFormat = "「%s」のテキスト送信に失敗しました"
+
+    override val keyCommandStartEventFormat = "「%s」のキー送信を開始しました"
+    override val keyCommandEndEventFormat = "「%s」のキー送信が完了しました"
+    override val keyCommandErrorEventFormat = "「%s」のキー送信に失敗しました"
 
     override val screenshotCommandStartEventFormat = "スクリーンショットの撮影を開始しました"
     override val screenshotCommandEndEventFormat = "スクリーンショットの撮影が完了しました"

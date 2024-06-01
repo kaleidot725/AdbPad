@@ -54,6 +54,30 @@ interface Event {
             get() = Level.ERROR
     }
 
+    data class StartSendKeyCommand(val code: Int) : Event {
+        override val message: String
+            get() = String.format(Language.keyCommandStartEventFormat, code.toString())
+
+        override val level: Level
+            get() = Level.INFO
+    }
+
+    data class EndSendKeyCommand(val code: Int) : Event {
+        override val message: String
+            get() = String.format(Language.keyCommandEndEventFormat, code.toString())
+
+        override val level: Level
+            get() = Level.INFO
+    }
+
+    data class ErrorSendKeyCommand(val code: Int) : Event {
+        override val message: String
+            get() = String.format(Language.keyCommandErrorEventFormat, code.toString())
+
+        override val level: Level
+            get() = Level.ERROR
+    }
+
     object StartSendScreenshotCommand : Event {
         override val message: String
             get() = Language.screenshotCommandStartEventFormat

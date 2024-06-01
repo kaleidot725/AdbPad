@@ -22,6 +22,9 @@ fun InputTextActionMenu(
     onTextChange: (String) -> Unit,
     onSend: () -> Unit,
     isSending: Boolean,
+    canSendTab: Boolean,
+    onSendTab: () -> Unit,
+    isSendingTag: Boolean,
     canSend: Boolean,
     onSave: () -> Unit,
     canSave: Boolean,
@@ -52,6 +55,22 @@ fun InputTextActionMenu(
         }
 
         Button(
+            enabled = canSendTab,
+            onClick = { onSendTab() },
+            modifier = Modifier.fillMaxHeight().width(85.dp),
+        ) {
+            when (isSendingTag) {
+                true -> RunningIndicator()
+                else -> {
+                    Text(
+                        text = Language.tab,
+                        textAlign = TextAlign.Center,
+                    )
+                }
+            }
+        }
+
+        Button(
             enabled = canSend,
             onClick = { onSend() },
             modifier = Modifier.fillMaxHeight().width(85.dp),
@@ -77,9 +96,12 @@ private fun InputTextActionMenu_Preview() {
         onSend = {},
         isSending = false,
         canSend = true,
+        canSendTab = false,
+        onSendTab = {},
         onSave = {},
         canSave = true,
         onTextChange = {},
+        isSendingTag = false,
         modifier = Modifier.height(50.dp),
     )
 }

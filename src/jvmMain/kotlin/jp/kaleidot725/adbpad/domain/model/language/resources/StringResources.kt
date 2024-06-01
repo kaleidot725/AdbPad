@@ -11,6 +11,7 @@ interface StringResources {
     val execute: String
     val save: String
     val delete: String
+    val tab: String
     val send: String
     val cancel: String
     val targetDevice: String
@@ -63,6 +64,10 @@ interface StringResources {
     val textCommandStartEventFormat: String
     val textCommandEndEventFormat: String
     val textCommandErrorEventFormat: String
+
+    val keyCommandStartEventFormat: String
+    val keyCommandEndEventFormat: String
+    val keyCommandErrorEventFormat: String
 
     val screenshotCommandStartEventFormat: String
     val screenshotCommandEndEventFormat: String
