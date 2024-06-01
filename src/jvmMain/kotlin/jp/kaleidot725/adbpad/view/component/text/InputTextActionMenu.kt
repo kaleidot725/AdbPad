@@ -6,22 +6,17 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardTab
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.KeyboardTab
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Send
-import androidx.compose.material.icons.filled.Tab
-import androidx.compose.material.icons.filled.TableRows
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,10 +27,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.view.common.resource.defaultBorder
 import jp.kaleidot725.adbpad.view.component.RunningIndicator
 
@@ -55,10 +48,11 @@ fun InputTextActionMenu(
 ) {
     var text by remember { mutableStateOf(inputText) }
     Row(
-        modifier = modifier
-            .clip(RoundedCornerShape(4.dp))
-            .defaultBorder()
-            .padding(horizontal = 12.dp),
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(4.dp))
+                .defaultBorder()
+                .padding(horizontal = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         BasicTextField(
@@ -68,13 +62,15 @@ fun InputTextActionMenu(
                 onTextChange(it)
             },
             cursorBrush = SolidColor(MaterialTheme.colors.onBackground),
-            textStyle = TextStyle(
-                fontSize = 20.sp,
-                color = MaterialTheme.colors.onBackground,
-            ),
-            modifier = Modifier
-                .weight(0.9f, true)
-                .align(Alignment.CenterVertically),
+            textStyle =
+                TextStyle(
+                    fontSize = 20.sp,
+                    color = MaterialTheme.colors.onBackground,
+                ),
+            modifier =
+                Modifier
+                    .weight(0.9f, true)
+                    .align(Alignment.CenterVertically),
         )
 
         IconButton(
@@ -84,7 +80,7 @@ fun InputTextActionMenu(
         ) {
             Icon(
                 imageVector = Icons.Default.Save,
-                contentDescription = "Save"
+                contentDescription = "Save",
             )
         }
 
@@ -98,7 +94,7 @@ fun InputTextActionMenu(
                 else -> {
                     Icon(
                         imageVector = Icons.AutoMirrored.Default.KeyboardTab,
-                        contentDescription = "Save"
+                        contentDescription = "Save",
                     )
                 }
             }
@@ -114,7 +110,7 @@ fun InputTextActionMenu(
                 else -> {
                     Icon(
                         imageVector = Icons.AutoMirrored.Default.Send,
-                        contentDescription = "Save"
+                        contentDescription = "Save",
                     )
                 }
             }
