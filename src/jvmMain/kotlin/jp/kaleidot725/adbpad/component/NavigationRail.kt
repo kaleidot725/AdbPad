@@ -22,6 +22,7 @@ fun NavigationRail(
 ) {
     Column(modifier = Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         NavigationRailItem(
+            label = "Device",
             icon = Icons.Default.PhoneAndroid,
             contentDescription = "device menu",
             isSelected = category == MainCategory.Device,
@@ -29,6 +30,7 @@ fun NavigationRail(
         )
 
         NavigationRailItem(
+            label = "Share",
             icon = Icons.Default.Android,
             contentDescription = "version menu",
             isSelected = category == MainCategory.Version,
