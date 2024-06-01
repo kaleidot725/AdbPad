@@ -63,4 +63,8 @@ class NormalCommandRepositoryImpl : NormalCommandRepository {
             }
         }
     }
+
+    override fun clear() {
+        runningCommands.clear()
+    }
 }

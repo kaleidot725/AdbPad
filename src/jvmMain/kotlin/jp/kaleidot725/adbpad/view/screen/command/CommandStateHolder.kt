@@ -40,7 +40,9 @@ class CommandStateHolder(
         commands.value = getCommandList()
     }
 
-    override fun refresh() {}
+    override fun refresh() {
+        commands.value = getCommandList()
+    }
 
     override fun dispose() {
         coroutineScope.cancel()

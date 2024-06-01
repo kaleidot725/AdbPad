@@ -8,6 +8,7 @@ import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
+import jp.kaleidot725.adbpad.domain.usecase.refresh.RefreshUseCase
 import jp.kaleidot725.adbpad.domain.usecase.theme.GetDarkModeFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
@@ -43,6 +44,7 @@ class MainStateHolder(
     val startAdbUseCase: StartAdbUseCase,
     val getDarkModeFlowUseCase: GetDarkModeFlowUseCase,
     val getLanguageUseCase: GetLanguageUseCase,
+    val refreshUseCase: RefreshUseCase,
 ) : ParentStateHolder {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val language: MutableStateFlow<Language.Type> = MutableStateFlow(Language.Type.ENGLISH)
@@ -80,6 +82,7 @@ class MainStateHolder(
         startSyncDarkMode()
         checkAdbServer()
         syncLanguage()
+        refreshUseCase()
         children.forEach { it.refresh() }
     }
 
