@@ -7,6 +7,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.domain.model.UserColor.getSplitterColor
 
 @Composable
 fun Modifier.selectedBackground(isSelected: Boolean): Modifier {
@@ -19,5 +20,5 @@ fun Modifier.selectedBackground(isSelected: Boolean): Modifier {
 
 @Composable
 fun Modifier.defaultBorder(): Modifier {
-    return this.border(shape = RoundedCornerShape(8.dp), color = MaterialTheme.colors.primary, width = 1.dp)
+    return this.border(shape = RoundedCornerShape(8.dp), color = getSplitterColor(), width = 1.dp)
 }
