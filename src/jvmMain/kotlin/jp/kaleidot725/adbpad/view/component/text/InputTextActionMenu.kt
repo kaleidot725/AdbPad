@@ -5,15 +5,31 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.Button
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardTab
+import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.filled.KeyboardTab
+import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.language.Language
+import androidx.compose.ui.unit.sp
+import jp.kaleidot725.adbpad.view.common.resource.defaultBorder
 import jp.kaleidot725.adbpad.view.component.RunningIndicator
 
 @Composable
@@ -30,57 +46,71 @@ fun InputTextActionMenu(
     canSave: Boolean,
     modifier: Modifier = Modifier,
 ) {
+    var text by remember { mutableStateOf(inputText) }
     Row(
-        modifier = modifier,
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(4.dp))
+                .defaultBorder()
+                .padding(horizontal = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        OutlinedTextField(
-            value = inputText,
-            onValueChange = { onTextChange(it) },
+        BasicTextField(
+            value = text,
+            onValueChange = {
+                text = it
+                onTextChange(it)
+            },
+            cursorBrush = SolidColor(MaterialTheme.colors.onBackground),
+            textStyle =
+                TextStyle(
+                    fontSize = 20.sp,
+                    color = MaterialTheme.colors.onBackground,
+                ),
             modifier =
                 Modifier
                     .weight(0.9f, true)
-                    .fillMaxHeight(),
+                    .align(Alignment.CenterVertically),
         )
 
-        Button(
+        IconButton(
             enabled = canSave,
             onClick = { onSave() },
-            modifier = Modifier.fillMaxHeight().width(85.dp),
+            modifier = Modifier.fillMaxHeight(),
         ) {
-            Text(
-                text = Language.save,
-                textAlign = TextAlign.Center,
+            Icon(
+                imageVector = Icons.Default.Save,
+                contentDescription = "Save",
             )
         }
 
-        Button(
+        IconButton(
             enabled = canSendTab,
             onClick = { onSendTab() },
-            modifier = Modifier.fillMaxHeight().width(85.dp),
+            modifier = Modifier.fillMaxHeight(),
         ) {
             when (isSendingTag) {
-                true -> RunningIndicator()
+                true -> RunningIndicator(color = MaterialTheme.colors.primary)
                 else -> {
-                    Text(
-                        text = Language.tab,
-                        textAlign = TextAlign.Center,
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Default.KeyboardTab,
+                        contentDescription = "Save",
                     )
                 }
             }
         }
 
-        Button(
+        IconButton(
             enabled = canSend,
             onClick = { onSend() },
-            modifier = Modifier.fillMaxHeight().width(85.dp),
+            modifier = Modifier.fillMaxHeight(),
         ) {
             when (isSending) {
-                true -> RunningIndicator()
+                true -> RunningIndicator(color = MaterialTheme.colors.primary)
                 else -> {
-                    Text(
-                        text = Language.send,
-                        textAlign = TextAlign.Center,
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Default.Send,
+                        contentDescription = "Save",
                     )
                 }
             }

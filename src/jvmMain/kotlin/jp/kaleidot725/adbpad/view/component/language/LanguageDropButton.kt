@@ -22,7 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.language.Language
-import jp.kaleidot725.adbpad.view.common.resource.selectorBorder
+import jp.kaleidot725.adbpad.view.common.resource.defaultBorder
 
 @Composable
 fun LanguageDropButton(
@@ -37,7 +37,7 @@ fun LanguageDropButton(
             modifier =
                 Modifier
                     .width(200.dp)
-                    .selectorBorder()
+                    .defaultBorder()
                     .clickable { expanded = true }
                     .padding(vertical = 8.dp, horizontal = 12.dp),
         ) {
