@@ -4,7 +4,7 @@ import jp.kaleidot725.adbpad.domain.model.log.Event
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.domain.repository.EventRepository
 import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
-import jp.kaleidot725.adbpad.utils.ClipBoardUtils
+import jp.kaleidot725.adbpad.domain.utils.ClipBoardUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

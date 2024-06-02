@@ -1,6 +1,5 @@
 package jp.kaleidot725.adbpad
 
-import com.sun.tools.javac.Main
 import jp.kaleidot725.adbpad.domain.model.Dialog
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.log.Event
@@ -12,13 +11,13 @@ import jp.kaleidot725.adbpad.domain.usecase.refresh.RefreshUseCase
 import jp.kaleidot725.adbpad.domain.usecase.theme.GetDarkModeFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
-import jp.kaleidot725.adbpad.view.common.ChildStateHolder
-import jp.kaleidot725.adbpad.view.common.ParentStateHolder
-import jp.kaleidot725.adbpad.view.screen.command.CommandStateHolder
-import jp.kaleidot725.adbpad.view.screen.menu.MenuStateHolder
-import jp.kaleidot725.adbpad.view.screen.screenshot.ScreenshotStateHolder
-import jp.kaleidot725.adbpad.view.screen.text.TextCommandStateHolder
-import jp.kaleidot725.adbpad.view.screen.version.VersionStateHolder
+import jp.kaleidot725.adbpad.ui.common.ChildStateHolder
+import jp.kaleidot725.adbpad.ui.common.ParentStateHolder
+import jp.kaleidot725.adbpad.ui.screen.menu.command.CommandStateHolder
+import jp.kaleidot725.adbpad.ui.screen.menu.MenuStateHolder
+import jp.kaleidot725.adbpad.ui.screen.menu.screenshot.ScreenshotStateHolder
+import jp.kaleidot725.adbpad.ui.screen.menu.text.TextCommandStateHolder
+import jp.kaleidot725.adbpad.ui.screen.version.VersionStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
