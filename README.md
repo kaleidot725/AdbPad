@@ -1,6 +1,4 @@
-![adbpad](https://user-images.githubusercontent.com/23740796/234049222-d8f803d2-b1fb-44e0-823a-c3bc858b6140.jpeg)
-
-# <img align="center" width=40 src="https://user-images.githubusercontent.com/23740796/230079295-4f3a816e-ce22-4aa1-a44a-6a08c6ab0971.png"> AdbPad
+# <img align="center" width=40 src="https://github.com/kaleidot725/AdbPad/assets/23740796/ab3b08b2-1267-488c-9b14-927325751232"> AdbPad
 
 AdpPad is a GUI software to test android apps using adb.  
 This software is running Windows and macOS.
