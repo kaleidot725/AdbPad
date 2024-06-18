@@ -13,8 +13,8 @@ import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
 import jp.kaleidot725.adbpad.ui.common.ChildStateHolder
 import jp.kaleidot725.adbpad.ui.common.ParentStateHolder
-import jp.kaleidot725.adbpad.ui.screen.menu.command.CommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.menu.MenuStateHolder
+import jp.kaleidot725.adbpad.ui.screen.menu.command.CommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.menu.screenshot.ScreenshotStateHolder
 import jp.kaleidot725.adbpad.ui.screen.menu.text.TextCommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.version.VersionStateHolder

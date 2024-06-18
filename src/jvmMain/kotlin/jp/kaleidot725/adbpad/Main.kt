@@ -35,7 +35,6 @@ import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import jp.kaleidot725.adbpad.MainCategory
 import jp.kaleidot725.adbpad.MainStateHolder
-import jp.kaleidot725.adbpad.ui.component.NavigationRail
 import jp.kaleidot725.adbpad.domain.di.domainModule
 import jp.kaleidot725.adbpad.domain.model.Dialog
 import jp.kaleidot725.adbpad.domain.model.Menu
@@ -45,15 +44,16 @@ import jp.kaleidot725.adbpad.domain.model.log.Event
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.model.setting.getWindowSize
 import jp.kaleidot725.adbpad.repository.di.repositoryModule
+import jp.kaleidot725.adbpad.ui.component.NavigationRail
 import jp.kaleidot725.adbpad.ui.di.stateHolderModule
 import jp.kaleidot725.adbpad.ui.screen.CommandScreen
 import jp.kaleidot725.adbpad.ui.screen.MenuScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
 import jp.kaleidot725.adbpad.ui.screen.menu.screenshot.ScreenshotScreen
+import jp.kaleidot725.adbpad.ui.screen.menu.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
-import jp.kaleidot725.adbpad.ui.screen.menu.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.screen.version.VersionScreen
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.intui.standalone.theme.IntUiTheme

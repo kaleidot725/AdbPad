@@ -1,11 +1,11 @@
 package jp.kaleidot725.adbpad.ui.di
 
 import jp.kaleidot725.adbpad.MainStateHolder
-import jp.kaleidot725.adbpad.ui.screen.menu.command.CommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.menu.MenuStateHolder
+import jp.kaleidot725.adbpad.ui.screen.menu.command.CommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.menu.screenshot.ScreenshotStateHolder
-import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.menu.text.TextCommandStateHolder
+import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.version.VersionStateHolder
 import org.koin.dsl.module
 
@@ -33,7 +33,7 @@ val stateHolderModule =
 
         factory {
             MenuStateHolder(
-                getAndroidDevicesFlowUseCase = get(),
+                updateDevicesUseCase = get(),
                 getMenuListUseCase = get(),
                 getSelectedDeviceFlowUseCase = get(),
                 selectDeviceUseCase = get(),

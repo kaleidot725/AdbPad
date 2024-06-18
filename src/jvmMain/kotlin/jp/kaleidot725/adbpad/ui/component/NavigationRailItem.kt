@@ -31,16 +31,17 @@ fun NavigationRailItem(
     onClick: () -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .size(50.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .selectedBackground(isSelected)
-            .clickable(onClick = onClick)
-            .padding(4.dp),
+        modifier =
+            Modifier
+                .size(50.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .selectedBackground(isSelected)
+                .clickable(onClick = onClick)
+                .padding(4.dp),
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(2.dp),
-            modifier = Modifier.align(Alignment.Center)
+            modifier = Modifier.align(Alignment.Center),
         ) {
             Icon(
                 imageVector = icon,
@@ -53,7 +54,7 @@ fun NavigationRailItem(
                     text = label,
                     style = TextStyle(textAlign = TextAlign.Center),
                     maxFontSize = 12.sp,
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
             }
         }
@@ -68,6 +69,6 @@ private fun NavigationRailItemPreview() {
         icon = Icons.Default.Power,
         contentDescription = null,
         isSelected = false,
-        onClick = {}
+        onClick = {},
     )
 }

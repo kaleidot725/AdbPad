@@ -45,10 +45,11 @@ fun InputTextActionMenu(
 ) {
     var text by remember { mutableStateOf(inputText) }
     Row(
-        modifier = modifier
-            .clip(RoundedCornerShape(4.dp))
-            .defaultBorder()
-            .padding(horizontal = 12.dp),
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(4.dp))
+                .defaultBorder()
+                .padding(horizontal = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         BasicTextField(
@@ -59,9 +60,10 @@ fun InputTextActionMenu(
             },
             cursorBrush = SolidColor(MaterialTheme.colors.onBackground),
             textStyle = TextStyle(color = MaterialTheme.colors.onBackground),
-            modifier = Modifier
-                .weight(0.9f, true)
-                .align(Alignment.CenterVertically),
+            modifier =
+                Modifier
+                    .weight(0.9f, true)
+                    .align(Alignment.CenterVertically),
         )
 
         IconButton(

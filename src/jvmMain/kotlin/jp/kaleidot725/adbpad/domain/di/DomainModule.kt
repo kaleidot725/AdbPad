@@ -6,9 +6,9 @@ import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetCommandList
-import jp.kaleidot725.adbpad.domain.usecase.device.GetDevicesFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
+import jp.kaleidot725.adbpad.domain.usecase.device.UpdateDevicesUseCase
 import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.SaveLanguageUseCase
@@ -44,9 +44,6 @@ val domainModule =
         }
         factory {
             GetCommandList(get())
-        }
-        factory {
-            GetDevicesFlowUseCase(get())
         }
         factory {
             GetSelectedDeviceFlowUseCase(get())
@@ -119,5 +116,8 @@ val domainModule =
         }
         factory {
             RefreshUseCase(get(), get(), get())
+        }
+        factory {
+            UpdateDevicesUseCase(get())
         }
     }
