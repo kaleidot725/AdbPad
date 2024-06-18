@@ -2,7 +2,7 @@ package jp.kaleidot725.adbpad.ui.screen.menu
 
 import jp.kaleidot725.adbpad.domain.model.Menu
 import jp.kaleidot725.adbpad.domain.model.device.Device
-import jp.kaleidot725.adbpad.domain.usecase.device.GetDevicesFlowUseCase
+import jp.kaleidot725.adbpad.domain.usecase.device.UpdateDevicesUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.menu.GetMenuListUseCase
@@ -12,16 +12,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class MenuStateHolder(
-    private val getAndroidDevicesFlowUseCase: GetDevicesFlowUseCase,
+    private val updateDevicesUseCase: UpdateDevicesUseCase,
     private val getMenuListUseCase: GetMenuListUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
     private val selectDeviceUseCase: SelectDeviceUseCase,
@@ -75,19 +77,18 @@ class MenuStateHolder(
 
     private fun collectDevices() {
         deviceJob?.cancel()
-        deviceJob =
-            coroutineScope.launch {
-                getAndroidDevicesFlowUseCase().collect {
-                    _devices.value = it
-                }
+        deviceJob = coroutineScope.launch {
+            while (isActive) {
+                _devices.value = updateDevicesUseCase()
+                delay(1000)
             }
+        }
 
         selectedDeviceJob?.cancel()
-        selectedDeviceJob =
-            coroutineScope.launch {
-                getSelectedDeviceFlowUseCase().collect {
-                    _selectedDevice.value = it
-                }
+        selectedDeviceJob = coroutineScope.launch {
+            getSelectedDeviceFlowUseCase().collect {
+                _selectedDevice.value = it
             }
+        }
     }
 }

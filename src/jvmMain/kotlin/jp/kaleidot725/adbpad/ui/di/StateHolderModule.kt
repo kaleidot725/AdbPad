@@ -33,7 +33,7 @@ val stateHolderModule =
 
         factory {
             MenuStateHolder(
-                getAndroidDevicesFlowUseCase = get(),
+                updateDevicesUseCase = get(),
                 getMenuListUseCase = get(),
                 getSelectedDeviceFlowUseCase = get(),
                 selectDeviceUseCase = get(),

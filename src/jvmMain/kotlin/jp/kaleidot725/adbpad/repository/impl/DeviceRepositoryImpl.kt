@@ -1,56 +1,40 @@
 package jp.kaleidot725.adbpad.repository.impl
 
 import com.malinskiy.adam.AndroidDebugBridgeClientFactory
-import com.malinskiy.adam.request.device.AsyncDeviceMonitorRequest
+import com.malinskiy.adam.request.device.ListDevicesRequest
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceState
 import jp.kaleidot725.adbpad.domain.repository.DeviceRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.launch
 
 class DeviceRepositoryImpl : DeviceRepository {
-    private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
     private val adbClient = AndroidDebugBridgeClientFactory().build()
 
     private var lastSelectedDevice: Device? = null
     private val selectedDevice: MutableSharedFlow<Device?> = MutableSharedFlow(replay = 1)
 
-    init {
-        coroutineScope.launch {
-            createDevicesFlow().collect { devices ->
-                if (!devices.contains(lastSelectedDevice)) {
-                    lastSelectedDevice = devices.firstOrNull()
-                    selectedDevice.emit(lastSelectedDevice)
-                }
-            }
-        }
-    }
-
-    override suspend fun selectDevice(device: Device): Boolean {
+    override suspend fun selectDevice(device: Device?): Boolean {
         lastSelectedDevice = device
         selectedDevice.emit(device)
         return true
-    }
-
-    override fun getDeviceFlow(): Flow<List<Device>> {
-        return createDevicesFlow()
     }
 
     override fun getSelectedDeviceFlow(): Flow<Device?> {
         return selectedDevice.asSharedFlow()
     }
 
-    private fun createDevicesFlow() =
-        adbClient.execute(
-            request = AsyncDeviceMonitorRequest(),
-            scope = coroutineScope,
-        ).receiveAsFlow().map { rowDevices -> rowDevices.convert() }
+    override suspend fun updateDevices(): List<Device> {
+        val devices = adbClient.execute(request = ListDevicesRequest()).convert()
+        if (devices.any { it.serial == lastSelectedDevice?.serial }.not()) {
+            selectDevice(devices.firstOrNull())
+        }
+        return devices
+    }
 
     private fun List<com.malinskiy.adam.request.device.Device>.convert(): List<Device> {
         return map { Device(it.serial, it.state.convert()) }
