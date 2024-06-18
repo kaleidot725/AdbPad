@@ -2,9 +2,9 @@ package jp.kaleidot725.adbpad.ui.screen.menu
 
 import jp.kaleidot725.adbpad.domain.model.Menu
 import jp.kaleidot725.adbpad.domain.model.device.Device
-import jp.kaleidot725.adbpad.domain.usecase.device.UpdateDevicesUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
+import jp.kaleidot725.adbpad.domain.usecase.device.UpdateDevicesUseCase
 import jp.kaleidot725.adbpad.domain.usecase.menu.GetMenuListUseCase
 import jp.kaleidot725.adbpad.ui.common.ChildStateHolder
 import kotlinx.coroutines.CoroutineScope
@@ -77,18 +77,20 @@ class MenuStateHolder(
 
     private fun collectDevices() {
         deviceJob?.cancel()
-        deviceJob = coroutineScope.launch {
-            while (isActive) {
-                _devices.value = updateDevicesUseCase()
-                delay(1000)
+        deviceJob =
+            coroutineScope.launch {
+                while (isActive) {
+                    _devices.value = updateDevicesUseCase()
+                    delay(1000)
+                }
             }
-        }
 
         selectedDeviceJob?.cancel()
-        selectedDeviceJob = coroutineScope.launch {
-            getSelectedDeviceFlowUseCase().collect {
-                _selectedDevice.value = it
+        selectedDeviceJob =
+            coroutineScope.launch {
+                getSelectedDeviceFlowUseCase().collect {
+                    _selectedDevice.value = it
+                }
             }
-        }
     }
 }

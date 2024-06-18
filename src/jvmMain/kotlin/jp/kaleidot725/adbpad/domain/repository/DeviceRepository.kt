@@ -8,5 +8,5 @@ interface DeviceRepository {
 
     suspend fun selectDevice(device: Device?): Boolean
 
-    suspend fun updateDevices() : List<Device>
+    suspend fun updateDevices(): List<Device>
 }

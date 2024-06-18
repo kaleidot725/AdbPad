@@ -5,12 +5,9 @@ import com.malinskiy.adam.request.device.ListDevicesRequest
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceState
 import jp.kaleidot725.adbpad.domain.repository.DeviceRepository
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 
 class DeviceRepositoryImpl : DeviceRepository {
     private val adbClient = AndroidDebugBridgeClientFactory().build()
