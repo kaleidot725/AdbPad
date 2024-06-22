@@ -4,6 +4,7 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,9 +18,6 @@ import jp.kaleidot725.adbpad.ui.screen.menu.component.MenuList
 
 @Composable
 fun MenuScreen(
-    devices: List<Device>,
-    selectedDevice: Device?,
-    onSelectDevice: (Device) -> Unit,
     menus: List<Menu>,
     selectedMenu: Menu?,
     onSelectMenu: (Menu) -> Unit,
@@ -30,20 +28,9 @@ fun MenuScreen(
         modifier = modifier,
     ) {
         Text(
-            text = Language.targetDevice,
-            style = MaterialTheme.typography.subtitle2,
-        )
-
-        DropDownDeviceMenu(
-            devices = devices,
-            selectedDevice = selectedDevice,
-            onSelectDevice = onSelectDevice,
-            modifier = Modifier.fillMaxWidth(),
-        )
-
-        Text(
             text = Language.tool,
             style = MaterialTheme.typography.subtitle2,
+            modifier = Modifier.padding(start = 8.dp)
         )
 
         MenuList(
@@ -59,9 +46,6 @@ fun MenuScreen(
 @Composable
 private fun MenuScreen_Preview() {
     MenuScreen(
-        devices = emptyList(),
-        selectedDevice = null,
-        onSelectDevice = {},
         menus = listOf(Menu.Command, Menu.InputText, Menu.Screenshot),
         selectedMenu = Menu.Command,
         onSelectMenu = {},
