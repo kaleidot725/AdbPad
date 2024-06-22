@@ -1,4 +1,5 @@
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Colors
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -25,8 +27,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -34,11 +38,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import jp.kaleidot725.adbpad.MainCategory
+import jp.kaleidot725.adbpad.MainState
 import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.domain.di.domainModule
 import jp.kaleidot725.adbpad.domain.model.Dialog
 import jp.kaleidot725.adbpad.domain.model.Menu
 import jp.kaleidot725.adbpad.domain.model.UserColor
+import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.log.Event
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
@@ -50,6 +56,7 @@ import jp.kaleidot725.adbpad.ui.screen.CommandScreen
 import jp.kaleidot725.adbpad.ui.screen.MenuScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
+import jp.kaleidot725.adbpad.ui.screen.menu.component.DropDownDeviceMenu
 import jp.kaleidot725.adbpad.ui.screen.menu.screenshot.ScreenshotScreen
 import jp.kaleidot725.adbpad.ui.screen.menu.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
@@ -109,7 +116,11 @@ fun main() {
                     onCloseRequest = ::exitApplication,
                     state = windowState,
                 ) {
-                    TitleBarView(mainStateHolder)
+                    TitleBarView(
+                        state = state,
+                        onSelectDevice = mainStateHolder::selectDevice,
+                        onRefresh = mainStateHolder::refresh,
+                    )
                     App(mainStateHolder)
                 }
             }
@@ -118,22 +129,44 @@ fun main() {
 }
 
 @Composable
-fun DecoratedWindowScope.TitleBarView(mainStateHolder: MainStateHolder) {
+fun DecoratedWindowScope.TitleBarView(
+    state: MainState,
+    onSelectDevice: (Device) -> Unit,
+    onRefresh: () -> Unit,
+) {
     TitleBar(
         style = TitleBarStyle.dark(),
         modifier = Modifier.newFullscreenControls(),
     ) {
+        Row(Modifier.align(Alignment.Start).wrapContentSize()) {
+            DropDownDeviceMenu(
+                devices = state.devices,
+                selectedDevice = state.selectedDevice,
+                onSelectDevice = onSelectDevice,
+                modifier = Modifier.width(200.dp),
+            )
+        }
+
         Text(
             text = title,
             color = Color.White,
             textAlign = TextAlign.Center,
         )
-        Row(Modifier.align(Alignment.End)) {
-            IconButton(onClick = { mainStateHolder.refresh() }) {
+
+        Row(Modifier.align(Alignment.End).wrapContentSize()) {
+            var isClicked: Boolean by remember { mutableStateOf(false) }
+            val degrees: Float by animateFloatAsState(if (isClicked) 0f else 360f)
+            IconButton(
+                onClick = {
+                    onRefresh()
+                    isClicked = isClicked.not()
+                },
+            ) {
                 Icon(
                     imageVector = Icons.Default.RestartAlt,
                     tint = Color.White,
                     contentDescription = null,
+                    modifier = Modifier.rotate(degrees),
                 )
             }
         }
@@ -266,9 +299,6 @@ private fun DeviceContent(
     Row(modifier) {
         Box(Modifier.background(MaterialTheme.colors.background)) {
             MenuScreen(
-                devices = menuState.devices,
-                selectedDevice = menuState.selectedDevice,
-                onSelectDevice = { menuStateHolder.selectDevice(it) },
                 menus = menuState.menus,
                 selectedMenu = menuState.selectedMenu,
                 onSelectMenu = { menuStateHolder.selectMenu(it) },

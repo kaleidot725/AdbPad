@@ -32,12 +32,7 @@ val stateHolderModule =
         }
 
         factory {
-            MenuStateHolder(
-                updateDevicesUseCase = get(),
-                getMenuListUseCase = get(),
-                getSelectedDeviceFlowUseCase = get(),
-                selectDeviceUseCase = get(),
-            )
+            MenuStateHolder(getMenuListUseCase = get())
         }
 
         factory {
@@ -82,6 +77,9 @@ val stateHolderModule =
                 getDarkModeFlowUseCase = get(),
                 getLanguageUseCase = get(),
                 refreshUseCase = get(),
+                getSelectedDeviceFlowUseCase = get(),
+                updateDevicesUseCase = get(),
+                selectDeviceUseCase = get(),
             )
         }
     }

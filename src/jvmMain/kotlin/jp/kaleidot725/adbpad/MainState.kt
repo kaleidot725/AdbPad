@@ -1,6 +1,7 @@
 package jp.kaleidot725.adbpad
 
 import jp.kaleidot725.adbpad.domain.model.Dialog
+import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 
@@ -10,4 +11,6 @@ data class MainState(
     val size: WindowSize = WindowSize.UNKNOWN,
     val dialog: Dialog? = null,
     val category: MainCategory = MainCategory.Device,
+    val devices: List<Device> = emptyList(),
+    val selectedDevice: Device? = null,
 )
