@@ -2,10 +2,7 @@ package jp.kaleidot725.adbpad.ui.screen.menu.screenshot.component
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -54,7 +51,7 @@ fun ScreenshotHeader(
                     .padding(vertical = 4.dp)
                     .size(32.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .align(Alignment.CenterVertically)
+                    .align(Alignment.CenterVertically),
         ) {
             Icon(
                 imageVector = Icons.Default.FileCopy,
@@ -71,7 +68,7 @@ fun ScreenshotHeader(
                     .padding(vertical = 4.dp)
                     .size(32.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .align(Alignment.CenterVertically)
+                    .align(Alignment.CenterVertically),
         ) {
             Icon(
                 imageVector = Icons.Default.Delete,
