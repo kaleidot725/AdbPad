@@ -12,6 +12,8 @@ import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Power
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,7 +22,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import jp.kaleidot725.adbpad.ui.common.resource.selectedBackground
+import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
 
 @Composable
 fun NavigationRailItem(
@@ -35,7 +37,7 @@ fun NavigationRailItem(
             Modifier
                 .size(50.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .selectedBackground(isSelected)
+                .clickableBackground(isSelected)
                 .clickable(onClick = onClick)
                 .padding(4.dp),
     ) {

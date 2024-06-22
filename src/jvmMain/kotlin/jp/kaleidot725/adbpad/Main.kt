@@ -3,6 +3,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,11 +12,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Colors
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -30,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -50,6 +53,7 @@ import jp.kaleidot725.adbpad.domain.model.log.Event
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.model.setting.getWindowSize
 import jp.kaleidot725.adbpad.repository.di.repositoryModule
+import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
 import jp.kaleidot725.adbpad.ui.component.NavigationRail
 import jp.kaleidot725.adbpad.ui.di.stateHolderModule
 import jp.kaleidot725.adbpad.ui.screen.CommandScreen
@@ -153,20 +157,25 @@ fun DecoratedWindowScope.TitleBarView(
             textAlign = TextAlign.Center,
         )
 
-        Row(Modifier.align(Alignment.End).wrapContentSize()) {
+        Row(Modifier.align(Alignment.End).wrapContentSize().padding(4.dp)) {
             var isClicked: Boolean by remember { mutableStateOf(false) }
             val degrees: Float by animateFloatAsState(if (isClicked) 0f else 360f)
-            IconButton(
-                onClick = {
-                    onRefresh()
-                    isClicked = isClicked.not()
-                },
+            Box(
+                modifier =
+                    Modifier
+                        .size(28.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                        .clickableBackground(isDarker = true)
+                        .clickable {
+                            onRefresh()
+                            isClicked = isClicked.not()
+                        },
             ) {
                 Icon(
                     imageVector = Icons.Default.RestartAlt,
                     tint = Color.White,
                     contentDescription = null,
-                    modifier = Modifier.rotate(degrees),
+                    modifier = Modifier.rotate(degrees).align(Alignment.Center),
                 )
             }
         }

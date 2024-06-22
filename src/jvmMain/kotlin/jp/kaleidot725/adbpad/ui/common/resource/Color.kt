@@ -5,7 +5,15 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.UserColor.getSplitterColor
 
@@ -16,6 +24,35 @@ fun Modifier.selectedBackground(isSelected: Boolean): Modifier {
     } else {
         this
     }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun Modifier.clickableBackground(
+    isSelected: Boolean = false,
+    isDarker: Boolean = false,
+): Modifier {
+    var isMouseOver by remember { mutableStateOf(false) }
+    val one =
+        if (isSelected) {
+            this.background(color = MaterialTheme.colors.primary.copy(alpha = 0.2f))
+        } else if (isMouseOver) {
+            this.background(
+                color =
+                    if (isDarker) {
+                        Color.White.copy(alpha = 0.1f)
+                    } else if (MaterialTheme.colors.isLight) {
+                        Color.DarkGray.copy(alpha = 0.1f)
+                    } else {
+                        Color.White.copy(alpha = 0.1f)
+                    },
+            )
+        } else {
+            this
+        }
+    val two = one.onPointerEvent(PointerEventType.Enter) { isMouseOver = true }
+    val three = two.onPointerEvent(PointerEventType.Exit) { isMouseOver = false }
+    return three
 }
 
 @Composable

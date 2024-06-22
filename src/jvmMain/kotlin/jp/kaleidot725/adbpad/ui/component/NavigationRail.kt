@@ -39,6 +39,7 @@ fun NavigationRail(
 
         Spacer(Modifier.weight(1.0f))
         NavigationRailItem(
+            label = "Setting",
             icon = Icons.Default.Settings,
             contentDescription = "device menu",
             isSelected = false,

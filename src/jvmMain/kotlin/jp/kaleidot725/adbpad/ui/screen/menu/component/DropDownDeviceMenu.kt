@@ -1,9 +1,11 @@
 package jp.kaleidot725.adbpad.ui.screen.menu.component
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.MaterialTheme
@@ -14,11 +16,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceState
-import jp.kaleidot725.adbpad.ui.common.extension.clickableNoRipple
+import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
 
 @Composable
 fun DropDownDeviceMenu(
@@ -35,8 +39,10 @@ fun DropDownDeviceMenu(
             selectedDevice = selectedDevice,
             modifier =
                 Modifier
-                    .clickableNoRipple { if (!expanded && devices.isNotEmpty()) expanded = true }
-                    .fillMaxWidth()
+                    .wrapContentSize()
+                    .clip(RoundedCornerShape(4.dp))
+                    .clickableBackground(isDarker = true)
+                    .clickable { if (!expanded && devices.isNotEmpty()) expanded = true }
                     .onSizeChanged { dropDownWidth = it.width },
         )
 

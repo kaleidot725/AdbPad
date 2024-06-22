@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
@@ -20,8 +21,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.language.Language
+import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
 import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
 
 @Composable
@@ -38,6 +41,8 @@ fun LanguageDropButton(
                 Modifier
                     .width(200.dp)
                     .defaultBorder()
+                    .clip(RoundedCornerShape(4.dp))
+                    .clickableBackground()
                     .clickable { expanded = true }
                     .padding(vertical = 8.dp, horizontal = 12.dp),
         ) {
