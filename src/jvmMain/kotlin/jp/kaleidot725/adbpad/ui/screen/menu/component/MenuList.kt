@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.Menu
-import jp.kaleidot725.adbpad.ui.common.resource.selectedBackground
+import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
 
 @Composable
 fun MenuList(
@@ -32,7 +32,7 @@ fun MenuList(
                     Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(8.dp))
-                        .selectedBackground(isSelected)
+                        .clickableBackground(isSelected = isSelected)
                         .clickable { onSelectMenu(menu) }
                         .padding(horizontal = 8.dp)
                         .padding(vertical = 8.dp),

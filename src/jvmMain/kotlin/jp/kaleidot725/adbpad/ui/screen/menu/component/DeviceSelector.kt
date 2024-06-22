@@ -33,7 +33,7 @@ fun DeviceSelector(
                 text = selectedDevice?.serial ?: Language.notFoundDevice,
                 style = MaterialTheme.typography.subtitle2,
                 color = Color.White,
-                modifier = Modifier.align(Alignment.CenterVertically).alignByBaseline(),
+                modifier = Modifier.align(Alignment.CenterVertically),
             )
 
             Icon(
