@@ -2,10 +2,7 @@ package jp.kaleidot725.adbpad.ui.screen.menu.screenshot.component
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -45,37 +43,37 @@ fun ScreenshotHeader(
                     .align(Alignment.CenterVertically),
         )
 
-        Box(
+        IconButton(
+            onClick = onCopy,
+            enabled = enabled,
             modifier =
                 Modifier
                     .padding(vertical = 4.dp)
                     .size(32.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .align(Alignment.CenterVertically)
-                    .focusable(enabled)
-                    .clickable(enabled) { onCopy() },
+                    .align(Alignment.CenterVertically),
         ) {
             Icon(
                 imageVector = Icons.Default.FileCopy,
                 contentDescription = "copy",
-                modifier = Modifier.height(20.dp).align(Alignment.Center),
+                modifier = Modifier.height(20.dp),
             )
         }
 
-        Box(
+        IconButton(
+            onClick = onDelete,
+            enabled = enabled,
             modifier =
                 Modifier
                     .padding(vertical = 4.dp)
                     .size(32.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .align(Alignment.CenterVertically)
-                    .focusable(enabled)
-                    .clickable(enabled) { onDelete() },
+                    .align(Alignment.CenterVertically),
         ) {
             Icon(
                 imageVector = Icons.Default.Delete,
                 contentDescription = "delete",
-                modifier = Modifier.height(20.dp).align(Alignment.Center),
+                modifier = Modifier.height(20.dp),
             )
         }
     }
