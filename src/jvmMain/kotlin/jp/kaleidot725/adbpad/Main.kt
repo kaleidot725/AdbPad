@@ -98,17 +98,17 @@ fun main() {
         MaterialTheme(colors = if (state.isDark) DarkColors else LightColors) {
             IntUiTheme(
                 theme =
-                if (state.isDark) {
-                    JewelTheme.darkThemeDefinition()
-                } else {
-                    JewelTheme.lightThemeDefinition()
-                },
+                    if (state.isDark) {
+                        JewelTheme.darkThemeDefinition()
+                    } else {
+                        JewelTheme.lightThemeDefinition()
+                    },
                 styling =
-                if (state.isDark) {
-                    ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.dark())
-                } else {
-                    ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.light())
-                },
+                    if (state.isDark) {
+                        ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.dark())
+                    } else {
+                        ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.light())
+                    },
             ) {
                 DecoratedWindow(
                     title = Language.windowTitle,
@@ -119,7 +119,7 @@ fun main() {
                     TitleBarView(
                         state = state,
                         onSelectDevice = mainStateHolder::selectDevice,
-                        onRefresh = mainStateHolder::refresh
+                        onRefresh = mainStateHolder::refresh,
                     )
                     App(mainStateHolder)
                 }
@@ -143,7 +143,7 @@ fun DecoratedWindowScope.TitleBarView(
                 devices = state.devices,
                 selectedDevice = state.selectedDevice,
                 onSelectDevice = onSelectDevice,
-                modifier = Modifier.width(200.dp)
+                modifier = Modifier.width(200.dp),
             )
         }
 
@@ -160,13 +160,13 @@ fun DecoratedWindowScope.TitleBarView(
                 onClick = {
                     onRefresh()
                     isClicked = isClicked.not()
-                }
+                },
             ) {
                 Icon(
                     imageVector = Icons.Default.RestartAlt,
                     tint = Color.White,
                     contentDescription = null,
-                    modifier = Modifier.rotate(degrees)
+                    modifier = Modifier.rotate(degrees),
                 )
             }
         }
@@ -224,11 +224,11 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                         Text(
                             text = event.message,
                             color =
-                            when (event.level) {
-                                Event.Level.INFO -> MaterialTheme.colors.onSurface
-                                Event.Level.WARN -> Color.Yellow
-                                Event.Level.ERROR -> Color.Red
-                            },
+                                when (event.level) {
+                                    Event.Level.INFO -> MaterialTheme.colors.onSurface
+                                    Event.Level.WARN -> Color.Yellow
+                                    Event.Level.ERROR -> Color.Red
+                                },
                             style = MaterialTheme.typography.caption,
                         )
                     }
@@ -302,10 +302,11 @@ private fun DeviceContent(
                 menus = menuState.menus,
                 selectedMenu = menuState.selectedMenu,
                 onSelectMenu = { menuStateHolder.selectMenu(it) },
-                modifier = Modifier
-                    .width(250.dp)
-                    .fillMaxHeight()
-                    .padding(horizontal = 12.dp, vertical = 16.dp),
+                modifier =
+                    Modifier
+                        .width(250.dp)
+                        .fillMaxHeight()
+                        .padding(horizontal = 12.dp, vertical = 16.dp),
             )
         }
 

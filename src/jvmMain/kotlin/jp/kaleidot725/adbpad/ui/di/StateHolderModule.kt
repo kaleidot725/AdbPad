@@ -1,8 +1,6 @@
 package jp.kaleidot725.adbpad.ui.di
 
 import jp.kaleidot725.adbpad.MainStateHolder
-import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
-import jp.kaleidot725.adbpad.domain.usecase.device.UpdateDevicesUseCase
 import jp.kaleidot725.adbpad.ui.screen.menu.MenuStateHolder
 import jp.kaleidot725.adbpad.ui.screen.menu.command.CommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.menu.screenshot.ScreenshotStateHolder
@@ -81,7 +79,7 @@ val stateHolderModule =
                 refreshUseCase = get(),
                 getSelectedDeviceFlowUseCase = get(),
                 updateDevicesUseCase = get(),
-                selectDeviceUseCase = get()
+                selectDeviceUseCase = get(),
             )
         }
     }

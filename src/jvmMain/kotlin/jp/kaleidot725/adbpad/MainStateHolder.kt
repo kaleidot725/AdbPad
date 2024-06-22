@@ -80,7 +80,7 @@ class MainStateHolder(
                 data[3] as Dialog?,
                 data[4] as MainCategory,
                 data[5] as List<Device>,
-                data[6] as Device?
+                data[6] as Device?,
             )
         }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), MainState())
 

@@ -12,5 +12,5 @@ data class MainState(
     val dialog: Dialog? = null,
     val category: MainCategory = MainCategory.Device,
     val devices: List<Device> = emptyList(),
-    val selectedDevice: Device? = null
+    val selectedDevice: Device? = null,
 )
