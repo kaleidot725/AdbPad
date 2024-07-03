@@ -13,7 +13,7 @@ val stateHolderModule =
     module {
         factory {
             CommandStateHolder(
-                getCommandList = get(),
+                getNormalCommandGroup = get(),
                 executeCommandUseCase = get(),
                 getSelectedDeviceFlowUseCase = get(),
             )

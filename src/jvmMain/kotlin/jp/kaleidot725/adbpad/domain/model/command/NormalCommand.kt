@@ -8,6 +8,7 @@ interface NormalCommand {
     val details: String
     val isRunning: Boolean
     val requests: List<ShellCommandRequest>
+    val category: NormalCommandCategory
 
     data class LayoutBorderOn(override val isRunning: Boolean = false) : NormalCommand {
         override val title: String get() = Language.commandLayoutBorderOnTitle
@@ -17,6 +18,7 @@ interface NormalCommand {
                 ShellCommandRequest("setprop debug.layout true"),
                 ShellCommandRequest("service call activity 1599295570"),
             )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
     }
 
     data class LayoutBorderOff(override val isRunning: Boolean = false) : NormalCommand {
@@ -27,6 +29,7 @@ interface NormalCommand {
                 ShellCommandRequest("setprop debug.layout false"),
                 ShellCommandRequest("service call activity 1599295570"),
             )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
     }
 
     data class TapEffectOn(override val isRunning: Boolean = false) : NormalCommand {
@@ -36,6 +39,7 @@ interface NormalCommand {
             listOf(
                 ShellCommandRequest("settings put system show_touches 1"),
             )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
     }
 
     data class TapEffectOff(override val isRunning: Boolean = false) : NormalCommand {
@@ -45,6 +49,7 @@ interface NormalCommand {
             listOf(
                 ShellCommandRequest("settings put system show_touches 0"),
             )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
     }
 
     data class SleepModeOff(override val isRunning: Boolean = false) : NormalCommand {
@@ -54,6 +59,7 @@ interface NormalCommand {
             listOf(
                 ShellCommandRequest("settings put global stay_on_while_plugged_in 7"),
             )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
     }
 
     data class SleepModeOn(override val isRunning: Boolean = false) : NormalCommand {
@@ -63,42 +69,49 @@ interface NormalCommand {
             listOf(
                 ShellCommandRequest("settings put global stay_on_while_plugged_in 0"),
             )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
     }
 
     data class DarkThemeOn(override val isRunning: Boolean = false) : NormalCommand {
         override val title: String get() = Language.commandDarkThemeOnTitle
         override val details: String get() = Language.commandDarkThemeOnDetails
         override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("cmd uimode night yes"))
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
     }
 
     data class DarkThemeOff(override val isRunning: Boolean = false) : NormalCommand {
         override val title: String get() = Language.commandDarkThemeOffTitle
         override val details: String get() = Language.commandDarkThemeOffDetails
         override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("cmd uimode night no"))
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
     }
 
     data class WifiOn(override val isRunning: Boolean = false) : NormalCommand {
         override val title: String get() = Language.commandWifiOnTitle
         override val details: String get() = Language.commandWifiOnDetails
         override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("svc wifi enable"))
+        override val category: NormalCommandCategory = NormalCommandCategory.Communication
     }
 
     data class WifiOff(override val isRunning: Boolean = false) : NormalCommand {
         override val title: String get() = Language.commandWifiOffTitle
         override val details: String get() = Language.commandWifiOffDetails
         override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("svc wifi disable"))
+        override val category: NormalCommandCategory = NormalCommandCategory.Communication
     }
 
     data class DataOn(override val isRunning: Boolean = false) : NormalCommand {
         override val title: String get() = Language.commandDataOnTitle
         override val details: String get() = Language.commandDataOnDetails
         override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("svc data enable"))
+        override val category: NormalCommandCategory = NormalCommandCategory.Communication
     }
 
     data class DataOff(override val isRunning: Boolean = false) : NormalCommand {
         override val title: String get() = Language.commandDataOffTitle
         override val details: String get() = Language.commandDataOffDetails
         override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("svc data disable"))
+        override val category: NormalCommandCategory = NormalCommandCategory.Communication
     }
 
     data class WifiAndDataOn(override val isRunning: Boolean = false) : NormalCommand {
@@ -109,6 +122,7 @@ interface NormalCommand {
                 ShellCommandRequest("svc wifi enable"),
                 ShellCommandRequest("svc data enable"),
             )
+        override val category: NormalCommandCategory = NormalCommandCategory.Communication
     }
 
     data class WifiAndDataOff(override val isRunning: Boolean = false) : NormalCommand {
@@ -119,6 +133,7 @@ interface NormalCommand {
                 ShellCommandRequest("svc wifi disable"),
                 ShellCommandRequest("svc data disable"),
             )
+        override val category: NormalCommandCategory = NormalCommandCategory.Communication
     }
 
     data class ScreenPinningOff(override val isRunning: Boolean = false) : NormalCommand {
@@ -128,5 +143,6 @@ interface NormalCommand {
             listOf(
                 ShellCommandRequest("am task lock stop"),
             )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
     }
 }

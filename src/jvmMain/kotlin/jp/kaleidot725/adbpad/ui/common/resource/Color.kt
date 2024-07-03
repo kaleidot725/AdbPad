@@ -30,12 +30,13 @@ fun Modifier.selectedBackground(isSelected: Boolean): Modifier {
 @Composable
 fun Modifier.clickableBackground(
     isSelected: Boolean = false,
+    selectedColor: Color = MaterialTheme.colors.primary.copy(alpha = 0.2f),
     isDarker: Boolean = false,
 ): Modifier {
     var isMouseOver by remember { mutableStateOf(false) }
     val one =
         if (isSelected) {
-            this.background(color = MaterialTheme.colors.primary.copy(alpha = 0.2f))
+            this.background(color = selectedColor)
         } else if (isMouseOver) {
             this.background(
                 color =
