@@ -27,7 +27,8 @@ class CommandStateHolder(
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val commands: MutableStateFlow<NormalCommandGroup> = MutableStateFlow(NormalCommandGroup.Empty)
     private val filtered: MutableStateFlow<NormalCommandCategory?> = MutableStateFlow(null)
-    private val selectedDevice: StateFlow<Device?> = getSelectedDeviceFlowUseCase()
+    private val selectedDevice: StateFlow<Device?> =
+        getSelectedDeviceFlowUseCase()
             .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
 
     override val state: StateFlow<CommandState> =

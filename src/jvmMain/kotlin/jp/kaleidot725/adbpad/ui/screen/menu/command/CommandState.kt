@@ -1,6 +1,5 @@
 package jp.kaleidot725.adbpad.ui.screen.menu.command
 
-import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommandCategory
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommandGroup
 import jp.kaleidot725.adbpad.domain.model.device.Device

@@ -7,7 +7,7 @@ import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepository
 class GetNormalCommandGroup(
     private val normalCommandRepository: NormalCommandRepository,
 ) {
-    operator fun invoke() : NormalCommandGroup {
+    operator fun invoke(): NormalCommandGroup {
         val all = normalCommandRepository.getCommands()
         return NormalCommandGroup(
             all = all,

@@ -14,19 +14,19 @@ fun CommandTab(
         CommandTabItem(
             title = "All",
             isSelected = filtered == null,
-            onClick = { onClick(null) }
+            onClick = { onClick(null) },
         )
 
         CommandTabItem(
             title = NormalCommandCategory.UI.toString(),
             isSelected = filtered == NormalCommandCategory.UI,
-            onClick = { onClick(NormalCommandCategory.UI) }
+            onClick = { onClick(NormalCommandCategory.UI) },
         )
 
         CommandTabItem(
             title = NormalCommandCategory.Communication.toString(),
             isSelected = filtered == NormalCommandCategory.Communication,
-            onClick = { onClick(NormalCommandCategory.Communication) }
+            onClick = { onClick(NormalCommandCategory.Communication) },
         )
     }
 }

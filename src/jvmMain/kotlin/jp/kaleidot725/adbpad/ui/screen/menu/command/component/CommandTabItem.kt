@@ -1,14 +1,10 @@
 package jp.kaleidot725.adbpad.ui.screen.menu.command.component
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.widthIn
@@ -37,21 +33,22 @@ fun CommandTabItem(
                 isSelected = isSelected,
                 selectedColor = Color.Transparent,
             )
-            .clickable(onClick = onClick)
+            .clickable(onClick = onClick),
     ) {
         Text(
             text = title,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.subtitle1,
-            modifier = Modifier.align(Alignment.Center)
+            modifier = Modifier.align(Alignment.Center),
         )
         if (isSelected) {
             Box(
-                modifier = Modifier
-                    .height(2.dp)
-                    .widthIn(200.dp)
-                    .background(MaterialTheme.colors.primary)
-                    .align(Alignment.BottomEnd)
+                modifier =
+                    Modifier
+                        .height(2.dp)
+                        .widthIn(200.dp)
+                        .background(MaterialTheme.colors.primary)
+                        .align(Alignment.BottomEnd),
             )
         }
     }
