@@ -326,6 +326,8 @@ private fun DeviceContent(
                 Menu.Command -> {
                     CommandScreen(
                         commands = commandState.commands,
+                        filtered = commandState.filtered,
+                        onClickFilter = commandStateHolder::clickTab,
                         canExecute = commandState.canExecuteCommand,
                         onExecute = { command ->
                             commandStateHolder.executeCommand(command)
