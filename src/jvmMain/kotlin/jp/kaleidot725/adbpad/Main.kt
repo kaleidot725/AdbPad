@@ -31,10 +31,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -132,6 +135,7 @@ fun main() {
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun DecoratedWindowScope.TitleBarView(
     state: MainState,
@@ -158,18 +162,17 @@ fun DecoratedWindowScope.TitleBarView(
         )
 
         Row(Modifier.align(Alignment.End).wrapContentSize().padding(4.dp)) {
-            var isClicked: Boolean by remember { mutableStateOf(false) }
-            val degrees: Float by animateFloatAsState(if (isClicked) 0f else 360f)
+            var isPress: Boolean by remember { mutableStateOf(false) }
+            val degrees: Float by animateFloatAsState(if (isPress) -90f else 0f)
             Box(
                 modifier =
                     Modifier
                         .size(28.dp)
                         .clip(RoundedCornerShape(4.dp))
                         .clickableBackground(isDarker = true)
-                        .clickable {
-                            onRefresh()
-                            isClicked = isClicked.not()
-                        },
+                        .onPointerEvent(PointerEventType.Press) { isPress = true }
+                        .onPointerEvent(PointerEventType.Release) { isPress = false }
+                        .clickable { onRefresh() },
             ) {
                 Icon(
                     imageVector = Icons.Default.RestartAlt,
