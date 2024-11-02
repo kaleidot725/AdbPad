@@ -2,7 +2,7 @@
 kotlin="1.9.23"
 kotlin_coroutines="1.8.0"
 kotlin_serialization="1.7.3"
-compose="1.6.10-rc01"
+compose="1.7.1+build1894-release-1.7.1"
 ktlint_plugin="12.1.1"
 adam="0.5.8"
 junit="5.9.0"
