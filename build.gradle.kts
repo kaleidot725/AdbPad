@@ -36,7 +36,7 @@ kotlin {
                 implementation(libs.kotlin.serialization)
                 implementation(libs.koin)
                 implementation(libs.jSystemThemeDetectorVer)
-                implementation("org.jetbrains.jewel:jewel-int-ui-standalone-241:0.18.1")
+                implementation("org.jetbrains.jewel:jewel-int-ui-standalone-241:0.26.2")
                 implementation("org.jetbrains.jewel:jewel-int-ui-decorated-window-241:0.26.2")
                 implementation(compose.desktop.currentOs) { exclude(group = "org.jetbrains.compose.material") }
                 implementation(libs.ktor.core)
