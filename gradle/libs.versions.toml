@@ -2,12 +2,12 @@
 kotlin="2.0.21"
 kotlin_coroutines="1.9.0"
 kotlin_serialization="1.7.3"
-compose="1.7.1+build1894-release-1.7.1"
+compose="1.7.0"
 ktlint_plugin="12.1.1"
 adam="0.5.8"
 junit="5.11.3"
 koin="4.0.0"
-system_theme_detector="3.9.1"
+system_theme_detector="3.8"
 ktor = "3.0.1"
 
 [libraries]
@@ -26,3 +26,4 @@ multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotl
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint_plugin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

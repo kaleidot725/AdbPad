@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ktlint)
 }
@@ -17,12 +18,12 @@ repositories {
 }
 
 kotlin {
-    jvm {
-        jvmToolchain {
-            vendor = JvmVendorSpec.JETBRAINS
-            languageVersion = JavaLanguageVersion.of(17)
-        }
+    jvmToolchain {
+        vendor = JvmVendorSpec.JETBRAINS
+        languageVersion = JavaLanguageVersion.of(17)
     }
+
+    jvm { }
     sourceSets {
         val jvmMain by getting {
             dependencies {
