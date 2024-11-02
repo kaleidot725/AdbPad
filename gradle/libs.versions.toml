@@ -8,7 +8,7 @@ adam="0.5.8"
 junit="5.11.3"
 koin="3.5.6"
 system_theme_detector="3.9.1"
-ktor = "2.3.12"
+ktor = "3.0.1"
 
 [libraries]
 adam = { module = "com.malinskiy.adam:adam", version.ref = "adam" }
