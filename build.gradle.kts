@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.KotlinExecution
+
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.compose)
@@ -7,7 +9,7 @@ plugins {
 }
 
 group = "jp.kaleidot725"
-version = "1.1.0"
+version = "1.2.0"
 
 repositories {
     mavenCentral()
@@ -23,11 +25,11 @@ kotlin {
         languageVersion = JavaLanguageVersion.of(17)
     }
 
-    jvm { }
+    jvm {
+    }
     sourceSets {
         val jvmMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-jdk8"))
                 implementation(compose.desktop.currentOs)
                 implementation(compose.material)
                 implementation(compose.materialIconsExtended)
@@ -59,6 +61,8 @@ compose.desktop {
             packageName = "AdbPad"
             modules("jdk.management")
             modules("jdk.unsupported")
+
+            args.addAll(listOf("-Djava.security.manager", "-Djava.security.policy=./java.policy"))
 
             targetFormats(
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg,
