@@ -62,8 +62,6 @@ compose.desktop {
             modules("jdk.management")
             modules("jdk.unsupported")
 
-            args.addAll(listOf("-Djava.security.manager", "-Djava.security.policy=./java.policy"))
-
             targetFormats(
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg,
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi,
@@ -74,6 +72,12 @@ compose.desktop {
                 bundleID = "jp.kaleidot725.adbpad"
                 iconFile.set(project.file("icon.icns"))
                 entitlementsFile.set(project.file("default.entitlements"))
+
+                signing {
+                    sign.set(true)
+                    identity.set("Yusuke Katuragawa")
+                    keychain.set("/Library/Keychains/System.keychain")
+                }
             }
 
             windows {
