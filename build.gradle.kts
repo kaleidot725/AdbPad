@@ -72,12 +72,6 @@ compose.desktop {
                 bundleID = "jp.kaleidot725.adbpad"
                 iconFile.set(project.file("icon.icns"))
                 entitlementsFile.set(project.file("default.entitlements"))
-
-                signing {
-                    sign.set(true)
-                    identity.set("Yusuke Katuragawa")
-                    keychain.set("/Library/Keychains/System.keychain")
-                }
             }
 
             windows {
