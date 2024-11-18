@@ -62,8 +62,6 @@ compose.desktop {
             modules("jdk.management")
             modules("jdk.unsupported")
 
-            args.addAll(listOf("-Djava.security.manager", "-Djava.security.policy=./java.policy"))
-
             targetFormats(
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg,
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi,
