@@ -17,11 +17,9 @@ import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
 import jp.kaleidot725.adbpad.ui.common.ChildStateHolder
 import jp.kaleidot725.adbpad.ui.common.ParentStateHolder
-import jp.kaleidot725.adbpad.ui.screen.menu.MenuStateHolder
-import jp.kaleidot725.adbpad.ui.screen.menu.command.CommandStateHolder
-import jp.kaleidot725.adbpad.ui.screen.menu.screenshot.ScreenshotStateHolder
-import jp.kaleidot725.adbpad.ui.screen.menu.text.TextCommandStateHolder
-import jp.kaleidot725.adbpad.ui.screen.version.VersionStateHolder
+import jp.kaleidot725.adbpad.ui.screen.command.CommandStateHolder
+import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
+import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -39,11 +37,9 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class MainStateHolder(
-    val menuStateHolder: MenuStateHolder,
     val commandStateHolder: CommandStateHolder,
     val textCommandStateHolder: TextCommandStateHolder,
     val screenshotStateHolder: ScreenshotStateHolder,
-    val versionStateHolder: VersionStateHolder,
     private val getEventFlowUseCase: GetEventFlowUseCase,
     private val getWindowSizeUseCase: GetWindowSizeUseCase,
     private val saveWindowSizeUseCase: SaveWindowSizeUseCase,
@@ -60,7 +56,7 @@ class MainStateHolder(
     private val windowSize: MutableStateFlow<WindowSize> = MutableStateFlow(WindowSize.UNKNOWN)
     private val isDark: MutableStateFlow<Boolean> = MutableStateFlow(true)
     private val dialog: MutableStateFlow<Dialog?> = MutableStateFlow(null)
-    private val category: MutableStateFlow<MainCategory> = MutableStateFlow(MainCategory.Device)
+    private val category: MutableStateFlow<MainCategory> = MutableStateFlow(MainCategory.Command)
 
     private var deviceJob: Job? = null
     private val _devices: MutableStateFlow<List<Device>> = MutableStateFlow(emptyList())
@@ -86,7 +82,6 @@ class MainStateHolder(
 
     private val children: List<ChildStateHolder<*>> =
         listOf(
-            menuStateHolder,
             commandStateHolder,
             textCommandStateHolder,
             screenshotStateHolder,

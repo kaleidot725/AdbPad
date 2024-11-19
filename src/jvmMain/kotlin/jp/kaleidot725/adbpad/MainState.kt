@@ -10,7 +10,7 @@ data class MainState(
     val isDark: Boolean = false,
     val size: WindowSize = WindowSize.UNKNOWN,
     val dialog: Dialog? = null,
-    val category: MainCategory = MainCategory.Device,
+    val category: MainCategory = MainCategory.Command,
     val devices: List<Device> = emptyList(),
     val selectedDevice: Device? = null,
 )

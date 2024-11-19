@@ -1,16 +1,9 @@
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -48,7 +41,6 @@ import jp.kaleidot725.adbpad.MainState
 import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.domain.di.domainModule
 import jp.kaleidot725.adbpad.domain.model.Dialog
-import jp.kaleidot725.adbpad.domain.model.Menu
 import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.language.Language
@@ -60,15 +52,13 @@ import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
 import jp.kaleidot725.adbpad.ui.component.NavigationRail
 import jp.kaleidot725.adbpad.ui.di.stateHolderModule
 import jp.kaleidot725.adbpad.ui.screen.CommandScreen
-import jp.kaleidot725.adbpad.ui.screen.MenuScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
 import jp.kaleidot725.adbpad.ui.screen.menu.component.DropDownDeviceMenu
-import jp.kaleidot725.adbpad.ui.screen.menu.screenshot.ScreenshotScreen
-import jp.kaleidot725.adbpad.ui.screen.menu.text.TextCommandScreen
+import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
+import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
-import jp.kaleidot725.adbpad.ui.screen.version.VersionScreen
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.intui.standalone.theme.IntUiTheme
 import org.jetbrains.jewel.intui.standalone.theme.darkThemeDefinition
@@ -105,17 +95,17 @@ fun main() {
         MaterialTheme(colors = if (state.isDark) DarkColors else LightColors) {
             IntUiTheme(
                 theme =
-                    if (state.isDark) {
-                        JewelTheme.darkThemeDefinition()
-                    } else {
-                        JewelTheme.lightThemeDefinition()
-                    },
+                if (state.isDark) {
+                    JewelTheme.darkThemeDefinition()
+                } else {
+                    JewelTheme.lightThemeDefinition()
+                },
                 styling =
-                    if (state.isDark) {
-                        ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.dark())
-                    } else {
-                        ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.light())
-                    },
+                if (state.isDark) {
+                    ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.dark())
+                } else {
+                    ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.light())
+                },
             ) {
                 DecoratedWindow(
                     title = Language.windowTitle,
@@ -166,13 +156,13 @@ fun DecoratedWindowScope.TitleBarView(
             val degrees: Float by animateFloatAsState(if (isPress) -90f else 0f)
             Box(
                 modifier =
-                    Modifier
-                        .size(28.dp)
-                        .clip(RoundedCornerShape(4.dp))
-                        .clickableBackground(isDarker = true)
-                        .onPointerEvent(PointerEventType.Press) { isPress = true }
-                        .onPointerEvent(PointerEventType.Release) { isPress = false }
-                        .clickable { onRefresh() },
+                Modifier
+                    .size(28.dp)
+                    .clip(RoundedCornerShape(4.dp))
+                    .clickableBackground(isDarker = true)
+                    .onPointerEvent(PointerEventType.Press) { isPress = true }
+                    .onPointerEvent(PointerEventType.Release) { isPress = false }
+                    .clickable { onRefresh() },
             ) {
                 Icon(
                     imageVector = Icons.Default.RestartAlt,
@@ -211,38 +201,78 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                 },
                 content = {
                     when (state.category) {
-                        MainCategory.Device -> {
-                            DeviceContent(mainStateHolder, Modifier.fillMaxSize())
-                        }
-
-                        MainCategory.Version -> {
-                            val versionStateHolder = mainStateHolder.versionStateHolder
-                            val versionState by versionStateHolder.state.collectAsState()
-
-                            DisposableEffect(mainStateHolder) {
-                                versionStateHolder.setup()
-                                onDispose { versionStateHolder.dispose() }
-                            }
-
-                            VersionScreen(versionState, versionStateHolder::retry, Modifier.fillMaxSize())
-                        }
-                    }
-                },
-                notificationArea = {
-                    Box(
-                        Modifier.fillMaxWidth().height(25.dp)
-                            .padding(horizontal = 8.dp, vertical = 4.dp),
-                    ) {
-                        Text(
-                            text = event.message,
-                            color =
-                                when (event.level) {
-                                    Event.Level.INFO -> MaterialTheme.colors.onSurface
-                                    Event.Level.WARN -> Color.Yellow
-                                    Event.Level.ERROR -> Color.Red
+                        MainCategory.Command -> {
+                            val commandStateHolder = mainStateHolder.commandStateHolder
+                            val commandState by commandStateHolder.state.collectAsState()
+                            CommandScreen(
+                                commands = commandState.commands,
+                                filtered = commandState.filtered,
+                                onClickFilter = commandStateHolder::clickTab,
+                                canExecute = commandState.canExecuteCommand,
+                                onExecute = { command ->
+                                    commandStateHolder.executeCommand(command)
                                 },
-                            style = MaterialTheme.typography.caption,
-                        )
+                            )
+                        }
+
+                        MainCategory.Text -> {
+                            val inputTextStateHolder = mainStateHolder.textCommandStateHolder
+                            val inputTextState by inputTextStateHolder.state.collectAsState()
+
+                            TextCommandScreen(
+                                // InputText
+                                inputText = inputTextState.userInputText,
+                                onTextChange = { text ->
+                                    inputTextStateHolder.updateInputText(text)
+                                },
+                                isSendingInputText = inputTextState.isSendingUserInputText,
+                                onSendInputText = {
+                                    inputTextStateHolder.sendInputText()
+                                },
+                                canSendInputText = inputTextState.canSendInputText,
+                                canSendTabKey = inputTextState.canSendTabKey,
+                                onSendTabKey = {
+                                    inputTextStateHolder.sendTabCommand()
+                                },
+                                onSaveInputText = {
+                                    inputTextStateHolder.saveInputText()
+                                },
+                                canSaveInputText = inputTextState.canSaveInputText,
+                                // Commands
+                                commands = inputTextState.commands,
+                                onSendCommand = { text ->
+                                    inputTextStateHolder.sendTextCommand(text)
+                                },
+                                canSendCommand = inputTextState.canSendCommand,
+                                isSendingTab = inputTextState.isSendingTab,
+                                onDeleteCommand = { text ->
+                                    inputTextStateHolder.deleteInputText(text)
+                                },
+                            )
+                        }
+
+                        MainCategory.Screenshot -> {
+                            val screenshotStateHolder = mainStateHolder.screenshotStateHolder
+                            val screenshotState by screenshotStateHolder.state.collectAsState()
+
+                            ScreenshotScreen(
+                                screenshot = screenshotState.preview,
+                                canCapture = screenshotState.canExecute,
+                                isCapturing = screenshotState.isCapturing,
+                                commands = screenshotState.commands,
+                                onCopyScreenshot = {
+                                    screenshotStateHolder.copyScreenShotToClipboard()
+                                },
+                                onDeleteScreenshot = {
+                                    screenshotStateHolder.deleteScreenShotToClipboard()
+                                },
+                                onTakeScreenshot = { screenshot ->
+                                    screenshotStateHolder.takeScreenShot(
+                                        screenshot,
+                                    )
+                                },
+                            )
+                        }
                     }
                 },
                 dialog = {
@@ -287,112 +317,6 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                 },
                 modifier = Modifier.fillMaxSize(),
             )
-        }
-    }
-}
-
-@Composable
-private fun DeviceContent(
-    mainStateHolder: MainStateHolder,
-    modifier: Modifier = Modifier,
-) {
-    val menuStateHolder = mainStateHolder.menuStateHolder
-    val menuState by menuStateHolder.state.collectAsState()
-
-    val commandStateHolder = mainStateHolder.commandStateHolder
-    val commandState by commandStateHolder.state.collectAsState()
-
-    val inputTextStateHolder = mainStateHolder.textCommandStateHolder
-    val inputTextState by inputTextStateHolder.state.collectAsState()
-
-    val screenshotStateHolder = mainStateHolder.screenshotStateHolder
-    val screenshotState by screenshotStateHolder.state.collectAsState()
-
-    Row(modifier) {
-        Box(Modifier.background(MaterialTheme.colors.background)) {
-            MenuScreen(
-                menus = menuState.menus,
-                selectedMenu = menuState.selectedMenu,
-                onSelectMenu = { menuStateHolder.selectMenu(it) },
-                modifier =
-                    Modifier
-                        .width(250.dp)
-                        .fillMaxHeight()
-                        .padding(horizontal = 12.dp, vertical = 16.dp),
-            )
-        }
-
-        Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
-
-        Box(Modifier.background(MaterialTheme.colors.background)) {
-            when (menuState.selectedMenu) {
-                Menu.Command -> {
-                    CommandScreen(
-                        commands = commandState.commands,
-                        filtered = commandState.filtered,
-                        onClickFilter = commandStateHolder::clickTab,
-                        canExecute = commandState.canExecuteCommand,
-                        onExecute = { command ->
-                            commandStateHolder.executeCommand(command)
-                        },
-                    )
-                }
-
-                Menu.InputText -> {
-                    TextCommandScreen(
-                        // InputText
-                        inputText = inputTextState.userInputText,
-                        onTextChange = { text ->
-                            inputTextStateHolder.updateInputText(text)
-                        },
-                        isSendingInputText = inputTextState.isSendingUserInputText,
-                        onSendInputText = {
-                            inputTextStateHolder.sendInputText()
-                        },
-                        canSendInputText = inputTextState.canSendInputText,
-                        canSendTabKey = inputTextState.canSendTabKey,
-                        onSendTabKey = {
-                            inputTextStateHolder.sendTabCommand()
-                        },
-                        onSaveInputText = {
-                            inputTextStateHolder.saveInputText()
-                        },
-                        canSaveInputText = inputTextState.canSaveInputText,
-                        // Commands
-                        commands = inputTextState.commands,
-                        onSendCommand = { text ->
-                            inputTextStateHolder.sendTextCommand(text)
-                        },
-                        canSendCommand = inputTextState.canSendCommand,
-                        isSendingTab = inputTextState.isSendingTab,
-                        onDeleteCommand = { text ->
-                            inputTextStateHolder.deleteInputText(text)
-                        },
-                    )
-                }
-
-                Menu.Screenshot -> {
-                    ScreenshotScreen(
-                        screenshot = screenshotState.preview,
-                        canCapture = screenshotState.canExecute,
-                        isCapturing = screenshotState.isCapturing,
-                        commands = screenshotState.commands,
-                        onCopyScreenshot = {
-                            screenshotStateHolder.copyScreenShotToClipboard()
-                        },
-                        onDeleteScreenshot = {
-                            screenshotStateHolder.deleteScreenShotToClipboard()
-                        },
-                        onTakeScreenshot = { screenshot ->
-                            screenshotStateHolder.takeScreenShot(
-                                screenshot,
-                            )
-                        },
-                    )
-                }
-
-                null -> Unit
-            }
         }
     }
 }

@@ -1,12 +1,10 @@
 package jp.kaleidot725.adbpad.ui.di
 
 import jp.kaleidot725.adbpad.MainStateHolder
-import jp.kaleidot725.adbpad.ui.screen.menu.MenuStateHolder
-import jp.kaleidot725.adbpad.ui.screen.menu.command.CommandStateHolder
-import jp.kaleidot725.adbpad.ui.screen.menu.screenshot.ScreenshotStateHolder
-import jp.kaleidot725.adbpad.ui.screen.menu.text.TextCommandStateHolder
+import jp.kaleidot725.adbpad.ui.screen.command.CommandStateHolder
+import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
+import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
-import jp.kaleidot725.adbpad.ui.screen.version.VersionStateHolder
 import org.koin.dsl.module
 
 val stateHolderModule =
@@ -32,10 +30,6 @@ val stateHolderModule =
         }
 
         factory {
-            MenuStateHolder(getMenuListUseCase = get())
-        }
-
-        factory {
             ScreenshotStateHolder(
                 takeScreenshotUseCase = get(),
                 getScreenshotCommandUseCase = get(),
@@ -58,18 +52,10 @@ val stateHolderModule =
         }
 
         factory {
-            VersionStateHolder(
-                versionRepository = get(),
-            )
-        }
-
-        factory {
             MainStateHolder(
-                menuStateHolder = get(),
                 commandStateHolder = get(),
                 textCommandStateHolder = get(),
                 screenshotStateHolder = get(),
-                versionStateHolder = get(),
                 getEventFlowUseCase = get(),
                 getWindowSizeUseCase = get(),
                 saveWindowSizeUseCase = get(),
