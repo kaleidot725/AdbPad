@@ -40,13 +40,13 @@ fun ScreenshotScreen(
             onCopyScreenshot = onCopyScreenshot,
             onDeleteScreenshot = onDeleteScreenshot,
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .weight(0.5f)
-                .border(
-                    border = BorderStroke(1.dp, UserColor.getSplitterColor()),
-                    shape = RoundedCornerShape(4.dp),
-                ),
+                Modifier
+                    .fillMaxWidth()
+                    .weight(0.5f)
+                    .border(
+                        border = BorderStroke(1.dp, UserColor.getSplitterColor()),
+                        shape = RoundedCornerShape(4.dp),
+                    ),
         )
 
         ScreenshotDropDownButton(

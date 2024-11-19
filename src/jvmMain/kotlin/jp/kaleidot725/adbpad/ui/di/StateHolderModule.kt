@@ -3,8 +3,8 @@ package jp.kaleidot725.adbpad.ui.di
 import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.ui.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
-import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
+import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
 import org.koin.dsl.module
 
 val stateHolderModule =

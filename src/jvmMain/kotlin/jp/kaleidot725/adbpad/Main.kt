@@ -56,9 +56,9 @@ import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
 import jp.kaleidot725.adbpad.ui.screen.menu.component.DropDownDeviceMenu
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
-import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
+import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.intui.standalone.theme.IntUiTheme
 import org.jetbrains.jewel.intui.standalone.theme.darkThemeDefinition
@@ -95,17 +95,17 @@ fun main() {
         MaterialTheme(colors = if (state.isDark) DarkColors else LightColors) {
             IntUiTheme(
                 theme =
-                if (state.isDark) {
-                    JewelTheme.darkThemeDefinition()
-                } else {
-                    JewelTheme.lightThemeDefinition()
-                },
+                    if (state.isDark) {
+                        JewelTheme.darkThemeDefinition()
+                    } else {
+                        JewelTheme.lightThemeDefinition()
+                    },
                 styling =
-                if (state.isDark) {
-                    ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.dark())
-                } else {
-                    ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.light())
-                },
+                    if (state.isDark) {
+                        ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.dark())
+                    } else {
+                        ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.light())
+                    },
             ) {
                 DecoratedWindow(
                     title = Language.windowTitle,
@@ -156,13 +156,13 @@ fun DecoratedWindowScope.TitleBarView(
             val degrees: Float by animateFloatAsState(if (isPress) -90f else 0f)
             Box(
                 modifier =
-                Modifier
-                    .size(28.dp)
-                    .clip(RoundedCornerShape(4.dp))
-                    .clickableBackground(isDarker = true)
-                    .onPointerEvent(PointerEventType.Press) { isPress = true }
-                    .onPointerEvent(PointerEventType.Release) { isPress = false }
-                    .clickable { onRefresh() },
+                    Modifier
+                        .size(28.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                        .clickableBackground(isDarker = true)
+                        .onPointerEvent(PointerEventType.Press) { isPress = true }
+                        .onPointerEvent(PointerEventType.Release) { isPress = false }
+                        .clickable { onRefresh() },
             ) {
                 Icon(
                     imageVector = Icons.Default.RestartAlt,

@@ -25,15 +25,15 @@ fun CommandScreen(
         CommandTab(
             filtered = filtered,
             onClick = onClickFilter,
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 16.dp),
         )
         CommandList(
             commands =
-            when (filtered) {
-                NormalCommandCategory.UI -> commands.ui
-                NormalCommandCategory.Communication -> commands.communication
-                null -> commands.all
-            },
+                when (filtered) {
+                    NormalCommandCategory.UI -> commands.ui
+                    NormalCommandCategory.Communication -> commands.communication
+                    null -> commands.all
+                },
             canExecute = canExecute,
             onExecute = onExecute,
             modifier = Modifier.fillMaxSize().padding(16.dp),
