@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.KotlinExecution
-
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.compose)
