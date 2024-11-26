@@ -9,34 +9,46 @@ jobs:
   desktop-build:
     runs-on: windows-latest
     timeout-minutes: 45 # 设置超时时间为 45 分钟
-
     steps:
-      # Step 1: 检出代码
       - uses: actions/checkout@v4
 
-      # Step 2: 配置 JAVA_HOME 环境变量
+      # Step 1: 检出代码
+
+      # Step 2: 下载JBR (JetBrains Runtime)
+      - name: Download and Extract JBR
+        run: |
+          mkdir -p C:\jbr
+          curl -L -o C:\jbr.tar.gz https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk_jcef-17.0.11-windows-x64-b1312.2.tar.gz
+
+      # Step 3: 配置 JAVA_HOME 环境变量
       - name: Configure JAVA_HOME
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
-          java-version: '17'
-          cache: gradle
-          cache-dependency-path: |
-            **/*.gradle*
-            **/gradle-wrapper.properties
+          distribution: 'jdkfile'
+          jdkFile: C:\jbr.tar.gz
+          java-version: '17.0.11'
+          architecture: x64
 
-      # # see issues : https://github.com/JetBrains/compose-multiplatform/issues/2330
-      # Step 3: 构建 EXE
+      # Step 4: 构建 EXE
       - name: Build exe app
         run: |
           .\gradlew packageUberJarForCurrentOS
           .\gradlew createDistributable
           .\gradlew packageExe
+          .\gradlew packageReleaseExe
 
-      # Step 4: 保存构建产物
-      - name: Archive Artifacts
+      # Step 5: 保存构建产物
+      - name: Archive Artifacts Debug
         uses: actions/upload-artifact@v4
         with:
-          name: distributable
+          name: Windows Debug
           if-no-files-found: ignore
-          path: composeApp/build/compose/binaries/main/app
+          path: composeApp/build/compose/binaries/main/exe
+
+      # Step 5: 保存构建产物
+      - name: Archive Artifacts Release
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows Release
+          if-no-files-found: ignore
+          path: composeApp/build/compose/binaries/main-release/exe
