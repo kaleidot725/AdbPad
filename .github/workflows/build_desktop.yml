@@ -3,7 +3,7 @@ name: Build & Ship
 on:
   push:
     branches:
-      - main # 在 main 分支发生 push 事件时触发工作流
+      - develop # 在 main 分支发生 push 事件时触发工作流
 
 jobs:
   desktop-build:
