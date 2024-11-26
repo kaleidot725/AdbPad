@@ -1,0 +1,42 @@
+name: Build & Ship
+
+on:
+  push:
+    branches:
+      - main # 在 main 分支发生 push 事件时触发工作流
+
+jobs:
+  desktop-build:
+    runs-on: windows-latest
+    timeout-minutes: 45 # 设置超时时间为 45 分钟
+
+    steps:
+      # Step 1: 检出代码
+      - uses: actions/checkout@v4
+
+      # Step 2: 配置 JAVA_HOME 环境变量
+      - name: Configure JAVA_HOME
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: gradle
+          cache-dependency-path: |
+            **/*.gradle*
+            **/gradle-wrapper.properties
+
+      # # see issues : https://github.com/JetBrains/compose-multiplatform/issues/2330
+      # Step 3: 构建 EXE
+      - name: Build exe app
+        run: |
+          .\gradlew packageUberJarForCurrentOS
+          .\gradlew createDistributable
+          .\gradlew packageExe
+
+      # Step 4: 保存构建产物
+      - name: Archive Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: distributable
+          if-no-files-found: ignore
+          path: composeApp/build/compose/binaries/main/app
