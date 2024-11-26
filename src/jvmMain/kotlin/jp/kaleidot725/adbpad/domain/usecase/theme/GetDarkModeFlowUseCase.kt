@@ -1,6 +1,6 @@
 package jp.kaleidot725.adbpad.domain.usecase.theme
 
-import com.jthemedetecor.OsThemeDetector
+import com.jetbrains.JBR
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +19,8 @@ class GetDarkModeFlowUseCase(
             Appearance.DARK -> flow { emit(true) }
             Appearance.LIGHT -> flow { emit(false) }
             Appearance.SYSTEM -> {
-                val detector = OsThemeDetector.getDetector()
+                flow { emit(false) }
+                /*val detector = OsThemeDetector.getDetector()
                 callbackFlow {
                     this.trySend(detector.isDark)
                     val listener: Consumer<Boolean> =
@@ -28,7 +29,7 @@ class GetDarkModeFlowUseCase(
                         }
                     detector.registerListener(listener)
                     awaitClose { detector.removeListener(listener) }
-                }
+                }*/
             }
         }
     }

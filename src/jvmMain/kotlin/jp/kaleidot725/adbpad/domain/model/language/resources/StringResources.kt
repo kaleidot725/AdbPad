@@ -85,6 +85,7 @@ interface StringResources {
     val settingLanguageHeader: String
     val settingLanguageEnglish: String
     val settingLanguageJapanese: String
+    val settingLanguageChinese: String
 
     val settingAdbHeader: String
     val settingAdbDirectoryPathTitle: String

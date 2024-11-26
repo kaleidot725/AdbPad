@@ -84,6 +84,7 @@ object JapaneseResources : StringResources {
     override val settingLanguageHeader = "表示言語"
     override val settingLanguageEnglish = "英語(English)"
     override val settingLanguageJapanese = "日本語"
+    override val settingLanguageChinese = "簡体字中国語"
 
     override val settingAppearanceHeader = "テーマ"
     override val settingAdbHeader = "ADB"
