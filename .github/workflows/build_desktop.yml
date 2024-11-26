@@ -38,12 +38,12 @@ jobs:
           .\gradlew packageReleaseExe
 
       # Step 5: 保存构建产物
-      - name: Archive Artifacts Debug
-        uses: actions/upload-artifact@v4
-        with:
-          name: Windows Debug
-          if-no-files-found: ignore
-          path: composeApp/build/compose/binaries/main/exe
+#      - name: Archive Artifacts Debug
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: Windows Debug
+#          if-no-files-found: ignore
+#          path: composeApp/build/compose/binaries/main/exe
 
       # Step 5: 保存构建产物
       - name: Archive Artifacts Release
@@ -51,4 +51,4 @@ jobs:
         with:
           name: Windows Release
           if-no-files-found: ignore
-          path: composeApp/build/compose/binaries/main-release/exe
+          path: composeApp/build/compose
