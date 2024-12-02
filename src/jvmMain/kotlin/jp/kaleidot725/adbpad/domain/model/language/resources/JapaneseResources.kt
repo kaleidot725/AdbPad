@@ -31,6 +31,11 @@ object JapaneseResources : StringResources {
     override val commandEndEventFormat = "「%s」のコマンド送信が完了しました"
     override val commandErrorEventFormat = "「%s」のコマンド送信に失敗しました"
 
+
+    override val commandPointerLocationOnTitle = "ポインターの位置: オン"
+    override val commandPointerLocationOnDetails = "画面オーバーレイを有効にして現在のタッチポイント座標を表示します"
+    override val commandPointerLocationOffTitle = "ポインターの位置: オフ"
+    override val commandPointerLocationOffDetails = "現在のタッチポイント座標を表示する画面オーバーレイを無効にする"
     override val commandLayoutBorderOnTitle = "レイアウト境界表示: ON"
     override val commandLayoutBorderOnDetails = "レイアウトの境界やマージンなどの表示を有効化します"
     override val commandLayoutBorderOffTitle = "レイアウト境界表示: OFF"

@@ -56,6 +56,16 @@ object Language : StringResources {
         get() = getCurrentResources().commandEndEventFormat
     override val commandErrorEventFormat: String
         get() = getCurrentResources().commandErrorEventFormat
+
+    override val commandPointerLocationOnTitle: String
+        get() = getCurrentResources().commandPointerLocationOnTitle
+    override val commandPointerLocationOnDetails: String
+        get() = getCurrentResources().commandPointerLocationOnDetails
+    override val commandPointerLocationOffTitle: String
+        get() = getCurrentResources().commandPointerLocationOffTitle
+    override val commandPointerLocationOffDetails: String
+        get() = getCurrentResources().commandPointerLocationOffDetails
+
     override val commandLayoutBorderOnTitle: String
         get() = getCurrentResources().commandLayoutBorderOnTitle
     override val commandLayoutBorderOnDetails: String

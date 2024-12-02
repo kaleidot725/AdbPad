@@ -31,6 +31,10 @@ object ChineseResources : StringResources {
     override val commandEndEventFormat = "结束发送命令 「%s」"
     override val commandErrorEventFormat = "发送命令失败 「%s」"
 
+    override val commandPointerLocationOnTitle = "指针位置：开启"
+    override val commandPointerLocationOnDetails = "启用屏幕叠加层显示当前触摸点坐标"
+    override val commandPointerLocationOffTitle = "指针位置：关闭"
+    override val commandPointerLocationOffDetails = "禁用屏幕叠加层显示当前触摸点坐标"
     override val commandLayoutBorderOnTitle = "显示布局边界: 开启"
     override val commandLayoutBorderOnDetails = "启用显示裁剪边界、边距等。"
     override val commandLayoutBorderOffTitle = "显示布局边界: 关闭"

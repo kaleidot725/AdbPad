@@ -31,6 +31,10 @@ object EnglishResources : StringResources {
     override val commandEndEventFormat = "End sending command 「%s」"
     override val commandErrorEventFormat = "Error sending command 「%s」"
 
+    override val commandPointerLocationOnTitle = "Pointer position: On"
+    override val commandPointerLocationOnDetails = "Enable screen overlay to display current touch point coordinates"
+    override val commandPointerLocationOffTitle = "Pointer position: off"
+    override val commandPointerLocationOffDetails = "Disable screen overlay showing current touch point coordinates"
     override val commandLayoutBorderOnTitle = "Show layout bounds: ON"
     override val commandLayoutBorderOnDetails = "Enable showing clip bounds, margins, etc."
     override val commandLayoutBorderOffTitle = "Show layout bonds: OFF"
