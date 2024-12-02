@@ -85,6 +85,7 @@ private fun Language.Type.title(): String {
     return when (this) {
         Language.Type.ENGLISH -> Language.settingLanguageEnglish
         Language.Type.JAPANESE -> Language.settingLanguageJapanese
+        Language.Type.CHINESE -> Language.settingLanguageChinese
     }
 }
 
