@@ -21,11 +21,6 @@ repositories {
 }
 
 kotlin {
-    jvmToolchain {
-        vendor = JvmVendorSpec.JETBRAINS
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-
     jvm {
     }
     sourceSets {
