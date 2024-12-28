@@ -19,6 +19,7 @@ interface NormalCommand {
             )
         override val category: NormalCommandCategory = NormalCommandCategory.UI
     }
+
     data class PointerLocationOff(override val isRunning: Boolean = false) : NormalCommand {
         override val title: String get() = Language.commandPointerLocationOffTitle
         override val details: String get() = Language.commandPointerLocationOffDetails

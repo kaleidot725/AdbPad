@@ -17,9 +17,6 @@ jobs:
 
       - name: Build exe app
         run: |
-          .\gradlew packageUberJarForCurrentOS
-          .\gradlew createDistributable
-          .\gradlew packageExe
           .\gradlew packageReleaseExe
 
       - name: Archive Artifacts Release

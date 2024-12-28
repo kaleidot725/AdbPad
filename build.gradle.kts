@@ -1,5 +1,4 @@
 import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
-import org.jetbrains.kotlin.gradle.plugin.KotlinExecution
 
 plugins {
     alias(libs.plugins.multiplatform)
@@ -64,11 +63,11 @@ compose.desktop {
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg,
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi,
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Deb,
-                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Exe
+                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Exe,
             )
 
             jvmArgs(
-                "-Dapple.awt.application.appearance=NSAppearanceNameDarkAqua"
+                "-Dapple.awt.application.appearance=NSAppearanceNameDarkAqua",
             )
 
             macOS {

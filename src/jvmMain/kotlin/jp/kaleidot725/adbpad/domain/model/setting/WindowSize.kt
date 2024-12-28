@@ -1,6 +1,5 @@
 package jp.kaleidot725.adbpad.domain.model.setting
 
-import androidx.compose.ui.window.FrameWindowScope
 import androidx.compose.ui.window.WindowScope
 import kotlinx.serialization.Serializable
 

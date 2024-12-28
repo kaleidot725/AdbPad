@@ -206,6 +206,6 @@ object Language : StringResources {
     enum class Type {
         ENGLISH,
         JAPANESE,
-        CHINESE
+        CHINESE,
     }
 }

@@ -256,7 +256,7 @@ private fun TitleBarView(
 ) {
     Surface(
         color = MaterialTheme.colors.background,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
         Box {
             Row(Modifier.align(Alignment.CenterStart).wrapContentSize()) {
