@@ -39,13 +39,10 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.swing)
                 implementation(libs.kotlin.serialization)
                 implementation(libs.koin)
-//                implementation(libs.jSystemThemeDetectorVer.get())
-                implementation("org.jetbrains.jewel:jewel-int-ui-standalone-241:0.26.2")
-                implementation("org.jetbrains.jewel:jewel-int-ui-decorated-window-241:0.26.2")
                 implementation(compose.desktop.currentOs) { exclude(group = "org.jetbrains.compose.material") }
                 implementation(libs.ktor.core)
                 implementation(libs.ktor.client.okhttp)
-
+                implementation("com.mayakapps.compose:window-styler:0.3.2")
             }
         }
         val jvmTest by getting {
@@ -62,6 +59,7 @@ compose.desktop {
         buildTypes.release {
             proguard.isEnabled = false
         }
+
         nativeDistributions {
             packageName = "AdbPad"
             modules("jdk.management")

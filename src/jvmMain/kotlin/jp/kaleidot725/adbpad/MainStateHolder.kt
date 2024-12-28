@@ -3,13 +3,11 @@ package jp.kaleidot725.adbpad
 import jp.kaleidot725.adbpad.domain.model.Dialog
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.language.Language
-import jp.kaleidot725.adbpad.domain.model.log.Event
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.UpdateDevicesUseCase
-import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.refresh.RefreshUseCase
 import jp.kaleidot725.adbpad.domain.usecase.theme.GetDarkModeFlowUseCase
@@ -26,7 +24,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -40,7 +37,6 @@ class MainStateHolder(
     val commandStateHolder: CommandStateHolder,
     val textCommandStateHolder: TextCommandStateHolder,
     val screenshotStateHolder: ScreenshotStateHolder,
-    private val getEventFlowUseCase: GetEventFlowUseCase,
     private val getWindowSizeUseCase: GetWindowSizeUseCase,
     private val saveWindowSizeUseCase: SaveWindowSizeUseCase,
     private val startAdbUseCase: StartAdbUseCase,
@@ -66,7 +62,6 @@ class MainStateHolder(
     private val _selectedDevice: MutableStateFlow<Device?> = MutableStateFlow(null)
     private val selectedDevice: StateFlow<Device?> = _selectedDevice.asStateFlow()
 
-    val event: SharedFlow<Event> = getEventFlowUseCase()
     val state: StateFlow<MainState> =
         combine(language, isDark, windowSize, dialog, category, devices, selectedDevice) { data ->
             MainState(

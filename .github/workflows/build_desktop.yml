@@ -3,24 +3,20 @@ name: Build & Ship
 on:
   push:
     branches:
-      - develop # 在 main 分支发生 push 事件时触发工作流
+      - develop
 
 jobs:
   desktop-build:
     runs-on: windows-latest
-    timeout-minutes: 45 # 设置超时时间为 45 分钟
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
-      # Step 1: 检出代码
-
-      # Step 2: 下载JBR (JetBrains Runtime)
       - name: Download and Extract JBR
         run: |
           mkdir -p C:\jbr
           curl -L -o C:\jbr.tar.gz https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk_jcef-17.0.11-windows-x64-b1312.2.tar.gz
 
-      # Step 3: 配置 JAVA_HOME 环境变量
       - name: Configure JAVA_HOME
         uses: actions/setup-java@v4
         with:
@@ -29,7 +25,6 @@ jobs:
           java-version: '17.0.11'
           architecture: x64
 
-      # Step 4: 构建 EXE
       - name: Build exe app
         run: |
           .\gradlew packageUberJarForCurrentOS
@@ -37,7 +32,6 @@ jobs:
           .\gradlew packageExe
           .\gradlew packageReleaseExe
 
-      # Step 5: 保存构建产物
       - name: Archive Artifacts Debug
         uses: actions/upload-artifact@v4
         with:
@@ -45,7 +39,6 @@ jobs:
           if-no-files-found: ignore
           path: build/compose/binaries/main/exe
 
-      # Step 5: 保存构建产物
       - name: Archive Artifacts Release
         uses: actions/upload-artifact@v4
         with:

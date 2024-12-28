@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -13,7 +14,6 @@ import androidx.compose.material.Colors
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.RestartAlt
 import androidx.compose.runtime.Composable
@@ -28,12 +28,12 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowScope
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import jp.kaleidot725.adbpad.MainCategory
@@ -44,7 +44,6 @@ import jp.kaleidot725.adbpad.domain.model.Dialog
 import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.language.Language
-import jp.kaleidot725.adbpad.domain.model.log.Event
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.model.setting.getWindowSize
 import jp.kaleidot725.adbpad.repository.di.repositoryModule
@@ -59,19 +58,6 @@ import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
-import org.jetbrains.jewel.foundation.theme.JewelTheme
-import org.jetbrains.jewel.intui.standalone.theme.IntUiTheme
-import org.jetbrains.jewel.intui.standalone.theme.darkThemeDefinition
-import org.jetbrains.jewel.intui.standalone.theme.lightThemeDefinition
-import org.jetbrains.jewel.intui.window.decoratedWindow
-import org.jetbrains.jewel.intui.window.styling.dark
-import org.jetbrains.jewel.intui.window.styling.light
-import org.jetbrains.jewel.ui.ComponentStyling
-import org.jetbrains.jewel.window.DecoratedWindow
-import org.jetbrains.jewel.window.DecoratedWindowScope
-import org.jetbrains.jewel.window.TitleBar
-import org.jetbrains.jewel.window.newFullscreenControls
-import org.jetbrains.jewel.window.styling.TitleBarStyle
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
 
@@ -93,91 +79,20 @@ fun main() {
         }
 
         MaterialTheme(colors = if (state.isDark) DarkColors else LightColors) {
-            IntUiTheme(
-                theme =
-                    if (state.isDark) {
-                        JewelTheme.darkThemeDefinition()
-                    } else {
-                        JewelTheme.lightThemeDefinition()
-                    },
-                styling =
-                    if (state.isDark) {
-                        ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.dark())
-                    } else {
-                        ComponentStyling.decoratedWindow(titleBarStyle = TitleBarStyle.light())
-                    },
+            Window(
+                title = Language.windowTitle,
+                icon = painterResource("icon.png"),
+                onCloseRequest = ::exitApplication,
+                state = windowState,
             ) {
-                DecoratedWindow(
-                    title = Language.windowTitle,
-                    icon = painterResource("icon.png"),
-                    onCloseRequest = ::exitApplication,
-                    state = windowState,
-                ) {
-                    TitleBarView(
-                        state = state,
-                        onSelectDevice = mainStateHolder::selectDevice,
-                        onRefresh = mainStateHolder::refresh,
-                    )
-                    App(mainStateHolder)
-                }
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalComposeUiApi::class)
-@Composable
-fun DecoratedWindowScope.TitleBarView(
-    state: MainState,
-    onSelectDevice: (Device) -> Unit,
-    onRefresh: () -> Unit,
-) {
-    TitleBar(
-        style = TitleBarStyle.dark(),
-        modifier = Modifier.newFullscreenControls(),
-    ) {
-        Row(Modifier.align(Alignment.Start).wrapContentSize()) {
-            DropDownDeviceMenu(
-                devices = state.devices,
-                selectedDevice = state.selectedDevice,
-                onSelectDevice = onSelectDevice,
-                modifier = Modifier.width(200.dp),
-            )
-        }
-
-        Text(
-            text = title,
-            color = Color.White,
-            textAlign = TextAlign.Center,
-        )
-
-        Row(Modifier.align(Alignment.End).wrapContentSize().padding(4.dp)) {
-            var isPress: Boolean by remember { mutableStateOf(false) }
-            val degrees: Float by animateFloatAsState(if (isPress) -90f else 0f)
-            Box(
-                modifier =
-                    Modifier
-                        .size(28.dp)
-                        .clip(RoundedCornerShape(4.dp))
-                        .clickableBackground(isDarker = true)
-                        .onPointerEvent(PointerEventType.Press) { isPress = true }
-                        .onPointerEvent(PointerEventType.Release) { isPress = false }
-                        .clickable { onRefresh() },
-            ) {
-                Icon(
-                    imageVector = Icons.Default.RestartAlt,
-                    tint = Color.White,
-                    contentDescription = null,
-                    modifier = Modifier.rotate(degrees).align(Alignment.Center),
-                )
+                App(mainStateHolder)
             }
         }
     }
 }
 
 @Composable
-fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
-    val event by mainStateHolder.event.collectAsState(Event.NULL)
+fun WindowScope.App(mainStateHolder: MainStateHolder) {
     val state by mainStateHolder.state.collectAsState()
     val decoratedWindowScope = this
 
@@ -192,6 +107,13 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
     Crossfade(state.language) {
         Surface {
             ScreenLayout(
+                top = {
+                    TitleBarView(
+                        state = state,
+                        onSelectDevice = mainStateHolder::selectDevice,
+                        onRefresh = mainStateHolder::refresh,
+                    )
+                },
                 navigationRail = {
                     NavigationRail(
                         category = state.category,
@@ -317,6 +239,52 @@ fun DecoratedWindowScope.App(mainStateHolder: MainStateHolder) {
                 },
                 modifier = Modifier.fillMaxSize(),
             )
+        }
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+private fun TitleBarView(
+    state: MainState,
+    onSelectDevice: (Device) -> Unit,
+    onRefresh: () -> Unit,
+) {
+    Surface(
+        color = MaterialTheme.colors.background,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Box {
+            Row(Modifier.align(Alignment.CenterStart).wrapContentSize()) {
+                DropDownDeviceMenu(
+                    devices = state.devices,
+                    selectedDevice = state.selectedDevice,
+                    onSelectDevice = onSelectDevice,
+                    modifier = Modifier.width(200.dp),
+                )
+            }
+
+            Row(Modifier.align(Alignment.CenterEnd).wrapContentSize().padding(4.dp)) {
+                var isPress: Boolean by remember { mutableStateOf(false) }
+                val degrees: Float by animateFloatAsState(if (isPress) -90f else 0f)
+                Box(
+                    modifier =
+                        Modifier
+                            .size(28.dp)
+                            .clip(RoundedCornerShape(4.dp))
+                            .clickableBackground(isDarker = true)
+                            .onPointerEvent(PointerEventType.Press) { isPress = true }
+                            .onPointerEvent(PointerEventType.Release) { isPress = false }
+                            .clickable { onRefresh() },
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.RestartAlt,
+                        tint = MaterialTheme.colors.onBackground,
+                        contentDescription = null,
+                        modifier = Modifier.rotate(degrees).align(Alignment.Center),
+                    )
+                }
+            }
         }
     }
 }

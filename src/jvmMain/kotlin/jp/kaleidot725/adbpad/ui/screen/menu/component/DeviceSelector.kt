@@ -32,14 +32,14 @@ fun DeviceSelector(
             Text(
                 text = selectedDevice?.serial ?: Language.notFoundDevice,
                 style = MaterialTheme.typography.subtitle2,
-                color = Color.White,
+                color = MaterialTheme.colors.onBackground,
                 modifier = Modifier.align(Alignment.CenterVertically),
             )
 
             Icon(
                 imageVector = Icons.Filled.ArrowDropDown,
                 contentDescription = "Device DropDown Icon",
-                tint = Color.White,
+                tint = MaterialTheme.colors.onBackground,
                 modifier = Modifier.align(Alignment.CenterVertically).padding(top = 6.dp),
             )
         }
