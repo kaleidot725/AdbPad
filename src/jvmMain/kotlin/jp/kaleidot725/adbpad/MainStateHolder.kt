@@ -50,7 +50,7 @@ class MainStateHolder(
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val language: MutableStateFlow<Language.Type> = MutableStateFlow(Language.Type.ENGLISH)
     private val windowSize: MutableStateFlow<WindowSize> = MutableStateFlow(WindowSize.UNKNOWN)
-    private val isDark: MutableStateFlow<Boolean> = MutableStateFlow(true)
+    private val isDark: MutableStateFlow<Boolean?> = MutableStateFlow(null)
     private val dialog: MutableStateFlow<Dialog?> = MutableStateFlow(null)
     private val category: MutableStateFlow<MainCategory> = MutableStateFlow(MainCategory.Command)
 
@@ -66,7 +66,7 @@ class MainStateHolder(
         combine(language, isDark, windowSize, dialog, category, devices, selectedDevice) { data ->
             MainState(
                 data[0] as Language.Type,
-                data[1] as Boolean,
+                data[1] as Boolean?,
                 data[2] as WindowSize,
                 data[3] as Dialog?,
                 data[4] as MainCategory,

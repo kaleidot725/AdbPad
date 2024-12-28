@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Colors
 import androidx.compose.material.Icon
@@ -78,14 +79,17 @@ fun main() {
             mutableStateOf(WindowState(width = state.size.width.dp, height = state.size.height.dp))
         }
 
-        MaterialTheme(colors = if (state.isDark) DarkColors else LightColors) {
-            Window(
-                title = Language.windowTitle,
-                icon = painterResource("icon.png"),
-                onCloseRequest = ::exitApplication,
-                state = windowState,
-            ) {
-                App(mainStateHolder)
+        val isDark = state.isDark
+        if (isDark != null) {
+            MaterialTheme(colors = if (isDark) DarkColors else LightColors) {
+                Window(
+                    title = Language.windowTitle,
+                    icon = painterResource("icon.png"),
+                    onCloseRequest = ::exitApplication,
+                    state = windowState,
+                ) {
+                    App(mainStateHolder)
+                }
             }
         }
     }
@@ -260,7 +264,7 @@ private fun TitleBarView(
                     devices = state.devices,
                     selectedDevice = state.selectedDevice,
                     onSelectDevice = onSelectDevice,
-                    modifier = Modifier.width(200.dp),
+                    modifier = Modifier.wrapContentWidth(),
                 )
             }
 
