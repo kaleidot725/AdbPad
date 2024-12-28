@@ -42,7 +42,7 @@ kotlin {
                 implementation(compose.desktop.currentOs) { exclude(group = "org.jetbrains.compose.material") }
                 implementation(libs.ktor.core)
                 implementation(libs.ktor.client.okhttp)
-                implementation("com.mayakapps.compose:window-styler:0.3.2")
+                implementation(libs.jSystemThemeDetectorVer)
             }
         }
         val jvmTest by getting {
@@ -70,6 +70,10 @@ compose.desktop {
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi,
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Deb,
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Exe
+            )
+
+            jvmArgs(
+                "-Dapple.awt.application.appearance=NSAppearanceNameDarkAqua"
             )
 
             macOS {
