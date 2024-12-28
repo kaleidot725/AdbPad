@@ -1,4 +1,4 @@
-name: Build & Ship
+name: Create windows binary
 
 on:
   workflow_dispatch:
