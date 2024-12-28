@@ -13,7 +13,6 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceState
@@ -32,14 +31,14 @@ fun DeviceSelector(
             Text(
                 text = selectedDevice?.serial ?: Language.notFoundDevice,
                 style = MaterialTheme.typography.subtitle2,
-                color = Color.White,
+                color = MaterialTheme.colors.onBackground,
                 modifier = Modifier.align(Alignment.CenterVertically),
             )
 
             Icon(
                 imageVector = Icons.Filled.ArrowDropDown,
                 contentDescription = "Device DropDown Icon",
-                tint = Color.White,
+                tint = MaterialTheme.colors.onBackground,
                 modifier = Modifier.align(Alignment.CenterVertically).padding(top = 6.dp),
             )
         }

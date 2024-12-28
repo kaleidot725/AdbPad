@@ -21,6 +21,7 @@ import jp.kaleidot725.adbpad.domain.model.UserColor
 
 @Composable
 fun ScreenLayout(
+    top: @Composable () -> Unit,
     navigationRail: @Composable () -> Unit,
     content: @Composable () -> Unit,
     dialog: @Composable () -> Unit,
@@ -28,6 +29,8 @@ fun ScreenLayout(
 ) {
     Box(modifier) {
         Column {
+            top()
+            Spacer(Modifier.height(1.dp).fillMaxWidth().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
             Row(modifier = Modifier.weight(0.9f, true)) {
                 Box(Modifier.background(MaterialTheme.colors.background)) { navigationRail() }
                 Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
@@ -43,6 +46,9 @@ fun ScreenLayout(
 @Composable
 private fun ScreenLayout_Preview() {
     ScreenLayout(
+        top = {
+            Box(Modifier.height(50.dp).fillMaxWidth().background(androidx.compose.ui.graphics.Color.Red))
+        },
         navigationRail = {
             Box(Modifier.width(50.dp).fillMaxHeight().background(androidx.compose.ui.graphics.Color.Yellow))
         },

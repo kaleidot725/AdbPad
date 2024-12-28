@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
+
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.compose)
@@ -7,7 +9,7 @@ plugins {
 }
 
 group = "jp.kaleidot725"
-version = "1.2.0"
+version = "1.3.0"
 
 repositories {
     mavenCentral()
@@ -18,11 +20,6 @@ repositories {
 }
 
 kotlin {
-    jvmToolchain {
-        vendor = JvmVendorSpec.JETBRAINS
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-
     jvm {
     }
     sourceSets {
@@ -36,12 +33,10 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.swing)
                 implementation(libs.kotlin.serialization)
                 implementation(libs.koin)
-                implementation(libs.jSystemThemeDetectorVer)
-                implementation("org.jetbrains.jewel:jewel-int-ui-standalone-241:0.26.2")
-                implementation("org.jetbrains.jewel:jewel-int-ui-decorated-window-241:0.26.2")
                 implementation(compose.desktop.currentOs) { exclude(group = "org.jetbrains.compose.material") }
                 implementation(libs.ktor.core)
                 implementation(libs.ktor.client.okhttp)
+                implementation(libs.jSystemThemeDetectorVer)
             }
         }
         val jvmTest by getting {
@@ -55,6 +50,10 @@ kotlin {
 compose.desktop {
     application {
         mainClass = "MainKt"
+        buildTypes.release {
+            proguard.isEnabled = false
+        }
+
         nativeDistributions {
             packageName = "AdbPad"
             modules("jdk.management")
@@ -64,6 +63,11 @@ compose.desktop {
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg,
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi,
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Deb,
+                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Exe,
+            )
+
+            jvmArgs(
+                "-Dapple.awt.application.appearance=NSAppearanceNameDarkAqua",
             )
 
             macOS {

@@ -1,5 +1,6 @@
 package jp.kaleidot725.adbpad.domain.model.language
 
+import jp.kaleidot725.adbpad.domain.model.language.resources.ChineseResources
 import jp.kaleidot725.adbpad.domain.model.language.resources.EnglishResources
 import jp.kaleidot725.adbpad.domain.model.language.resources.JapaneseResources
 import jp.kaleidot725.adbpad.domain.model.language.resources.StringResources
@@ -55,6 +56,16 @@ object Language : StringResources {
         get() = getCurrentResources().commandEndEventFormat
     override val commandErrorEventFormat: String
         get() = getCurrentResources().commandErrorEventFormat
+
+    override val commandPointerLocationOnTitle: String
+        get() = getCurrentResources().commandPointerLocationOnTitle
+    override val commandPointerLocationOnDetails: String
+        get() = getCurrentResources().commandPointerLocationOnDetails
+    override val commandPointerLocationOffTitle: String
+        get() = getCurrentResources().commandPointerLocationOffTitle
+    override val commandPointerLocationOffDetails: String
+        get() = getCurrentResources().commandPointerLocationOffDetails
+
     override val commandLayoutBorderOnTitle: String
         get() = getCurrentResources().commandLayoutBorderOnTitle
     override val commandLayoutBorderOnDetails: String
@@ -155,6 +166,8 @@ object Language : StringResources {
         get() = getCurrentResources().settingLanguageEnglish
     override val settingLanguageJapanese: String
         get() = getCurrentResources().settingLanguageJapanese
+    override val settingLanguageChinese: String
+        get() = getCurrentResources().settingLanguageChinese
     override val settingAppearanceHeader: String
         get() = getCurrentResources().settingAppearanceHeader
     override val settingAdbHeader: String
@@ -186,11 +199,13 @@ object Language : StringResources {
         return when (currentType) {
             Type.ENGLISH -> EnglishResources
             Type.JAPANESE -> JapaneseResources
+            Type.CHINESE -> ChineseResources
         }
     }
 
     enum class Type {
         ENGLISH,
         JAPANESE,
+        CHINESE,
     }
 }

@@ -1,7 +1,7 @@
 package jp.kaleidot725.adbpad.domain.model.language.resources
 
 object EnglishResources : StringResources {
-    override val version = "v1.2.0"
+    override val version = "v1.3.0"
     override val windowTitle = "AdbPad($version)"
 
     override val notFoundDevice = "Not found device"
@@ -31,6 +31,10 @@ object EnglishResources : StringResources {
     override val commandEndEventFormat = "End sending command 「%s」"
     override val commandErrorEventFormat = "Error sending command 「%s」"
 
+    override val commandPointerLocationOnTitle = "Pointer position: On"
+    override val commandPointerLocationOnDetails = "Enable screen overlay to display current touch point coordinates"
+    override val commandPointerLocationOffTitle = "Pointer position: off"
+    override val commandPointerLocationOffDetails = "Disable screen overlay showing current touch point coordinates"
     override val commandLayoutBorderOnTitle = "Show layout bounds: ON"
     override val commandLayoutBorderOnDetails = "Enable showing clip bounds, margins, etc."
     override val commandLayoutBorderOffTitle = "Show layout bonds: OFF"
@@ -84,6 +88,7 @@ object EnglishResources : StringResources {
     override val settingLanguageHeader = "Language"
     override val settingLanguageEnglish = "English"
     override val settingLanguageJapanese = "Japanese(日本語)"
+    override val settingLanguageChinese = "Chinese(简体中文)"
 
     override val settingAppearanceHeader = "Appearance"
     override val settingAdbHeader = "ADB"

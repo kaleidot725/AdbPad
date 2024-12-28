@@ -14,6 +14,8 @@ class NormalCommandRepositoryImpl : NormalCommandRepository {
 
     override fun getCommands(): List<NormalCommand> {
         return listOf(
+            NormalCommand.PointerLocationOn(runningCommands.any { it is NormalCommand.PointerLocationOn }),
+            NormalCommand.PointerLocationOff(runningCommands.any { it is NormalCommand.PointerLocationOff }),
             NormalCommand.LayoutBorderOn(runningCommands.any { it is NormalCommand.LayoutBorderOn }),
             NormalCommand.LayoutBorderOff(runningCommands.any { it is NormalCommand.LayoutBorderOff }),
             NormalCommand.TapEffectOn(runningCommands.any { it is NormalCommand.TapEffectOn }),

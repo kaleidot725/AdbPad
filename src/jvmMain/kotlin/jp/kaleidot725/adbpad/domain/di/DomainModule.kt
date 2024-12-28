@@ -9,7 +9,6 @@ import jp.kaleidot725.adbpad.domain.usecase.command.GetNormalCommandGroup
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.UpdateDevicesUseCase
-import jp.kaleidot725.adbpad.domain.usecase.event.GetEventFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.SaveLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.refresh.RefreshUseCase
@@ -39,7 +38,7 @@ val domainModule =
             RestartAdbUseCase(get())
         }
         factory {
-            ExecuteCommandUseCase(get(), get())
+            ExecuteCommandUseCase(get())
         }
         factory {
             GetNormalCommandGroup(get())
@@ -57,25 +56,22 @@ val domainModule =
             DeleteTextCommandUseCase(get())
         }
         factory {
-            ExecuteTextCommandUseCase(get(), get())
+            ExecuteTextCommandUseCase(get())
         }
         factory {
             GetTextCommandUseCase(get())
         }
         factory {
-            TakeScreenshotUseCase(get(), get())
+            TakeScreenshotUseCase(get())
         }
         factory {
             GetScreenshotCommandUseCase(get())
         }
         factory {
-            GetEventFlowUseCase(get())
+            SendUserInputTextCommandUseCase(get())
         }
         factory {
-            SendUserInputTextCommandUseCase(get(), get())
-        }
-        factory {
-            DeleteScreenshotPreviewUseCase(get(), get())
+            DeleteScreenshotPreviewUseCase(get())
         }
         factory {
             GetWindowSizeUseCase(get())
@@ -105,10 +101,10 @@ val domainModule =
             GetLanguageUseCase(get())
         }
         factory {
-            CopyScreenshotToClipboardUseCase(get(), get())
+            CopyScreenshotToClipboardUseCase(get())
         }
         factory {
-            SendTabCommandUseCase(get(), get())
+            SendTabCommandUseCase(get())
         }
         factory {
             RefreshUseCase(get(), get(), get())

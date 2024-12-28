@@ -10,6 +10,26 @@ interface NormalCommand {
     val requests: List<ShellCommandRequest>
     val category: NormalCommandCategory
 
+    data class PointerLocationOn(override val isRunning: Boolean = false) : NormalCommand {
+        override val title: String get() = Language.commandPointerLocationOnTitle
+        override val details: String get() = Language.commandPointerLocationOnDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put system pointer_location 1"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class PointerLocationOff(override val isRunning: Boolean = false) : NormalCommand {
+        override val title: String get() = Language.commandPointerLocationOffTitle
+        override val details: String get() = Language.commandPointerLocationOffDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put system pointer_location 0"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
     data class LayoutBorderOn(override val isRunning: Boolean = false) : NormalCommand {
         override val title: String get() = Language.commandLayoutBorderOnTitle
         override val details: String get() = Language.commandLayoutBorderOnDetails

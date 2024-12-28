@@ -51,7 +51,7 @@ object SettingFileCreator {
     @Serializable
     data class Setting(
         val language: Language.Type = Language.Type.ENGLISH,
-        val appearance: Appearance = Appearance.SYSTEM,
+        val appearance: Appearance = Appearance.LIGHT,
         val sdkPath: SdkPath = SdkPath(),
         val inputTexts: List<String> = emptyList(),
         val windowSize: WindowSize = WindowSize.DEFAULT,

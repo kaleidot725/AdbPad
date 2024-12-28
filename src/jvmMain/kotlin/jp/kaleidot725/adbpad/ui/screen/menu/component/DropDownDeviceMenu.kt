@@ -60,6 +60,7 @@ fun DropDownDeviceMenu(
                 ) {
                     Text(
                         text = device.serial,
+                        color = MaterialTheme.colors.onBackground,
                         style = MaterialTheme.typography.subtitle2,
                     )
                 }

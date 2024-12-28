@@ -30,6 +30,10 @@ interface StringResources {
     val commandEndEventFormat: String
     val commandErrorEventFormat: String
 
+    val commandPointerLocationOnTitle: String
+    val commandPointerLocationOnDetails: String
+    val commandPointerLocationOffTitle: String
+    val commandPointerLocationOffDetails: String
     val commandLayoutBorderOnTitle: String
     val commandLayoutBorderOnDetails: String
     val commandLayoutBorderOffTitle: String
@@ -85,6 +89,7 @@ interface StringResources {
     val settingLanguageHeader: String
     val settingLanguageEnglish: String
     val settingLanguageJapanese: String
+    val settingLanguageChinese: String
 
     val settingAdbHeader: String
     val settingAdbDirectoryPathTitle: String

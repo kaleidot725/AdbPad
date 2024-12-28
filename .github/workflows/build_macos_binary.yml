@@ -1,0 +1,27 @@
+name: Build & Ship
+
+on:
+  workflow_dispatch:
+
+jobs:
+  desktop-build:
+    runs-on: macos-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+
+      - name: Build exe app
+        run: |
+          .\gradlew packageReleaseExe
+
+      - name: Archive Artifacts Release
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows Release
+          if-no-files-found: ignore
+          path: build/compose/binaries/main-release/dmg

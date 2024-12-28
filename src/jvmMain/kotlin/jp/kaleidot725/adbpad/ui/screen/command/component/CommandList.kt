@@ -41,7 +41,7 @@ fun CommandList(
                         isRunning = command.isRunning,
                         canExecute = canExecute,
                         onExecute = { onExecute(command) },
-                        modifier = Modifier.height(150.dp).fillMaxWidth().padding(2.dp),
+                        modifier = Modifier.height(175.dp).fillMaxWidth().padding(2.dp),
                     )
                 }
             }
