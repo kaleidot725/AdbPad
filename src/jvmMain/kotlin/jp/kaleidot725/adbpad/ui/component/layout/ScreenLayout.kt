@@ -23,7 +23,6 @@ import jp.kaleidot725.adbpad.domain.model.UserColor
 fun ScreenLayout(
     navigationRail: @Composable () -> Unit,
     content: @Composable () -> Unit,
-    notificationArea: @Composable () -> Unit,
     dialog: @Composable () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -35,7 +34,6 @@ fun ScreenLayout(
                 Box(Modifier.background(MaterialTheme.colors.background)) { content() }
             }
             Spacer(Modifier.height(1.dp).fillMaxWidth().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
-            Box(Modifier.background(MaterialTheme.colors.background)) { notificationArea() }
         }
         dialog()
     }
@@ -50,9 +48,6 @@ private fun ScreenLayout_Preview() {
         },
         content = {
             Box(Modifier.fillMaxSize().background(androidx.compose.ui.graphics.Color.Blue))
-        },
-        notificationArea = {
-            Box(Modifier.fillMaxWidth().height(50.dp).background(androidx.compose.ui.graphics.Color.Green))
         },
         dialog = {
         },

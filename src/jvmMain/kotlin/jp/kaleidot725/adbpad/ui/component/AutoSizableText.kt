@@ -20,7 +20,7 @@ fun AutoSizableText(
     text: String,
     style: TextStyle,
     modifier: Modifier = Modifier,
-    minFontSize: TextUnit = 12.sp,
+    minFontSize: TextUnit = 1.sp,
     maxFontSize: TextUnit = 100.sp,
     granularityInPx: Int = 1,
 ) {

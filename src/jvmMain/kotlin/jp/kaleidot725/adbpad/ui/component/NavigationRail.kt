@@ -6,9 +6,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Android
-import androidx.compose.material.icons.filled.PhoneAndroid
+import androidx.compose.material.icons.filled.DoubleArrow
+import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Textsms
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -22,22 +23,31 @@ fun NavigationRail(
 ) {
     Column(modifier = Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         NavigationRailItem(
-            label = "Device",
-            icon = Icons.Default.PhoneAndroid,
+            label = "Command",
+            icon = Icons.Default.DoubleArrow,
             contentDescription = "device menu",
-            isSelected = category == MainCategory.Device,
-            onClick = { onSelectCategory(MainCategory.Device) },
+            isSelected = category == MainCategory.Command,
+            onClick = { onSelectCategory(MainCategory.Command) },
         )
 
         NavigationRailItem(
-            label = "Share",
-            icon = Icons.Default.Android,
-            contentDescription = "version menu",
-            isSelected = category == MainCategory.Version,
-            onClick = { onSelectCategory(MainCategory.Version) },
+            label = "Text",
+            icon = Icons.Default.Textsms,
+            contentDescription = "text menu",
+            isSelected = category == MainCategory.Text,
+            onClick = { onSelectCategory(MainCategory.Text) },
+        )
+
+        NavigationRailItem(
+            label = "Screenshot",
+            icon = Icons.Default.PhotoCamera,
+            contentDescription = "screenshot menu",
+            isSelected = category == MainCategory.Screenshot,
+            onClick = { onSelectCategory(MainCategory.Screenshot) },
         )
 
         Spacer(Modifier.weight(1.0f))
+
         NavigationRailItem(
             label = "Setting",
             icon = Icons.Default.Settings,
@@ -51,5 +61,5 @@ fun NavigationRail(
 @Preview
 @Composable
 private fun NavigationRail_Preview() {
-    NavigationRail(MainCategory.Version, {}, {})
+    NavigationRail(MainCategory.Text, {}, {})
 }
