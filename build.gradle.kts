@@ -1,3 +1,6 @@
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
+import org.jetbrains.kotlin.gradle.plugin.KotlinExecution
+
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.compose)
@@ -36,12 +39,13 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.swing)
                 implementation(libs.kotlin.serialization)
                 implementation(libs.koin)
-                implementation(libs.jSystemThemeDetectorVer)
+//                implementation(libs.jSystemThemeDetectorVer.get())
                 implementation("org.jetbrains.jewel:jewel-int-ui-standalone-241:0.26.2")
                 implementation("org.jetbrains.jewel:jewel-int-ui-decorated-window-241:0.26.2")
                 implementation(compose.desktop.currentOs) { exclude(group = "org.jetbrains.compose.material") }
                 implementation(libs.ktor.core)
                 implementation(libs.ktor.client.okhttp)
+
             }
         }
         val jvmTest by getting {
@@ -55,6 +59,9 @@ kotlin {
 compose.desktop {
     application {
         mainClass = "MainKt"
+        buildTypes.release {
+            proguard.isEnabled = false
+        }
         nativeDistributions {
             packageName = "AdbPad"
             modules("jdk.management")
@@ -64,6 +71,7 @@ compose.desktop {
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg,
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi,
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Deb,
+                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Exe
             )
 
             macOS {
