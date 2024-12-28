@@ -15,7 +15,7 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
 
-      - name: Build exe app
+      - name: Build dmg app
         run: |
           .\gradlew packageReleaseDmg
 
