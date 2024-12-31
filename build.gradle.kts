@@ -37,6 +37,7 @@ kotlin {
                 implementation(libs.ktor.core)
                 implementation(libs.ktor.client.okhttp)
                 implementation(libs.jSystemThemeDetectorVer)
+                implementation("com.composables:icons-lucide:1.0.0")
             }
         }
         val jvmTest by getting {

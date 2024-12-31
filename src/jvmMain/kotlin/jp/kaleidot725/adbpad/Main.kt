@@ -1,13 +1,13 @@
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -37,6 +37,9 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowScope
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.Power
+import com.composables.icons.lucide.PowerOff
 import jp.kaleidot725.adbpad.MainCategory
 import jp.kaleidot725.adbpad.MainState
 import jp.kaleidot725.adbpad.MainStateHolder
@@ -268,7 +271,45 @@ private fun TitleBarView(
                 )
             }
 
-            Row(Modifier.align(Alignment.CenterEnd).wrapContentSize().padding(4.dp)) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.align(Alignment.CenterEnd).wrapContentSize().padding(4.dp)
+            ) {
+                Box(
+                    modifier =
+                        Modifier
+                            .size(28.dp)
+                            .clip(RoundedCornerShape(4.dp))
+                            .clickableBackground(isDarker = true)
+                            .clickable { onRefresh() }
+                            .padding(4.dp),
+                ) {
+                    Icon(
+                        imageVector = Lucide.Power,
+                        tint = MaterialTheme.colors.onBackground,
+                        contentDescription = null,
+                        modifier = Modifier.align(Alignment.Center),
+                    )
+                }
+
+                Box(
+                    modifier =
+                        Modifier
+                            .size(28.dp)
+                            .clip(RoundedCornerShape(4.dp))
+                            .clickableBackground(isDarker = true)
+                            .clickable { onRefresh() }
+                            .padding(4.dp)
+                    ,
+                ) {
+                    Icon(
+                        imageVector = Lucide.PowerOff,
+                        tint = MaterialTheme.colors.onBackground,
+                        contentDescription = null,
+                        modifier = Modifier.align(Alignment.Center),
+                    )
+                }
+
                 var isPress: Boolean by remember { mutableStateOf(false) }
                 val degrees: Float by animateFloatAsState(if (isPress) -90f else 0f)
                 Box(
