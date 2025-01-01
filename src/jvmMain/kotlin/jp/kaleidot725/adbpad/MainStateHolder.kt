@@ -18,6 +18,7 @@ import jp.kaleidot725.adbpad.ui.common.ParentStateHolder
 import jp.kaleidot725.adbpad.ui.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
+import jp.kaleidot725.adbpad.ui.section.TopStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -37,15 +38,13 @@ class MainStateHolder(
     val commandStateHolder: CommandStateHolder,
     val textCommandStateHolder: TextCommandStateHolder,
     val screenshotStateHolder: ScreenshotStateHolder,
+    val topStateHolder: TopStateHolder,
     private val getWindowSizeUseCase: GetWindowSizeUseCase,
     private val saveWindowSizeUseCase: SaveWindowSizeUseCase,
     private val startAdbUseCase: StartAdbUseCase,
     private val getDarkModeFlowUseCase: GetDarkModeFlowUseCase,
     private val getLanguageUseCase: GetLanguageUseCase,
     private val refreshUseCase: RefreshUseCase,
-    private val updateDevicesUseCase: UpdateDevicesUseCase,
-    private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
-    private val selectDeviceUseCase: SelectDeviceUseCase,
 ) : ParentStateHolder {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val language: MutableStateFlow<Language.Type> = MutableStateFlow(Language.Type.ENGLISH)
@@ -54,24 +53,14 @@ class MainStateHolder(
     private val dialog: MutableStateFlow<Dialog?> = MutableStateFlow(null)
     private val category: MutableStateFlow<MainCategory> = MutableStateFlow(MainCategory.Command)
 
-    private var deviceJob: Job? = null
-    private val _devices: MutableStateFlow<List<Device>> = MutableStateFlow(emptyList())
-    private val devices: StateFlow<List<Device>> = _devices.asStateFlow()
-
-    private var selectedDeviceJob: Job? = null
-    private val _selectedDevice: MutableStateFlow<Device?> = MutableStateFlow(null)
-    private val selectedDevice: StateFlow<Device?> = _selectedDevice.asStateFlow()
-
     val state: StateFlow<MainState> =
-        combine(language, isDark, windowSize, dialog, category, devices, selectedDevice) { data ->
+        combine(language, isDark, windowSize, dialog, category) { data ->
             MainState(
                 data[0] as Language.Type,
                 data[1] as Boolean?,
                 data[2] as WindowSize,
                 data[3] as Dialog?,
                 data[4] as MainCategory,
-                data[5] as List<Device>,
-                data[6] as Device?,
             )
         }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), MainState())
 
@@ -80,6 +69,7 @@ class MainStateHolder(
             commandStateHolder,
             textCommandStateHolder,
             screenshotStateHolder,
+            topStateHolder,
         )
 
     init {
@@ -87,7 +77,6 @@ class MainStateHolder(
         restoreWindowSize()
         checkAdbServer()
         syncLanguage()
-        collectDevices()
     }
 
     override fun setup() {
@@ -98,7 +87,6 @@ class MainStateHolder(
         startSyncDarkMode()
         checkAdbServer()
         syncLanguage()
-        collectDevices()
         refreshUseCase()
         children.forEach { it.refresh() }
     }
@@ -117,12 +105,6 @@ class MainStateHolder(
 
     fun clickCategory(category: MainCategory) {
         this.category.value = category
-    }
-
-    fun selectDevice(device: Device) {
-        coroutineScope.launch {
-            selectDeviceUseCase(device)
-        }
     }
 
     private var themeFlowJob: Job? = null
@@ -162,24 +144,5 @@ class MainStateHolder(
             Language.switch(type)
             language.value = type
         }
-    }
-
-    private fun collectDevices() {
-        deviceJob?.cancel()
-        deviceJob =
-            coroutineScope.launch {
-                while (isActive) {
-                    _devices.value = updateDevicesUseCase()
-                    delay(1000)
-                }
-            }
-
-        selectedDeviceJob?.cancel()
-        selectedDeviceJob =
-            coroutineScope.launch {
-                getSelectedDeviceFlowUseCase().collect {
-                    _selectedDevice.value = it
-                }
-            }
     }
 }
