@@ -56,7 +56,8 @@ val stateHolderModule =
             TopStateHolder(
                 updateDevicesUseCase = get(),
                 getSelectedDeviceFlowUseCase = get(),
-                selectDeviceUseCase = get()
+                selectDeviceUseCase = get(),
+                executeDeviceControlCommandUseCase = get(),
             )
         }
 
@@ -71,7 +72,7 @@ val stateHolderModule =
                 getDarkModeFlowUseCase = get(),
                 getLanguageUseCase = get(),
                 refreshUseCase = get(),
-                topStateHolder = get()
+                topStateHolder = get(),
             )
         }
     }

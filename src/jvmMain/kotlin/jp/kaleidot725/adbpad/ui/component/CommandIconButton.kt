@@ -27,7 +27,7 @@ fun CommandIconButton(
     image: ImageVector,
     onClick: () -> Unit,
     degrees: Float = 0f,
-    padding: Dp = 0.dp
+    padding: Dp = 0.dp,
 ) {
     Box(
         modifier =
@@ -52,6 +52,6 @@ fun CommandIconButton(
 private fun Preview() {
     CommandIconButton(
         image = Lucide.Power,
-        onClick = {}
+        onClick = {},
     )
 }

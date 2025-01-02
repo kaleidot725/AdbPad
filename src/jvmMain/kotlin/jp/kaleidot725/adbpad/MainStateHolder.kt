@@ -1,13 +1,9 @@
 package jp.kaleidot725.adbpad
 
 import jp.kaleidot725.adbpad.domain.model.Dialog
-import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
-import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
-import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
-import jp.kaleidot725.adbpad.domain.usecase.device.UpdateDevicesUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.refresh.RefreshUseCase
 import jp.kaleidot725.adbpad.domain.usecase.theme.GetDarkModeFlowUseCase
@@ -23,15 +19,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class MainStateHolder(

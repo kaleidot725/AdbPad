@@ -22,17 +22,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
-import com.composables.icons.lucide.Camera
 import com.composables.icons.lucide.Circle
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Power
-import com.composables.icons.lucide.PowerOff
 import com.composables.icons.lucide.RefreshCcw
 import com.composables.icons.lucide.Square
 import com.composables.icons.lucide.Triangle
 import com.composables.icons.lucide.Volume1
 import com.composables.icons.lucide.Volume2
-import jp.kaleidot725.adbpad.MainState
+import com.composables.icons.lucide.VolumeX
+import jp.kaleidot725.adbpad.domain.model.command.DeviceControlCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.ui.component.CommandIconButton
 import jp.kaleidot725.adbpad.ui.component.CommandIconDivider
@@ -42,6 +41,7 @@ import jp.kaleidot725.adbpad.ui.screen.menu.component.DropDownDeviceMenu
 @Composable
 fun TopSection(
     state: TopState,
+    onExecuteCommand: (DeviceControlCommand) -> Unit,
     onSelectDevice: (Device) -> Unit,
     onRefresh: () -> Unit,
 ) {
@@ -64,65 +64,61 @@ fun TopSection(
 
             Row(
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
-                modifier = Modifier.align(Alignment.CenterEnd).wrapContentSize().padding(4.dp)
+                modifier = Modifier.align(Alignment.CenterEnd).wrapContentSize().padding(4.dp),
             ) {
                 CommandIconButton(
                     image = Lucide.Power,
-                    onClick = {},
-                    padding = 2.dp
-                )
-
-                CommandIconButton(
-                    image = Lucide.PowerOff,
-                    onClick = {},
-                    padding = 2.dp
+                    onClick = { onExecuteCommand(DeviceControlCommand.Power) },
+                    padding = 2.dp,
                 )
 
                 CommandIconButton(
                     image = Lucide.Volume2,
-                    onClick = {}
+                    onClick = { onExecuteCommand(DeviceControlCommand.VolumeUp) },
                 )
 
                 CommandIconButton(
                     image = Lucide.Volume1,
-                    onClick = {}
+                    onClick = { onExecuteCommand(DeviceControlCommand.VolumeDown) },
                 )
 
                 CommandIconButton(
-                    image = Lucide.Camera,
-                    onClick = {},
-                    padding = 2.dp
-                )
-
-                CommandIconButton(
-                    image = Lucide.Triangle,
-                    degrees = -90f,
-                    onClick = {},
-                    padding = 2.dp
-                )
-
-                CommandIconButton(
-                    image = Lucide.Circle,
-                    onClick = {},
-                    padding = 2.dp
-                )
-
-                CommandIconButton(
-                    image = Lucide.Square,
-                    onClick = {},
-                    padding = 2.dp
+                    image = Lucide.VolumeX,
+                    onClick = { onExecuteCommand(DeviceControlCommand.VolumeMute) },
                 )
 
                 CommandIconDivider()
 
                 CommandIconButton(
-                    modifier = Modifier
-                        .onPointerEvent(PointerEventType.Press) { isPress = true }
-                        .onPointerEvent(PointerEventType.Release) { isPress = false },
+                    image = Lucide.Triangle,
+                    degrees = -90f,
+                    onClick = { onExecuteCommand(DeviceControlCommand.Back) },
+                    padding = 2.dp,
+                )
+
+                CommandIconButton(
+                    image = Lucide.Circle,
+                    onClick = { onExecuteCommand(DeviceControlCommand.Home) },
+                    padding = 2.dp,
+                )
+
+                CommandIconButton(
+                    image = Lucide.Square,
+                    onClick = { onExecuteCommand(DeviceControlCommand.Recents) },
+                    padding = 2.dp,
+                )
+
+                CommandIconDivider()
+
+                CommandIconButton(
+                    modifier =
+                        Modifier
+                            .onPointerEvent(PointerEventType.Press) { isPress = true }
+                            .onPointerEvent(PointerEventType.Release) { isPress = false },
                     image = Lucide.RefreshCcw,
                     degrees = degrees,
                     onClick = { onRefresh() },
-                    padding = 2.dp
+                    padding = 2.dp,
                 )
             }
         }

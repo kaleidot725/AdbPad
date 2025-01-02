@@ -92,6 +92,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                     val topState by topStateHolder.state.collectAsState()
                     TopSection(
                         state = topState,
+                        onExecuteCommand = topStateHolder::executeCommand,
                         onSelectDevice = topStateHolder::selectDevice,
                         onRefresh = mainStateHolder::refresh,
                     )
