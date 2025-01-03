@@ -9,6 +9,7 @@ junit="5.11.3"
 koin="4.0.0"
 system_theme_detector="3.8"
 ktor = "3.0.1"
+lucide = "1.0.0"
 
 [libraries]
 adam = { module = "com.malinskiy.adam:adam", version.ref = "adam" }
@@ -20,6 +21,7 @@ koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 jSystemThemeDetectorVer = { module = "com.github.Dansoftowner:jSystemThemeDetector", version.ref = "system_theme_detector" }
 ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+lucide = { module = "com.composables:icons-lucide", version.ref = "lucide" }
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
