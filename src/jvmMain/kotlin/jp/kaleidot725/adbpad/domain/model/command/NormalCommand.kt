@@ -165,4 +165,34 @@ interface NormalCommand {
             )
         override val category: NormalCommandCategory = NormalCommandCategory.UI
     }
+
+    data class EnableGestureNavigation(override val isRunning: Boolean = false) : NormalCommand {
+        override val title: String get() = Language.commandEnableGestureNavigationTitle
+        override val details: String get() = Language.commandEnableGestureNavigationDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("cmd overlay enable com.android.internal.systemui.navbar.gestural"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class EnableTwoButtonNavigation(override val isRunning: Boolean = false) : NormalCommand {
+        override val title: String get() = Language.commandEnableTwoButtonNavigationTitle
+        override val details: String get() = Language.commandEnableTwoButtonNavigationDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("cmd overlay enable com.android.internal.systemui.navbar.twobutton"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class EnableThreeButtonNavigation(override val isRunning: Boolean = false) : NormalCommand {
+        override val title: String get() = Language.commandEnableThreeButtonNavigationTitle
+        override val details: String get() = Language.commandEnableThreeButtonNavigationDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("cmd overlay enable com.android.internal.systemui.navbar.threebutton"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
 }
