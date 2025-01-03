@@ -126,6 +126,18 @@ object Language : StringResources {
         get() = getCurrentResources().commandScreenPinningOffTitle
     override val commandScreenPinningOffDetails: String
         get() = getCurrentResources().commandScreenPinningOffDetails
+    override val commandEnableThreeButtonNavigationTitle: String
+        get() = getCurrentResources().commandEnableThreeButtonNavigationTitle
+    override val commandEnableThreeButtonNavigationDetails: String
+        get() = getCurrentResources().commandEnableThreeButtonNavigationDetails
+    override val commandEnableTwoButtonNavigationTitle: String
+        get() = getCurrentResources().commandEnableTwoButtonNavigationTitle
+    override val commandEnableTwoButtonNavigationDetails: String
+        get() = getCurrentResources().commandEnableTwoButtonNavigationDetails
+    override val commandEnableGestureNavigationTitle: String
+        get() = getCurrentResources().commandEnableGestureNavigationTitle
+    override val commandEnableGestureNavigationDetails: String
+        get() = getCurrentResources().commandEnableGestureNavigationDetails
 
     override val textCommandStartEventFormat: String
         get() = getCurrentResources().textCommandStartEventFormat

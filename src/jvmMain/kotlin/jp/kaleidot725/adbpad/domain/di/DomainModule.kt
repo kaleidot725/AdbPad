@@ -5,6 +5,7 @@ import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
+import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteDeviceControlCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetNormalCommandGroup
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
@@ -39,6 +40,9 @@ val domainModule =
         }
         factory {
             ExecuteCommandUseCase(get())
+        }
+        factory {
+            ExecuteDeviceControlCommandUseCase(get())
         }
         factory {
             GetNormalCommandGroup(get())

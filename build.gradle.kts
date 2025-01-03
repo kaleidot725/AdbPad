@@ -29,11 +29,11 @@ kotlin {
                 implementation(compose.material)
                 implementation(compose.materialIconsExtended)
                 implementation(libs.adam)
+                implementation(libs.lucide)
                 implementation(libs.kotlin.coroutines)
                 implementation(libs.kotlinx.coroutines.swing)
                 implementation(libs.kotlin.serialization)
                 implementation(libs.koin)
-                implementation(compose.desktop.currentOs) { exclude(group = "org.jetbrains.compose.material") }
                 implementation(libs.ktor.core)
                 implementation(libs.ktor.client.okhttp)
                 implementation(libs.jSystemThemeDetectorVer)

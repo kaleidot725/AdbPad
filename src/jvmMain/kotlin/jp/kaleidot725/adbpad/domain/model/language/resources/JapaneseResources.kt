@@ -65,6 +65,12 @@ object JapaneseResources : StringResources {
     override val commandWifiAndDataOffDetails = "Wi-Fi通信とモバイル通信の両方を無効化する"
     override val commandScreenPinningOffTitle = "画面ピン留め: OFF"
     override val commandScreenPinningOffDetails = "ピン留め中のアプリのピン留めを解除する"
+    override val commandEnableThreeButtonNavigationTitle: String = "3ボタン ナビゲーション: ON"
+    override val commandEnableThreeButtonNavigationDetails: String = "3ボタン ナビゲーションを有効化する"
+    override val commandEnableTwoButtonNavigationTitle: String = "2ボタン ナビゲーション: ON"
+    override val commandEnableTwoButtonNavigationDetails: String = "2ボタン ナビゲーションを有効化する"
+    override val commandEnableGestureNavigationTitle: String = "ジェスチャー ナビゲーション: ON"
+    override val commandEnableGestureNavigationDetails: String = "ジェスチャー ナビゲーションを有効化する"
 
     override val textCommandStartEventFormat = "「%s」のテキスト送信を開始しました"
     override val textCommandEndEventFormat = "「%s」のテキスト送信が完了しました"
