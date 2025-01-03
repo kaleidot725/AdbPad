@@ -64,6 +64,12 @@ interface StringResources {
     val commandWifiAndDataOffDetails: String
     val commandScreenPinningOffTitle: String
     val commandScreenPinningOffDetails: String
+    val commandEnableThreeButtonNavigationTitle: String
+    val commandEnableThreeButtonNavigationDetails: String
+    val commandEnableTwoButtonNavigationTitle: String
+    val commandEnableTwoButtonNavigationDetails: String
+    val commandEnableGestureNavigationTitle: String
+    val commandEnableGestureNavigationDetails: String
 
     val textCommandStartEventFormat: String
     val textCommandEndEventFormat: String

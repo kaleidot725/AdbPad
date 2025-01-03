@@ -65,6 +65,12 @@ object EnglishResources : StringResources {
     override val commandWifiAndDataOffDetails = "Disable Wi-Fi and cellular communication."
     override val commandScreenPinningOffTitle = "Screen pinning: OFF"
     override val commandScreenPinningOffDetails = "Disable screen pinning."
+    override val commandEnableThreeButtonNavigationTitle: String = "3 buttons navigation : ON"
+    override val commandEnableThreeButtonNavigationDetails: String = "Enable 3 buttons navigation"
+    override val commandEnableTwoButtonNavigationTitle: String = "2 buttons navigation : ON"
+    override val commandEnableTwoButtonNavigationDetails: String = "Enable 2 buttons navigation"
+    override val commandEnableGestureNavigationTitle: String = "Gesture navigation: ON"
+    override val commandEnableGestureNavigationDetails: String = "Enable gesture navigation"
 
     override val textCommandStartEventFormat = "Start sending text「%s」"
     override val textCommandEndEventFormat = "End sending text「%s」"
