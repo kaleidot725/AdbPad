@@ -49,14 +49,14 @@ class ScreenshotStateHolder(
     override fun setup() {
         coroutineScope.launch {
             commands.value = getScreenshotCommandUseCase()
-            previews.value = screenshotCommandRepository.getScreenshots()
+            initPreviews()
         }
     }
 
     override fun refresh() {
         coroutineScope.launch {
             commands.value = getScreenshotCommandUseCase()
-            previews.value = screenshotCommandRepository.getScreenshots()
+            initPreviews()
         }
     }
 
@@ -82,8 +82,8 @@ class ScreenshotStateHolder(
                 },
                 onComplete = {
                     commands.value = getScreenshotCommandUseCase()
-                    previews.value = screenshotCommandRepository.getScreenshots()
                     preview.value = it
+                    previews.value = screenshotCommandRepository.getScreenshots()
                     isCapturing.value = false
                 },
             )
@@ -100,7 +100,16 @@ class ScreenshotStateHolder(
     fun deleteScreenShotToClipboard() {
         coroutineScope.launch {
             screenshotCommandRepository.delete(preview.value)
-            preview.value = Screenshot(null)
+            initPreviews()
         }
+    }
+
+    fun selectScreenshot(screenshot: Screenshot) {
+        preview.value = screenshot
+    }
+
+    private suspend fun initPreviews() {
+        previews.value = screenshotCommandRepository.getScreenshots()
+        preview.value = previews.value.firstOrNull() ?: Screenshot(null)
     }
 }

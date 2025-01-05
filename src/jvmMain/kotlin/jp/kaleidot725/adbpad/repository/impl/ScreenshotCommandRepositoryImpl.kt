@@ -67,7 +67,10 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
     override suspend fun getScreenshots(): List<Screenshot> {
         return withContext(Dispatchers.IO) {
             val files = getDirectory().listFiles()
-            files.filter { file -> file.isFile }.map { file -> Screenshot(file) }
+            files
+                .filter { file -> file.isFile }
+                .map { file -> Screenshot(file) }
+                .sortedByDescending { screenshot -> screenshot.file?.name ?: "" }
         }
     }
 
@@ -148,6 +151,9 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
             output.graphics.drawImage(inputA, 0, 0, null)
             output.graphics.drawImage(inputB, inputA.width, 0, null)
             ImageIO.write(output, "PNG", outputFile)
+
+            fileA.delete()
+            fileB.delete()
 
             true
         } catch (e: IOException) {
