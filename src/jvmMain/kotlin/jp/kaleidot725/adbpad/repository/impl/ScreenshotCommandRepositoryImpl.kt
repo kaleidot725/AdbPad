@@ -15,7 +15,6 @@ import kotlinx.coroutines.withContext
 import java.awt.image.BufferedImage
 import java.io.File
 import java.io.IOException
-import java.sql.Time
 import java.util.Date
 import javax.imageio.ImageIO
 import kotlin.math.max
@@ -23,6 +22,10 @@ import kotlin.math.max
 class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
     private val runningCommands: MutableSet<ScreenshotCommand> = mutableSetOf()
     private val adbClient = AndroidDebugBridgeClientFactory().build()
+
+    init {
+        createDirectory()
+    }
 
     override fun getCommands(): List<ScreenshotCommand> {
         return listOf(
@@ -58,6 +61,13 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
 
             runningCommands.remove(command)
             if (result) onComplete(Screenshot(getFileResult(date.time))) else onFailed()
+        }
+    }
+
+    override suspend fun getScreenshots(): List<Screenshot> {
+        return withContext(Dispatchers.IO) {
+            val files = getDirectory().listFiles()
+            files.filter { file -> file.isFile }.map { file -> Screenshot(file) }
         }
     }
 
@@ -167,20 +177,29 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         private const val EXTENSION_NAME = "png"
         private const val DEFAULT_DELAY = 500L
 
+        private fun createDirectory() {
+            getDirectory().mkdir()
+        }
+
+        private fun getDirectory(): File {
+            val osContext = OSContext.resolveOSContext()
+            return File(osContext.screenshotDirectory)
+        }
+
         private fun getFileA(): File {
             val osContext = OSContext.resolveOSContext()
-            return File(osContext.directory + FILE_NAME_A)
+            return File(osContext.screenshotDirectory + FILE_NAME_A)
         }
 
         private fun getFileB(): File {
             val osContext = OSContext.resolveOSContext()
-            return File(osContext.directory + FILE_NAME_B)
+            return File(osContext.screenshotDirectory + FILE_NAME_B)
         }
 
         private fun getFileResult(time: Long): File {
             val osContext = OSContext.resolveOSContext()
             val fileName = "${FILE_NAME_RESULT}_${time}.png"
-            return File(osContext.directory + fileName)
+            return File(osContext.screenshotDirectory + fileName)
         }
     }
 }

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +24,7 @@ import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotViewer
 @Composable
 fun ScreenshotScreen(
     screenshot: Screenshot,
+    screenshots: List<Screenshot>,
     canCapture: Boolean,
     isCapturing: Boolean,
     commands: List<ScreenshotCommand>,
@@ -49,6 +51,8 @@ fun ScreenshotScreen(
                     ),
         )
 
+        Text(screenshots.toString())
+
         ScreenshotDropDownButton(
             commands = commands,
             canCapture = canCapture,
@@ -64,6 +68,7 @@ fun ScreenshotScreen(
 private fun ScreenshotScreen_Preview() {
     ScreenshotScreen(
         screenshot = Screenshot(null),
+        screenshots = emptyList(),
         canCapture = true,
         isCapturing = false,
         commands = emptyList(),

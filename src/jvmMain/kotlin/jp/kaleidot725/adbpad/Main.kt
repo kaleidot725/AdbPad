@@ -162,6 +162,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
 
                             ScreenshotScreen(
                                 screenshot = screenshotState.preview,
+                                screenshots = screenshotState.previews,
                                 canCapture = screenshotState.canExecute,
                                 isCapturing = screenshotState.isCapturing,
                                 commands = screenshotState.commands,

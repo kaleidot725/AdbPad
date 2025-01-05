@@ -29,6 +29,7 @@ class ScreenshotStateHolder(
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val commands: MutableStateFlow<List<ScreenshotCommand>> = MutableStateFlow(emptyList())
     private val preview: MutableStateFlow<Screenshot> = MutableStateFlow(Screenshot(null))
+    private val previews: MutableStateFlow<List<Screenshot>> = MutableStateFlow(emptyList())
     private val isCapturing: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val selectedDevice: StateFlow<Device?> =
         getSelectedDeviceFlowUseCase()
@@ -37,19 +38,26 @@ class ScreenshotStateHolder(
     override val state: StateFlow<ScreenshotState> =
         combine(
             preview,
+            previews,
             commands,
             selectedDevice,
             isCapturing,
-        ) { preview, commands, selectedDevice, isCapturing ->
-            ScreenshotState(preview, commands, selectedDevice, isCapturing)
+        ) { preview, previews, commands, selectedDevice, isCapturing ->
+            ScreenshotState(preview, previews,commands, selectedDevice, isCapturing)
         }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), ScreenshotState())
 
     override fun setup() {
-        commands.value = getScreenshotCommandUseCase()
+        coroutineScope.launch {
+            commands.value = getScreenshotCommandUseCase()
+            previews.value = screenshotCommandRepository.getScreenshots()
+        }
     }
 
     override fun refresh() {
-        commands.value = getScreenshotCommandUseCase()
+        coroutineScope.launch {
+            commands.value = getScreenshotCommandUseCase()
+            previews.value = screenshotCommandRepository.getScreenshots()
+        }
     }
 
     override fun dispose() {
@@ -74,6 +82,7 @@ class ScreenshotStateHolder(
                 },
                 onComplete = {
                     commands.value = getScreenshotCommandUseCase()
+                    previews.value = screenshotCommandRepository.getScreenshots()
                     preview.value = it
                     isCapturing.value = false
                 },

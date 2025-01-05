@@ -37,6 +37,7 @@ kotlin {
                 implementation(libs.ktor.core)
                 implementation(libs.ktor.client.okhttp)
                 implementation(libs.jSystemThemeDetectorVer)
+                implementation("io.coil-kt.coil3:coil-compose:3.0.4")
             }
         }
         val jvmTest by getting {
