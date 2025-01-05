@@ -84,7 +84,10 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         runningCommands.clear()
     }
 
-    private suspend fun sendBothCommand(device: Device, date: Date): Boolean {
+    private suspend fun sendBothCommand(
+        device: Device,
+        date: Date,
+    ): Boolean {
         if (!sendCommand(device, NormalCommand.DarkThemeOn())) {
             return false
         }
@@ -104,7 +107,10 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         return concat(getFileA(), getFileB(), getFileResult(date.time))
     }
 
-    private suspend fun sendDarkCommand(device: Device, date: Date): Boolean {
+    private suspend fun sendDarkCommand(
+        device: Device,
+        date: Date,
+    ): Boolean {
         if (!sendCommand(device, NormalCommand.DarkThemeOn())) {
             return false
         }
@@ -112,7 +118,10 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         return capture(device, getFileResult(date.time))
     }
 
-    private suspend fun sendLightCommand(device: Device, date: Date): Boolean {
+    private suspend fun sendLightCommand(
+        device: Device,
+        date: Date,
+    ): Boolean {
         if (!sendCommand(device, NormalCommand.DarkThemeOff())) {
             return false
         }
@@ -120,7 +129,10 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         return capture(device, getFileResult(date.time))
     }
 
-    private suspend fun sendCurrentCommand(device: Device, date: Date): Boolean {
+    private suspend fun sendCurrentCommand(
+        device: Device,
+        date: Date,
+    ): Boolean {
         return capture(device, getFileResult(date.time))
     }
 
@@ -204,7 +216,7 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
 
         private fun getFileResult(time: Long): File {
             val osContext = OSContext.resolveOSContext()
-            val fileName = "${FILE_NAME_RESULT}_${time}.png"
+            val fileName = "${FILE_NAME_RESULT}_$time.png"
             return File(osContext.screenshotDirectory + fileName)
         }
     }

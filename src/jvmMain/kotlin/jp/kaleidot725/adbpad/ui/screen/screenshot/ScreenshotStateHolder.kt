@@ -43,7 +43,7 @@ class ScreenshotStateHolder(
             selectedDevice,
             isCapturing,
         ) { preview, previews, commands, selectedDevice, isCapturing ->
-            ScreenshotState(preview, previews,commands, selectedDevice, isCapturing)
+            ScreenshotState(preview, previews, commands, selectedDevice, isCapturing)
         }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), ScreenshotState())
 
     override fun setup() {

@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
@@ -44,22 +43,24 @@ fun ScreenshotScreen(
         modifier = Modifier.fillMaxSize().padding(16.dp),
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1.0f)
-                .border(
-                    border = BorderStroke(1.dp, UserColor.getSplitterColor()),
-                    shape = RoundedCornerShape(4.dp),
-                )
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .weight(1.0f)
+                    .border(
+                        border = BorderStroke(1.dp, UserColor.getSplitterColor()),
+                        shape = RoundedCornerShape(4.dp),
+                    ),
         ) {
             ScreenshotViewer(
                 screenshot = screenshot,
                 isCapturing = isCapturing,
                 onCopyScreenshot = onCopyScreenshot,
                 onDeleteScreenshot = onDeleteScreenshot,
-                modifier = Modifier
-                    .weight(1.0f)
-                    .fillMaxHeight(),
+                modifier =
+                    Modifier
+                        .weight(1.0f)
+                        .fillMaxHeight(),
             )
 
             Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
@@ -68,9 +69,10 @@ fun ScreenshotScreen(
                 selectedScreenshot = screenshot,
                 screenshots = screenshots,
                 onSelectScreenShot = onSelectScreenshot,
-                modifier = Modifier
+                modifier =
+                    Modifier
                         .wrapContentWidth()
-                        .fillMaxHeight()
+                        .fillMaxHeight(),
             )
         }
 

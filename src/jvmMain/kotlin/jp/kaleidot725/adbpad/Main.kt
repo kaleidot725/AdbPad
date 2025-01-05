@@ -179,7 +179,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 },
                                 onSelectScreenshot = { screenshot ->
                                     screenshotStateHolder.selectScreenshot(screenshot)
-                                }
+                                },
                             )
                         }
                     }

@@ -30,38 +30,42 @@ fun ScreenshotGallery(
         LazyColumn(
             contentPadding = PaddingValues(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.padding(vertical = 16.dp)
+            modifier = Modifier.padding(vertical = 16.dp),
         ) {
             items(
                 items = screenshots,
-                key = { screenshot -> screenshot.file?.absolutePath ?: "" }) { screenshot ->
+                key = { screenshot -> screenshot.file?.absolutePath ?: "" },
+            ) { screenshot ->
 
                 AsyncImage(
                     model = screenshot.file,
                     contentDescription = null,
-                    modifier = Modifier
-                        .size(100.dp)
-                        .clickable { onSelectScreenShot(screenshot) }
-                        .border(
-                            border = BorderStroke(
-                                width = 2.dp,
-                                color = if (selectedScreenshot == screenshot) {
-                                    MaterialTheme.colors.primary
-                                } else {
-                                    UserColor.getSplitterColor()
-                                }
+                    modifier =
+                        Modifier
+                            .size(100.dp)
+                            .clickable { onSelectScreenShot(screenshot) }
+                            .border(
+                                border =
+                                    BorderStroke(
+                                        width = 2.dp,
+                                        color =
+                                            if (selectedScreenshot == screenshot) {
+                                                MaterialTheme.colors.primary
+                                            } else {
+                                                UserColor.getSplitterColor()
+                                            },
+                                    ),
+                                shape = RoundedCornerShape(4.dp),
                             ),
-                            shape = RoundedCornerShape(4.dp),
-                        ),
                 )
             }
         }
     }
 }
 
-//@Preview
-//@Composable
-//private fun ScreenshotGallery_Preview() {
+// @Preview
+// @Composable
+// private fun ScreenshotGallery_Preview() {
 //    ScreenshotGallery(
 //        screenshot = Screenshot(null),
 //        isCapturing = false,
@@ -69,4 +73,4 @@ fun ScreenshotGallery(
 //        onDeleteScreenshot = {},
 //        modifier = Modifier.fillMaxSize(),
 //    )
-//}
+// }
