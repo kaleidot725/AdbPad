@@ -6,8 +6,6 @@ import jp.kaleidot725.adbpad.domain.model.language.resources.JapaneseResources
 import jp.kaleidot725.adbpad.domain.model.language.resources.StringResources
 
 object Language : StringResources {
-    override val version: String
-        get() = getCurrentResources().version
     override val windowTitle: String
         get() = getCurrentResources().windowTitle
     override val notFoundDevice: String
