@@ -3,11 +3,11 @@ package jp.kaleidot725.adbpad.ui.screen.screenshot
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
+import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
-import jp.kaleidot725.adbpad.domain.usecase.screenshot.CopyScreenshotToClipboardUseCase
-import jp.kaleidot725.adbpad.domain.usecase.screenshot.DeleteScreenshotPreviewUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
+import jp.kaleidot725.adbpad.domain.utils.ClipBoardUtils
 import jp.kaleidot725.adbpad.ui.common.ChildStateHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,8 +24,7 @@ class ScreenshotStateHolder(
     private val takeScreenshotUseCase: TakeScreenshotUseCase,
     private val getScreenshotCommandUseCase: GetScreenshotCommandUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
-    private val deleteScreenshotPreviewUseCase: DeleteScreenshotPreviewUseCase,
-    private val copyScreenshotToClipboardUseCase: CopyScreenshotToClipboardUseCase,
+    private val screenshotCommandRepository: ScreenshotCommandRepository,
 ) : ChildStateHolder<ScreenshotState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val commands: MutableStateFlow<List<ScreenshotCommand>> = MutableStateFlow(emptyList())
@@ -84,14 +83,15 @@ class ScreenshotStateHolder(
 
     fun copyScreenShotToClipboard() {
         coroutineScope.launch {
-            copyScreenshotToClipboardUseCase()
+            val file = preview.value.file ?: return@launch
+            ClipBoardUtils.copyFile(file)
         }
     }
 
     fun deleteScreenShotToClipboard() {
         coroutineScope.launch {
-            deleteScreenshotPreviewUseCase()
-            preview.value = Screenshot.EMPTY
+            screenshotCommandRepository.delete(preview.value)
+            preview.value = Screenshot(null)
         }
     }
 }

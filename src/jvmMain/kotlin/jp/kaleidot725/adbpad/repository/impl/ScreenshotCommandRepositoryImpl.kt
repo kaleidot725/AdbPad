@@ -15,6 +15,8 @@ import kotlinx.coroutines.withContext
 import java.awt.image.BufferedImage
 import java.io.File
 import java.io.IOException
+import java.sql.Time
+import java.util.Date
 import javax.imageio.ImageIO
 import kotlin.math.max
 
@@ -38,40 +40,30 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         onComplete: suspend (Screenshot) -> Unit,
         onFailed: suspend () -> Unit,
     ) {
+        val date = Date()
         withContext(Dispatchers.IO) {
             runningCommands.add(command)
             onStart()
-            deleteScreenshotCache()
 
             val result =
                 when (command) {
-                    is ScreenshotCommand.Both -> sendBothCommand(device)
-                    is ScreenshotCommand.Light -> sendLightCommand(device)
-                    is ScreenshotCommand.Dark -> sendDarkCommand(device)
-                    is ScreenshotCommand.Current -> sendCurrentCommand(device)
+                    is ScreenshotCommand.Both -> sendBothCommand(device, date)
+                    is ScreenshotCommand.Light -> sendLightCommand(device, date)
+                    is ScreenshotCommand.Dark -> sendDarkCommand(device, date)
+                    is ScreenshotCommand.Current -> sendCurrentCommand(device, date)
                     else -> false
                 }
 
             delay(300)
 
             runningCommands.remove(command)
-            if (result) onComplete(getScreenshotCache()) else onFailed()
+            if (result) onComplete(Screenshot(getFileResult(date.time))) else onFailed()
         }
     }
 
-    override suspend fun getScreenshotCache(): Screenshot {
-        val fileResult = getFileResult()
-        return if (fileResult.exists()) {
-            Screenshot(fileResult)
-        } else {
-            Screenshot.EMPTY
-        }
-    }
-
-    override suspend fun deleteScreenshotCache() {
+    override suspend fun delete(screenshot: Screenshot) {
         withContext(Dispatchers.IO) {
-            val files = listOf(getFileA(), getFileB(), getFileResult())
-            files.forEach { it.delete() }
+            screenshot.file?.delete()
         }
     }
 
@@ -79,7 +71,7 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         runningCommands.clear()
     }
 
-    private suspend fun sendBothCommand(device: Device): Boolean {
+    private suspend fun sendBothCommand(device: Device, date: Date): Boolean {
         if (!sendCommand(device, NormalCommand.DarkThemeOn())) {
             return false
         }
@@ -96,27 +88,27 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
             return false
         }
 
-        return concat(getFileA(), getFileB(), getFileResult())
+        return concat(getFileA(), getFileB(), getFileResult(date.time))
     }
 
-    private suspend fun sendDarkCommand(device: Device): Boolean {
+    private suspend fun sendDarkCommand(device: Device, date: Date): Boolean {
         if (!sendCommand(device, NormalCommand.DarkThemeOn())) {
             return false
         }
 
-        return capture(device, getFileResult())
+        return capture(device, getFileResult(date.time))
     }
 
-    private suspend fun sendLightCommand(device: Device): Boolean {
+    private suspend fun sendLightCommand(device: Device, date: Date): Boolean {
         if (!sendCommand(device, NormalCommand.DarkThemeOff())) {
             return false
         }
 
-        return capture(device, getFileResult())
+        return capture(device, getFileResult(date.time))
     }
 
-    private suspend fun sendCurrentCommand(device: Device): Boolean {
-        return capture(device, getFileResult())
+    private suspend fun sendCurrentCommand(device: Device, date: Date): Boolean {
+        return capture(device, getFileResult(date.time))
     }
 
     private suspend fun capture(
@@ -171,7 +163,7 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
     companion object {
         private const val FILE_NAME_A = "screenshotA.png"
         private const val FILE_NAME_B = "screenshotB.png"
-        private const val FILE_NAME_RESULT = "Screenshot.png"
+        private const val FILE_NAME_RESULT = "Screenshot"
         private const val EXTENSION_NAME = "png"
         private const val DEFAULT_DELAY = 500L
 
@@ -185,9 +177,10 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
             return File(osContext.directory + FILE_NAME_B)
         }
 
-        private fun getFileResult(): File {
+        private fun getFileResult(time: Long): File {
             val osContext = OSContext.resolveOSContext()
-            return File(osContext.directory + FILE_NAME_RESULT)
+            val fileName = "${FILE_NAME_RESULT}_${time}.png"
+            return File(osContext.directory + fileName)
         }
     }
 }
