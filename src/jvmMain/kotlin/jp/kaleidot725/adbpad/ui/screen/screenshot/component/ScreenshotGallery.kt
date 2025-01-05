@@ -62,15 +62,3 @@ fun ScreenshotGallery(
         }
     }
 }
-
-// @Preview
-// @Composable
-// private fun ScreenshotGallery_Preview() {
-//    ScreenshotGallery(
-//        screenshot = Screenshot(null),
-//        isCapturing = false,
-//        onCopyScreenshot = {},
-//        onDeleteScreenshot = {},
-//        modifier = Modifier.fillMaxSize(),
-//    )
-// }
