@@ -2,7 +2,6 @@ package jp.kaleidot725.adbpad.ui.screen.screenshot.component
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,11 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.loadImageBitmap
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
@@ -53,13 +51,10 @@ fun ScreenshotViewer(
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
             } else {
-                val file = screenshot.file
-                val bitmap = rememberUpdatedState(file?.let { loadImageBitmap(it.inputStream()) })
-                val bitmapValue = bitmap.value
-                if (bitmapValue != null) {
-                    Image(
-                        bitmap = bitmapValue,
-                        contentDescription = "preview image",
+                if (screenshot.file != null) {
+                    AsyncImage(
+                        model = screenshot.file,
+                        contentDescription = null,
                         modifier = Modifier.weight(1.0f).align(Alignment.CenterHorizontally),
                     )
                 } else {

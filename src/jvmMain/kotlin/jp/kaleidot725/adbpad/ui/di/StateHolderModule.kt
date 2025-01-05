@@ -35,8 +35,7 @@ val stateHolderModule =
                 takeScreenshotUseCase = get(),
                 getScreenshotCommandUseCase = get(),
                 getSelectedDeviceFlowUseCase = get(),
-                deleteScreenshotPreviewUseCase = get(),
-                copyScreenshotToClipboardUseCase = get(),
+                screenshotCommandRepository = get(),
             )
         }
 

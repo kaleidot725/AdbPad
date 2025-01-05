@@ -13,8 +13,6 @@ import jp.kaleidot725.adbpad.domain.usecase.device.UpdateDevicesUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.SaveLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.refresh.RefreshUseCase
-import jp.kaleidot725.adbpad.domain.usecase.screenshot.CopyScreenshotToClipboardUseCase
-import jp.kaleidot725.adbpad.domain.usecase.screenshot.DeleteScreenshotPreviewUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
 import jp.kaleidot725.adbpad.domain.usecase.sdkpath.GetSdkPathUseCase
@@ -75,9 +73,6 @@ val domainModule =
             SendUserInputTextCommandUseCase(get())
         }
         factory {
-            DeleteScreenshotPreviewUseCase(get())
-        }
-        factory {
             GetWindowSizeUseCase(get())
         }
         factory {
@@ -103,9 +98,6 @@ val domainModule =
         }
         factory {
             GetLanguageUseCase(get())
-        }
-        factory {
-            CopyScreenshotToClipboardUseCase(get())
         }
         factory {
             SendTabCommandUseCase(get())
