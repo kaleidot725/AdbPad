@@ -2,10 +2,8 @@ package jp.kaleidot725.adbpad.ui.screen.screenshot.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.VerticalScrollbar
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.defaultScrollbarStyle
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -22,7 +20,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import jp.kaleidot725.adbpad.domain.model.UserColor
@@ -74,7 +71,7 @@ fun ScreenshotGallery(
 
         VerticalScrollbar(
             modifier = Modifier.align(Alignment.CenterEnd).width(8.dp).fillMaxHeight(),
-            adapter = rememberScrollbarAdapter(scrollState = lazyColumnState)
+            adapter = rememberScrollbarAdapter(scrollState = lazyColumnState),
         )
     }
 }
