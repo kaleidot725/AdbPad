@@ -63,17 +63,19 @@ fun ScreenshotScreen(
                         .fillMaxHeight(),
             )
 
-            Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
+            if (screenshots.isNotEmpty()) {
+                Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
 
-            ScreenshotGallery(
-                selectedScreenshot = screenshot,
-                screenshots = screenshots,
-                onSelectScreenShot = onSelectScreenshot,
-                modifier =
-                    Modifier
-                        .wrapContentWidth()
-                        .fillMaxHeight(),
-            )
+                ScreenshotGallery(
+                    selectedScreenshot = screenshot,
+                    screenshots = screenshots,
+                    onSelectScreenShot = onSelectScreenshot,
+                    modifier =
+                        Modifier
+                            .wrapContentWidth()
+                            .fillMaxHeight(),
+                )
+            }
         }
 
         ScreenshotDropDownButton(
