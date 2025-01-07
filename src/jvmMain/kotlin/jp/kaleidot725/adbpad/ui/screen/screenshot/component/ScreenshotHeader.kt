@@ -16,6 +16,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.FileCopy
+import androidx.compose.material.icons.filled.FileOpen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.dp
 fun ScreenshotHeader(
     name: String,
     enabled: Boolean,
+    onOpen: () -> Unit,
     onCopy: () -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier,
@@ -42,6 +44,23 @@ fun ScreenshotHeader(
                     .weight(1.0f)
                     .align(Alignment.CenterVertically),
         )
+
+        IconButton(
+            onClick = onOpen,
+            enabled = enabled,
+            modifier =
+                Modifier
+                    .padding(vertical = 4.dp)
+                    .size(32.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .align(Alignment.CenterVertically),
+        ) {
+            Icon(
+                imageVector = Icons.Default.FileOpen,
+                contentDescription = "copy",
+                modifier = Modifier.height(20.dp),
+            )
+        }
 
         IconButton(
             onClick = onCopy,
@@ -85,6 +104,7 @@ private fun ScreenshotHeader_Preview() {
     ScreenshotHeader(
         name = "TEST",
         enabled = true,
+        onOpen = {},
         onCopy = {},
         onDelete = {},
         modifier =

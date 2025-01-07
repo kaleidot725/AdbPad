@@ -166,6 +166,9 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 canCapture = screenshotState.canExecute,
                                 isCapturing = screenshotState.isCapturing,
                                 commands = screenshotState.commands,
+                                onOpenDirectory = {
+                                    screenshotStateHolder.openDirectory()
+                                },
                                 onCopyScreenshot = {
                                     screenshotStateHolder.copyScreenShotToClipboard()
                                 },

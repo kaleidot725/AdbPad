@@ -25,6 +25,7 @@ import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 fun ScreenshotViewer(
     screenshot: Screenshot,
     isCapturing: Boolean,
+    onOpenDirectory: () -> Unit,
     onCopyScreenshot: () -> Unit,
     onDeleteScreenshot: () -> Unit,
     modifier: Modifier = Modifier,
@@ -34,6 +35,7 @@ fun ScreenshotViewer(
             ScreenshotHeader(
                 name = screenshot.file?.name ?: "",
                 enabled = screenshot.file != null,
+                onOpen = onOpenDirectory,
                 onCopy = onCopyScreenshot,
                 onDelete = onDeleteScreenshot,
                 modifier = Modifier.padding(horizontal = 8.dp),
@@ -81,6 +83,7 @@ private fun ScreenshotViewer_Preview() {
     ScreenshotViewer(
         screenshot = Screenshot(null),
         isCapturing = false,
+        onOpenDirectory = {},
         onCopyScreenshot = {},
         onDeleteScreenshot = {},
         modifier = Modifier.fillMaxSize(),
