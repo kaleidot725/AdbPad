@@ -2,6 +2,7 @@ package jp.kaleidot725.adbpad.ui.screen.screenshot
 
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
+import jp.kaleidot725.adbpad.domain.model.os.OSContext
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
@@ -19,6 +20,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.awt.Desktop
+import java.io.File
 
 class ScreenshotStateHolder(
     private val takeScreenshotUseCase: TakeScreenshotUseCase,
@@ -87,6 +90,13 @@ class ScreenshotStateHolder(
                     isCapturing.value = false
                 },
             )
+        }
+    }
+
+    fun openDirectory() {
+        coroutineScope.launch {
+            val file = File(OSContext.resolveOSContext().screenshotDirectory)
+            Desktop.getDesktop().open(file)
         }
     }
 

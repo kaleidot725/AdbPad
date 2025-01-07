@@ -33,6 +33,7 @@ fun ScreenshotScreen(
     canCapture: Boolean,
     isCapturing: Boolean,
     commands: List<ScreenshotCommand>,
+    onOpenDirectory: () -> Unit,
     onCopyScreenshot: () -> Unit,
     onDeleteScreenshot: () -> Unit,
     onTakeScreenshot: (ScreenshotCommand) -> Unit,
@@ -55,6 +56,7 @@ fun ScreenshotScreen(
             ScreenshotViewer(
                 screenshot = screenshot,
                 isCapturing = isCapturing,
+                onOpenDirectory = onOpenDirectory,
                 onCopyScreenshot = onCopyScreenshot,
                 onDeleteScreenshot = onDeleteScreenshot,
                 modifier =
@@ -97,6 +99,7 @@ private fun ScreenshotScreen_Preview() {
         canCapture = true,
         isCapturing = false,
         commands = emptyList(),
+        onOpenDirectory = {},
         onCopyScreenshot = {},
         onDeleteScreenshot = {},
         onTakeScreenshot = {},
