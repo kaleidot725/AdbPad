@@ -14,9 +14,11 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,11 +34,12 @@ fun ScreenshotDropDownButton(
     modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedCommand by remember { mutableStateOf(commands.firstOrNull()) }
+    val initialCommand by rememberUpdatedState(commands.firstOrNull())
+    var selectedCommand : ScreenshotCommand? by remember { mutableStateOf(null) }
 
     Box(modifier) {
         ScreenshotButton(
-            selectedCommand = selectedCommand,
+            selectedCommand = selectedCommand ?: initialCommand,
             canCapture = canCapture,
             isCapturing = isCapturing,
             onTake = { selectedCommand?.let { onTakeScreenshot(it) } },
