@@ -26,6 +26,8 @@ ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 lucide = { module = "com.composables:icons-lucide", version.ref = "lucide" }
 coil = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+hot-reload-core = { module = "org.jetbrains.compose:hot-reload-core", version.ref = "compose_hot_reload" }
+hot-reload-analysis = { module = "org.jetbrains.compose:hot-reload-analysis", version.ref = "compose_hot_reload" }
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "compose_reload_kotlin" }

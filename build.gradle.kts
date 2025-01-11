@@ -22,9 +22,6 @@ kotlin {
     }
 
     sourceSets.jvmMain.dependencies {
-        implementation("org.jetbrains.compose:hot-reload-core:1.0.0-dev.33.1")
-        implementation("org.jetbrains.compose:hot-reload-analysis:1.0.0-dev.33.1")
-
         implementation(compose.desktop.currentOs)
         implementation(compose.material)
         implementation(compose.materialIconsExtended)
@@ -38,6 +35,8 @@ kotlin {
         implementation(libs.ktor.client.okhttp)
         implementation(libs.jSystemThemeDetectorVer)
         implementation(libs.coil)
+        implementation(libs.hot.reload.core)
+        implementation(libs.hot.reload.analysis)
     }
     sourceSets.jvmTest.dependencies {
         implementation(libs.junit5)

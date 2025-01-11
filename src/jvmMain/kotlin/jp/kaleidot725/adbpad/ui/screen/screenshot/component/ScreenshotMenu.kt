@@ -12,10 +12,10 @@ fun ScreenshotMenu(
     canCapture: Boolean,
     isCapturing: Boolean,
     onTakeScreenshot: (ScreenshotCommand) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
+        modifier = modifier,
     ) {
         ScreenshotDropDownButton(
             commands = commands,
@@ -33,6 +33,6 @@ private fun Preview() {
         commands = listOf(ScreenshotCommand.Current(isRunning = false)),
         canCapture = false,
         isCapturing = false,
-        onTakeScreenshot = {}
+        onTakeScreenshot = {},
     )
 }
