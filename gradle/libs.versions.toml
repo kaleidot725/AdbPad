@@ -1,7 +1,9 @@
 [versions]
-kotlin="2.0.21"
+kotlin="2.1.10-RC"
+compose_reload_kotlin = "2.1.10-firework.33"
 kotlin_coroutines="1.9.0"
 kotlin_serialization="1.7.3"
+compose_hot_reload = "1.0.0-dev.33.1"
 compose="1.7.3"
 ktlint_plugin="12.1.1"
 adam="0.5.8"
@@ -24,10 +26,14 @@ ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 lucide = { module = "com.composables:icons-lucide", version.ref = "lucide" }
 coil = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+hot-reload-core = { module = "org.jetbrains.compose:hot-reload-core", version.ref = "compose_hot_reload" }
+hot-reload-analysis = { module = "org.jetbrains.compose:hot-reload-analysis", version.ref = "compose_hot_reload" }
 
 [plugins]
-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "compose_reload_kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "compose_reload_kotlin" }
+compose-hot-reload = { id = "org.jetbrains.compose-hot-reload", version.ref = "compose_hot_reload" }
+
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
-kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "compose_reload_kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint_plugin" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

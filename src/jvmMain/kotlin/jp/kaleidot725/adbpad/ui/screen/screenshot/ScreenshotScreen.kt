@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
@@ -23,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
-import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotDropDownButton
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotGallery
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotMenu
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotViewer

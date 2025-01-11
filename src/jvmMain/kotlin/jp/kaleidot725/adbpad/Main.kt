@@ -35,6 +35,7 @@ import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.section.TopSection
+import org.jetbrains.compose.reload.DevelopmentEntryPoint
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
 
@@ -64,7 +65,9 @@ fun main() {
                     onCloseRequest = ::exitApplication,
                     state = windowState,
                 ) {
-                    App(mainStateHolder)
+                    DevelopmentEntryPoint {
+                        App(mainStateHolder)
+                    }
                 }
             }
         }
