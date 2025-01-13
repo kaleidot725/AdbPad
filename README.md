@@ -3,7 +3,8 @@
 AdpPad is a GUI software to test android apps using adb.  
 This software is running Windows and macOS.
 
-https://user-images.githubusercontent.com/23740796/234040976-c5e68694-688f-4864-bf80-28ad6a7d0bc7.mp4
+https://github.com/user-attachments/assets/b250bf2b-e61c-4a6d-9872-6d3dcb3339e6
+
 
 # ✨ Feature
 
@@ -14,17 +15,17 @@ https://user-images.githubusercontent.com/23740796/234040976-c5e68694-688f-4864-
 
 # ⬇️ Install
 
-- Download from [here](https://github.com/kaleidot725/AdbPad/releases/tag/v1.2.0).
+- Download from [here](https://github.com/kaleidot725/AdbPad/releases/tag/v1.5.0).
 - Setup adb path on Setting.
 
-https://user-images.githubusercontent.com/23740796/234041396-276bad13-65dc-4592-bed9-0427fee0e7f6.mp4
+https://github.com/user-attachments/assets/f5542ace-118d-4165-a138-49d59c7bda8b
 
 # 🎫 Licence
 
 ```
 MIT License
 
-Copyright (c) [2022] [Yusuke Katsuragawa]
+Copyright (c) [2025] [Yusuke Katsuragawa]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
