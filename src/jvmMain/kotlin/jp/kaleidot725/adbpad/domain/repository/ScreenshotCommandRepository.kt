@@ -15,9 +15,9 @@ interface ScreenshotCommandRepository {
         onFailed: suspend () -> Unit,
     )
 
-    suspend fun getScreenshotCache(): Screenshot
+    suspend fun getScreenshots(): List<Screenshot>
 
-    suspend fun deleteScreenshotCache()
+    suspend fun delete(screenshot: Screenshot)
 
     fun clear()
 }

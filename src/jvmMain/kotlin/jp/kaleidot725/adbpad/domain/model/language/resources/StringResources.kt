@@ -1,7 +1,8 @@
 package jp.kaleidot725.adbpad.domain.model.language.resources
 
+val APP_VERSION = "v1.5.0"
+
 interface StringResources {
-    val version: String
     val windowTitle: String
 
     val notFoundDevice: String

@@ -1,49 +1,45 @@
-import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
+import org.jetbrains.compose.reload.ComposeHotRun
+import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
 
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.compose.hot.reload)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ktlint)
 }
 
 group = "jp.kaleidot725"
-version = "1.3.0"
-
-repositories {
-    mavenCentral()
-    google()
-    maven("https://packages.jetbrains.team/maven/p/kpm/public/")
-    maven { url = uri("https://jitpack.io") }
-    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
-}
+version = "1.5.0"
 
 kotlin {
-    jvm {
+    jvm()
+    jvmToolchain(17)
+
+    composeCompiler {
+        featureFlags.add(ComposeFeatureFlag.OptimizeNonSkippingGroups)
     }
-    sourceSets {
-        val jvmMain by getting {
-            dependencies {
-                implementation(compose.desktop.currentOs)
-                implementation(compose.material)
-                implementation(compose.materialIconsExtended)
-                implementation(libs.adam)
-                implementation(libs.lucide)
-                implementation(libs.kotlin.coroutines)
-                implementation(libs.kotlinx.coroutines.swing)
-                implementation(libs.kotlin.serialization)
-                implementation(libs.koin)
-                implementation(libs.ktor.core)
-                implementation(libs.ktor.client.okhttp)
-                implementation(libs.jSystemThemeDetectorVer)
-            }
-        }
-        val jvmTest by getting {
-            dependencies {
-                implementation(libs.junit5)
-            }
-        }
+
+    sourceSets.jvmMain.dependencies {
+        implementation(compose.desktop.currentOs)
+        implementation(compose.material)
+        implementation(compose.materialIconsExtended)
+        implementation(libs.adam)
+        implementation(libs.lucide)
+        implementation(libs.kotlin.coroutines)
+        implementation(libs.kotlinx.coroutines.swing)
+        implementation(libs.kotlin.serialization)
+        implementation(libs.koin)
+        implementation(libs.ktor.core)
+        implementation(libs.ktor.client.okhttp)
+        implementation(libs.jSystemThemeDetectorVer)
+        implementation(libs.coil)
+        implementation(libs.hot.reload.core)
+        implementation(libs.hot.reload.analysis)
+    }
+    sourceSets.jvmTest.dependencies {
+        implementation(libs.junit5)
     }
 }
 
@@ -114,4 +110,9 @@ configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         exclude("**/generated/**")
         include("**/kotlin/**")
     }
+}
+
+// build.gradle.kts
+tasks.register<ComposeHotRun>("runHot") {
+    mainClass.set("MainKt")
 }
