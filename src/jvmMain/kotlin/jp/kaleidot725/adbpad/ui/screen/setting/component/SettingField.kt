@@ -2,6 +2,7 @@ package jp.kaleidot725.adbpad.ui.screen.setting.component
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
@@ -14,7 +15,7 @@ fun SettingField(
     isError: Boolean,
     onValueChange: (String) -> Unit,
 ) {
-    TextField(
+    OutlinedTextField(
         value = input,
         onValueChange = onValueChange,
         label = { Text(title) },
