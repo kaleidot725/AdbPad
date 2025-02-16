@@ -20,7 +20,7 @@ fun CommandTab(
 ) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         CommandTabItem(
             title = "All",

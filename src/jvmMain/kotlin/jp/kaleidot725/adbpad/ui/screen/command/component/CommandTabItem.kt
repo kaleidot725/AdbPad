@@ -41,7 +41,7 @@ fun CommandTabItem(
         Icon(
             imageVector = icon,
             contentDescription = null,
-            modifier = Modifier.align(Alignment.CenterStart).padding(start = 12.dp, top = 4.dp)
+            modifier = Modifier.align(Alignment.CenterStart).padding(start = 12.dp, top = 4.dp),
         )
         Text(
             text = title,
