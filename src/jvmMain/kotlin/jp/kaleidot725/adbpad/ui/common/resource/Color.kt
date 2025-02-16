@@ -12,6 +12,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
@@ -31,12 +33,13 @@ fun Modifier.selectedBackground(isSelected: Boolean): Modifier {
 fun Modifier.clickableBackground(
     isSelected: Boolean = false,
     selectedColor: Color = MaterialTheme.colors.primary.copy(alpha = 0.2f),
+    shape: Shape = RectangleShape,
     isDarker: Boolean = false,
 ): Modifier {
     var isMouseOver by remember { mutableStateOf(false) }
     val one =
         if (isSelected) {
-            this.background(color = selectedColor)
+            this.background(color = selectedColor, shape = shape)
         } else if (isMouseOver) {
             this.background(
                 color =
@@ -47,6 +50,7 @@ fun Modifier.clickableBackground(
                     } else {
                         Color.White.copy(alpha = 0.1f)
                     },
+                shape = shape,
             )
         } else {
             this
