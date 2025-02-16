@@ -118,6 +118,18 @@ class ScreenshotStateHolder(
         preview.value = screenshot
     }
 
+    fun nextScreenshot() {
+        val nextIndex = previews.value.indexOf(preview.value) + 1
+        val nextPreview = previews.value.getOrNull(nextIndex) ?: return
+        preview.value = nextPreview
+    }
+
+    fun previousScreenshot() {
+        val previousIndex = previews.value.indexOf(preview.value) - 1
+        val previousPreview = previews.value.getOrNull(previousIndex) ?: return
+        preview.value = previousPreview
+    }
+
     private suspend fun initPreviews() {
         previews.value = screenshotCommandRepository.getScreenshots()
         preview.value = previews.value.firstOrNull() ?: Screenshot(null)

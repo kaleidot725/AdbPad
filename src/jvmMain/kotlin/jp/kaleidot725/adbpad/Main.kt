@@ -36,6 +36,8 @@ import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.section.TopSection
 import org.jetbrains.compose.reload.DevelopmentEntryPoint
+import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
+import org.jetbrains.compose.splitpane.rememberSplitPaneState
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
 
@@ -74,10 +76,12 @@ fun main() {
     }
 }
 
+@OptIn(ExperimentalSplitPaneApi::class)
 @Composable
 fun WindowScope.App(mainStateHolder: MainStateHolder) {
     val state by mainStateHolder.state.collectAsState()
     val decoratedWindowScope = this
+    val screenshotSplitPaneState = rememberSplitPaneState()
 
     DisposableEffect(mainStateHolder) {
         mainStateHolder.setup()
@@ -165,6 +169,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
 
                             ScreenshotScreen(
                                 screenshot = screenshotState.preview,
+                                splitterState = screenshotSplitPaneState,
                                 screenshots = screenshotState.previews,
                                 canCapture = screenshotState.canExecute,
                                 isCapturing = screenshotState.isCapturing,
@@ -185,6 +190,12 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 },
                                 onSelectScreenshot = { screenshot ->
                                     screenshotStateHolder.selectScreenshot(screenshot)
+                                },
+                                onNextScreenshot = {
+                                    screenshotStateHolder.nextScreenshot()
+                                },
+                                onPreviousScreenshot = {
+                                    screenshotStateHolder.previousScreenshot()
                                 },
                             )
                         }

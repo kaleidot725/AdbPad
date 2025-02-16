@@ -1,3 +1,6 @@
+@file:OptIn(ExperimentalComposeLibrary::class)
+
+import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.reload.ComposeHotRun
 import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
 
@@ -23,6 +26,7 @@ kotlin {
 
     sourceSets.jvmMain.dependencies {
         implementation(compose.desktop.currentOs)
+        implementation(compose.desktop.components.splitPane)
         implementation(compose.material)
         implementation(compose.materialIconsExtended)
         implementation(libs.adam)
