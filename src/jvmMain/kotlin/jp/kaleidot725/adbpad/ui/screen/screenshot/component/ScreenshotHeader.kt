@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ScreenshotHeader(
-    name: String,
     enabled: Boolean,
     onOpen: () -> Unit,
     onCopy: () -> Unit,
@@ -37,14 +36,6 @@ fun ScreenshotHeader(
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         modifier = modifier,
     ) {
-        Text(
-            text = name,
-            modifier =
-                Modifier
-                    .weight(1.0f)
-                    .align(Alignment.CenterVertically),
-        )
-
         IconButton(
             onClick = onOpen,
             enabled = enabled,
@@ -102,7 +93,6 @@ fun ScreenshotHeader(
 @Composable
 private fun ScreenshotHeader_Preview() {
     ScreenshotHeader(
-        name = "TEST",
         enabled = true,
         onOpen = {},
         onCopy = {},
