@@ -196,7 +196,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 },
                                 onPreviousScreenshot = {
                                     screenshotStateHolder.previousScreenshot()
-                                }
+                                },
                             )
                         }
                     }

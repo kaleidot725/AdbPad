@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
-import jp.kaleidot725.adbpad.ui.common.resource.selectedBackground
 
 @Composable
 fun ScreenshotExplorer(
@@ -44,43 +43,45 @@ fun ScreenshotExplorer(
             val lazyColumnState = rememberLazyListState()
             LazyColumn(
                 state = lazyColumnState,
-                modifier = Modifier.onKeyEvent { event ->
-                    when {
-                        event.key == Key.DirectionUp && event.type == KeyEventType.KeyDown -> {
-                            onPreviousScreenshot()
-                            true
+                modifier =
+                    Modifier.onKeyEvent { event ->
+                        when {
+                            event.key == Key.DirectionUp && event.type == KeyEventType.KeyDown -> {
+                                onPreviousScreenshot()
+                                true
+                            }
+                            event.key == Key.DirectionDown && event.type == KeyEventType.KeyDown -> {
+                                onNextScreenshot()
+                                true
+                            }
+                            else -> false
                         }
-                        event.key == Key.DirectionDown && event.type == KeyEventType.KeyDown -> {
-                            onNextScreenshot()
-                            true
-                        }
-                        else -> false
-                    }
-                }
+                    },
             ) {
                 items(
                     items = screenshots,
                     key = { screenshot -> screenshot.file?.absolutePath ?: "" },
                 ) { screenshot ->
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickableBackground(
-                                isSelected = selectedScreenshot == screenshot,
-                                shape = RoundedCornerShape(4.dp)
-                            )
-                            .clickable { onSelectScreenShot(screenshot) }
-                            .padding(horizontal = 12.dp, vertical = 4.dp),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .clickableBackground(
+                                    isSelected = selectedScreenshot == screenshot,
+                                    shape = RoundedCornerShape(4.dp),
+                                )
+                                .clickable { onSelectScreenShot(screenshot) }
+                                .padding(horizontal = 12.dp, vertical = 4.dp),
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
                     ) {
                         AsyncImage(
                             model = screenshot.file,
                             contentDescription = null,
-                            modifier = Modifier.size(24.dp)
+                            modifier = Modifier.size(24.dp),
                         )
 
                         Text(
-                            text = screenshot.file?.name ?: ""
+                            text = screenshot.file?.name ?: "",
                         )
                     }
                 }
@@ -93,7 +94,7 @@ fun ScreenshotExplorer(
         } else {
             Text(
                 text = "Not Found Screenshot",
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             )
         }
     }

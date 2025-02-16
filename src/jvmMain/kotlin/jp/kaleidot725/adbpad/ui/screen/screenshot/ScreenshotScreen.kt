@@ -29,8 +29,7 @@ import org.jetbrains.compose.splitpane.SplitPaneState
 import org.jetbrains.compose.splitpane.rememberSplitPaneState
 import java.awt.Cursor
 
-private fun Modifier.cursorForHorizontalResize(): Modifier =
-    pointerHoverIcon(PointerIcon(Cursor(Cursor.E_RESIZE_CURSOR)))
+private fun Modifier.cursorForHorizontalResize(): Modifier = pointerHoverIcon(PointerIcon(Cursor(Cursor.E_RESIZE_CURSOR)))
 
 @OptIn(ExperimentalSplitPaneApi::class)
 @Composable
@@ -51,13 +50,14 @@ fun ScreenshotScreen(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         HorizontalSplitPane(
             splitPaneState = splitterState,
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1.0f)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .weight(1.0f),
         ) {
             first(minSize = 350.dp) {
                 ScreenshotExplorer(
@@ -66,7 +66,7 @@ fun ScreenshotScreen(
                     onSelectScreenShot = onSelectScreenshot,
                     onNextScreenshot = onNextScreenshot,
                     onPreviousScreenshot = onPreviousScreenshot,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize(),
                 )
             }
 
@@ -78,9 +78,10 @@ fun ScreenshotScreen(
                         onOpenDirectory = onOpenDirectory,
                         onCopyScreenshot = onCopyScreenshot,
                         onDeleteScreenshot = onDeleteScreenshot,
-                        modifier = Modifier
-                            .weight(1.0f)
-                            .fillMaxHeight(),
+                        modifier =
+                            Modifier
+                                .weight(1.0f)
+                                .fillMaxHeight(),
                     )
 
                     ScreenshotMenu(
@@ -99,7 +100,7 @@ fun ScreenshotScreen(
                         Modifier
                             .width(1.dp)
                             .fillMaxHeight()
-                            .border(BorderStroke(1.dp, UserColor.getSplitterColor()))
+                            .border(BorderStroke(1.dp, UserColor.getSplitterColor())),
                     )
                 }
 
@@ -110,7 +111,7 @@ fun ScreenshotScreen(
                             .cursorForHorizontalResize()
                             .width(10.dp)
                             .fillMaxHeight()
-                            .markAsHandle()
+                            .markAsHandle(),
                     )
                 }
             }
