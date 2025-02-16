@@ -110,28 +110,28 @@ interface NormalCommand {
         override val title: String get() = Language.commandWifiOnTitle
         override val details: String get() = Language.commandWifiOnDetails
         override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("svc wifi enable"))
-        override val category: NormalCommandCategory = NormalCommandCategory.Communication
+        override val category: NormalCommandCategory = NormalCommandCategory.COM
     }
 
     data class WifiOff(override val isRunning: Boolean = false) : NormalCommand {
         override val title: String get() = Language.commandWifiOffTitle
         override val details: String get() = Language.commandWifiOffDetails
         override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("svc wifi disable"))
-        override val category: NormalCommandCategory = NormalCommandCategory.Communication
+        override val category: NormalCommandCategory = NormalCommandCategory.COM
     }
 
     data class DataOn(override val isRunning: Boolean = false) : NormalCommand {
         override val title: String get() = Language.commandDataOnTitle
         override val details: String get() = Language.commandDataOnDetails
         override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("svc data enable"))
-        override val category: NormalCommandCategory = NormalCommandCategory.Communication
+        override val category: NormalCommandCategory = NormalCommandCategory.COM
     }
 
     data class DataOff(override val isRunning: Boolean = false) : NormalCommand {
         override val title: String get() = Language.commandDataOffTitle
         override val details: String get() = Language.commandDataOffDetails
         override val requests: List<ShellCommandRequest> = listOf(ShellCommandRequest("svc data disable"))
-        override val category: NormalCommandCategory = NormalCommandCategory.Communication
+        override val category: NormalCommandCategory = NormalCommandCategory.COM
     }
 
     data class WifiAndDataOn(override val isRunning: Boolean = false) : NormalCommand {
@@ -142,7 +142,7 @@ interface NormalCommand {
                 ShellCommandRequest("svc wifi enable"),
                 ShellCommandRequest("svc data enable"),
             )
-        override val category: NormalCommandCategory = NormalCommandCategory.Communication
+        override val category: NormalCommandCategory = NormalCommandCategory.COM
     }
 
     data class WifiAndDataOff(override val isRunning: Boolean = false) : NormalCommand {
@@ -153,7 +153,7 @@ interface NormalCommand {
                 ShellCommandRequest("svc wifi disable"),
                 ShellCommandRequest("svc data disable"),
             )
-        override val category: NormalCommandCategory = NormalCommandCategory.Communication
+        override val category: NormalCommandCategory = NormalCommandCategory.COM
     }
 
     data class ScreenPinningOff(override val isRunning: Boolean = false) : NormalCommand {

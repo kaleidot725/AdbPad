@@ -12,7 +12,7 @@ class GetNormalCommandGroup(
         return NormalCommandGroup(
             all = all,
             ui = all.filter { it.category == NormalCommandCategory.UI },
-            communication = all.filter { it.category == NormalCommandCategory.Communication },
+            communication = all.filter { it.category == NormalCommandCategory.COM },
         )
     }
 }
