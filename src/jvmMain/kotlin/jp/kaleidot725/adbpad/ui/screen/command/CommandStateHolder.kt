@@ -26,7 +26,7 @@ class CommandStateHolder(
 ) : ChildStateHolder<CommandState> {
     private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
     private val commands: MutableStateFlow<NormalCommandGroup> = MutableStateFlow(NormalCommandGroup.Empty)
-    private val filtered: MutableStateFlow<NormalCommandCategory?> = MutableStateFlow(null)
+    private val filtered: MutableStateFlow<NormalCommandCategory> = MutableStateFlow(NormalCommandCategory.ALL)
     private val selectedDevice: StateFlow<Device?> =
         getSelectedDeviceFlowUseCase()
             .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
@@ -65,7 +65,7 @@ class CommandStateHolder(
         }
     }
 
-    fun clickTab(filtered: NormalCommandCategory?) {
+    fun clickTab(filtered: NormalCommandCategory) {
         this.filtered.value = filtered
     }
 }

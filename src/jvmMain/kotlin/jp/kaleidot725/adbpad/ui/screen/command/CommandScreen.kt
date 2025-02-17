@@ -16,8 +16,8 @@ import jp.kaleidot725.adbpad.ui.screen.command.component.CommandTab
 @Composable
 fun CommandScreen(
     commands: NormalCommandGroup,
-    filtered: NormalCommandCategory?,
-    onClickFilter: (NormalCommandCategory?) -> Unit,
+    filtered: NormalCommandCategory,
+    onClickFilter: (NormalCommandCategory) -> Unit,
     canExecute: Boolean,
     onExecute: (NormalCommand) -> Unit,
 ) {
@@ -32,7 +32,7 @@ fun CommandScreen(
                 when (filtered) {
                     NormalCommandCategory.UI -> commands.ui
                     NormalCommandCategory.COM -> commands.communication
-                    null -> commands.all
+                    NormalCommandCategory.ALL -> commands.all
                 },
             canExecute = canExecute,
             onExecute = onExecute,
@@ -51,7 +51,7 @@ private fun CommandScreen_Preview() {
                 listOf(NormalCommand.DarkThemeOn(), NormalCommand.DarkThemeOff()),
                 listOf(NormalCommand.WifiOn()),
             ),
-        filtered = null,
+        filtered = NormalCommandCategory.ALL,
         onClickFilter = {},
         canExecute = true,
         onExecute = {},

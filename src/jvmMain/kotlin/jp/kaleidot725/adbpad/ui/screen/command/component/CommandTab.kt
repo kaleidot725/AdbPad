@@ -15,18 +15,18 @@ import jp.kaleidot725.adbpad.domain.model.command.NormalCommandCategory
 @Composable
 fun CommandTab(
     modifier: Modifier = Modifier,
-    filtered: NormalCommandCategory?,
-    onClick: (NormalCommandCategory?) -> Unit,
+    filtered: NormalCommandCategory,
+    onClick: (NormalCommandCategory) -> Unit,
 ) {
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         CommandTabItem(
-            title = "All",
+            title = NormalCommandCategory.ALL.toString(),
             icon = Lucide.Diamond,
-            isSelected = filtered == null,
-            onClick = { onClick(null) },
+            isSelected = filtered == NormalCommandCategory.ALL,
+            onClick = { onClick(NormalCommandCategory.ALL) },
         )
 
         CommandTabItem(
@@ -48,5 +48,5 @@ fun CommandTab(
 @Preview
 @Composable
 private fun CommandTabPreview() {
-    CommandTab(filtered = null) {}
+    CommandTab(filtered = NormalCommandCategory.ALL) {}
 }
