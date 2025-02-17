@@ -15,7 +15,7 @@ https://github.com/user-attachments/assets/b250bf2b-e61c-4a6d-9872-6d3dcb3339e6
 
 # ⬇️ Install
 
-- Download from [here](https://github.com/kaleidot725/AdbPad/releases/tag/v1.5.1).
+- Download from [here](https://github.com/kaleidot725/AdbPad/releases/tag/v1.5.2).
 - Setup adb path on Setting.
 
 https://github.com/user-attachments/assets/f5542ace-118d-4165-a138-49d59c7bda8b

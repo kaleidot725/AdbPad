@@ -14,7 +14,7 @@ plugins {
 }
 
 group = "jp.kaleidot725"
-version = "1.5.1"
+version = "1.5.2"
 
 kotlin {
     jvm()
