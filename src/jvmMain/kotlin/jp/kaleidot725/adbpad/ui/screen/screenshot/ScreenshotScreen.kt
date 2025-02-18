@@ -29,7 +29,7 @@ import org.jetbrains.compose.splitpane.SplitPaneState
 import org.jetbrains.compose.splitpane.rememberSplitPaneState
 import java.awt.Cursor
 
-private fun Modifier.cursorForHorizontalResize(): Modifier = pointerHoverIcon(PointerIcon(Cursor(Cursor.E_RESIZE_CURSOR)))
+fun Modifier.cursorForHorizontalResize(): Modifier = pointerHoverIcon(PointerIcon(Cursor(Cursor.E_RESIZE_CURSOR)))
 
 @OptIn(ExperimentalSplitPaneApi::class)
 @Composable

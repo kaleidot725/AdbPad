@@ -81,6 +81,7 @@ fun main() {
 fun WindowScope.App(mainStateHolder: MainStateHolder) {
     val state by mainStateHolder.state.collectAsState()
     val decoratedWindowScope = this
+    val textSplitPaneState = rememberSplitPaneState()
     val screenshotSplitPaneState = rememberSplitPaneState()
 
     DisposableEffect(mainStateHolder) {
@@ -134,6 +135,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                             TextCommandScreen(
                                 // InputText
                                 inputText = inputTextState.userInputText,
+                                splitterState = textSplitPaneState,
                                 onTextChange = { text ->
                                     inputTextStateHolder.updateInputText(text)
                                 },
