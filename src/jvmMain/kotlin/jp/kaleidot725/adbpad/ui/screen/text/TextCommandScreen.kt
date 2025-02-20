@@ -45,7 +45,11 @@ fun TextCommandScreen(
     onSendTabKey: () -> Unit,
     isSendingTab: Boolean,
     // Commands
+    selectedCommand: TextCommand,
     commands: List<TextCommand>,
+    onSelectCommand: (TextCommand) -> Unit,
+    onNextCommand: () -> Unit,
+    onPreviousCommand: () -> Unit,
     onSendCommand: (TextCommand) -> Unit,
     canSendCommand: Boolean,
     onDeleteCommand: (TextCommand) -> Unit,
@@ -56,7 +60,11 @@ fun TextCommandScreen(
     ) {
         first(minSize = 350.dp) {
             TextCommandList(
+                selectedCommand = selectedCommand,
                 commands = commands,
+                onSelectCommand = onSelectCommand,
+                onNextCommand = onNextCommand,
+                onPreviousCommand = onPreviousCommand,
                 onSend = onSendCommand,
                 canSend = canSendCommand,
                 onDelete = onDeleteCommand,
@@ -118,7 +126,11 @@ private fun InputTextScreen_Preview() {
         onSendInputText = {},
         onSaveInputText = {},
         canSaveInputText = true,
+        selectedCommand = TextCommand("TEST1"),
         commands = listOf(TextCommand("TEST1"), TextCommand("TEST2")),
+        onSelectCommand = {},
+        onNextCommand = {},
+        onPreviousCommand = {},
         onSendCommand = {},
         isSendingTab = false,
         canSendCommand = true,

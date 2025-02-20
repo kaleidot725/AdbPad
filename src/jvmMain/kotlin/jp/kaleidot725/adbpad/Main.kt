@@ -33,7 +33,9 @@ import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
+import jp.kaleidot725.adbpad.ui.screen.text.TextCommandAction
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
+import jp.kaleidot725.adbpad.ui.screen.text.TextCommandState
 import jp.kaleidot725.adbpad.ui.section.TopSection
 import org.jetbrains.compose.reload.DevelopmentEntryPoint
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
@@ -131,37 +133,30 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                         MainCategory.Text -> {
                             val inputTextStateHolder = mainStateHolder.textCommandStateHolder
                             val inputTextState by inputTextStateHolder.state.collectAsState()
+                            val onAction = inputTextStateHolder::onAction
 
                             TextCommandScreen(
                                 // InputText
                                 inputText = inputTextState.userInputText,
                                 splitterState = textSplitPaneState,
-                                onTextChange = { text ->
-                                    inputTextStateHolder.updateInputText(text)
-                                },
+                                onTextChange = { text -> onAction(TextCommandAction.UpdateInputText(text)) },
                                 isSendingInputText = inputTextState.isSendingUserInputText,
-                                onSendInputText = {
-                                    inputTextStateHolder.sendInputText()
-                                },
+                                onSendInputText = { onAction(TextCommandAction.SendInputText) },
                                 canSendInputText = inputTextState.canSendInputText,
                                 canSendTabKey = inputTextState.canSendTabKey,
-                                onSendTabKey = {
-                                    inputTextStateHolder.sendTabCommand()
-                                },
-                                onSaveInputText = {
-                                    inputTextStateHolder.saveInputText()
-                                },
+                                onSendTabKey = { onAction(TextCommandAction.SendTabCommand) },
+                                onSaveInputText = { onAction(TextCommandAction.SaveInputText) },
                                 canSaveInputText = inputTextState.canSaveInputText,
                                 // Commands
+                                selectedCommand = inputTextState.selectedCommand,
                                 commands = inputTextState.commands,
-                                onSendCommand = { text ->
-                                    inputTextStateHolder.sendTextCommand(text)
-                                },
+                                onSendCommand = { text -> onAction(TextCommandAction.SendTextCommand(text)) },
                                 canSendCommand = inputTextState.canSendCommand,
                                 isSendingTab = inputTextState.isSendingTab,
-                                onDeleteCommand = { text ->
-                                    inputTextStateHolder.deleteInputText(text)
-                                },
+                                onDeleteCommand = { text -> onAction(TextCommandAction.DeleteInputText(text)) },
+                                onNextCommand = { onAction(TextCommandAction.NextCommand) },
+                                onPreviousCommand = { onAction(TextCommandAction.PreviousCommand)},
+                                onSelectCommand = { command -> onAction(TextCommandAction.SelectCommand(command)) },
                             )
                         }
 
