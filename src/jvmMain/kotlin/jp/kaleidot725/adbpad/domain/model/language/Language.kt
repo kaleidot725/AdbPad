@@ -40,6 +40,8 @@ object Language : StringResources {
         get() = getCurrentResources().light
     override val system: String
         get() = getCurrentResources().system
+    override val search: String
+        get() = getCurrentResources().search
     override val screenshotTakeByCurrentTheme: String
         get() = getCurrentResources().screenshotTakeByCurrentTheme
     override val screenshotTakeByDarkTheme: String
@@ -205,13 +207,12 @@ object Language : StringResources {
         currentType = type
     }
 
-    private fun getCurrentResources(): StringResources {
-        return when (currentType) {
+    private fun getCurrentResources(): StringResources =
+        when (currentType) {
             Type.ENGLISH -> EnglishResources
             Type.JAPANESE -> JapaneseResources
             Type.CHINESE -> ChineseResources
         }
-    }
 
     enum class Type {
         ENGLISH,

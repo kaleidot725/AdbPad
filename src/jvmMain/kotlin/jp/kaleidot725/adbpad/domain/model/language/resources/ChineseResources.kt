@@ -20,6 +20,7 @@ object ChineseResources : StringResources {
     override val dark = "深色"
     override val light = "浅色"
     override val system = "系统"
+    override val search: String = "搜索"
 
     override val screenshotTakeByCurrentTheme = "按当前主题截图"
     override val screenshotTakeByDarkTheme = "按深色主题截图"

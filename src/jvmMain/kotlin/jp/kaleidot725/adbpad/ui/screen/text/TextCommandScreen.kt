@@ -5,25 +5,19 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
-import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotExplorer
-import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotMenu
-import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotViewer
 import jp.kaleidot725.adbpad.ui.screen.screenshot.cursorForHorizontalResize
 import jp.kaleidot725.adbpad.ui.screen.text.component.InputTextActionMenu
 import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandHeader
@@ -39,7 +33,7 @@ fun TextCommandScreen(
     // InputText
     searchText: String,
     onUpdateSearchText: (String) -> Unit,
-    onAddNewTextCommand : () -> Unit,
+    onAddNewTextCommand: () -> Unit,
     inputText: String,
     splitterState: SplitPaneState,
     onTextChange: (String) -> Unit,
@@ -63,7 +57,7 @@ fun TextCommandScreen(
 ) {
     HorizontalSplitPane(
         splitPaneState = splitterState,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         first(minSize = 350.dp) {
             Column {
@@ -102,7 +96,7 @@ fun TextCommandScreen(
                     canSendTab = canSendTabKey,
                     onSave = onSaveInputText,
                     canSave = canSaveInputText,
-                    modifier = Modifier.height(50.dp).fillMaxWidth()
+                    modifier = Modifier.height(50.dp).fillMaxWidth(),
                 )
             }
         }

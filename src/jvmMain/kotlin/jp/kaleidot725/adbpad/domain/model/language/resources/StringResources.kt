@@ -21,6 +21,7 @@ interface StringResources {
     val dark: String
     val light: String
     val system: String
+    val search: String
 
     val screenshotTakeByCurrentTheme: String
     val screenshotTakeByDarkTheme: String

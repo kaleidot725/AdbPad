@@ -20,6 +20,7 @@ object EnglishResources : StringResources {
     override val dark = "Dark"
     override val light = "Light"
     override val system = "System"
+    override val search: String = "Search"
 
     override val screenshotTakeByCurrentTheme = "Take by current theme"
     override val screenshotTakeByDarkTheme = "Take by dark theme"

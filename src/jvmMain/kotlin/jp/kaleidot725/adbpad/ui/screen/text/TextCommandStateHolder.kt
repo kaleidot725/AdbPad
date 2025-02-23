@@ -33,7 +33,7 @@ class TextCommandStateHolder(
             update {
                 this.copy(
                     selectedCommand = commands.firstOrNull() ?: TextCommand(""),
-                    commands = commands
+                    commands = commands,
                 )
             }
         }
@@ -107,7 +107,7 @@ class TextCommandStateHolder(
         update {
             copy(
                 searchText = text,
-                commands = commands.filter { it.text.startsWith(text) }
+                commands = commands.filter { it.text.startsWith(text) },
             )
         }
     }

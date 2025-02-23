@@ -35,7 +35,6 @@ import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandAction
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
-import jp.kaleidot725.adbpad.ui.screen.text.TextCommandState
 import jp.kaleidot725.adbpad.ui.section.TopSection
 import org.jetbrains.compose.reload.DevelopmentEntryPoint
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
@@ -158,7 +157,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 isSendingTab = inputTextState.isSendingTab,
                                 onDeleteCommand = { text -> onAction(TextCommandAction.DeleteInputText(text)) },
                                 onNextCommand = { onAction(TextCommandAction.NextCommand) },
-                                onPreviousCommand = { onAction(TextCommandAction.PreviousCommand)},
+                                onPreviousCommand = { onAction(TextCommandAction.PreviousCommand) },
                                 onSelectCommand = { command -> onAction(TextCommandAction.SelectCommand(command)) },
                             )
                         }
