@@ -11,6 +11,7 @@ data class TextCommandState(
     val isSendingUserInputText: Boolean = false,
     val selectedDevice: Device? = null,
     val isSendingTab: Boolean = false,
+    val searchText: String = "",
 ) : MVIState {
     val canSendCommand: Boolean get() = selectedDevice != null
     val canSendInputText: Boolean get() = selectedDevice != null && userInputText.isNotEmpty()

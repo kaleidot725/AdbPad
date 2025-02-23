@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,17 +13,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.domain.model.command.TextCommand
+import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotExplorer
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotMenu
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotViewer
 import jp.kaleidot725.adbpad.ui.screen.screenshot.cursorForHorizontalResize
 import jp.kaleidot725.adbpad.ui.screen.text.component.InputTextActionMenu
+import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandHeader
 import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandList
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
 import org.jetbrains.compose.splitpane.HorizontalSplitPane
@@ -33,6 +37,9 @@ import org.jetbrains.compose.splitpane.rememberSplitPaneState
 @Composable
 fun TextCommandScreen(
     // InputText
+    searchText: String,
+    onUpdateSearchText: (String) -> Unit,
+    onAddNewTextCommand : () -> Unit,
     inputText: String,
     splitterState: SplitPaneState,
     onTextChange: (String) -> Unit,
@@ -59,17 +66,27 @@ fun TextCommandScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         first(minSize = 350.dp) {
-            TextCommandList(
-                selectedCommand = selectedCommand,
-                commands = commands,
-                onSelectCommand = onSelectCommand,
-                onNextCommand = onNextCommand,
-                onPreviousCommand = onPreviousCommand,
-                onSend = onSendCommand,
-                canSend = canSendCommand,
-                onDelete = onDeleteCommand,
-                modifier = Modifier.fillMaxSize().padding(bottom = 60.dp),
-            )
+            Column {
+                TextCommandHeader(
+                    searchText = searchText,
+                    onUpdateSearchText = onUpdateSearchText,
+                    onAddNewTextCommand = onAddNewTextCommand,
+                )
+
+                Divider(modifier = Modifier.fillMaxWidth().defaultBorder())
+
+                TextCommandList(
+                    selectedCommand = selectedCommand,
+                    commands = commands,
+                    onSelectCommand = onSelectCommand,
+                    onNextCommand = onNextCommand,
+                    onPreviousCommand = onPreviousCommand,
+                    onSend = onSendCommand,
+                    canSend = canSendCommand,
+                    onDelete = onDeleteCommand,
+                    modifier = Modifier.fillMaxSize().padding(top = 2.dp),
+                )
+            }
         }
 
         second {
@@ -119,6 +136,9 @@ fun TextCommandScreen(
 @Composable
 private fun InputTextScreen_Preview() {
     TextCommandScreen(
+        searchText = "SAMPLE SEARCH TEXT",
+        onUpdateSearchText = {},
+        onAddNewTextCommand = {},
         inputText = "SAMPLE INPUT TEXT",
         splitterState = rememberSplitPaneState(),
         onTextChange = {},

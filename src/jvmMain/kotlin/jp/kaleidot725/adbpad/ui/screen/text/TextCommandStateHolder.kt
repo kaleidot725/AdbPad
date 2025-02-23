@@ -90,7 +90,25 @@ class TextCommandStateHolder(
                 is TextCommandAction.SelectCommand -> {
                     selectCommand(uiAction.command)
                 }
+
+                TextCommandAction.AddNewText -> {
+                    // TODO
+                }
+
+                is TextCommandAction.UpdateSearchText -> {
+                    updateSearchText(uiAction.text)
+                }
             }
+        }
+    }
+
+    private suspend fun updateSearchText(text: String) {
+        val commands = getTextCommandUseCase()
+        update {
+            copy(
+                searchText = text,
+                commands = commands.filter { it.text.startsWith(text) }
+            )
         }
     }
 

@@ -137,6 +137,9 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
 
                             TextCommandScreen(
                                 // InputText
+                                searchText = inputTextState.searchText,
+                                onUpdateSearchText = { text -> onAction(TextCommandAction.UpdateSearchText(text)) },
+                                onAddNewTextCommand = { onAction(TextCommandAction.AddNewText) },
                                 inputText = inputTextState.userInputText,
                                 splitterState = textSplitPaneState,
                                 onTextChange = { text -> onAction(TextCommandAction.UpdateInputText(text)) },
