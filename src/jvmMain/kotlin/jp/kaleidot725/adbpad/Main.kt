@@ -33,7 +33,6 @@ import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
-import jp.kaleidot725.adbpad.ui.screen.text.TextCommandAction
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.section.TopSection
 import org.jetbrains.compose.reload.DevelopmentEntryPoint
@@ -130,31 +129,12 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                         }
 
                         MainCategory.Text -> {
-                            val inputTextStateHolder = mainStateHolder.textCommandStateHolder
-                            val inputTextState by inputTextStateHolder.state.collectAsState()
-                            val onAction = inputTextStateHolder::onAction
-
+                            val inputTextState by mainStateHolder.textCommandStateHolder.state.collectAsState()
+                            val onAction = mainStateHolder.textCommandStateHolder::onAction
                             TextCommandScreen(
-                                // InputText
-                                searchText = inputTextState.searchText,
-                                onUpdateSearchText = { text -> onAction(TextCommandAction.UpdateSearchText(text)) },
-                                onAddNewTextCommand = { onAction(TextCommandAction.AddNewText) },
+                                state = inputTextState,
+                                onAction = onAction,
                                 splitterState = textSplitPaneState,
-                                onUpdateTitle = { id, value ->
-                                    onAction(TextCommandAction.UpdateCommandTitle(id, value))
-                                },
-                                onUpdateText = { id, value ->
-                                    onAction(TextCommandAction.UpdateCommandText(id, value))
-                                },
-                                onDeleteText = {
-                                    onAction(TextCommandAction.DeleteSelectedCommandText)
-                                },
-                                // Commands
-                                selectedCommand = inputTextState.selectedCommand,
-                                commands = inputTextState.commands,
-                                onNextCommand = { onAction(TextCommandAction.NextCommand) },
-                                onPreviousCommand = { onAction(TextCommandAction.PreviousCommand) },
-                                onSelectCommand = { command -> onAction(TextCommandAction.SelectCommand(command)) },
                             )
                         }
 

@@ -20,9 +20,7 @@ sealed class TextCommandAction : MVIAction {
         val value: String,
     ) : TextCommandAction()
 
-    data class SendTextCommand(
-        val command: TextCommand,
-    ) : TextCommandAction()
+    data object SendTextCommand : TextCommandAction()
 
     data object SendTabCommand : TextCommandAction()
 

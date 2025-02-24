@@ -26,12 +26,7 @@ class TextCommandStateHolder(
         }
         coroutineScope.launch {
             val commands = getTextCommandUseCase()
-            update {
-                this.copy(
-                    selectedCommand = commands.firstOrNull(),
-                    commands = commands,
-                )
-            }
+            update { this.copy(commands = commands) }
         }
     }
 
@@ -60,7 +55,7 @@ class TextCommandStateHolder(
                 }
 
                 is TextCommandAction.SendTextCommand -> {
-                    sendTextCommand(uiAction.command)
+                    sendTextCommand()
                 }
 
                 is TextCommandAction.NextCommand -> {
@@ -127,11 +122,12 @@ class TextCommandStateHolder(
         update { copy(commands = commands) }
     }
 
-    private suspend fun sendTextCommand(command: TextCommand) {
+    private suspend fun sendTextCommand() {
         val selectedDevice = currentState.selectedDevice ?: return
+        val selectedCommand = currentState.selectedCommand ?: return
         executeTextCommandUseCase(
             device = selectedDevice,
-            command = command,
+            command = selectedCommand,
             onStart = {
                 val commands = getTextCommandUseCase()
                 update { copy(commands = commands) }
@@ -171,10 +167,11 @@ class TextCommandStateHolder(
             )
         textCommandRepository.addTextCommand(command)
         val commands = getTextCommandUseCase()
+        val commandIndex = commands.indexOf(command)
         update {
             copy(
                 commands = commands,
-                selectedCommand = command,
+                selectedCommandIndex = commandIndex,
             )
         }
     }
@@ -185,28 +182,28 @@ class TextCommandStateHolder(
         textCommandRepository.removeTextCommand(selectedCommand)
 
         val commands = getTextCommandUseCase()
-        val newSelectedCommand = commands.getOrNull(selectedCommandIndex) ?: commands.lastOrNull()
+        val newSelectedCommand = commands.getOrNull(selectedCommandIndex)
+        val newSelectedCommandIndex = if (newSelectedCommand == null) commands.lastIndex else selectedCommandIndex
         update {
             copy(
                 commands = commands,
-                selectedCommand = newSelectedCommand,
+                selectedCommandIndex = newSelectedCommandIndex,
             )
         }
     }
 
     private fun nextCommand() {
         val nextIndex = currentState.commands.indexOf(currentState.selectedCommand) + 1
-        val nextCommand = currentState.commands.getOrNull(nextIndex) ?: return
-        update { copy(selectedCommand = nextCommand) }
+        update { copy(selectedCommandIndex = nextIndex) }
     }
 
     private fun previousCommand() {
-        val nextIndex = currentState.commands.indexOf(currentState.selectedCommand) - 1
-        val nextCommand = currentState.commands.getOrNull(nextIndex) ?: return
-        update { copy(selectedCommand = nextCommand) }
+        val previousIndex = currentState.commands.indexOf(currentState.selectedCommand) - 1
+        update { copy(selectedCommandIndex = previousIndex) }
     }
 
     private fun selectCommand(command: TextCommand) {
-        update { copy(selectedCommand = command) }
+        val index = currentState.commands.indexOf(command)
+        update { copy(selectedCommandIndex = index) }
     }
 }

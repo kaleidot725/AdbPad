@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,9 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.UserColor
-import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.cursorForHorizontalResize
+import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandActions
 import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandEditor
 import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandHeader
 import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandList
@@ -29,20 +30,9 @@ import org.jetbrains.compose.splitpane.rememberSplitPaneState
 @OptIn(ExperimentalSplitPaneApi::class)
 @Composable
 fun TextCommandScreen(
-    // InputText
-    searchText: String,
-    onUpdateSearchText: (String) -> Unit,
-    onAddNewTextCommand: () -> Unit,
+    state: TextCommandState,
+    onAction: (TextCommandAction) -> Unit,
     splitterState: SplitPaneState,
-    onUpdateTitle: (id: String, value: String) -> Unit,
-    onUpdateText: (id: String, value: String) -> Unit,
-    onDeleteText: () -> Unit,
-    // Commands
-    selectedCommand: TextCommand?,
-    commands: List<TextCommand>,
-    onSelectCommand: (TextCommand) -> Unit,
-    onNextCommand: () -> Unit,
-    onPreviousCommand: () -> Unit,
 ) {
     HorizontalSplitPane(
         splitPaneState = splitterState,
@@ -51,19 +41,19 @@ fun TextCommandScreen(
         first(minSize = 350.dp) {
             Column {
                 TextCommandHeader(
-                    searchText = searchText,
-                    onUpdateSearchText = onUpdateSearchText,
-                    onAddNewTextCommand = onAddNewTextCommand,
+                    searchText = state.searchText,
+                    onUpdateSearchText = { onAction(TextCommandAction.UpdateSearchText(it)) },
+                    onAddNewTextCommand = { onAction(TextCommandAction.AddNewText) },
                 )
 
                 Divider(modifier = Modifier.fillMaxWidth().defaultBorder())
 
                 TextCommandList(
-                    selectedCommand = selectedCommand,
-                    commands = commands,
-                    onSelectCommand = onSelectCommand,
-                    onNextCommand = onNextCommand,
-                    onPreviousCommand = onPreviousCommand,
+                    selectedCommand = state.selectedCommand,
+                    commands = state.commands,
+                    onSelectCommand = { onAction(TextCommandAction.SelectCommand(it)) },
+                    onNextCommand = { onAction(TextCommandAction.NextCommand) },
+                    onPreviousCommand = { onAction(TextCommandAction.PreviousCommand) },
                     modifier = Modifier.fillMaxSize().padding(top = 2.dp),
                 )
             }
@@ -71,12 +61,24 @@ fun TextCommandScreen(
 
         second {
             Column {
-                if (selectedCommand != null) {
+                if (state.selectedCommand != null) {
                     TextCommandEditor(
-                        command = selectedCommand,
-                        onUpdateTitle = onUpdateTitle,
-                        onUpdateText = onUpdateText,
-                        onDelete = onDeleteText,
+                        command = state.selectedCommand,
+                        onUpdateTitle = { id, title -> onAction(TextCommandAction.UpdateCommandTitle(id, title)) },
+                        onUpdateText = { id, text -> onAction(TextCommandAction.UpdateCommandText(id, text)) },
+                        onDelete = { onAction(TextCommandAction.DeleteSelectedCommandText) },
+                    )
+
+                    Spacer(
+                        modifier = Modifier.weight(1.0f),
+                    )
+
+                    TextCommandActions(
+                        command = state.selectedCommand,
+                        canSend = state.canSend,
+                        onSendText = { onAction(TextCommandAction.SendTextCommand) },
+                        onUpdateEnableTab = {},
+                        modifier = Modifier.fillMaxWidth(),
                     )
                 }
             }
@@ -111,17 +113,8 @@ fun TextCommandScreen(
 @Composable
 private fun InputTextScreen_Preview() {
     TextCommandScreen(
-        searchText = "SAMPLE SEARCH TEXT",
-        onUpdateSearchText = {},
-        onAddNewTextCommand = {},
-        onUpdateTitle = { _, _ -> },
-        onUpdateText = { _, _ -> },
+        state = TextCommandState(),
+        onAction = {},
         splitterState = rememberSplitPaneState(),
-        selectedCommand = TextCommand(title = "TITLE", text = "TEXT"),
-        commands = listOf(TextCommand(title = "TITLE", text = "TEXT"), TextCommand(title = "TITLE", text = "TEXT")),
-        onSelectCommand = {},
-        onNextCommand = {},
-        onPreviousCommand = {},
-        onDeleteText = {},
     )
 }
