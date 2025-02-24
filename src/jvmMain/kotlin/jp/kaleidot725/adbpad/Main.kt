@@ -146,6 +146,9 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 onUpdateText = { id, value ->
                                     onAction(TextCommandAction.UpdateCommandText(id, value))
                                 },
+                                onDeleteText = {
+                                    onAction(TextCommandAction.DeleteSelectedCommandText)
+                                },
                                 // Commands
                                 selectedCommand = inputTextState.selectedCommand,
                                 commands = inputTextState.commands,

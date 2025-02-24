@@ -36,8 +36,9 @@ fun TextCommandScreen(
     splitterState: SplitPaneState,
     onUpdateTitle: (id: String, value: String) -> Unit,
     onUpdateText: (id: String, value: String) -> Unit,
+    onDeleteText: () -> Unit,
     // Commands
-    selectedCommand: TextCommand,
+    selectedCommand: TextCommand?,
     commands: List<TextCommand>,
     onSelectCommand: (TextCommand) -> Unit,
     onNextCommand: () -> Unit,
@@ -70,11 +71,14 @@ fun TextCommandScreen(
 
         second {
             Column {
-                TextCommandEditor(
-                    command = selectedCommand,
-                    onUpdateTitle = onUpdateTitle,
-                    onUpdateText = onUpdateText,
-                )
+                if (selectedCommand != null) {
+                    TextCommandEditor(
+                        command = selectedCommand,
+                        onUpdateTitle = onUpdateTitle,
+                        onUpdateText = onUpdateText,
+                        onDelete = onDeleteText,
+                    )
+                }
             }
         }
 
@@ -118,5 +122,6 @@ private fun InputTextScreen_Preview() {
         onSelectCommand = {},
         onNextCommand = {},
         onPreviousCommand = {},
+        onDeleteText = {},
     )
 }

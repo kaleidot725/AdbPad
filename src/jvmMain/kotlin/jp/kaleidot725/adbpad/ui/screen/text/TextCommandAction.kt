@@ -26,9 +26,7 @@ sealed class TextCommandAction : MVIAction {
 
     data object SendTabCommand : TextCommandAction()
 
-    data class DeleteInputText(
-        val command: TextCommand,
-    ) : TextCommandAction()
+    data object DeleteSelectedCommandText : TextCommandAction()
 
     data object NextCommand : TextCommandAction()
 

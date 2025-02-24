@@ -5,7 +5,6 @@ import jp.kaleidot725.adbpad.core.mvi.mvi
 import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
-import jp.kaleidot725.adbpad.domain.usecase.text.DeleteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.GetTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.SendTabCommandUseCase
@@ -14,7 +13,6 @@ import kotlinx.coroutines.launch
 
 class TextCommandStateHolder(
     private val textCommandRepository: TextCommandRepository,
-    private val deleteTextCommandUseCase: DeleteTextCommandUseCase,
     private val getTextCommandUseCase: GetTextCommandUseCase,
     private val executeTextCommandUseCase: ExecuteTextCommandUseCase,
     private val sendTabCommandUseCase: SendTabCommandUseCase,
@@ -30,7 +28,7 @@ class TextCommandStateHolder(
             val commands = getTextCommandUseCase()
             update {
                 this.copy(
-                    selectedCommand = commands.firstOrNull() ?: TextCommand(title = "", text = ""),
+                    selectedCommand = commands.firstOrNull(),
                     commands = commands,
                 )
             }
@@ -53,8 +51,8 @@ class TextCommandStateHolder(
     override fun onAction(uiAction: TextCommandAction) {
         coroutineScope.launch {
             when (uiAction) {
-                is TextCommandAction.DeleteInputText -> {
-                    deleteInputText(uiAction.command)
+                is TextCommandAction.DeleteSelectedCommandText -> {
+                    deleteInputText()
                 }
 
                 is TextCommandAction.SendTabCommand -> {
@@ -88,6 +86,7 @@ class TextCommandStateHolder(
                 is TextCommandAction.UpdateCommandText -> {
                     updateTextCommandValue(uiAction.id, uiAction.value)
                 }
+
                 is TextCommandAction.UpdateCommandTitle -> {
                     updateTextCommandTitle(uiAction.id, uiAction.value)
                 }
@@ -165,20 +164,34 @@ class TextCommandStateHolder(
     }
 
     private suspend fun addNewTextCommand() {
-        textCommandRepository.addTextCommand(
+        val command =
             TextCommand(
                 title = "",
                 text = "",
-            ),
-        )
+            )
+        textCommandRepository.addTextCommand(command)
         val commands = getTextCommandUseCase()
-        update { copy(commands = commands) }
+        update {
+            copy(
+                commands = commands,
+                selectedCommand = command,
+            )
+        }
     }
 
-    private suspend fun deleteInputText(command: TextCommand) {
-        deleteTextCommandUseCase(command)
+    private suspend fun deleteInputText() {
+        val selectedCommand = currentState.selectedCommand ?: return
+        val selectedCommandIndex = currentState.commands.indexOf(selectedCommand)
+        textCommandRepository.removeTextCommand(selectedCommand)
+
         val commands = getTextCommandUseCase()
-        update { copy(commands = commands) }
+        val newSelectedCommand = commands.getOrNull(selectedCommandIndex) ?: commands.lastOrNull()
+        update {
+            copy(
+                commands = commands,
+                selectedCommand = newSelectedCommand,
+            )
+        }
     }
 
     private fun nextCommand() {

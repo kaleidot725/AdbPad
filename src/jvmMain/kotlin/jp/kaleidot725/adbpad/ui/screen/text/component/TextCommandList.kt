@@ -30,7 +30,7 @@ import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
 
 @Composable
 fun TextCommandList(
-    selectedCommand: TextCommand,
+    selectedCommand: TextCommand?,
     commands: List<TextCommand>,
     onSelectCommand: (TextCommand) -> Unit,
     onNextCommand: () -> Unit,
@@ -65,13 +65,13 @@ fun TextCommandList(
                             Modifier
                                 .fillMaxWidth()
                                 .clickableBackground(
-                                    isSelected = selectedCommand == command,
+                                    isSelected = selectedCommand?.id == command.id,
                                     shape = RoundedCornerShape(4.dp),
                                 ).clickable { onSelectCommand(command) }
                                 .padding(horizontal = 12.dp, vertical = 4.dp),
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
                     ) {
-                        Text(text = if (command.title.isEmpty()) Language.textCommandUnTitle else command.title)
+                        Text(text = command.title.ifEmpty { Language.textCommandUnTitle })
                     }
                 }
             }

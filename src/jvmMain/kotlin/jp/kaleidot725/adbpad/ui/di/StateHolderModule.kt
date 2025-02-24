@@ -21,7 +21,6 @@ val stateHolderModule =
         factory {
             TextCommandStateHolder(
                 textCommandRepository = get(),
-                deleteTextCommandUseCase = get(),
                 getTextCommandUseCase = get(),
                 executeTextCommandUseCase = get(),
                 getSelectedDeviceFlowUseCase = get(),

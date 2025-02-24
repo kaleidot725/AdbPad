@@ -18,7 +18,6 @@ import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
 import jp.kaleidot725.adbpad.domain.usecase.sdkpath.GetSdkPathUseCase
 import jp.kaleidot725.adbpad.domain.usecase.sdkpath.SaveSdkPathUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.AddTextCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.text.DeleteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.GetTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.SendTabCommandUseCase
@@ -52,9 +51,6 @@ val domainModule =
         }
         factory {
             AddTextCommandUseCase(get())
-        }
-        factory {
-            DeleteTextCommandUseCase(get())
         }
         factory {
             ExecuteTextCommandUseCase(get())
