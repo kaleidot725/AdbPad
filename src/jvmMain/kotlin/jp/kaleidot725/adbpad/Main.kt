@@ -139,23 +139,19 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 searchText = inputTextState.searchText,
                                 onUpdateSearchText = { text -> onAction(TextCommandAction.UpdateSearchText(text)) },
                                 onAddNewTextCommand = { onAction(TextCommandAction.AddNewText) },
-                                inputText = inputTextState.userInputText,
                                 splitterState = textSplitPaneState,
-                                onTextChange = { text -> onAction(TextCommandAction.UpdateInputText(text)) },
-                                isSendingInputText = inputTextState.isSendingUserInputText,
-                                canSendInputText = inputTextState.canSendInputText,
-                                canSendTabKey = inputTextState.canSendTabKey,
-                                onSendTabKey = { onAction(TextCommandAction.SendTabCommand) },
+                                onUpdateTitle = { id, value ->
+                                    onAction(TextCommandAction.UpdateCommandTitle(id, value))
+                                },
+                                onUpdateText = { id, value ->
+                                    onAction(TextCommandAction.UpdateCommandText(id, value))
+                                },
                                 // Commands
                                 selectedCommand = inputTextState.selectedCommand,
                                 commands = inputTextState.commands,
-                                isSendingTab = inputTextState.isSendingTab,
                                 onNextCommand = { onAction(TextCommandAction.NextCommand) },
                                 onPreviousCommand = { onAction(TextCommandAction.PreviousCommand) },
                                 onSelectCommand = { command -> onAction(TextCommandAction.SelectCommand(command)) },
-                                onSendInputText = {
-                                    /** TODO */
-                                },
                             )
                         }
 

@@ -65,10 +65,6 @@ class TextCommandStateHolder(
                     sendTextCommand(uiAction.command)
                 }
 
-                is TextCommandAction.UpdateInputText -> {
-                    updateInputText(uiAction.text)
-                }
-
                 is TextCommandAction.NextCommand -> {
                     nextCommand()
                 }
@@ -88,6 +84,13 @@ class TextCommandStateHolder(
                 is TextCommandAction.UpdateSearchText -> {
                     updateSearchText(uiAction.text)
                 }
+
+                is TextCommandAction.UpdateCommandText -> {
+                    updateTextCommandValue(uiAction.id, uiAction.value)
+                }
+                is TextCommandAction.UpdateCommandTitle -> {
+                    updateTextCommandTitle(uiAction.id, uiAction.value)
+                }
             }
         }
     }
@@ -104,9 +107,25 @@ class TextCommandStateHolder(
 
     private val ascii = (0..255).map { it.toChar() }
 
-    private fun updateInputText(text: String) {
-        val isAscii = text.none { it !in ascii }
-        if (isAscii) update { copy(userInputText = text) }
+    private suspend fun updateTextCommandValue(
+        id: String,
+        value: String,
+    ) {
+        val isAscii = value.none { it !in ascii }
+        if (isAscii) {
+            textCommandRepository.updateTextCommandValue(id, value)
+            val commands = getTextCommandUseCase()
+            update { copy(commands = commands) }
+        }
+    }
+
+    private suspend fun updateTextCommandTitle(
+        id: String,
+        value: String,
+    ) {
+        textCommandRepository.updateTextCommandTitle(id, value)
+        val commands = getTextCommandUseCase()
+        update { copy(commands = commands) }
     }
 
     private suspend fun sendTextCommand(command: TextCommand) {
@@ -148,7 +167,7 @@ class TextCommandStateHolder(
     private suspend fun addNewTextCommand() {
         textCommandRepository.addTextCommand(
             TextCommand(
-                title = "New Text",
+                title = "",
                 text = "",
             ),
         )

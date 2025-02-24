@@ -23,6 +23,7 @@ interface StringResources {
     val system: String
     val search: String
 
+    val textCommandUnTitle: String
     val screenshotTakeByCurrentTheme: String
     val screenshotTakeByDarkTheme: String
     val screenshotTakeByLightTheme: String

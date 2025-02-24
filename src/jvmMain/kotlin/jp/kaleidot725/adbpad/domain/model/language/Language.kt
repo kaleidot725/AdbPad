@@ -42,6 +42,8 @@ object Language : StringResources {
         get() = getCurrentResources().system
     override val search: String
         get() = getCurrentResources().search
+    override val textCommandUnTitle: String
+        get() = getCurrentResources().textCommandUnTitle
     override val screenshotTakeByCurrentTheme: String
         get() = getCurrentResources().screenshotTakeByCurrentTheme
     override val screenshotTakeByDarkTheme: String

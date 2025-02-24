@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Divider
@@ -19,7 +18,7 @@ import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.cursorForHorizontalResize
-import jp.kaleidot725.adbpad.ui.screen.text.component.InputTextActionMenu
+import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandEditor
 import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandHeader
 import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandList
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
@@ -34,15 +33,9 @@ fun TextCommandScreen(
     searchText: String,
     onUpdateSearchText: (String) -> Unit,
     onAddNewTextCommand: () -> Unit,
-    inputText: String,
     splitterState: SplitPaneState,
-    onTextChange: (String) -> Unit,
-    isSendingInputText: Boolean,
-    onSendInputText: () -> Unit,
-    canSendInputText: Boolean,
-    canSendTabKey: Boolean,
-    onSendTabKey: () -> Unit,
-    isSendingTab: Boolean,
+    onUpdateTitle: (id: String, value: String) -> Unit,
+    onUpdateText: (id: String, value: String) -> Unit,
     // Commands
     selectedCommand: TextCommand,
     commands: List<TextCommand>,
@@ -77,16 +70,10 @@ fun TextCommandScreen(
 
         second {
             Column {
-                InputTextActionMenu(
-                    inputText = inputText,
-                    onTextChange = onTextChange,
-                    isSending = isSendingInputText,
-                    onSend = onSendInputText,
-                    canSend = canSendInputText,
-                    onSendTab = onSendTabKey,
-                    isSendingTag = isSendingTab,
-                    canSendTab = canSendTabKey,
-                    modifier = Modifier.height(50.dp).fillMaxWidth(),
+                TextCommandEditor(
+                    command = selectedCommand,
+                    onUpdateTitle = onUpdateTitle,
+                    onUpdateText = onUpdateText,
                 )
             }
         }
@@ -123,19 +110,13 @@ private fun InputTextScreen_Preview() {
         searchText = "SAMPLE SEARCH TEXT",
         onUpdateSearchText = {},
         onAddNewTextCommand = {},
-        inputText = "SAMPLE INPUT TEXT",
+        onUpdateTitle = { _, _ -> },
+        onUpdateText = { _, _ -> },
         splitterState = rememberSplitPaneState(),
-        onTextChange = {},
-        isSendingInputText = false,
-        onSendInputText = {},
         selectedCommand = TextCommand(title = "TITLE", text = "TEXT"),
         commands = listOf(TextCommand(title = "TITLE", text = "TEXT"), TextCommand(title = "TITLE", text = "TEXT")),
         onSelectCommand = {},
         onNextCommand = {},
         onPreviousCommand = {},
-        isSendingTab = false,
-        canSendInputText = true,
-        canSendTabKey = false,
-        onSendTabKey = {},
     )
 }

@@ -71,7 +71,7 @@ fun TextCommandList(
                                 .padding(horizontal = 12.dp, vertical = 4.dp),
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
                     ) {
-                        Text(text = command.title)
+                        Text(text = if (command.title.isEmpty()) Language.textCommandUnTitle else command.title)
                     }
                 }
             }

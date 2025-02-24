@@ -8,6 +8,16 @@ interface TextCommandRepository {
 
     suspend fun addTextCommand(command: TextCommand): Boolean
 
+    suspend fun updateTextCommandTitle(
+        id: String,
+        title: String,
+    ): Boolean
+
+    suspend fun updateTextCommandValue(
+        id: String,
+        value: String,
+    ): Boolean
+
     suspend fun removeTextCommand(command: TextCommand): Boolean
 
     suspend fun sendCommand(

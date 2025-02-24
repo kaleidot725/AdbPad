@@ -22,6 +22,7 @@ object JapaneseResources : StringResources {
     override val system = "System"
     override val search: String = "Search"
 
+    override val textCommandUnTitle: String = "untitle text command"
     override val screenshotTakeByCurrentTheme = "現在のテーマで撮影する"
     override val screenshotTakeByDarkTheme = "ダークテーマで撮影する"
     override val screenshotTakeByLightTheme = "ライトテーマで撮影する"

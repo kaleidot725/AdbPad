@@ -40,6 +40,42 @@ class TextCommandRepositoryImpl : TextCommandRepository {
         }
     }
 
+    override suspend fun updateTextCommandTitle(
+        id: String,
+        title: String,
+    ): Boolean {
+        return withContext(Dispatchers.IO) {
+            val oldSetting = SettingFileCreator.load()
+            val targetIndex = oldSetting.textCommandIdList.indexOfFirst { it.id == id }
+            val target = oldSetting.textCommandIdList.getOrNull(targetIndex) ?: return@withContext false
+            val newTarget = target.copy(title = title)
+            val newCommands = oldSetting.textCommandIdList.toMutableList()
+            newCommands.remove(target)
+            newCommands.add(targetIndex, newTarget)
+
+            val newSetting = oldSetting.copy(textCommandIdList = newCommands)
+            return@withContext SettingFileCreator.save(newSetting)
+        }
+    }
+
+    override suspend fun updateTextCommandValue(
+        id: String,
+        text: String,
+    ): Boolean {
+        return withContext(Dispatchers.IO) {
+            val oldSetting = SettingFileCreator.load()
+            val targetIndex = oldSetting.textCommandIdList.indexOfFirst { it.id == id }
+            val target = oldSetting.textCommandIdList.getOrNull(targetIndex) ?: return@withContext false
+            val newTarget = target.copy(text = text)
+            val newCommands = oldSetting.textCommandIdList.toMutableList()
+            newCommands.remove(target)
+            newCommands.add(targetIndex, newTarget)
+
+            val newSetting = oldSetting.copy(textCommandIdList = newCommands)
+            return@withContext SettingFileCreator.save(newSetting)
+        }
+    }
+
     override suspend fun sendCommand(
         device: Device,
         command: TextCommand,

@@ -22,6 +22,8 @@ object EnglishResources : StringResources {
     override val system = "System"
     override val search: String = "Search"
 
+    override val textCommandUnTitle: String = "untitle text command"
+
     override val screenshotTakeByCurrentTheme = "Take by current theme"
     override val screenshotTakeByDarkTheme = "Take by dark theme"
     override val screenshotTakeByLightTheme = "Take by light theme"

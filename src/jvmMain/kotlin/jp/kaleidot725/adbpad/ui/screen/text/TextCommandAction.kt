@@ -10,8 +10,14 @@ sealed class TextCommandAction : MVIAction {
 
     data object AddNewText : TextCommandAction()
 
-    data class UpdateInputText(
-        val text: String,
+    data class UpdateCommandTitle(
+        val id: String,
+        val value: String,
+    ) : TextCommandAction()
+
+    data class UpdateCommandText(
+        val id: String,
+        val value: String,
     ) : TextCommandAction()
 
     data class SendTextCommand(

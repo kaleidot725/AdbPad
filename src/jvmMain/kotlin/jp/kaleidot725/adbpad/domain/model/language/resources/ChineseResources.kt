@@ -22,6 +22,8 @@ object ChineseResources : StringResources {
     override val system = "系统"
     override val search: String = "搜索"
 
+    override val textCommandUnTitle: String = "取消文本标题命令"
+
     override val screenshotTakeByCurrentTheme = "按当前主题截图"
     override val screenshotTakeByDarkTheme = "按深色主题截图"
     override val screenshotTakeByLightTheme = "按浅色主题截图"
