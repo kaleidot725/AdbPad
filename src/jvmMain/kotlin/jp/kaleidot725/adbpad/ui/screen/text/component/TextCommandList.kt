@@ -35,9 +35,6 @@ fun TextCommandList(
     onSelectCommand: (TextCommand) -> Unit,
     onNextCommand: () -> Unit,
     onPreviousCommand: () -> Unit,
-    onSend: (TextCommand) -> Unit,
-    canSend: Boolean,
-    onDelete: (TextCommand) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
@@ -74,7 +71,7 @@ fun TextCommandList(
                                 .padding(horizontal = 12.dp, vertical = 4.dp),
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
                     ) {
-                        Text(text = command.text)
+                        Text(text = command.title)
                     }
                 }
             }
@@ -92,26 +89,20 @@ fun TextCommandList(
 private fun TextCommandList_Preview() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         TextCommandList(
-            selectedCommand = TextCommand("TEST1"),
-            commands = listOf(TextCommand("TEST1"), TextCommand("TEST2")),
+            selectedCommand = TextCommand(title = "Title", text = "Text"),
+            commands = listOf(TextCommand(title = "Title", text = "Text"), TextCommand(title = "Title", text = "Text")),
             onSelectCommand = {},
             onNextCommand = {},
             onPreviousCommand = {},
-            onSend = {},
-            canSend = true,
-            onDelete = {},
             modifier = Modifier.fillMaxWidth().weight(0.5f, true),
         )
 
         TextCommandList(
-            selectedCommand = TextCommand(""),
+            selectedCommand = TextCommand(title = "Title", text = "Text"),
             commands = emptyList(),
             onSelectCommand = {},
             onNextCommand = {},
             onPreviousCommand = {},
-            onSend = {},
-            canSend = true,
-            onDelete = {},
             modifier = Modifier.fillMaxWidth().weight(0.5f, true).background(Color.LightGray),
         )
     }

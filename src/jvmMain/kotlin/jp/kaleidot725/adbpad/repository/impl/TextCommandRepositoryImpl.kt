@@ -16,8 +16,8 @@ class TextCommandRepositoryImpl : TextCommandRepository {
     override suspend fun getAllTextCommand(): List<TextCommand> {
         return withContext(Dispatchers.IO) {
             val setting = SettingFileCreator.load()
-            return@withContext setting.inputTexts.map { text ->
-                TextCommand(text = text, isRunning = runningCommands.any { it.text == text })
+            return@withContext setting.textCommandIdList.map { text ->
+                text.copy(isRunning = runningCommands.any { it.id == text.id })
             }
         }
     }
@@ -25,10 +25,8 @@ class TextCommandRepositoryImpl : TextCommandRepository {
     override suspend fun addTextCommand(command: TextCommand): Boolean {
         return withContext(Dispatchers.IO) {
             val oldSetting = SettingFileCreator.load()
-            if (oldSetting.inputTexts.any { it == command.text }) return@withContext true
-
-            val newInputTexts = oldSetting.inputTexts.toMutableList().apply { add(command.text) }
-            val newSetting = oldSetting.copy(inputTexts = newInputTexts)
+            val newInputTexts = oldSetting.textCommandIdList.toMutableList().apply { add(command) }
+            val newSetting = oldSetting.copy(textCommandIdList = newInputTexts)
             return@withContext SettingFileCreator.save(newSetting)
         }
     }
@@ -36,8 +34,8 @@ class TextCommandRepositoryImpl : TextCommandRepository {
     override suspend fun removeTextCommand(command: TextCommand): Boolean {
         return withContext(Dispatchers.IO) {
             val oldSetting = SettingFileCreator.load()
-            val newInputTexts = oldSetting.inputTexts.toMutableList().apply { remove(command.text) }
-            val newSetting = oldSetting.copy(inputTexts = newInputTexts)
+            val newInputTexts = oldSetting.textCommandIdList.toMutableList().apply { remove(command) }
+            val newSetting = oldSetting.copy(textCommandIdList = newInputTexts)
             return@withContext SettingFileCreator.save(newSetting)
         }
     }
@@ -65,32 +63,6 @@ class TextCommandRepositoryImpl : TextCommandRepository {
             }
 
             runningCommands.remove(command)
-            onComplete()
-        }
-    }
-
-    override suspend fun sendUserInputText(
-        device: Device,
-        text: String,
-        onStart: suspend () -> Unit,
-        onComplete: suspend () -> Unit,
-        onFailed: suspend () -> Unit,
-    ) {
-        withContext(Dispatchers.IO) {
-            onStart()
-
-            delay(300)
-
-            val command = TextCommand(text)
-            command.requests.forEach { request ->
-                val result = adbClient.execute(request, device.serial)
-                if (result.exitCode != 0) {
-                    runningCommands.remove(command)
-                    onFailed()
-                    return@withContext
-                }
-            }
-
             onComplete()
         }
     }

@@ -22,7 +22,6 @@ import jp.kaleidot725.adbpad.domain.usecase.text.DeleteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.GetTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.SendTabCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.text.SendUserInputTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.theme.GetDarkModeFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
@@ -68,9 +67,6 @@ val domainModule =
         }
         factory {
             GetScreenshotCommandUseCase(get())
-        }
-        factory {
-            SendUserInputTextCommandUseCase(get())
         }
         factory {
             GetWindowSizeUseCase(get())

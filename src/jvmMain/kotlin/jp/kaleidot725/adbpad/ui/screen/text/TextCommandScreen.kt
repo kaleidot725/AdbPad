@@ -40,8 +40,6 @@ fun TextCommandScreen(
     isSendingInputText: Boolean,
     onSendInputText: () -> Unit,
     canSendInputText: Boolean,
-    onSaveInputText: () -> Unit,
-    canSaveInputText: Boolean,
     canSendTabKey: Boolean,
     onSendTabKey: () -> Unit,
     isSendingTab: Boolean,
@@ -51,9 +49,6 @@ fun TextCommandScreen(
     onSelectCommand: (TextCommand) -> Unit,
     onNextCommand: () -> Unit,
     onPreviousCommand: () -> Unit,
-    onSendCommand: (TextCommand) -> Unit,
-    canSendCommand: Boolean,
-    onDeleteCommand: (TextCommand) -> Unit,
 ) {
     HorizontalSplitPane(
         splitPaneState = splitterState,
@@ -75,9 +70,6 @@ fun TextCommandScreen(
                     onSelectCommand = onSelectCommand,
                     onNextCommand = onNextCommand,
                     onPreviousCommand = onPreviousCommand,
-                    onSend = onSendCommand,
-                    canSend = canSendCommand,
-                    onDelete = onDeleteCommand,
                     modifier = Modifier.fillMaxSize().padding(top = 2.dp),
                 )
             }
@@ -94,8 +86,6 @@ fun TextCommandScreen(
                     onSendTab = onSendTabKey,
                     isSendingTag = isSendingTab,
                     canSendTab = canSendTabKey,
-                    onSave = onSaveInputText,
-                    canSave = canSaveInputText,
                     modifier = Modifier.height(50.dp).fillMaxWidth(),
                 )
             }
@@ -138,18 +128,13 @@ private fun InputTextScreen_Preview() {
         onTextChange = {},
         isSendingInputText = false,
         onSendInputText = {},
-        onSaveInputText = {},
-        canSaveInputText = true,
-        selectedCommand = TextCommand("TEST1"),
-        commands = listOf(TextCommand("TEST1"), TextCommand("TEST2")),
+        selectedCommand = TextCommand(title = "TITLE", text = "TEXT"),
+        commands = listOf(TextCommand(title = "TITLE", text = "TEXT"), TextCommand(title = "TITLE", text = "TEXT")),
         onSelectCommand = {},
         onNextCommand = {},
         onPreviousCommand = {},
-        onSendCommand = {},
         isSendingTab = false,
-        canSendCommand = true,
         canSendInputText = true,
-        onDeleteCommand = {},
         canSendTabKey = false,
         onSendTabKey = {},
     )

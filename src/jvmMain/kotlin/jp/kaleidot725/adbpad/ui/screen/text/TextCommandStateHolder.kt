@@ -3,22 +3,20 @@ package jp.kaleidot725.adbpad.ui.screen.text
 import jp.kaleidot725.adbpad.core.mvi.MVI
 import jp.kaleidot725.adbpad.core.mvi.mvi
 import jp.kaleidot725.adbpad.domain.model.command.TextCommand
+import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
-import jp.kaleidot725.adbpad.domain.usecase.text.AddTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.DeleteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.GetTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.SendTabCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.text.SendUserInputTextCommandUseCase
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class TextCommandStateHolder(
-    private val addTextCommandUseCase: AddTextCommandUseCase,
+    private val textCommandRepository: TextCommandRepository,
     private val deleteTextCommandUseCase: DeleteTextCommandUseCase,
     private val getTextCommandUseCase: GetTextCommandUseCase,
     private val executeTextCommandUseCase: ExecuteTextCommandUseCase,
-    private val sendUserInputTextCommandUseCase: SendUserInputTextCommandUseCase,
     private val sendTabCommandUseCase: SendTabCommandUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
 ) : MVI<TextCommandState, TextCommandAction, TextCommandSideEffect> by mvi(initialUiState = TextCommandState()) {
@@ -32,7 +30,7 @@ class TextCommandStateHolder(
             val commands = getTextCommandUseCase()
             update {
                 this.copy(
-                    selectedCommand = commands.firstOrNull() ?: TextCommand(""),
+                    selectedCommand = commands.firstOrNull() ?: TextCommand(title = "", text = ""),
                     commands = commands,
                 )
             }
@@ -57,14 +55,6 @@ class TextCommandStateHolder(
             when (uiAction) {
                 is TextCommandAction.DeleteInputText -> {
                     deleteInputText(uiAction.command)
-                }
-
-                is TextCommandAction.SaveInputText -> {
-                    saveInputText()
-                }
-
-                is TextCommandAction.SendInputText -> {
-                    sendInputText()
                 }
 
                 is TextCommandAction.SendTabCommand -> {
@@ -92,7 +82,7 @@ class TextCommandStateHolder(
                 }
 
                 TextCommandAction.AddNewText -> {
-                    // TODO
+                    addNewTextCommand()
                 }
 
                 is TextCommandAction.UpdateSearchText -> {
@@ -102,12 +92,12 @@ class TextCommandStateHolder(
         }
     }
 
-    private suspend fun updateSearchText(text: String) {
+    private suspend fun updateSearchText(searchText: String) {
         val commands = getTextCommandUseCase()
         update {
             copy(
-                searchText = text,
-                commands = commands.filter { it.text.startsWith(text) },
+                searchText = searchText,
+                commands = commands.filter { it.title.startsWith(searchText) },
             )
         }
     }
@@ -155,27 +145,13 @@ class TextCommandStateHolder(
         )
     }
 
-    private suspend fun sendInputText() {
-        val selectedDevice = currentState.selectedDevice ?: return
-        sendUserInputTextCommandUseCase(
-            device = selectedDevice,
-            text = state.value.userInputText,
-            onStart = {
-                update { copy(isSendingUserInputText = true) }
-            },
-            onFailed = {
-                update { copy(isSendingUserInputText = false) }
-            },
-            onComplete = {
-                update { copy(isSendingUserInputText = false) }
-            },
+    private suspend fun addNewTextCommand() {
+        textCommandRepository.addTextCommand(
+            TextCommand(
+                title = "New Text",
+                text = "",
+            ),
         )
-    }
-
-    private suspend fun saveInputText() {
-        val userInputText = currentState.userInputText
-        addTextCommandUseCase(userInputText)
-
         val commands = getTextCommandUseCase()
         update { copy(commands = commands) }
     }

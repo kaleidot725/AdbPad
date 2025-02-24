@@ -14,7 +14,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardTab
 import androidx.compose.material.icons.automirrored.filled.Send
-import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,8 +38,6 @@ fun InputTextActionMenu(
     onSendTab: () -> Unit,
     isSendingTag: Boolean,
     canSend: Boolean,
-    onSave: () -> Unit,
-    canSave: Boolean,
     modifier: Modifier = Modifier,
 ) {
     var text by remember { mutableStateOf(inputText) }
@@ -65,17 +62,6 @@ fun InputTextActionMenu(
                     .weight(0.9f, true)
                     .align(Alignment.CenterVertically),
         )
-
-        IconButton(
-            enabled = canSave,
-            onClick = { onSave() },
-            modifier = Modifier.fillMaxHeight(),
-        ) {
-            Icon(
-                imageVector = Icons.Default.Save,
-                contentDescription = "Save",
-            )
-        }
 
         IconButton(
             enabled = canSendTab,
@@ -121,8 +107,6 @@ private fun InputTextActionMenu_Preview() {
         canSend = true,
         canSendTab = false,
         onSendTab = {},
-        onSave = {},
-        canSave = true,
         onTextChange = {},
         isSendingTag = false,
         modifier = Modifier.height(50.dp),

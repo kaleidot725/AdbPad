@@ -18,11 +18,7 @@ sealed class TextCommandAction : MVIAction {
         val command: TextCommand,
     ) : TextCommandAction()
 
-    data object SendInputText : TextCommandAction()
-
     data object SendTabCommand : TextCommandAction()
-
-    data object SaveInputText : TextCommandAction()
 
     data class DeleteInputText(
         val command: TextCommand,

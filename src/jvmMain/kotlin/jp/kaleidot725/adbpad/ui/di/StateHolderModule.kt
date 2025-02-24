@@ -20,12 +20,11 @@ val stateHolderModule =
 
         factory {
             TextCommandStateHolder(
-                addTextCommandUseCase = get(),
+                textCommandRepository = get(),
                 deleteTextCommandUseCase = get(),
                 getTextCommandUseCase = get(),
                 executeTextCommandUseCase = get(),
                 getSelectedDeviceFlowUseCase = get(),
-                sendUserInputTextCommandUseCase = get(),
                 sendTabCommandUseCase = get(),
             )
         }

@@ -5,7 +5,7 @@ import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 
 data class TextCommandState(
-    val selectedCommand: TextCommand = TextCommand(""),
+    val selectedCommand: TextCommand = TextCommand(title = "", text = ""),
     val commands: List<TextCommand> = emptyList(),
     val userInputText: String = "",
     val isSendingUserInputText: Boolean = false,

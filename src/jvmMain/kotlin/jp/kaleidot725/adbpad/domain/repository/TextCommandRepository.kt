@@ -18,13 +18,5 @@ interface TextCommandRepository {
         onFailed: suspend () -> Unit,
     )
 
-    suspend fun sendUserInputText(
-        device: Device,
-        text: String,
-        onStart: suspend () -> Unit,
-        onComplete: suspend () -> Unit,
-        onFailed: suspend () -> Unit,
-    )
-
     fun clear()
 }

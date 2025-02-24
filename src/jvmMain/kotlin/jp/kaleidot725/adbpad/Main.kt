@@ -143,22 +143,19 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 splitterState = textSplitPaneState,
                                 onTextChange = { text -> onAction(TextCommandAction.UpdateInputText(text)) },
                                 isSendingInputText = inputTextState.isSendingUserInputText,
-                                onSendInputText = { onAction(TextCommandAction.SendInputText) },
                                 canSendInputText = inputTextState.canSendInputText,
                                 canSendTabKey = inputTextState.canSendTabKey,
                                 onSendTabKey = { onAction(TextCommandAction.SendTabCommand) },
-                                onSaveInputText = { onAction(TextCommandAction.SaveInputText) },
-                                canSaveInputText = inputTextState.canSaveInputText,
                                 // Commands
                                 selectedCommand = inputTextState.selectedCommand,
                                 commands = inputTextState.commands,
-                                onSendCommand = { text -> onAction(TextCommandAction.SendTextCommand(text)) },
-                                canSendCommand = inputTextState.canSendCommand,
                                 isSendingTab = inputTextState.isSendingTab,
-                                onDeleteCommand = { text -> onAction(TextCommandAction.DeleteInputText(text)) },
                                 onNextCommand = { onAction(TextCommandAction.NextCommand) },
                                 onPreviousCommand = { onAction(TextCommandAction.PreviousCommand) },
                                 onSelectCommand = { command -> onAction(TextCommandAction.SelectCommand(command)) },
+                                onSendInputText = {
+                                    /** TODO */
+                                },
                             )
                         }
 
