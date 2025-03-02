@@ -28,6 +28,9 @@ object JapaneseResources : StringResources {
     override val screenshotTakeByLightTheme = "ライトテーマで撮影する"
     override val screenshotTakeByBothTheme = "両方のテーマで撮影する"
 
+    override val textCommandOptionNewLine: String = "送信する(改行キー)"
+    override val textCommandOptionTab: String = "送信する(タブキー)"
+
     override val commandStartEventFormat = "「%s」のコマンド送信を開始しました"
     override val commandEndEventFormat = "「%s」のコマンド送信が完了しました"
     override val commandErrorEventFormat = "「%s」のコマンド送信に失敗しました"

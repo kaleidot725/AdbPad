@@ -29,6 +29,9 @@ object ChineseResources : StringResources {
     override val screenshotTakeByLightTheme = "按浅色主题截图"
     override val screenshotTakeByBothTheme = "按两种主题截图"
 
+    override val textCommandOptionNewLine: String = "用换行键发送"
+    override val textCommandOptionTab: String = "用制表符键发送"
+
     override val commandStartEventFormat = "开始发送命令 「%s」"
     override val commandEndEventFormat = "结束发送命令 「%s」"
     override val commandErrorEventFormat = "发送命令失败 「%s」"

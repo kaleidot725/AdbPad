@@ -29,6 +29,9 @@ object EnglishResources : StringResources {
     override val screenshotTakeByLightTheme = "Take by light theme"
     override val screenshotTakeByBothTheme = "Take by both theme"
 
+    override val textCommandOptionNewLine: String = "Send with newline key"
+    override val textCommandOptionTab: String = "Send with tab key"
+
     override val commandStartEventFormat = "Start sending command 「%s」"
     override val commandEndEventFormat = "End sending command 「%s」"
     override val commandErrorEventFormat = "Error sending command 「%s」"

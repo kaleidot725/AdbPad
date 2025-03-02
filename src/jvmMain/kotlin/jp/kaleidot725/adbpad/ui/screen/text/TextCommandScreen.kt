@@ -77,7 +77,8 @@ fun TextCommandScreen(
                         command = state.selectedCommand,
                         canSend = state.canSend,
                         onSendText = { onAction(TextCommandAction.SendTextCommand) },
-                        onUpdateEnableTab = {},
+                        selectedOption = state.selectedTextCommandOption,
+                        onUpdateTextCommandOption = { onAction(TextCommandAction.UpdateTextCommandOption(it)) },
                         modifier = Modifier.fillMaxWidth(),
                     )
                 }

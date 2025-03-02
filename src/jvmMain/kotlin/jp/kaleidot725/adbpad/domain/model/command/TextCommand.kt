@@ -12,4 +12,9 @@ data class TextCommand(
     val isRunning: Boolean = false,
 ) {
     val requests: List<ShellCommandRequest> get() = listOf(ShellCommandRequest("input text $text"))
+
+    enum class Option {
+        SendWithTab,
+        SendWithNewLine,
+    }
 }

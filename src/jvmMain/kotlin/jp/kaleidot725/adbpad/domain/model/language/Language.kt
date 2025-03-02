@@ -203,6 +203,11 @@ object Language : StringResources {
     override val adbErrorOpenSetting: String
         get() = getCurrentResources().adbErrorOpenSetting
 
+    override val textCommandOptionNewLine: String
+        get() = getCurrentResources().textCommandOptionNewLine
+    override val textCommandOptionTab: String
+        get() = getCurrentResources().textCommandOptionTab
+
     private var currentType: Type = Type.ENGLISH
 
     fun switch(type: Type) {

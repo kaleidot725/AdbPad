@@ -85,6 +85,10 @@ class TextCommandStateHolder(
                 is TextCommandAction.UpdateCommandTitle -> {
                     updateTextCommandTitle(uiAction.id, uiAction.value)
                 }
+
+                is TextCommandAction.UpdateTextCommandOption -> {
+                    updateTextCommandOption(uiAction.value)
+                }
             }
         }
     }
@@ -205,5 +209,9 @@ class TextCommandStateHolder(
     private fun selectCommand(command: TextCommand) {
         val index = currentState.commands.indexOf(command)
         update { copy(selectedCommandIndex = index) }
+    }
+
+    private fun updateTextCommandOption(value: TextCommand.Option) {
+        update { copy(selectedTextCommandOption = value) }
     }
 }

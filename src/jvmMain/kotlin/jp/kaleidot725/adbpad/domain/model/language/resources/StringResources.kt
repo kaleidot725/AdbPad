@@ -110,4 +110,7 @@ interface StringResources {
     val adbErrorTitle: String
     val adbErrorMessage: String
     val adbErrorOpenSetting: String
+
+    val textCommandOptionNewLine: String
+    val textCommandOptionTab: String
 }

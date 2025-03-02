@@ -33,4 +33,8 @@ sealed class TextCommandAction : MVIAction {
     ) : TextCommandAction()
 
     data object PreviousCommand : TextCommandAction()
+
+    data class UpdateTextCommandOption(
+        val value: TextCommand.Option,
+    ) : TextCommandAction()
 }

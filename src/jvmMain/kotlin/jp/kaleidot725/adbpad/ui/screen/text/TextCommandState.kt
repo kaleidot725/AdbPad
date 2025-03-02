@@ -12,6 +12,7 @@ data class TextCommandState(
     val selectedDevice: Device? = null,
     val isSendingTab: Boolean = false,
     val searchText: String = "",
+    val selectedTextCommandOption: TextCommand.Option = TextCommand.Option.SendWithTab,
 ) : MVIState {
     val selectedCommand: TextCommand? = commands.getOrNull(selectedCommandIndex ?: 0)
     val canSend: Boolean = selectedDevice != null
