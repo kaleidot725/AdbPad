@@ -7,7 +7,6 @@ import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.GetTextCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.text.SendTabCommandUseCase
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
@@ -15,7 +14,6 @@ class TextCommandStateHolder(
     private val textCommandRepository: TextCommandRepository,
     private val getTextCommandUseCase: GetTextCommandUseCase,
     private val executeTextCommandUseCase: ExecuteTextCommandUseCase,
-    private val sendTabCommandUseCase: SendTabCommandUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
 ) : MVI<TextCommandState, TextCommandAction, TextCommandSideEffect> by mvi(initialUiState = TextCommandState()) {
     override fun onSetup() {
@@ -48,10 +46,6 @@ class TextCommandStateHolder(
             when (uiAction) {
                 is TextCommandAction.DeleteSelectedCommandText -> {
                     deleteInputText()
-                }
-
-                is TextCommandAction.SendTabCommand -> {
-                    sendTabCommand()
                 }
 
                 is TextCommandAction.SendTextCommand -> {
@@ -129,9 +123,12 @@ class TextCommandStateHolder(
     private suspend fun sendTextCommand() {
         val selectedDevice = currentState.selectedDevice ?: return
         val selectedCommand = currentState.selectedCommand ?: return
+        val selectedOption = currentState.selectedTextCommandOption
+
         executeTextCommandUseCase(
             device = selectedDevice,
             command = selectedCommand,
+            option = selectedOption,
             onStart = {
                 val commands = getTextCommandUseCase()
                 update { copy(commands = commands) }
@@ -143,22 +140,6 @@ class TextCommandStateHolder(
             onComplete = {
                 val commands = getTextCommandUseCase()
                 update { copy(commands = commands) }
-            },
-        )
-    }
-
-    private suspend fun sendTabCommand() {
-        val selectedDevice = currentState.selectedDevice ?: return
-        sendTabCommandUseCase(
-            device = selectedDevice,
-            onStart = {
-                update { copy(isSendingTab = true) }
-            },
-            onFailed = {
-                update { copy(isSendingTab = false) }
-            },
-            onComplete = {
-                update { copy(isSendingTab = false) }
             },
         )
     }

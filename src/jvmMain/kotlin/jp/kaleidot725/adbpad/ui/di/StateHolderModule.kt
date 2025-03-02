@@ -24,7 +24,6 @@ val stateHolderModule =
                 getTextCommandUseCase = get(),
                 executeTextCommandUseCase = get(),
                 getSelectedDeviceFlowUseCase = get(),
-                sendTabCommandUseCase = get(),
             )
         }
 

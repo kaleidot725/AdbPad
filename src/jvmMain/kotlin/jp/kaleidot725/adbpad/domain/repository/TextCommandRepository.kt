@@ -23,6 +23,7 @@ interface TextCommandRepository {
     suspend fun sendCommand(
         device: Device,
         command: TextCommand,
+        option: TextCommand.Option,
         onStart: suspend () -> Unit,
         onComplete: suspend () -> Unit,
         onFailed: suspend () -> Unit,

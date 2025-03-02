@@ -11,7 +11,18 @@ data class TextCommand(
     val text: String,
     val isRunning: Boolean = false,
 ) {
-    val requests: List<ShellCommandRequest> get() = listOf(ShellCommandRequest("input text $text"))
+    val requests: List<ShellCommandRequest> get() {
+        return buildList {
+            val texts = text.split('\n')
+            texts.forEach { text ->
+                if (text.isEmpty()) {
+                    add(ShellCommandRequest(""))
+                } else {
+                    add(ShellCommandRequest("input text $text"))
+                }
+            }
+        }
+    }
 
     enum class Option {
         SendWithTab,

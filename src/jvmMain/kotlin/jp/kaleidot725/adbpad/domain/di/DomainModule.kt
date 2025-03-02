@@ -20,7 +20,6 @@ import jp.kaleidot725.adbpad.domain.usecase.sdkpath.SaveSdkPathUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.AddTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.GetTextCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.text.SendTabCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.theme.GetDarkModeFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
@@ -90,9 +89,6 @@ val domainModule =
         }
         factory {
             GetLanguageUseCase(get())
-        }
-        factory {
-            SendTabCommandUseCase(get())
         }
         factory {
             RefreshUseCase(get(), get(), get())

@@ -1,6 +1,7 @@
 package jp.kaleidot725.adbpad.repository.impl
 
 import com.malinskiy.adam.AndroidDebugBridgeClientFactory
+import jp.kaleidot725.adbpad.domain.model.command.KeyCommand
 import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
@@ -79,6 +80,7 @@ class TextCommandRepositoryImpl : TextCommandRepository {
     override suspend fun sendCommand(
         device: Device,
         command: TextCommand,
+        option: TextCommand.Option,
         onStart: suspend () -> Unit,
         onComplete: suspend () -> Unit,
         onFailed: suspend () -> Unit,
@@ -89,12 +91,31 @@ class TextCommandRepositoryImpl : TextCommandRepository {
 
             delay(300)
 
-            command.requests.forEach { request ->
-                val result = adbClient.execute(request, device.serial)
-                if (result.exitCode != 0) {
-                    runningCommands.remove(command)
-                    onFailed()
-                    return@withContext
+            command.requests.forEachIndexed { index, request ->
+                if (request.cmd.isNotEmpty()) {
+                    val result = adbClient.execute(request, device.serial)
+                    if (result.exitCode != 0) {
+                        runningCommands.remove(command)
+                        onFailed()
+                        return@withContext
+                    }
+                }
+
+                if (command.requests.lastIndex != index && TextCommand.Option.SendWithNewLine != option) {
+                    val keyCode =
+                        when (option) {
+                            TextCommand.Option.SendWithTab -> 61
+                            TextCommand.Option.SendWithNewLine -> 66
+                        }
+
+                    val keyCommand = KeyCommand(keyCode)
+                    keyCommand.requests.forEach { keyRequest ->
+                        val keyResult = adbClient.execute(keyRequest, device.serial)
+                        if (keyResult.exitCode != 0) {
+                            onFailed()
+                            return@withContext
+                        }
+                    }
                 }
             }
 

@@ -22,8 +22,6 @@ sealed class TextCommandAction : MVIAction {
 
     data object SendTextCommand : TextCommandAction()
 
-    data object SendTabCommand : TextCommandAction()
-
     data object DeleteSelectedCommandText : TextCommandAction()
 
     data object NextCommand : TextCommandAction()
