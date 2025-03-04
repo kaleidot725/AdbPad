@@ -43,19 +43,21 @@ fun TextCommandList(
             LazyColumn(
                 state = lazyColumnState,
                 modifier =
-                    Modifier.onKeyEvent { event ->
-                        when {
-                            event.key == Key.DirectionUp && event.type == KeyEventType.KeyDown -> {
-                                onPreviousCommand()
-                                true
+                    Modifier
+                        .padding(4.dp)
+                        .onKeyEvent { event ->
+                            when {
+                                event.key == Key.DirectionUp && event.type == KeyEventType.KeyDown -> {
+                                    onPreviousCommand()
+                                    true
+                                }
+                                event.key == Key.DirectionDown && event.type == KeyEventType.KeyDown -> {
+                                    onNextCommand()
+                                    true
+                                }
+                                else -> false
                             }
-                            event.key == Key.DirectionDown && event.type == KeyEventType.KeyDown -> {
-                                onNextCommand()
-                                true
-                            }
-                            else -> false
-                        }
-                    },
+                        },
             ) {
                 items(
                     items = commands,

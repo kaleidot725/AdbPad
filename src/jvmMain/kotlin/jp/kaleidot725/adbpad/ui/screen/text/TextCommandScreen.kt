@@ -2,6 +2,7 @@ package jp.kaleidot725.adbpad.ui.screen.text
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -60,7 +62,7 @@ fun TextCommandScreen(
         }
 
         second {
-            Column {
+            Column(modifier = Modifier.background(MaterialTheme.colors.surface)) {
                 if (state.selectedCommand != null) {
                     TextCommandEditor(
                         command = state.selectedCommand,
