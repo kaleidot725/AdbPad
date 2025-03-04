@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,7 +22,9 @@ import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
+import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotExplorer
+import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotHeader
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotMenu
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotViewer
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
@@ -60,14 +64,24 @@ fun ScreenshotScreen(
                     .weight(1.0f),
         ) {
             first(minSize = 350.dp) {
-                ScreenshotExplorer(
-                    selectedScreenshot = screenshot,
-                    screenshots = screenshots,
-                    onSelectScreenShot = onSelectScreenshot,
-                    onNextScreenshot = onNextScreenshot,
-                    onPreviousScreenshot = onPreviousScreenshot,
-                    modifier = Modifier.fillMaxSize(),
-                )
+                Column {
+                    ScreenshotHeader(
+                        searchText = "",
+                        onUpdateSearchText = { },
+                        modifier = Modifier,
+                    )
+
+                    Divider(modifier = Modifier.height(1.dp).fillMaxWidth().defaultBorder())
+
+                    ScreenshotExplorer(
+                        selectedScreenshot = screenshot,
+                        screenshots = screenshots,
+                        onSelectScreenShot = onSelectScreenshot,
+                        onNextScreenshot = onNextScreenshot,
+                        onPreviousScreenshot = onPreviousScreenshot,
+                        modifier = Modifier.fillMaxSize(),
+                    )
+                }
             }
 
             second {

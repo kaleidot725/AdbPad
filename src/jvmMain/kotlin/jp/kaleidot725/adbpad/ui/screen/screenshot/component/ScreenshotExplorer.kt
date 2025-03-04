@@ -42,19 +42,23 @@ fun ScreenshotExplorer(
             LazyColumn(
                 state = lazyColumnState,
                 modifier =
-                    Modifier.onKeyEvent { event ->
-                        when {
-                            event.key == Key.DirectionUp && event.type == KeyEventType.KeyDown -> {
-                                onPreviousScreenshot()
-                                true
+                    Modifier
+                        .padding(4.dp)
+                        .onKeyEvent { event ->
+                            when {
+                                event.key == Key.DirectionUp && event.type == KeyEventType.KeyDown -> {
+                                    onPreviousScreenshot()
+                                    true
+                                }
+
+                                event.key == Key.DirectionDown && event.type == KeyEventType.KeyDown -> {
+                                    onNextScreenshot()
+                                    true
+                                }
+
+                                else -> false
                             }
-                            event.key == Key.DirectionDown && event.type == KeyEventType.KeyDown -> {
-                                onNextScreenshot()
-                                true
-                            }
-                            else -> false
-                        }
-                    },
+                        },
             ) {
                 items(
                     items = screenshots,

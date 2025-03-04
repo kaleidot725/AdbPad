@@ -5,6 +5,7 @@ import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 
 data class ScreenshotState(
+    val searchText: String = "",
     val preview: Screenshot = Screenshot(null),
     val previews: List<Screenshot> = emptyList(),
     val commands: List<ScreenshotCommand> = emptyList(),
