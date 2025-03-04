@@ -39,8 +39,6 @@ kotlin {
         implementation(libs.ktor.client.okhttp)
         implementation(libs.jSystemThemeDetectorVer)
         implementation(libs.coil)
-        implementation(libs.hot.reload.core)
-        implementation(libs.hot.reload.analysis)
     }
     sourceSets.jvmTest.dependencies {
         implementation(libs.junit5)
