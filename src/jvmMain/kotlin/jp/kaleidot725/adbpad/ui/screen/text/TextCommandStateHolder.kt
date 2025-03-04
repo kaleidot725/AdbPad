@@ -179,12 +179,16 @@ class TextCommandStateHolder(
 
     private fun nextCommand() {
         val nextIndex = currentState.commands.indexOf(currentState.selectedCommand) + 1
-        update { copy(selectedCommandIndex = nextIndex) }
+        if (0 <= nextIndex && nextIndex <= currentState.commands.lastIndex) {
+            update { copy(selectedCommandIndex = nextIndex) }
+        }
     }
 
     private fun previousCommand() {
         val previousIndex = currentState.commands.indexOf(currentState.selectedCommand) - 1
-        update { copy(selectedCommandIndex = previousIndex) }
+        if (0 <= previousIndex && previousIndex <= currentState.commands.lastIndex) {
+            update { copy(selectedCommandIndex = previousIndex) }
+        }
     }
 
     private fun selectCommand(command: TextCommand) {
