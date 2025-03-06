@@ -2,14 +2,12 @@ package jp.kaleidot725.adbpad.repository.di
 
 import jp.kaleidot725.adbpad.domain.repository.DeviceControlCommandRepository
 import jp.kaleidot725.adbpad.domain.repository.DeviceRepository
-import jp.kaleidot725.adbpad.domain.repository.KeyCommandRepository
 import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepository
 import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
 import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
 import jp.kaleidot725.adbpad.repository.impl.DeviceControlCommandRepositoryImpl
 import jp.kaleidot725.adbpad.repository.impl.DeviceRepositoryImpl
-import jp.kaleidot725.adbpad.repository.impl.KeyCommandRepositoryImpl
 import jp.kaleidot725.adbpad.repository.impl.NormalCommandRepositoryImpl
 import jp.kaleidot725.adbpad.repository.impl.ScreenshotCommandRepositoryImpl
 import jp.kaleidot725.adbpad.repository.impl.SettingRepositoryImpl
@@ -36,9 +34,6 @@ val repositoryModule =
         }
         factory<VersionRepository> {
             VersionRepository()
-        }
-        factory<KeyCommandRepository> {
-            KeyCommandRepositoryImpl()
         }
         factory<DeviceControlCommandRepository> {
             DeviceControlCommandRepositoryImpl()

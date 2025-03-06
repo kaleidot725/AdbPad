@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,7 +22,9 @@ import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
+import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotExplorer
+import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotHeader
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotMenu
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotViewer
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
@@ -29,7 +33,7 @@ import org.jetbrains.compose.splitpane.SplitPaneState
 import org.jetbrains.compose.splitpane.rememberSplitPaneState
 import java.awt.Cursor
 
-private fun Modifier.cursorForHorizontalResize(): Modifier = pointerHoverIcon(PointerIcon(Cursor(Cursor.E_RESIZE_CURSOR)))
+fun Modifier.cursorForHorizontalResize(): Modifier = pointerHoverIcon(PointerIcon(Cursor(Cursor.E_RESIZE_CURSOR)))
 
 @OptIn(ExperimentalSplitPaneApi::class)
 @Composable
@@ -40,6 +44,7 @@ fun ScreenshotScreen(
     canCapture: Boolean,
     isCapturing: Boolean,
     commands: List<ScreenshotCommand>,
+    searchText: String,
     onOpenDirectory: () -> Unit,
     onCopyScreenshot: () -> Unit,
     onDeleteScreenshot: () -> Unit,
@@ -47,6 +52,7 @@ fun ScreenshotScreen(
     onSelectScreenshot: (Screenshot) -> Unit,
     onNextScreenshot: () -> Unit,
     onPreviousScreenshot: () -> Unit,
+    onUpdateSearchText: (String) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -60,14 +66,24 @@ fun ScreenshotScreen(
                     .weight(1.0f),
         ) {
             first(minSize = 350.dp) {
-                ScreenshotExplorer(
-                    selectedScreenshot = screenshot,
-                    screenshots = screenshots,
-                    onSelectScreenShot = onSelectScreenshot,
-                    onNextScreenshot = onNextScreenshot,
-                    onPreviousScreenshot = onPreviousScreenshot,
-                    modifier = Modifier.fillMaxSize(),
-                )
+                Column {
+                    ScreenshotHeader(
+                        searchText = searchText,
+                        onUpdateSearchText = onUpdateSearchText,
+                        modifier = Modifier,
+                    )
+
+                    Divider(modifier = Modifier.height(1.dp).fillMaxWidth().defaultBorder())
+
+                    ScreenshotExplorer(
+                        selectedScreenshot = screenshot,
+                        screenshots = screenshots,
+                        onSelectScreenShot = onSelectScreenshot,
+                        onNextScreenshot = onNextScreenshot,
+                        onPreviousScreenshot = onPreviousScreenshot,
+                        modifier = Modifier.fillMaxSize(),
+                    )
+                }
             }
 
             second {
@@ -130,6 +146,7 @@ private fun ScreenshotScreen_Preview() {
         canCapture = true,
         isCapturing = false,
         commands = emptyList(),
+        searchText = "",
         onOpenDirectory = {},
         onCopyScreenshot = {},
         onDeleteScreenshot = {},
@@ -137,5 +154,6 @@ private fun ScreenshotScreen_Preview() {
         onSelectScreenshot = {},
         onNextScreenshot = {},
         onPreviousScreenshot = {},
+        onUpdateSearchText = {},
     )
 }

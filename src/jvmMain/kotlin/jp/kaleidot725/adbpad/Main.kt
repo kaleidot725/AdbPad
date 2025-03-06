@@ -30,6 +30,7 @@ import jp.kaleidot725.adbpad.ui.di.stateHolderModule
 import jp.kaleidot725.adbpad.ui.screen.CommandScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
+import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotAction
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
@@ -81,6 +82,7 @@ fun main() {
 fun WindowScope.App(mainStateHolder: MainStateHolder) {
     val state by mainStateHolder.state.collectAsState()
     val decoratedWindowScope = this
+    val textSplitPaneState = rememberSplitPaneState()
     val screenshotSplitPaneState = rememberSplitPaneState()
 
     DisposableEffect(mainStateHolder) {
@@ -128,44 +130,19 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                         }
 
                         MainCategory.Text -> {
-                            val inputTextStateHolder = mainStateHolder.textCommandStateHolder
-                            val inputTextState by inputTextStateHolder.state.collectAsState()
-
+                            val inputTextState by mainStateHolder.textCommandStateHolder.state.collectAsState()
+                            val onAction = mainStateHolder.textCommandStateHolder::onAction
                             TextCommandScreen(
-                                // InputText
-                                inputText = inputTextState.userInputText,
-                                onTextChange = { text ->
-                                    inputTextStateHolder.updateInputText(text)
-                                },
-                                isSendingInputText = inputTextState.isSendingUserInputText,
-                                onSendInputText = {
-                                    inputTextStateHolder.sendInputText()
-                                },
-                                canSendInputText = inputTextState.canSendInputText,
-                                canSendTabKey = inputTextState.canSendTabKey,
-                                onSendTabKey = {
-                                    inputTextStateHolder.sendTabCommand()
-                                },
-                                onSaveInputText = {
-                                    inputTextStateHolder.saveInputText()
-                                },
-                                canSaveInputText = inputTextState.canSaveInputText,
-                                // Commands
-                                commands = inputTextState.commands,
-                                onSendCommand = { text ->
-                                    inputTextStateHolder.sendTextCommand(text)
-                                },
-                                canSendCommand = inputTextState.canSendCommand,
-                                isSendingTab = inputTextState.isSendingTab,
-                                onDeleteCommand = { text ->
-                                    inputTextStateHolder.deleteInputText(text)
-                                },
+                                state = inputTextState,
+                                onAction = onAction,
+                                splitterState = textSplitPaneState,
                             )
                         }
 
                         MainCategory.Screenshot -> {
                             val screenshotStateHolder = mainStateHolder.screenshotStateHolder
                             val screenshotState by screenshotStateHolder.state.collectAsState()
+                            val onAction = screenshotStateHolder::onAction
 
                             ScreenshotScreen(
                                 screenshot = screenshotState.preview,
@@ -174,28 +151,30 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 canCapture = screenshotState.canExecute,
                                 isCapturing = screenshotState.isCapturing,
                                 commands = screenshotState.commands,
+                                searchText = screenshotState.searchText,
                                 onOpenDirectory = {
-                                    screenshotStateHolder.openDirectory()
+                                    onAction(ScreenshotAction.OpenDirectory)
                                 },
                                 onCopyScreenshot = {
-                                    screenshotStateHolder.copyScreenShotToClipboard()
+                                    onAction(ScreenshotAction.CopyScreenshotToClipboard)
                                 },
                                 onDeleteScreenshot = {
-                                    screenshotStateHolder.deleteScreenShotToClipboard()
+                                    onAction(ScreenshotAction.DeleteScreenshotToClipboard)
                                 },
                                 onTakeScreenshot = { screenshot ->
-                                    screenshotStateHolder.takeScreenShot(
-                                        screenshot,
-                                    )
+                                    onAction(ScreenshotAction.TakeScreenshot(screenshot))
                                 },
                                 onSelectScreenshot = { screenshot ->
-                                    screenshotStateHolder.selectScreenshot(screenshot)
+                                    onAction(ScreenshotAction.SelectScreenshot(screenshot))
                                 },
                                 onNextScreenshot = {
-                                    screenshotStateHolder.nextScreenshot()
+                                    onAction(ScreenshotAction.NextScreenshot)
                                 },
                                 onPreviousScreenshot = {
-                                    screenshotStateHolder.previousScreenshot()
+                                    onAction(ScreenshotAction.PreviousScreenshot)
+                                },
+                                onUpdateSearchText = {
+                                    onAction(ScreenshotAction.UpdateSearchText(it))
                                 },
                             )
                         }

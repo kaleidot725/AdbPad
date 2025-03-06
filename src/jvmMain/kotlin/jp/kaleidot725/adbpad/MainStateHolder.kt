@@ -60,8 +60,6 @@ class MainStateHolder(
     private val children: List<ChildStateHolder<*>> =
         listOf(
             commandStateHolder,
-            textCommandStateHolder,
-            screenshotStateHolder,
             topStateHolder,
         )
 
@@ -74,6 +72,8 @@ class MainStateHolder(
 
     override fun setup() {
         children.forEach { it.setup() }
+        textCommandStateHolder.onSetup()
+        screenshotStateHolder.onSetup()
     }
 
     override fun refresh() {
@@ -82,10 +82,14 @@ class MainStateHolder(
         syncLanguage()
         refreshUseCase()
         children.forEach { it.refresh() }
+        textCommandStateHolder.onRefresh()
+        screenshotStateHolder.onRefresh()
     }
 
     override fun dispose() {
         children.forEach { it.dispose() }
+        textCommandStateHolder.onDispose()
+        screenshotStateHolder.onDispose()
     }
 
     fun saveSetting(windowSize: WindowSize) {

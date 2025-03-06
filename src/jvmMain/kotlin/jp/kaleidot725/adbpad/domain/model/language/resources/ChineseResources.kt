@@ -20,11 +20,17 @@ object ChineseResources : StringResources {
     override val dark = "深色"
     override val light = "浅色"
     override val system = "系统"
+    override val search: String = "搜索"
+
+    override val textCommandUnTitle: String = "取消文本标题命令"
 
     override val screenshotTakeByCurrentTheme = "按当前主题截图"
     override val screenshotTakeByDarkTheme = "按深色主题截图"
     override val screenshotTakeByLightTheme = "按浅色主题截图"
     override val screenshotTakeByBothTheme = "按两种主题截图"
+
+    override val textCommandOptionNewLine: String = "用换行键发送"
+    override val textCommandOptionTab: String = "用制表符键发送"
 
     override val commandStartEventFormat = "开始发送命令 「%s」"
     override val commandEndEventFormat = "结束发送命令 「%s」"

@@ -1,6 +1,6 @@
 package jp.kaleidot725.adbpad.domain.model.language.resources
 
-val APP_VERSION = "v1.5.2"
+val APP_VERSION = "v2.0.0"
 
 interface StringResources {
     val windowTitle: String
@@ -21,7 +21,9 @@ interface StringResources {
     val dark: String
     val light: String
     val system: String
+    val search: String
 
+    val textCommandUnTitle: String
     val screenshotTakeByCurrentTheme: String
     val screenshotTakeByDarkTheme: String
     val screenshotTakeByLightTheme: String
@@ -108,4 +110,7 @@ interface StringResources {
     val adbErrorTitle: String
     val adbErrorMessage: String
     val adbErrorOpenSetting: String
+
+    val textCommandOptionNewLine: String
+    val textCommandOptionTab: String
 }

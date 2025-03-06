@@ -18,11 +18,8 @@ import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
 import jp.kaleidot725.adbpad.domain.usecase.sdkpath.GetSdkPathUseCase
 import jp.kaleidot725.adbpad.domain.usecase.sdkpath.SaveSdkPathUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.AddTextCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.text.DeleteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.GetTextCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.text.SendTabCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.text.SendUserInputTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.theme.GetDarkModeFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
@@ -55,9 +52,6 @@ val domainModule =
             AddTextCommandUseCase(get())
         }
         factory {
-            DeleteTextCommandUseCase(get())
-        }
-        factory {
             ExecuteTextCommandUseCase(get())
         }
         factory {
@@ -68,9 +62,6 @@ val domainModule =
         }
         factory {
             GetScreenshotCommandUseCase(get())
-        }
-        factory {
-            SendUserInputTextCommandUseCase(get())
         }
         factory {
             GetWindowSizeUseCase(get())
@@ -98,9 +89,6 @@ val domainModule =
         }
         factory {
             GetLanguageUseCase(get())
-        }
-        factory {
-            SendTabCommandUseCase(get())
         }
         factory {
             RefreshUseCase(get(), get(), get())

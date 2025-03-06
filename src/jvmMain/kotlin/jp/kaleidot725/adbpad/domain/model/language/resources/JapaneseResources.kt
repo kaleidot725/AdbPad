@@ -20,11 +20,16 @@ object JapaneseResources : StringResources {
     override val dark = "Dark"
     override val light = "Light"
     override val system = "System"
+    override val search: String = "Search"
 
+    override val textCommandUnTitle: String = "untitle text command"
     override val screenshotTakeByCurrentTheme = "現在のテーマで撮影する"
     override val screenshotTakeByDarkTheme = "ダークテーマで撮影する"
     override val screenshotTakeByLightTheme = "ライトテーマで撮影する"
     override val screenshotTakeByBothTheme = "両方のテーマで撮影する"
+
+    override val textCommandOptionNewLine: String = "送信する(改行キー)"
+    override val textCommandOptionTab: String = "送信する(タブキー)"
 
     override val commandStartEventFormat = "「%s」のコマンド送信を開始しました"
     override val commandEndEventFormat = "「%s」のコマンド送信が完了しました"

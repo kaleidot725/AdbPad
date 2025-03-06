@@ -8,19 +8,22 @@ interface TextCommandRepository {
 
     suspend fun addTextCommand(command: TextCommand): Boolean
 
+    suspend fun updateTextCommandTitle(
+        id: String,
+        title: String,
+    ): Boolean
+
+    suspend fun updateTextCommandValue(
+        id: String,
+        value: String,
+    ): Boolean
+
     suspend fun removeTextCommand(command: TextCommand): Boolean
 
     suspend fun sendCommand(
         device: Device,
         command: TextCommand,
-        onStart: suspend () -> Unit,
-        onComplete: suspend () -> Unit,
-        onFailed: suspend () -> Unit,
-    )
-
-    suspend fun sendUserInputText(
-        device: Device,
-        text: String,
+        option: TextCommand.Option,
         onStart: suspend () -> Unit,
         onComplete: suspend () -> Unit,
         onFailed: suspend () -> Unit,

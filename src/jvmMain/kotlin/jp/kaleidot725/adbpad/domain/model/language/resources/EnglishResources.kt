@@ -20,11 +20,17 @@ object EnglishResources : StringResources {
     override val dark = "Dark"
     override val light = "Light"
     override val system = "System"
+    override val search: String = "Search"
+
+    override val textCommandUnTitle: String = "untitle text command"
 
     override val screenshotTakeByCurrentTheme = "Take by current theme"
     override val screenshotTakeByDarkTheme = "Take by dark theme"
     override val screenshotTakeByLightTheme = "Take by light theme"
     override val screenshotTakeByBothTheme = "Take by both theme"
+
+    override val textCommandOptionNewLine: String = "Send with newline key"
+    override val textCommandOptionTab: String = "Send with tab key"
 
     override val commandStartEventFormat = "Start sending command 「%s」"
     override val commandEndEventFormat = "End sending command 「%s」"

@@ -14,7 +14,7 @@ plugins {
 }
 
 group = "jp.kaleidot725"
-version = "1.5.2"
+version = "2.0.0"
 
 kotlin {
     jvm()
@@ -39,8 +39,6 @@ kotlin {
         implementation(libs.ktor.client.okhttp)
         implementation(libs.jSystemThemeDetectorVer)
         implementation(libs.coil)
-        implementation(libs.hot.reload.core)
-        implementation(libs.hot.reload.analysis)
     }
     sourceSets.jvmTest.dependencies {
         implementation(libs.junit5)

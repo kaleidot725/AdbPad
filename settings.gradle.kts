@@ -3,8 +3,6 @@ pluginManagement {
         google()
         gradlePluginPortal()
         mavenCentral()
-        maven(file("../..//build/repo"))
-        maven("https://packages.jetbrains.team/maven/p/firework/dev")
     }
 }
 
@@ -13,8 +11,6 @@ dependencyResolutionManagement {
         google()
         gradlePluginPortal()
         mavenCentral()
-        maven(file("../..//build/repo"))
-        maven("https://packages.jetbrains.team/maven/p/firework/dev")
         maven("https://jitpack.io")
     }
 }

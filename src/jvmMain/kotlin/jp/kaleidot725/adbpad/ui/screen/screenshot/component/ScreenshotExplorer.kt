@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -25,7 +24,6 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
 
@@ -44,19 +42,23 @@ fun ScreenshotExplorer(
             LazyColumn(
                 state = lazyColumnState,
                 modifier =
-                    Modifier.onKeyEvent { event ->
-                        when {
-                            event.key == Key.DirectionUp && event.type == KeyEventType.KeyDown -> {
-                                onPreviousScreenshot()
-                                true
+                    Modifier
+                        .padding(4.dp)
+                        .onKeyEvent { event ->
+                            when {
+                                event.key == Key.DirectionUp && event.type == KeyEventType.KeyDown -> {
+                                    onPreviousScreenshot()
+                                    true
+                                }
+
+                                event.key == Key.DirectionDown && event.type == KeyEventType.KeyDown -> {
+                                    onNextScreenshot()
+                                    true
+                                }
+
+                                else -> false
                             }
-                            event.key == Key.DirectionDown && event.type == KeyEventType.KeyDown -> {
-                                onNextScreenshot()
-                                true
-                            }
-                            else -> false
-                        }
-                    },
+                        },
             ) {
                 items(
                     items = screenshots,
@@ -69,17 +71,10 @@ fun ScreenshotExplorer(
                                 .clickableBackground(
                                     isSelected = selectedScreenshot == screenshot,
                                     shape = RoundedCornerShape(4.dp),
-                                )
-                                .clickable { onSelectScreenShot(screenshot) }
+                                ).clickable { onSelectScreenShot(screenshot) }
                                 .padding(horizontal = 12.dp, vertical = 4.dp),
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
                     ) {
-                        AsyncImage(
-                            model = screenshot.file,
-                            contentDescription = null,
-                            modifier = Modifier.size(24.dp),
-                        )
-
                         Text(
                             text = screenshot.file?.name ?: "",
                         )

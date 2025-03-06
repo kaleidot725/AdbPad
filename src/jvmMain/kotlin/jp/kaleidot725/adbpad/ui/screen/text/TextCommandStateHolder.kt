@@ -1,127 +1,202 @@
 package jp.kaleidot725.adbpad.ui.screen.text
 
+import jp.kaleidot725.adbpad.core.mvi.MVI
+import jp.kaleidot725.adbpad.core.mvi.mvi
 import jp.kaleidot725.adbpad.domain.model.command.TextCommand
-import jp.kaleidot725.adbpad.domain.model.device.Device
+import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
-import jp.kaleidot725.adbpad.domain.usecase.text.AddTextCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.text.DeleteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.GetTextCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.text.SendTabCommandUseCase
-import jp.kaleidot725.adbpad.domain.usecase.text.SendUserInputTextCommandUseCase
-import jp.kaleidot725.adbpad.ui.common.ChildStateHolder
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class TextCommandStateHolder(
-    private val addTextCommandUseCase: AddTextCommandUseCase,
-    private val deleteTextCommandUseCase: DeleteTextCommandUseCase,
+    private val textCommandRepository: TextCommandRepository,
     private val getTextCommandUseCase: GetTextCommandUseCase,
     private val executeTextCommandUseCase: ExecuteTextCommandUseCase,
-    private val sendUserInputTextCommandUseCase: SendUserInputTextCommandUseCase,
-    private val sendTabCommandUseCase: SendTabCommandUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
-) : ChildStateHolder<TextCommandState> {
-    private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
-    private val commands: MutableStateFlow<List<TextCommand>> = MutableStateFlow(emptyList())
-    private val userInputText: MutableStateFlow<String> = MutableStateFlow("")
-    private val isSending: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val isSendingTag: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val selectedDevice: StateFlow<Device?> =
-        getSelectedDeviceFlowUseCase()
-            .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
-
-    override val state: StateFlow<TextCommandState> =
-        combine(
-            commands,
-            userInputText,
-            isSending,
-            isSendingTag,
-            selectedDevice,
-        ) { inputTexts, userInputText, isSending, isSendingTag, selectedDevice ->
-            TextCommandState(inputTexts, userInputText, isSending, selectedDevice, isSendingTag)
-        }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), TextCommandState())
-
-    override fun setup() {
+) : MVI<TextCommandState, TextCommandAction, TextCommandSideEffect> by mvi(initialUiState = TextCommandState()) {
+    override fun onSetup() {
         coroutineScope.launch {
-            commands.value = getTextCommandUseCase()
+            getSelectedDeviceFlowUseCase().collect {
+                update { this.copy(selectedDevice = it) }
+            }
+        }
+        coroutineScope.launch {
+            val commands = getTextCommandUseCase()
+            update { this.copy(commands = commands) }
         }
     }
 
-    override fun refresh() {
+    override fun onRefresh() {
         coroutineScope.launch {
-            commands.value = getTextCommandUseCase()
+            val commands = getTextCommandUseCase()
+            update {
+                this.copy(commands = commands)
+            }
         }
     }
 
-    override fun dispose() {
+    override fun onDispose() {
         coroutineScope.cancel()
+    }
+
+    override fun onAction(uiAction: TextCommandAction) {
+        coroutineScope.launch {
+            when (uiAction) {
+                is TextCommandAction.DeleteSelectedCommandText -> {
+                    deleteInputText()
+                }
+
+                is TextCommandAction.SendTextCommand -> {
+                    sendTextCommand()
+                }
+
+                is TextCommandAction.NextCommand -> {
+                    nextCommand()
+                }
+
+                is TextCommandAction.PreviousCommand -> {
+                    previousCommand()
+                }
+
+                is TextCommandAction.SelectCommand -> {
+                    selectCommand(uiAction.command)
+                }
+
+                TextCommandAction.AddNewText -> {
+                    addNewTextCommand()
+                }
+
+                is TextCommandAction.UpdateSearchText -> {
+                    updateSearchText(uiAction.text)
+                }
+
+                is TextCommandAction.UpdateCommandText -> {
+                    updateTextCommandValue(uiAction.id, uiAction.value)
+                }
+
+                is TextCommandAction.UpdateCommandTitle -> {
+                    updateTextCommandTitle(uiAction.id, uiAction.value)
+                }
+
+                is TextCommandAction.UpdateTextCommandOption -> {
+                    updateTextCommandOption(uiAction.value)
+                }
+            }
+        }
+    }
+
+    private suspend fun updateSearchText(searchText: String) {
+        val commands = getTextCommandUseCase()
+        update {
+            copy(
+                searchText = searchText,
+                commands = commands.filter { it.title.startsWith(searchText) },
+            )
+        }
     }
 
     private val ascii = (0..255).map { it.toChar() }
 
-    fun updateInputText(text: String) {
-        val isAscii = text.none { it !in ascii }
-        if (isAscii) this.userInputText.value = text
+    private suspend fun updateTextCommandValue(
+        id: String,
+        value: String,
+    ) {
+        val isAscii = value.none { it !in ascii }
+        if (isAscii) {
+            textCommandRepository.updateTextCommandValue(id, value)
+            val commands = getTextCommandUseCase()
+            update { copy(commands = commands) }
+        }
     }
 
-    fun sendTextCommand(command: TextCommand) {
-        val selectedDevice = state.value.selectedDevice ?: return
-        coroutineScope.launch {
-            executeTextCommandUseCase(
-                device = selectedDevice,
-                command = command,
-                onStart = { commands.value = getTextCommandUseCase() },
-                onFailed = { commands.value = getTextCommandUseCase() },
-                onComplete = { commands.value = getTextCommandUseCase() },
+    private suspend fun updateTextCommandTitle(
+        id: String,
+        value: String,
+    ) {
+        textCommandRepository.updateTextCommandTitle(id, value)
+        val commands = getTextCommandUseCase()
+        update { copy(commands = commands) }
+    }
+
+    private suspend fun sendTextCommand() {
+        val selectedDevice = currentState.selectedDevice ?: return
+        val selectedCommand = currentState.selectedCommand ?: return
+        val selectedOption = currentState.selectedTextCommandOption
+
+        executeTextCommandUseCase(
+            device = selectedDevice,
+            command = selectedCommand,
+            option = selectedOption,
+            onStart = {
+                val commands = getTextCommandUseCase()
+                update { copy(commands = commands) }
+            },
+            onFailed = {
+                val commands = getTextCommandUseCase()
+                update { copy(commands = commands) }
+            },
+            onComplete = {
+                val commands = getTextCommandUseCase()
+                update { copy(commands = commands) }
+            },
+        )
+    }
+
+    private suspend fun addNewTextCommand() {
+        val command =
+            TextCommand(
+                title = "",
+                text = "",
+            )
+        textCommandRepository.addTextCommand(command)
+        val commands = getTextCommandUseCase()
+        val commandIndex = commands.indexOf(command)
+        update {
+            copy(
+                commands = commands,
+                selectedCommandIndex = commandIndex,
             )
         }
     }
 
-    fun sendInputText() {
-        val selectedDevice = state.value.selectedDevice ?: return
-        coroutineScope.launch {
-            sendUserInputTextCommandUseCase(
-                device = selectedDevice,
-                text = state.value.userInputText,
-                onStart = { isSending.value = true },
-                onFailed = { isSending.value = false },
-                onComplete = { isSending.value = false },
+    private suspend fun deleteInputText() {
+        val selectedCommand = currentState.selectedCommand ?: return
+        val selectedCommandIndex = currentState.commands.indexOf(selectedCommand)
+        textCommandRepository.removeTextCommand(selectedCommand)
+
+        val commands = getTextCommandUseCase()
+        val newSelectedCommand = commands.getOrNull(selectedCommandIndex)
+        val newSelectedCommandIndex = if (newSelectedCommand == null) commands.lastIndex else selectedCommandIndex
+        update {
+            copy(
+                commands = commands,
+                selectedCommandIndex = newSelectedCommandIndex,
             )
         }
     }
 
-    fun sendTabCommand() {
-        val selectedDevice = state.value.selectedDevice ?: return
-        coroutineScope.launch {
-            sendTabCommandUseCase(
-                device = selectedDevice,
-                onStart = { isSendingTag.value = true },
-                onFailed = { isSendingTag.value = false },
-                onComplete = { isSendingTag.value = false },
-            )
+    private fun nextCommand() {
+        val nextIndex = currentState.commands.indexOf(currentState.selectedCommand) + 1
+        if (0 <= nextIndex && nextIndex <= currentState.commands.lastIndex) {
+            update { copy(selectedCommandIndex = nextIndex) }
         }
     }
 
-    fun saveInputText() {
-        coroutineScope.launch {
-            addTextCommandUseCase(state.value.userInputText)
-            commands.value = getTextCommandUseCase()
+    private fun previousCommand() {
+        val previousIndex = currentState.commands.indexOf(currentState.selectedCommand) - 1
+        if (0 <= previousIndex && previousIndex <= currentState.commands.lastIndex) {
+            update { copy(selectedCommandIndex = previousIndex) }
         }
     }
 
-    fun deleteInputText(command: TextCommand) {
-        coroutineScope.launch {
-            deleteTextCommandUseCase(command)
-            commands.value = getTextCommandUseCase()
-        }
+    private fun selectCommand(command: TextCommand) {
+        val index = currentState.commands.indexOf(command)
+        update { copy(selectedCommandIndex = index) }
+    }
+
+    private fun updateTextCommandOption(value: TextCommand.Option) {
+        update { copy(selectedTextCommandOption = value) }
     }
 }
