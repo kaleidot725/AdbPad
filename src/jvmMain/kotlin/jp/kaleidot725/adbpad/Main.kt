@@ -30,6 +30,7 @@ import jp.kaleidot725.adbpad.ui.di.stateHolderModule
 import jp.kaleidot725.adbpad.ui.screen.CommandScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
+import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotAction
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
@@ -141,6 +142,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                         MainCategory.Screenshot -> {
                             val screenshotStateHolder = mainStateHolder.screenshotStateHolder
                             val screenshotState by screenshotStateHolder.state.collectAsState()
+                            val onAction = screenshotStateHolder::onAction
 
                             ScreenshotScreen(
                                 screenshot = screenshotState.preview,
@@ -149,28 +151,30 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 canCapture = screenshotState.canExecute,
                                 isCapturing = screenshotState.isCapturing,
                                 commands = screenshotState.commands,
+                                searchText = screenshotState.searchText,
                                 onOpenDirectory = {
-                                    screenshotStateHolder.openDirectory()
+                                    onAction(ScreenshotAction.OpenDirectory)
                                 },
                                 onCopyScreenshot = {
-                                    screenshotStateHolder.copyScreenShotToClipboard()
+                                    onAction(ScreenshotAction.CopyScreenshotToClipboard)
                                 },
                                 onDeleteScreenshot = {
-                                    screenshotStateHolder.deleteScreenShotToClipboard()
+                                    onAction(ScreenshotAction.DeleteScreenshotToClipboard)
                                 },
                                 onTakeScreenshot = { screenshot ->
-                                    screenshotStateHolder.takeScreenShot(
-                                        screenshot,
-                                    )
+                                    onAction(ScreenshotAction.TakeScreenshot(screenshot))
                                 },
                                 onSelectScreenshot = { screenshot ->
-                                    screenshotStateHolder.selectScreenshot(screenshot)
+                                    onAction(ScreenshotAction.SelectScreenshot(screenshot))
                                 },
                                 onNextScreenshot = {
-                                    screenshotStateHolder.nextScreenshot()
+                                    onAction(ScreenshotAction.NextScreenshot)
                                 },
                                 onPreviousScreenshot = {
-                                    screenshotStateHolder.previousScreenshot()
+                                    onAction(ScreenshotAction.PreviousScreenshot)
+                                },
+                                onUpdateSearchText = {
+                                    onAction(ScreenshotAction.UpdateSearchText(it))
                                 },
                             )
                         }

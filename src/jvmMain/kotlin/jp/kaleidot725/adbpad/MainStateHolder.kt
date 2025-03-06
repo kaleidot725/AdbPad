@@ -60,10 +60,8 @@ class MainStateHolder(
     private val children: List<ChildStateHolder<*>> =
         listOf(
             commandStateHolder,
-            screenshotStateHolder,
             topStateHolder,
         )
-
 
     init {
         startSyncDarkMode()
@@ -75,6 +73,7 @@ class MainStateHolder(
     override fun setup() {
         children.forEach { it.setup() }
         textCommandStateHolder.onSetup()
+        screenshotStateHolder.onSetup()
     }
 
     override fun refresh() {
@@ -84,11 +83,13 @@ class MainStateHolder(
         refreshUseCase()
         children.forEach { it.refresh() }
         textCommandStateHolder.onRefresh()
+        screenshotStateHolder.onRefresh()
     }
 
     override fun dispose() {
         children.forEach { it.dispose() }
         textCommandStateHolder.onDispose()
+        screenshotStateHolder.onDispose()
     }
 
     fun saveSetting(windowSize: WindowSize) {

@@ -1,7 +1,8 @@
 package jp.kaleidot725.adbpad.ui.screen.screenshot
 
+import jp.kaleidot725.adbpad.core.mvi.MVI
+import jp.kaleidot725.adbpad.core.mvi.mvi
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
-import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.os.OSContext
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
@@ -9,17 +10,11 @@ import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
 import jp.kaleidot725.adbpad.domain.utils.ClipBoardUtils
-import jp.kaleidot725.adbpad.ui.common.ChildStateHolder
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.awt.Desktop
 import java.io.File
 
@@ -28,110 +23,145 @@ class ScreenshotStateHolder(
     private val getScreenshotCommandUseCase: GetScreenshotCommandUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
     private val screenshotCommandRepository: ScreenshotCommandRepository,
-) : ChildStateHolder<ScreenshotState> {
-    private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
-    private val commands: MutableStateFlow<List<ScreenshotCommand>> = MutableStateFlow(emptyList())
-    private val preview: MutableStateFlow<Screenshot> = MutableStateFlow(Screenshot(null))
-    private val previews: MutableStateFlow<List<Screenshot>> = MutableStateFlow(emptyList())
-    private val isCapturing: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val selectedDevice: StateFlow<Device?> =
-        getSelectedDeviceFlowUseCase()
-            .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
-
-    override val state: StateFlow<ScreenshotState> =
-        combine(
-            preview,
-            previews,
-            commands,
-            selectedDevice,
-            isCapturing,
-        ) { preview, previews, commands, selectedDevice, isCapturing ->
-            ScreenshotState(preview, previews, commands, selectedDevice, isCapturing)
-        }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), ScreenshotState())
-
-    override fun setup() {
+) : MVI<ScreenshotState, ScreenshotAction, ScreenshotSideEffect> by mvi(initialUiState = ScreenshotState()) {
+    override fun onSetup() {
         coroutineScope.launch {
-            commands.value = getScreenshotCommandUseCase()
+            val commands = getScreenshotCommandUseCase()
+            update { copy(commands = commands) }
+
+            initPreviews()
+        }
+
+        coroutineScope.launch {
+            getSelectedDeviceFlowUseCase().collectLatest {
+                update { copy(selectedDevice = it) }
+            }
+        }
+    }
+
+    override fun onRefresh() {
+        coroutineScope.launch {
+            val commands = getScreenshotCommandUseCase()
+            update { copy(commands = commands) }
+
             initPreviews()
         }
     }
 
-    override fun refresh() {
-        coroutineScope.launch {
-            commands.value = getScreenshotCommandUseCase()
-            initPreviews()
-        }
-    }
-
-    override fun dispose() {
+    override fun onDispose() {
         coroutineScope.cancel()
     }
 
-    fun takeScreenShot(command: ScreenshotCommand) {
-        val selectedDevice = state.value.selectedDevice ?: return
+    override fun onAction(uiAction: ScreenshotAction) {
         coroutineScope.launch {
-            takeScreenshotUseCase(
-                device = selectedDevice,
-                command = command,
-                onStart = {
-                    commands.value = getScreenshotCommandUseCase()
-                    preview.value = Screenshot.EMPTY
-                    isCapturing.value = true
-                },
-                onFailed = {
-                    commands.value = getScreenshotCommandUseCase()
-                    preview.value = Screenshot.EMPTY
-                    isCapturing.value = false
-                },
-                onComplete = {
-                    commands.value = getScreenshotCommandUseCase()
-                    preview.value = it
-                    previews.value = screenshotCommandRepository.getScreenshots()
-                    isCapturing.value = false
-                },
+            when (uiAction) {
+                is ScreenshotAction.TakeScreenshot -> takeScreenShot(uiAction.command)
+                ScreenshotAction.OpenDirectory -> openDirectory()
+                ScreenshotAction.CopyScreenshotToClipboard -> copyScreenShotToClipboard()
+                ScreenshotAction.DeleteScreenshotToClipboard -> deleteScreenShotToClipboard()
+                is ScreenshotAction.SelectScreenshot -> selectScreenshot(uiAction.screenshot)
+                ScreenshotAction.NextScreenshot -> nextScreenshot()
+                ScreenshotAction.PreviousScreenshot -> previousScreenshot()
+                is ScreenshotAction.UpdateSearchText -> updateSearchText(uiAction.text)
+            }
+        }
+    }
+
+    private suspend fun updateSearchText(searchText: String) {
+        val screenshots = screenshotCommandRepository.getScreenshots()
+        update {
+            copy(
+                searchText = searchText,
+                previews = screenshots.filter { it.file?.name?.startsWith(searchText) ?: false },
             )
         }
     }
 
-    fun openDirectory() {
-        coroutineScope.launch {
-            val file = File(OSContext.resolveOSContext().screenshotDirectory)
-            Desktop.getDesktop().open(file)
+    private suspend fun takeScreenShot(command: ScreenshotCommand) {
+        val selectedDevice = state.value.selectedDevice ?: return
+        takeScreenshotUseCase(
+            device = selectedDevice,
+            command = command,
+            onStart = {
+                val commands = getScreenshotCommandUseCase()
+                update {
+                    copy(
+                        commands = commands,
+                        preview = Screenshot.EMPTY,
+                        isCapturing = true,
+                    )
+                }
+            },
+            onFailed = {
+                val commands = getScreenshotCommandUseCase()
+                update {
+                    copy(
+                        commands = commands,
+                        preview = Screenshot.EMPTY,
+                        isCapturing = false,
+                    )
+                }
+            },
+            onComplete = {
+                val commands = getScreenshotCommandUseCase()
+                val screenshots = screenshotCommandRepository.getScreenshots()
+                update {
+                    copy(
+                        commands = commands,
+                        preview = it,
+                        previews = screenshots,
+                        isCapturing = false,
+                    )
+                }
+            },
+        )
+    }
+
+    private suspend fun openDirectory() {
+        val file = File(OSContext.resolveOSContext().screenshotDirectory)
+        withContext(Dispatchers.IO) { Desktop.getDesktop().open(file) }
+    }
+
+    private fun copyScreenShotToClipboard() {
+        val file = currentState.preview.file ?: return
+        ClipBoardUtils.copyFile(file)
+    }
+
+    private suspend fun deleteScreenShotToClipboard() {
+        screenshotCommandRepository.delete(currentState.preview)
+        initPreviews()
+    }
+
+    private fun selectScreenshot(screenshot: Screenshot) {
+        update {
+            this.copy(preview = screenshot)
         }
     }
 
-    fun copyScreenShotToClipboard() {
-        coroutineScope.launch {
-            val file = preview.value.file ?: return@launch
-            ClipBoardUtils.copyFile(file)
+    private fun nextScreenshot() {
+        val nextIndex = currentState.previews.indexOf(currentState.preview) + 1
+        val nextPreview = currentState.previews.getOrNull(nextIndex) ?: return
+        update {
+            this.copy(preview = nextPreview)
         }
     }
 
-    fun deleteScreenShotToClipboard() {
-        coroutineScope.launch {
-            screenshotCommandRepository.delete(preview.value)
-            initPreviews()
+    private fun previousScreenshot() {
+        val previousIndex = currentState.previews.indexOf(currentState.preview) - 1
+        val previousPreview = currentState.previews.getOrNull(previousIndex) ?: return
+        update {
+            this.copy(preview = previousPreview)
         }
-    }
-
-    fun selectScreenshot(screenshot: Screenshot) {
-        preview.value = screenshot
-    }
-
-    fun nextScreenshot() {
-        val nextIndex = previews.value.indexOf(preview.value) + 1
-        val nextPreview = previews.value.getOrNull(nextIndex) ?: return
-        preview.value = nextPreview
-    }
-
-    fun previousScreenshot() {
-        val previousIndex = previews.value.indexOf(preview.value) - 1
-        val previousPreview = previews.value.getOrNull(previousIndex) ?: return
-        preview.value = previousPreview
     }
 
     private suspend fun initPreviews() {
-        previews.value = screenshotCommandRepository.getScreenshots()
-        preview.value = previews.value.firstOrNull() ?: Screenshot(null)
+        val screenshots = screenshotCommandRepository.getScreenshots()
+        val screenshot = screenshots.first()
+        update {
+            this.copy(
+                previews = screenshots,
+                preview = screenshot,
+            )
+        }
     }
 }

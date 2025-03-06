@@ -44,6 +44,7 @@ fun ScreenshotScreen(
     canCapture: Boolean,
     isCapturing: Boolean,
     commands: List<ScreenshotCommand>,
+    searchText: String,
     onOpenDirectory: () -> Unit,
     onCopyScreenshot: () -> Unit,
     onDeleteScreenshot: () -> Unit,
@@ -51,6 +52,7 @@ fun ScreenshotScreen(
     onSelectScreenshot: (Screenshot) -> Unit,
     onNextScreenshot: () -> Unit,
     onPreviousScreenshot: () -> Unit,
+    onUpdateSearchText: (String) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -66,8 +68,8 @@ fun ScreenshotScreen(
             first(minSize = 350.dp) {
                 Column {
                     ScreenshotHeader(
-                        searchText = "",
-                        onUpdateSearchText = { },
+                        searchText = searchText,
+                        onUpdateSearchText = onUpdateSearchText,
                         modifier = Modifier,
                     )
 
@@ -144,6 +146,7 @@ private fun ScreenshotScreen_Preview() {
         canCapture = true,
         isCapturing = false,
         commands = emptyList(),
+        searchText = "",
         onOpenDirectory = {},
         onCopyScreenshot = {},
         onDeleteScreenshot = {},
@@ -151,5 +154,6 @@ private fun ScreenshotScreen_Preview() {
         onSelectScreenshot = {},
         onNextScreenshot = {},
         onPreviousScreenshot = {},
+        onUpdateSearchText = {},
     )
 }
