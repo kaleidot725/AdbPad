@@ -5,7 +5,7 @@ import jp.kaleidot725.adbpad.domain.model.command.KeyCommand
 import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
-import jp.kaleidot725.adbpad.domain.service.SettingFileCreator
+import jp.kaleidot725.adbpad.domain.service.TextCommandFileCreator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -13,31 +13,38 @@ import kotlinx.coroutines.withContext
 class TextCommandRepositoryImpl : TextCommandRepository {
     private val runningCommands: MutableSet<TextCommand> = mutableSetOf()
     private val adbClient = AndroidDebugBridgeClientFactory().build()
+    private val lock: Any = Any()
 
     override suspend fun getAllTextCommand(): List<TextCommand> {
         return withContext(Dispatchers.IO) {
-            val setting = SettingFileCreator.load()
-            return@withContext setting.textCommandIdList.map { text ->
-                text.copy(isRunning = runningCommands.any { it.id == text.id })
+            synchronized(lock) {
+                val setting = TextCommandFileCreator.load()
+                return@withContext setting.values.map { text ->
+                    text.copy(isRunning = runningCommands.any { it.id == text.id })
+                }
             }
         }
     }
 
     override suspend fun addTextCommand(command: TextCommand): Boolean {
         return withContext(Dispatchers.IO) {
-            val oldSetting = SettingFileCreator.load()
-            val newInputTexts = oldSetting.textCommandIdList.toMutableList().apply { add(command) }
-            val newSetting = oldSetting.copy(textCommandIdList = newInputTexts)
-            return@withContext SettingFileCreator.save(newSetting)
+            synchronized(lock) {
+                val oldSetting = TextCommandFileCreator.load()
+                val newInputTexts = oldSetting.values.toMutableList().apply { add(command) }
+                val newSetting = oldSetting.copy(values = newInputTexts)
+                return@withContext TextCommandFileCreator.save(newSetting)
+            }
         }
     }
 
     override suspend fun removeTextCommand(command: TextCommand): Boolean {
         return withContext(Dispatchers.IO) {
-            val oldSetting = SettingFileCreator.load()
-            val newInputTexts = oldSetting.textCommandIdList.toMutableList().apply { remove(command) }
-            val newSetting = oldSetting.copy(textCommandIdList = newInputTexts)
-            return@withContext SettingFileCreator.save(newSetting)
+            synchronized(lock) {
+                val oldSetting = TextCommandFileCreator.load()
+                val newInputTexts = oldSetting.values.toMutableList().apply { remove(command) }
+                val newSetting = oldSetting.copy(values = newInputTexts)
+                return@withContext TextCommandFileCreator.save(newSetting)
+            }
         }
     }
 
@@ -46,16 +53,18 @@ class TextCommandRepositoryImpl : TextCommandRepository {
         title: String,
     ): Boolean {
         return withContext(Dispatchers.IO) {
-            val oldSetting = SettingFileCreator.load()
-            val targetIndex = oldSetting.textCommandIdList.indexOfFirst { it.id == id }
-            val target = oldSetting.textCommandIdList.getOrNull(targetIndex) ?: return@withContext false
-            val newTarget = target.copy(title = title)
-            val newCommands = oldSetting.textCommandIdList.toMutableList()
-            newCommands.remove(target)
-            newCommands.add(targetIndex, newTarget)
+            synchronized(lock) {
+                val oldSetting = TextCommandFileCreator.load()
+                val targetIndex = oldSetting.values.indexOfFirst { it.id == id }
+                val target = oldSetting.values.getOrNull(targetIndex) ?: return@withContext false
+                val newTarget = target.copy(title = title)
+                val newCommands = oldSetting.values.toMutableList()
+                newCommands.remove(target)
+                newCommands.add(targetIndex, newTarget)
 
-            val newSetting = oldSetting.copy(textCommandIdList = newCommands)
-            return@withContext SettingFileCreator.save(newSetting)
+                val newSetting = oldSetting.copy(values = newCommands)
+                return@withContext TextCommandFileCreator.save(newSetting)
+            }
         }
     }
 
@@ -64,16 +73,18 @@ class TextCommandRepositoryImpl : TextCommandRepository {
         text: String,
     ): Boolean {
         return withContext(Dispatchers.IO) {
-            val oldSetting = SettingFileCreator.load()
-            val targetIndex = oldSetting.textCommandIdList.indexOfFirst { it.id == id }
-            val target = oldSetting.textCommandIdList.getOrNull(targetIndex) ?: return@withContext false
-            val newTarget = target.copy(text = text)
-            val newCommands = oldSetting.textCommandIdList.toMutableList()
-            newCommands.remove(target)
-            newCommands.add(targetIndex, newTarget)
+            synchronized(lock) {
+                val oldSetting = TextCommandFileCreator.load()
+                val targetIndex = oldSetting.values.indexOfFirst { it.id == id }
+                val target = oldSetting.values.getOrNull(targetIndex) ?: return@withContext false
+                val newTarget = target.copy(text = text)
+                val newCommands = oldSetting.values.toMutableList()
+                newCommands.remove(target)
+                newCommands.add(targetIndex, newTarget)
 
-            val newSetting = oldSetting.copy(textCommandIdList = newCommands)
-            return@withContext SettingFileCreator.save(newSetting)
+                val newSetting = oldSetting.copy(values = newCommands)
+                return@withContext TextCommandFileCreator.save(newSetting)
+            }
         }
     }
 

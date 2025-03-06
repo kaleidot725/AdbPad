@@ -1,17 +1,14 @@
 package jp.kaleidot725.adbpad.domain.service
 
-import jp.kaleidot725.adbpad.domain.model.language.Language
+import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.domain.model.os.OSContext
-import jp.kaleidot725.adbpad.domain.model.setting.Appearance
-import jp.kaleidot725.adbpad.domain.model.setting.SdkPath
-import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.IOException
 
-object SettingFileCreator {
-    fun save(setting: Setting): Boolean =
+object TextCommandFileCreator {
+    fun save(setting: TextCommandSetting): Boolean =
         try {
             createDir()
             File(getFilePath()).outputStream().apply {
@@ -23,17 +20,17 @@ object SettingFileCreator {
             false
         }
 
-    fun load(): Setting =
+    fun load(): TextCommandSetting =
         try {
             val content = File(getFilePath()).readText()
             Json.decodeFromString(string = content)
         } catch (e: Exception) {
-            Setting()
+            TextCommandSetting()
         }
 
     private fun getDirPath() = OSContext.resolveOSContext().directory
 
-    private fun getFilePath() = getDirPath() + "config.json"
+    private fun getFilePath() = getDirPath() + "text_command.json"
 
     private fun createDir() {
         try {
@@ -45,10 +42,7 @@ object SettingFileCreator {
     }
 
     @Serializable
-    data class Setting(
-        val language: Language.Type = Language.Type.ENGLISH,
-        val appearance: Appearance = Appearance.LIGHT,
-        val sdkPath: SdkPath = SdkPath(),
-        val windowSize: WindowSize = WindowSize.DEFAULT,
+    data class TextCommandSetting(
+        val values: List<TextCommand> = emptyList(),
     )
 }

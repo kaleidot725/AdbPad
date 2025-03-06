@@ -24,8 +24,11 @@ class MVIDelegate<UiState : MVIState, UiAction : MVIAction, SideEffect : MVISide
     override val sideEffect: Flow<SideEffect> by lazy { _sideEffect.receiveAsFlow() }
 
     override fun onSetup() {}
+
     override fun onAction(uiAction: UiAction) {}
+
     override fun onRefresh() {}
+
     override fun onDispose() {}
 
     override fun update(block: UiState.() -> UiState) {

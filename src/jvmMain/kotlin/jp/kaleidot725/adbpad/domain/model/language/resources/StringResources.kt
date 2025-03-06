@@ -1,6 +1,6 @@
 package jp.kaleidot725.adbpad.domain.model.language.resources
 
-val APP_VERSION = "v1.5.2"
+val APP_VERSION = "v2.0.0"
 
 interface StringResources {
     val windowTitle: String
