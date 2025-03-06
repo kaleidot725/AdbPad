@@ -17,8 +17,8 @@ class MVIDelegate<UiState : MVIState, UiAction : MVIAction, SideEffect : MVISide
 ) : MVI<UiState, UiAction, SideEffect> {
     override val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
 
-    private val _uiState = MutableStateFlow(initialUiState)
-    override val state: StateFlow<UiState> = _uiState.asStateFlow()
+    private val uiState = MutableStateFlow(initialUiState)
+    override val state: StateFlow<UiState> = uiState.asStateFlow()
     override val currentState: UiState get() = state.value
     private val _sideEffect by lazy { Channel<SideEffect>() }
     override val sideEffect: Flow<SideEffect> by lazy { _sideEffect.receiveAsFlow() }
@@ -32,7 +32,7 @@ class MVIDelegate<UiState : MVIState, UiAction : MVIAction, SideEffect : MVISide
     override fun onDispose() {}
 
     override fun update(block: UiState.() -> UiState) {
-        _uiState.update { block(it) }
+        uiState.update { block(it) }
     }
 
     override suspend fun sideEffect(effect: SideEffect) {
