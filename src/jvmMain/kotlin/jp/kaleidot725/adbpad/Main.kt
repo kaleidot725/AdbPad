@@ -29,6 +29,7 @@ import jp.kaleidot725.adbpad.ui.component.NavigationRail
 import jp.kaleidot725.adbpad.ui.di.stateHolderModule
 import jp.kaleidot725.adbpad.ui.screen.CommandScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
+import jp.kaleidot725.adbpad.ui.screen.command.CommandAction
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotAction
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
@@ -118,14 +119,14 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                         MainCategory.Command -> {
                             val commandStateHolder = mainStateHolder.commandStateHolder
                             val commandState by commandStateHolder.state.collectAsState()
+                            val commandAction = commandStateHolder::onAction
+
                             CommandScreen(
                                 commands = commandState.commands,
                                 filtered = commandState.filtered,
-                                onClickFilter = commandStateHolder::clickTab,
+                                onClickFilter = { commandAction(CommandAction.ClickCategoryTab(it)) },
                                 canExecute = commandState.canExecuteCommand,
-                                onExecute = { command ->
-                                    commandStateHolder.executeCommand(command)
-                                },
+                                onExecute = { command -> commandAction(CommandAction.ExecuteCommand(command)) },
                             )
                         }
 
