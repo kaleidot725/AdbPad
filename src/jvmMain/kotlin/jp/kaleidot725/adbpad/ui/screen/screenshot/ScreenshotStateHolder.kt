@@ -11,7 +11,6 @@ import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotCommandUseCa
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
 import jp.kaleidot725.adbpad.domain.utils.ClipBoardUtils
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -46,10 +45,6 @@ class ScreenshotStateHolder(
 
             initPreviews()
         }
-    }
-
-    override fun onDispose() {
-        coroutineScope.cancel()
     }
 
     override fun onAction(uiAction: ScreenshotAction) {

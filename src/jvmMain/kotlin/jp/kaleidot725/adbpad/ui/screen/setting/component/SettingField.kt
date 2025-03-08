@@ -2,24 +2,24 @@ package jp.kaleidot725.adbpad.ui.screen.setting.component
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import jp.kaleidot725.adbpad.ui.component.DefaultOutlineTextField
 
 @Composable
 fun SettingField(
     title: String,
-    input: String,
+    initialInput: String,
     isError: Boolean,
     onValueChange: (String) -> Unit,
 ) {
-    OutlinedTextField(
-        value = input,
-        onValueChange = onValueChange,
-        label = { Text(title) },
+    DefaultOutlineTextField(
+        initialText = initialInput,
+        onUpdateText = onValueChange,
+        label = title,
         modifier = Modifier.fillMaxWidth(),
         isError = isError,
+        placeHolder = "",
     )
 }
 

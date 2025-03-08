@@ -7,7 +7,6 @@ import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.GetTextCommandUseCase
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class TextCommandStateHolder(
@@ -35,10 +34,6 @@ class TextCommandStateHolder(
                 this.copy(commands = commands)
             }
         }
-    }
-
-    override fun onDispose() {
-        coroutineScope.cancel()
     }
 
     override fun onAction(uiAction: TextCommandAction) {

@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.core.mvi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,7 +30,9 @@ class MVIDelegate<UiState : MVIState, UiAction : MVIAction, SideEffect : MVISide
 
     override fun onRefresh() {}
 
-    override fun onDispose() {}
+    override fun onDispose() {
+        coroutineScope.cancel()
+    }
 
     override fun update(block: UiState.() -> UiState) {
         uiState.update { block(it) }
