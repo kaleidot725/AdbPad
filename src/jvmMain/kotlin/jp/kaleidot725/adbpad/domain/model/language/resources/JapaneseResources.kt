@@ -99,6 +99,7 @@ object JapaneseResources : StringResources {
     override val settingLanguageEnglish = "英語(English)"
     override val settingLanguageJapanese = "日本語"
     override val settingLanguageChinese = "簡体字中国語"
+    override val settingLanguageTurkish = "土耳其语(Türkçe)"
 
     override val settingAppearanceHeader = "テーマ"
     override val settingAdbHeader = "ADB"

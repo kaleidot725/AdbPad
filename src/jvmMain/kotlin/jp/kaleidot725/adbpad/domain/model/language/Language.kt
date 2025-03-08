@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.domain.model.language
 import jp.kaleidot725.adbpad.domain.model.language.resources.ChineseResources
 import jp.kaleidot725.adbpad.domain.model.language.resources.EnglishResources
 import jp.kaleidot725.adbpad.domain.model.language.resources.JapaneseResources
+import jp.kaleidot725.adbpad.domain.model.language.resources.TurkishResources
 import jp.kaleidot725.adbpad.domain.model.language.resources.StringResources
 
 object Language : StringResources {
@@ -182,6 +183,8 @@ object Language : StringResources {
         get() = getCurrentResources().settingLanguageJapanese
     override val settingLanguageChinese: String
         get() = getCurrentResources().settingLanguageChinese
+    override val settingLanguageTurkish: String
+        get() = getCurrentResources().settingLanguageTurkish
     override val settingAppearanceHeader: String
         get() = getCurrentResources().settingAppearanceHeader
     override val settingAdbHeader: String
@@ -219,11 +222,13 @@ object Language : StringResources {
             Type.ENGLISH -> EnglishResources
             Type.JAPANESE -> JapaneseResources
             Type.CHINESE -> ChineseResources
+            Type.TURKISH -> TurkishResources
         }
 
     enum class Type {
         ENGLISH,
         JAPANESE,
         CHINESE,
+        TURKISH,
     }
 }

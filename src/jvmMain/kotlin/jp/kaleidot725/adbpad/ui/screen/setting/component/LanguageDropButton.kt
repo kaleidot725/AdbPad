@@ -86,6 +86,7 @@ private fun Language.Type.title(): String {
         Language.Type.ENGLISH -> Language.settingLanguageEnglish
         Language.Type.JAPANESE -> Language.settingLanguageJapanese
         Language.Type.CHINESE -> Language.settingLanguageChinese
+        Language.Type.TURKISH -> Language.settingLanguageTurkish
     }
 }
 
