@@ -1,5 +1,6 @@
 package jp.kaleidot725.adbpad.ui.screen.setting
 
+import jp.kaleidot725.adbpad.core.mvi.MVIState
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 
@@ -10,7 +11,7 @@ data class SettingState(
     val adbDirectoryPath: String = "",
     val adbPortNumber: String = "",
     val isRestartingAdb: Boolean = false,
-) {
+) : MVIState {
     val isValidAdbDirectoryPath: Boolean = adbDirectoryPath.isNotEmpty()
     val isValidAdbPortNumber: Boolean = adbPortNumber.toIntOrNull() != null
 

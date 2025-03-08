@@ -7,7 +7,6 @@ import jp.kaleidot725.adbpad.domain.model.command.NormalCommandCategory
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetNormalCommandGroup
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class CommandStateHolder(
@@ -32,10 +31,6 @@ class CommandStateHolder(
             val commands = getNormalCommandGroup()
             update { this.copy(commands = commands) }
         }
-    }
-
-    override fun onDispose() {
-        coroutineScope.cancel()
     }
 
     override fun onAction(uiAction: CommandAction) {

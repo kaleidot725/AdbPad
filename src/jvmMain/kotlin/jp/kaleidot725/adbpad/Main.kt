@@ -5,6 +5,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,7 +34,9 @@ import jp.kaleidot725.adbpad.ui.screen.command.CommandAction
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotAction
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
+import jp.kaleidot725.adbpad.ui.screen.setting.SettingAction
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
+import jp.kaleidot725.adbpad.ui.screen.setting.SettingSideEffect
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.section.TopSection
@@ -185,28 +188,39 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                     when (state.dialog) {
                         Dialog.Setting -> {
                             val settingStateHolder by remember {
-                                mutableStateOf(GlobalContext.get().get<SettingStateHolder>())
+                                mutableStateOf(
+                                    GlobalContext.get().get<SettingStateHolder>(),
+                                )
                             }
                             val settingState by settingStateHolder.state.collectAsState()
+                            val settingAction = settingStateHolder::onAction
+
+                            LaunchedEffect(Unit) {
+                                settingStateHolder.sideEffect.collect {
+                                    when (it) {
+                                        SettingSideEffect.Saved -> mainStateHolder.refresh()
+                                    }
+                                }
+                            }
 
                             DisposableEffect(mainStateHolder) {
-                                settingStateHolder.setup()
-                                onDispose { settingStateHolder.dispose() }
+                                settingStateHolder.onSetup()
+                                onDispose { settingStateHolder.onDispose() }
                             }
 
                             SettingScreen(
                                 languages = settingState.languages,
                                 selectLanguage = settingState.selectedLanguage,
-                                onUpdateLanguage = settingStateHolder::updateLanguage,
+                                onUpdateLanguage = { settingAction(SettingAction.UpdateLanguage(it)) },
                                 appearance = settingState.appearance,
-                                updateAppearance = settingStateHolder::updateAppearance,
+                                updateAppearance = { settingAction(SettingAction.UpdateAppearance(it)) },
                                 adbDirectoryPath = settingState.adbDirectoryPath,
-                                onChangeAdbDirectoryPath = settingStateHolder::updateAdbDirectoryPath,
+                                onChangeAdbDirectoryPath = { settingAction(SettingAction.UpdateAdbDirectoryPath(it)) },
                                 isValidAdbDirectoryPath = settingState.isValidAdbDirectoryPath,
                                 adbPortNumber = settingState.adbPortNumber,
-                                onChangeAdbPortNumber = settingStateHolder::updateAdbPortNumberPath,
+                                onChangeAdbPortNumber = { settingAction(SettingAction.UpdateAdbPortNumberPath(it)) },
                                 isValidAdbPortNumber = settingState.isValidAdbPortNumber,
-                                onSave = { settingStateHolder.save { mainStateHolder.refresh() } },
+                                onSave = { settingAction(SettingAction.Save) },
                                 canSave = settingState.canSave,
                                 onCancel = { mainStateHolder.refresh() },
                             )
