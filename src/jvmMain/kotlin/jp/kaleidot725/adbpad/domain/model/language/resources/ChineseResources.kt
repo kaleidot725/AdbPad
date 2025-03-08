@@ -100,6 +100,7 @@ object ChineseResources : StringResources {
     override val settingLanguageEnglish = "英语"
     override val settingLanguageJapanese = "日语 (日本語)"
     override val settingLanguageChinese = "简体中文"
+    override val settingLanguageTurkish = "土耳其语"
 
     override val settingAppearanceHeader = "外观"
     override val settingAdbHeader = "ADB"
