@@ -209,6 +209,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                             }
 
                             SettingScreen(
+                                initialized = settingState.initialized,
                                 languages = settingState.languages,
                                 selectLanguage = settingState.selectedLanguage,
                                 onUpdateLanguage = { settingAction(SettingAction.UpdateLanguage(it)) },
@@ -222,7 +223,9 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 isValidAdbPortNumber = settingState.isValidAdbPortNumber,
                                 onSave = { settingAction(SettingAction.Save) },
                                 canSave = settingState.canSave,
+                                isSaving = settingState.isSaving,
                                 onCancel = { mainStateHolder.refresh() },
+                                canCancel = settingState.canCancel,
                             )
                         }
 

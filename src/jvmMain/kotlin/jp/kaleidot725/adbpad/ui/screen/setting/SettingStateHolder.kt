@@ -27,7 +27,24 @@ class SettingStateHolder(
 
     override fun onSetup() {
         coroutineScope.launch {
-            loadSetting()
+            val language = getLanguageUseCase()
+            val appearance = getAppearanceUseCase()
+            val sdkPath = getSdkPathUseCase()
+            val adbDirectoryPath = sdkPath.adbDirectory
+            val adbPortNumber = sdkPath.adbServerPort.toString()
+
+            oldAdbDirectoryPath = sdkPath.adbDirectory
+            oldAdbPortNumber = sdkPath.adbServerPort
+
+            update {
+                this.copy(
+                    selectedLanguage = language,
+                    appearance = appearance,
+                    adbDirectoryPath = adbDirectoryPath,
+                    adbPortNumber = adbPortNumber,
+                    initialized = true,
+                )
+            }
         }
     }
 
@@ -44,7 +61,11 @@ class SettingStateHolder(
     }
 
     private suspend fun save() {
-        saveSetting()
+        update { this.copy(isSaving = true) }
+        saveLanguageUseCase(currentState.selectedLanguage)
+        saveAppearanceUseCase(currentState.appearance)
+        saveSdkPathUseCase(currentState.adbDirectoryPath, currentState.adbPortNumber.toIntOrNull())
+        restartAdbUseCase(oldAdbDirectory = oldAdbDirectoryPath, oldServerPort = oldAdbPortNumber)
         sideEffect(SettingSideEffect.Saved)
     }
 
@@ -62,32 +83,5 @@ class SettingStateHolder(
 
     private fun updateAdbPortNumberPath(value: String) {
         update { this.copy(adbPortNumber = value) }
-    }
-
-    private suspend fun saveSetting() {
-        saveLanguageUseCase(currentState.selectedLanguage)
-        saveAppearanceUseCase(currentState.appearance)
-        saveSdkPathUseCase(currentState.adbDirectoryPath, currentState.adbPortNumber.toIntOrNull())
-        restartAdbUseCase(oldAdbDirectory = oldAdbDirectoryPath, oldServerPort = oldAdbPortNumber)
-    }
-
-    private suspend fun loadSetting() {
-        val language = getLanguageUseCase()
-        val appearance = getAppearanceUseCase()
-        val sdkPath = getSdkPathUseCase()
-        val adbDirectoryPath = sdkPath.adbDirectory
-        val adbPortNumber = sdkPath.adbServerPort.toString()
-
-        oldAdbDirectoryPath = sdkPath.adbDirectory
-        oldAdbPortNumber = sdkPath.adbServerPort
-
-        update {
-            this.copy(
-                selectedLanguage = language,
-                appearance = appearance,
-                adbDirectoryPath = adbDirectoryPath,
-                adbPortNumber = adbPortNumber,
-            )
-        }
     }
 }

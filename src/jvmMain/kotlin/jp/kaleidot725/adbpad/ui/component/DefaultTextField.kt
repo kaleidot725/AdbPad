@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun DefaultTextField(
-    id: String = "",
+    id: Any? = null,
     initialText: String,
     placeHolder: String,
     onUpdateText: (String) -> Unit,
