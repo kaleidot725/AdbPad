@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +25,8 @@ import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 
 @Composable
 fun ScreenshotDropDownButton(
+    selectedCommand: ScreenshotCommand,
+    onSelectCommand: (ScreenshotCommand) -> Unit,
     commands: List<ScreenshotCommand>,
     canCapture: Boolean,
     isCapturing: Boolean,
@@ -33,15 +34,13 @@ fun ScreenshotDropDownButton(
     modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val initialCommand by rememberUpdatedState(commands.firstOrNull())
-    var selectedCommand: ScreenshotCommand? by remember { mutableStateOf(null) }
 
     Box(modifier) {
         ScreenshotButton(
-            selectedCommand = selectedCommand ?: initialCommand,
+            selectedCommand = selectedCommand,
             canCapture = canCapture,
             isCapturing = isCapturing,
-            onTake = { selectedCommand?.let { onTakeScreenshot(it) } },
+            onTake = { onTakeScreenshot(selectedCommand) },
             onChangeType = { expanded = true },
         )
 
@@ -53,7 +52,7 @@ fun ScreenshotDropDownButton(
             commands.forEach { command ->
                 DropdownMenuItem(
                     onClick = {
-                        selectedCommand = command
+                        onSelectCommand(command)
                         expanded = false
                     },
                 ) {

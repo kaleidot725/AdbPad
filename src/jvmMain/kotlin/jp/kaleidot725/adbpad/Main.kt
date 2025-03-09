@@ -154,6 +154,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 screenshots = screenshotState.previews,
                                 canCapture = screenshotState.canExecute,
                                 isCapturing = screenshotState.isCapturing,
+                                selectCommand = screenshotState.selectedCommand,
                                 commands = screenshotState.commands,
                                 searchText = screenshotState.searchText,
                                 onOpenDirectory = {
@@ -179,6 +180,9 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 },
                                 onUpdateSearchText = {
                                     onAction(ScreenshotAction.UpdateSearchText(it))
+                                },
+                                onSelectCommand = {
+                                    onAction(ScreenshotAction.SelectScreenshotCommand(it))
                                 },
                             )
                         }

@@ -20,21 +20,19 @@ import javax.imageio.ImageIO
 import kotlin.math.max
 
 class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
-    private val runningCommands: MutableSet<ScreenshotCommand> = mutableSetOf()
     private val adbClient = AndroidDebugBridgeClientFactory().build()
 
     init {
         createDirectory()
     }
 
-    override fun getCommands(): List<ScreenshotCommand> {
-        return listOf(
-            ScreenshotCommand.Both(runningCommands.any { it is ScreenshotCommand.Both }),
-            ScreenshotCommand.Current(runningCommands.any { it is ScreenshotCommand.Current }),
-            ScreenshotCommand.Light(runningCommands.any { it is ScreenshotCommand.Light }),
-            ScreenshotCommand.Dark(runningCommands.any { it is ScreenshotCommand.Dark }),
+    override fun getCommands(): List<ScreenshotCommand> =
+        listOf(
+            ScreenshotCommand.Both,
+            ScreenshotCommand.Current,
+            ScreenshotCommand.Light,
+            ScreenshotCommand.Dark,
         )
-    }
 
     override suspend fun captureScreenshot(
         device: Device,
@@ -45,7 +43,6 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
     ) {
         val date = Date()
         withContext(Dispatchers.IO) {
-            runningCommands.add(command)
             onStart()
 
             val result =
@@ -59,29 +56,23 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
 
             delay(300)
 
-            runningCommands.remove(command)
             if (result) onComplete(Screenshot(getFileResult(date.time))) else onFailed()
         }
     }
 
-    override suspend fun getScreenshots(): List<Screenshot> {
-        return withContext(Dispatchers.IO) {
+    override suspend fun getScreenshots(): List<Screenshot> =
+        withContext(Dispatchers.IO) {
             val files = getDirectory().listFiles()
             files
                 .filter { file -> file.isFile }
                 .map { file -> Screenshot(file) }
                 .sortedByDescending { screenshot -> screenshot.file?.name ?: "" }
         }
-    }
 
     override suspend fun delete(screenshot: Screenshot) {
         withContext(Dispatchers.IO) {
             screenshot.file?.delete()
         }
-    }
-
-    override fun clear() {
-        runningCommands.clear()
     }
 
     private suspend fun sendBothCommand(
@@ -132,9 +123,7 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
     private suspend fun sendCurrentCommand(
         device: Device,
         date: Date,
-    ): Boolean {
-        return capture(device, getFileResult(date.time))
-    }
+    ): Boolean = capture(device, getFileResult(date.time))
 
     private suspend fun capture(
         device: Device,
@@ -152,8 +141,8 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         fileA: File,
         fileB: File,
         outputFile: File,
-    ): Boolean {
-        return try {
+    ): Boolean =
+        try {
             val inputA = ImageIO.read(fileA)
             val inputB = ImageIO.read(fileB)
             val totalWidth = inputA.width + inputB.width
@@ -171,7 +160,6 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         } catch (e: IOException) {
             false
         }
-    }
 
     private suspend fun sendCommand(
         device: Device,

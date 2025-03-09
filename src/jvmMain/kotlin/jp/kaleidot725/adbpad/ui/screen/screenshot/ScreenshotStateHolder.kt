@@ -26,7 +26,12 @@ class ScreenshotStateHolder(
     override fun onSetup() {
         coroutineScope.launch {
             val commands = getScreenshotCommandUseCase()
-            update { copy(commands = commands) }
+            update {
+                copy(
+                    selectedCommand = commands.first(),
+                    commands = commands,
+                )
+            }
 
             initPreviews()
         }
@@ -41,7 +46,12 @@ class ScreenshotStateHolder(
     override fun onRefresh() {
         coroutineScope.launch {
             val commands = getScreenshotCommandUseCase()
-            update { copy(commands = commands) }
+            update {
+                copy(
+                    selectedCommand = commands.first(),
+                    commands = commands,
+                )
+            }
 
             initPreviews()
         }
@@ -58,6 +68,7 @@ class ScreenshotStateHolder(
                 ScreenshotAction.NextScreenshot -> nextScreenshot()
                 ScreenshotAction.PreviousScreenshot -> previousScreenshot()
                 is ScreenshotAction.UpdateSearchText -> updateSearchText(uiAction.text)
+                is ScreenshotAction.SelectScreenshotCommand -> selectScreenshotCommand(uiAction.command)
             }
         }
     }
@@ -156,6 +167,14 @@ class ScreenshotStateHolder(
             this.copy(
                 previews = screenshots,
                 preview = screenshot,
+            )
+        }
+    }
+
+    private fun selectScreenshotCommand(command: ScreenshotCommand) {
+        update {
+            this.copy(
+                selectedCommand = command,
             )
         }
     }

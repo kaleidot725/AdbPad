@@ -97,9 +97,9 @@ object TurkishResources : StringResources {
     override val menuScreenshot = "Ekran Görüntüsü"
 
     override val settingLanguageHeader = "Dil"
-    override val settingLanguageEnglish = "İngilizce (English)"
-    override val settingLanguageJapanese = "Japonca (日本語)"
-    override val settingLanguageChinese = "Çince (简体中文)"
+    override val settingLanguageEnglish = "İngilizce"
+    override val settingLanguageJapanese = "Japonca"
+    override val settingLanguageChinese = "Çince"
     override val settingLanguageTurkish = "Türkçe"
 
     override val settingAppearanceHeader = "Görünüm"

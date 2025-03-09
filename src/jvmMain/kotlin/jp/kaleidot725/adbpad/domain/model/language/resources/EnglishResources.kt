@@ -98,9 +98,9 @@ object EnglishResources : StringResources {
 
     override val settingLanguageHeader = "Language"
     override val settingLanguageEnglish = "English"
-    override val settingLanguageJapanese = "Japanese(日本語)"
-    override val settingLanguageChinese = "Chinese(简体中文)"
-    override val settingLanguageTurkish = "Turkish(Türkçe)"
+    override val settingLanguageJapanese = "Japanese"
+    override val settingLanguageChinese = "Chinese"
+    override val settingLanguageTurkish = "Turkish"
 
     override val settingAppearanceHeader = "Appearance"
     override val settingAdbHeader = "ADB"

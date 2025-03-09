@@ -43,11 +43,13 @@ fun ScreenshotScreen(
     screenshots: List<Screenshot>,
     canCapture: Boolean,
     isCapturing: Boolean,
+    selectCommand: ScreenshotCommand,
     commands: List<ScreenshotCommand>,
     searchText: String,
     onOpenDirectory: () -> Unit,
     onCopyScreenshot: () -> Unit,
     onDeleteScreenshot: () -> Unit,
+    onSelectCommand: (ScreenshotCommand) -> Unit,
     onTakeScreenshot: (ScreenshotCommand) -> Unit,
     onSelectScreenshot: (Screenshot) -> Unit,
     onNextScreenshot: () -> Unit,
@@ -101,6 +103,8 @@ fun ScreenshotScreen(
                     )
 
                     ScreenshotMenu(
+                        selectedCommand = selectCommand,
+                        onSelectCommand = onSelectCommand,
                         commands = commands,
                         canCapture = canCapture,
                         isCapturing = isCapturing,
@@ -145,6 +149,7 @@ private fun ScreenshotScreen_Preview() {
         screenshots = emptyList(),
         canCapture = true,
         isCapturing = false,
+        selectCommand = ScreenshotCommand.Both,
         commands = emptyList(),
         searchText = "",
         onOpenDirectory = {},
@@ -155,5 +160,6 @@ private fun ScreenshotScreen_Preview() {
         onNextScreenshot = {},
         onPreviousScreenshot = {},
         onUpdateSearchText = {},
+        onSelectCommand = {},
     )
 }
