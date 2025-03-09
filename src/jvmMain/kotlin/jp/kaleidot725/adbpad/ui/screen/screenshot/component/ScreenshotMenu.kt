@@ -8,6 +8,8 @@ import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 
 @Composable
 fun ScreenshotMenu(
+    selectedCommand: ScreenshotCommand,
+    onSelectCommand: (ScreenshotCommand) -> Unit,
     commands: List<ScreenshotCommand>,
     canCapture: Boolean,
     isCapturing: Boolean,
@@ -18,6 +20,8 @@ fun ScreenshotMenu(
         modifier = modifier,
     ) {
         ScreenshotDropDownButton(
+            selectedCommand = selectedCommand,
+            onSelectCommand = onSelectCommand,
             commands = commands,
             canCapture = canCapture,
             isCapturing = isCapturing,
@@ -30,7 +34,9 @@ fun ScreenshotMenu(
 @Composable
 private fun Preview() {
     ScreenshotMenu(
-        commands = listOf(ScreenshotCommand.Current(isRunning = false)),
+        selectedCommand = ScreenshotCommand.Both,
+        onSelectCommand = {},
+        commands = listOf(ScreenshotCommand.Current),
         canCapture = false,
         isCapturing = false,
         onTakeScreenshot = {},

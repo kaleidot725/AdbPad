@@ -9,6 +9,10 @@ sealed class ScreenshotAction : MVIAction {
         val text: String,
     ) : ScreenshotAction()
 
+    data class SelectScreenshotCommand(
+        val command: ScreenshotCommand,
+    ) : ScreenshotAction()
+
     data class TakeScreenshot(
         val command: ScreenshotCommand,
     ) : ScreenshotAction()

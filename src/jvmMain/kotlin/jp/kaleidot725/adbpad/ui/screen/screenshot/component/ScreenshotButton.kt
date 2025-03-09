@@ -95,7 +95,7 @@ fun ScreenshotButton(
 private fun ScreenshotButton_Preview() {
     MaterialTheme {
         ScreenshotButton(
-            selectedCommand = ScreenshotCommand.Current(false),
+            selectedCommand = ScreenshotCommand.Current,
             canCapture = true,
             isCapturing = false,
             onTake = {},

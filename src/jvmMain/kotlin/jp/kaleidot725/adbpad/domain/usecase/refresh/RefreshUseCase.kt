@@ -11,7 +11,6 @@ class RefreshUseCase(
 ) {
     operator fun invoke() {
         commandRepository.clear()
-        screenshotCommandRepository.clear()
         textCommandRepository.clear()
     }
 }

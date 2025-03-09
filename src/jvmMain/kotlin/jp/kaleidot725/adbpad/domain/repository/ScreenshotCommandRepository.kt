@@ -18,6 +18,4 @@ interface ScreenshotCommandRepository {
     suspend fun getScreenshots(): List<Screenshot>
 
     suspend fun delete(screenshot: Screenshot)
-
-    fun clear()
 }
