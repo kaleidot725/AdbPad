@@ -112,7 +112,7 @@ class TextCommandRepositoryImpl : TextCommandRepository {
                     }
                 }
 
-                if (command.requests.lastIndex != index && TextCommand.Option.SendWithNewLine != option) {
+                if (command.requests.lastIndex != index) {
                     val keyCode =
                         when (option) {
                             TextCommand.Option.SendWithTab -> 61
