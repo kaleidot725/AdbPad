@@ -14,7 +14,7 @@ plugins {
 }
 
 group = "jp.kaleidot725"
-version = "2.0.0"
+version = "2.1.0"
 
 kotlin {
     jvm()
@@ -39,6 +39,7 @@ kotlin {
         implementation(libs.ktor.client.okhttp)
         implementation(libs.jSystemThemeDetectorVer)
         implementation(libs.coil)
+        implementation("net.engawapg.lib:zoomable:2.4.0")
     }
     sourceSets.jvmTest.dependencies {
         implementation(libs.junit5)
