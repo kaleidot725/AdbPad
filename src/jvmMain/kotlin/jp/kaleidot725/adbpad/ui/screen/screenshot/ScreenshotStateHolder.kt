@@ -162,7 +162,7 @@ class ScreenshotStateHolder(
 
     private suspend fun initPreviews() {
         val screenshots = screenshotCommandRepository.getScreenshots()
-        val screenshot = screenshots.first()
+        val screenshot = screenshots.firstOrNull() ?: Screenshot(null)
         update {
             this.copy(
                 previews = screenshots,
