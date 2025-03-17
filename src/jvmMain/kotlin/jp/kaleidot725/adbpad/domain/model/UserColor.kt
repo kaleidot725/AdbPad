@@ -15,6 +15,16 @@ object UserColor {
         }
     }
 
+    @Composable
+    fun getFloatingBackgroundColor(): Color {
+        val isLight = MaterialTheme.colors.isLight
+        return if (isLight) {
+            Color(0xFFDDDDDD)
+        } else {
+            Color(0x0FF333333)
+        }
+    }
+
     object Light {
         val PRIMARY = Color(0xFF006B5D)
         val PRIMARY_VARIANT = Color(0xFFFFFFFF)

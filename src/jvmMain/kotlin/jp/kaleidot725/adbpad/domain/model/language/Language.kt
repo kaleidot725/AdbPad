@@ -3,8 +3,8 @@ package jp.kaleidot725.adbpad.domain.model.language
 import jp.kaleidot725.adbpad.domain.model.language.resources.ChineseResources
 import jp.kaleidot725.adbpad.domain.model.language.resources.EnglishResources
 import jp.kaleidot725.adbpad.domain.model.language.resources.JapaneseResources
-import jp.kaleidot725.adbpad.domain.model.language.resources.TurkishResources
 import jp.kaleidot725.adbpad.domain.model.language.resources.StringResources
+import jp.kaleidot725.adbpad.domain.model.language.resources.TurkishResources
 
 object Language : StringResources {
     override val windowTitle: String
