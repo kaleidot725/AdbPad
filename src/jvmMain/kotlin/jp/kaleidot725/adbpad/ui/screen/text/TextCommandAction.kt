@@ -2,6 +2,7 @@ package jp.kaleidot725.adbpad.ui.screen.text
 
 import jp.kaleidot725.adbpad.core.mvi.MVIAction
 import jp.kaleidot725.adbpad.domain.model.command.TextCommand
+import jp.kaleidot725.adbpad.domain.model.sort.SortType
 
 sealed class TextCommandAction : MVIAction {
     data class UpdateSearchText(
@@ -9,6 +10,10 @@ sealed class TextCommandAction : MVIAction {
     ) : TextCommandAction()
 
     data object AddNewText : TextCommandAction()
+
+    data class UpdateSortType(
+        val type: SortType,
+    ) : TextCommandAction()
 
     data class UpdateCommandTitle(
         val id: String,

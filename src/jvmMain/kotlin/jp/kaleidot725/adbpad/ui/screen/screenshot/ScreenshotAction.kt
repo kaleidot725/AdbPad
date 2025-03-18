@@ -3,10 +3,15 @@ package jp.kaleidot725.adbpad.ui.screen.screenshot
 import jp.kaleidot725.adbpad.core.mvi.MVIAction
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
+import jp.kaleidot725.adbpad.domain.model.sort.SortType
 
 sealed class ScreenshotAction : MVIAction {
     data class UpdateSearchText(
         val text: String,
+    ) : ScreenshotAction()
+
+    data class UpdateSortType(
+        val sortType: SortType,
     ) : ScreenshotAction()
 
     data class SelectScreenshotCommand(

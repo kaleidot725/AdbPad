@@ -5,6 +5,7 @@ import jp.kaleidot725.adbpad.core.mvi.mvi
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.os.OSContext
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
+import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotCommandUseCase
@@ -69,15 +70,27 @@ class ScreenshotStateHolder(
                 ScreenshotAction.PreviousScreenshot -> previousScreenshot()
                 is ScreenshotAction.UpdateSearchText -> updateSearchText(uiAction.text)
                 is ScreenshotAction.SelectScreenshotCommand -> selectScreenshotCommand(uiAction.command)
+                is ScreenshotAction.UpdateSortType -> updateSortType(uiAction.sortType)
             }
         }
     }
 
     private suspend fun updateSearchText(searchText: String) {
-        val screenshots = screenshotCommandRepository.getScreenshots()
+        val screenshots = screenshotCommandRepository.getScreenshots(searchText, currentState.sortType)
         update {
             copy(
                 searchText = searchText,
+                previews = screenshots.filter { it.file?.name?.startsWith(searchText) ?: false },
+            )
+        }
+    }
+
+    private suspend fun updateSortType(sortType: SortType) {
+        val screenshots = screenshotCommandRepository.getScreenshots(currentState.searchText, sortType)
+        update {
+            copy(
+                searchText = searchText,
+                sortType = sortType,
                 previews = screenshots.filter { it.file?.name?.startsWith(searchText) ?: false },
             )
         }
@@ -110,7 +123,11 @@ class ScreenshotStateHolder(
             },
             onComplete = {
                 val commands = getScreenshotCommandUseCase()
-                val screenshots = screenshotCommandRepository.getScreenshots()
+                val screenshots =
+                    screenshotCommandRepository.getScreenshots(
+                        currentState.searchText,
+                        currentState.sortType,
+                    )
                 update {
                     copy(
                         commands = commands,
@@ -161,7 +178,11 @@ class ScreenshotStateHolder(
     }
 
     private suspend fun initPreviews() {
-        val screenshots = screenshotCommandRepository.getScreenshots()
+        val screenshots =
+            screenshotCommandRepository.getScreenshots(
+                currentState.searchText,
+                currentState.sortType,
+            )
         val screenshot = screenshots.firstOrNull() ?: Screenshot(null)
         update {
             this.copy(

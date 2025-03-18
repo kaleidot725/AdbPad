@@ -21,6 +21,7 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
+import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotExplorer
@@ -46,6 +47,7 @@ fun ScreenshotScreen(
     selectCommand: ScreenshotCommand,
     commands: List<ScreenshotCommand>,
     searchText: String,
+    sortType: SortType,
     onOpenDirectory: () -> Unit,
     onCopyScreenshot: () -> Unit,
     onDeleteScreenshot: () -> Unit,
@@ -55,6 +57,7 @@ fun ScreenshotScreen(
     onNextScreenshot: () -> Unit,
     onPreviousScreenshot: () -> Unit,
     onUpdateSearchText: (String) -> Unit,
+    onUpdateSortType: (SortType) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -71,6 +74,8 @@ fun ScreenshotScreen(
                 Column {
                     ScreenshotHeader(
                         searchText = searchText,
+                        sortType = sortType,
+                        onUpdateSortType = onUpdateSortType,
                         onUpdateSearchText = onUpdateSearchText,
                         modifier = Modifier,
                     )
@@ -152,6 +157,7 @@ private fun ScreenshotScreen_Preview() {
         selectCommand = ScreenshotCommand.Both,
         commands = emptyList(),
         searchText = "",
+        sortType = SortType.SORT_BY_NAME_ASC,
         onOpenDirectory = {},
         onCopyScreenshot = {},
         onDeleteScreenshot = {},
@@ -161,5 +167,6 @@ private fun ScreenshotScreen_Preview() {
         onPreviousScreenshot = {},
         onUpdateSearchText = {},
         onSelectCommand = {},
+        onUpdateSortType = {},
     )
 }

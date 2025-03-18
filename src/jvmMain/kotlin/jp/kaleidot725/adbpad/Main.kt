@@ -157,6 +157,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 selectCommand = screenshotState.selectedCommand,
                                 commands = screenshotState.commands,
                                 searchText = screenshotState.searchText,
+                                sortType = screenshotState.sortType,
                                 onOpenDirectory = {
                                     onAction(ScreenshotAction.OpenDirectory)
                                 },
@@ -183,6 +184,9 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 },
                                 onSelectCommand = {
                                     onAction(ScreenshotAction.SelectScreenshotCommand(it))
+                                },
+                                onUpdateSortType = {
+                                    onAction(ScreenshotAction.UpdateSortType(it))
                                 },
                             )
                         }

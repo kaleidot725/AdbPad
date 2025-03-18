@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.ui.screen.text
 import jp.kaleidot725.adbpad.core.mvi.MVI
 import jp.kaleidot725.adbpad.core.mvi.mvi
 import jp.kaleidot725.adbpad.domain.model.command.TextCommand
+import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
@@ -22,14 +23,22 @@ class TextCommandStateHolder(
             }
         }
         coroutineScope.launch {
-            val commands = getTextCommandUseCase()
+            val commands =
+                getTextCommandUseCase(
+                    searchText = currentState.searchText,
+                    sortType = currentState.sortType,
+                )
             update { this.copy(commands = commands) }
         }
     }
 
     override fun onRefresh() {
         coroutineScope.launch {
-            val commands = getTextCommandUseCase()
+            val commands =
+                getTextCommandUseCase(
+                    searchText = currentState.searchText,
+                    sortType = currentState.sortType,
+                )
             update {
                 this.copy(commands = commands)
             }
@@ -78,16 +87,38 @@ class TextCommandStateHolder(
                 is TextCommandAction.UpdateTextCommandOption -> {
                     updateTextCommandOption(uiAction.value)
                 }
+
+                is TextCommandAction.UpdateSortType -> {
+                    updateSortType(uiAction.type)
+                }
             }
         }
     }
 
     private suspend fun updateSearchText(searchText: String) {
-        val commands = getTextCommandUseCase()
+        val commands =
+            getTextCommandUseCase(
+                searchText = searchText,
+                sortType = currentState.sortType,
+            )
         update {
             copy(
                 searchText = searchText,
-                commands = commands.filter { it.title.startsWith(searchText) },
+                commands = commands,
+            )
+        }
+    }
+
+    private suspend fun updateSortType(type: SortType) {
+        val commands =
+            getTextCommandUseCase(
+                searchText = currentState.searchText,
+                sortType = type,
+            )
+        update {
+            copy(
+                sortType = type,
+                commands = commands,
             )
         }
     }
@@ -101,7 +132,11 @@ class TextCommandStateHolder(
         val isAscii = value.none { it !in ascii }
         if (isAscii) {
             textCommandRepository.updateTextCommandValue(id, value)
-            val commands = getTextCommandUseCase()
+            val commands =
+                getTextCommandUseCase(
+                    searchText = currentState.searchText,
+                    sortType = currentState.sortType,
+                )
             update { copy(commands = commands) }
         }
     }
@@ -111,7 +146,11 @@ class TextCommandStateHolder(
         value: String,
     ) {
         textCommandRepository.updateTextCommandTitle(id, value)
-        val commands = getTextCommandUseCase()
+        val commands =
+            getTextCommandUseCase(
+                searchText = currentState.searchText,
+                sortType = currentState.sortType,
+            )
         update { copy(commands = commands) }
     }
 
@@ -125,15 +164,27 @@ class TextCommandStateHolder(
             command = selectedCommand,
             option = selectedOption,
             onStart = {
-                val commands = getTextCommandUseCase()
+                val commands =
+                    getTextCommandUseCase(
+                        searchText = currentState.searchText,
+                        sortType = currentState.sortType,
+                    )
                 update { copy(commands = commands) }
             },
             onFailed = {
-                val commands = getTextCommandUseCase()
+                val commands =
+                    getTextCommandUseCase(
+                        searchText = currentState.searchText,
+                        sortType = currentState.sortType,
+                    )
                 update { copy(commands = commands) }
             },
             onComplete = {
-                val commands = getTextCommandUseCase()
+                val commands =
+                    getTextCommandUseCase(
+                        searchText = currentState.searchText,
+                        sortType = currentState.sortType,
+                    )
                 update { copy(commands = commands) }
             },
         )
@@ -146,12 +197,16 @@ class TextCommandStateHolder(
                 text = "",
             )
         textCommandRepository.addTextCommand(command)
-        val commands = getTextCommandUseCase()
-        val commandIndex = commands.indexOf(command)
+        val commands =
+            getTextCommandUseCase(
+                searchText = currentState.searchText,
+                sortType = currentState.sortType,
+            )
+
         update {
             copy(
                 commands = commands,
-                selectedCommandIndex = commandIndex,
+                selectedCommandId = command.id,
             )
         }
     }
@@ -161,13 +216,18 @@ class TextCommandStateHolder(
         val selectedCommandIndex = currentState.commands.indexOf(selectedCommand)
         textCommandRepository.removeTextCommand(selectedCommand)
 
-        val commands = getTextCommandUseCase()
+        val commands =
+            getTextCommandUseCase(
+                searchText = currentState.searchText,
+                sortType = currentState.sortType,
+            )
         val newSelectedCommand = commands.getOrNull(selectedCommandIndex)
         val newSelectedCommandIndex = if (newSelectedCommand == null) commands.lastIndex else selectedCommandIndex
+        val newSelectedCommandId = commands[newSelectedCommandIndex].id
         update {
             copy(
                 commands = commands,
-                selectedCommandIndex = newSelectedCommandIndex,
+                selectedCommandId = newSelectedCommandId,
             )
         }
     }
@@ -175,20 +235,23 @@ class TextCommandStateHolder(
     private fun nextCommand() {
         val nextIndex = currentState.commands.indexOf(currentState.selectedCommand) + 1
         if (0 <= nextIndex && nextIndex <= currentState.commands.lastIndex) {
-            update { copy(selectedCommandIndex = nextIndex) }
+            val id = currentState.commands[nextIndex].id
+            update { copy(selectedCommandId = id) }
         }
     }
 
     private fun previousCommand() {
         val previousIndex = currentState.commands.indexOf(currentState.selectedCommand) - 1
         if (0 <= previousIndex && previousIndex <= currentState.commands.lastIndex) {
-            update { copy(selectedCommandIndex = previousIndex) }
+            val id = currentState.commands[previousIndex].id
+            update { copy(selectedCommandId = id) }
         }
     }
 
     private fun selectCommand(command: TextCommand) {
         val index = currentState.commands.indexOf(command)
-        update { copy(selectedCommandIndex = index) }
+        val id = currentState.commands[index].id
+        update { copy(selectedCommandId = id) }
     }
 
     private fun updateTextCommandOption(value: TextCommand.Option) {

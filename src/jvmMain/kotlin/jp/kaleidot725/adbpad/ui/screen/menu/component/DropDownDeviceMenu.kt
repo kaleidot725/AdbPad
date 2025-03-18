@@ -41,7 +41,7 @@ fun DropDownDeviceMenu(
                 Modifier
                     .wrapContentSize()
                     .clip(RoundedCornerShape(4.dp))
-                    .clickableBackground(isDarker = true)
+                    .clickableBackground(isDarker = !MaterialTheme.colors.isLight)
                     .clickable { if (!expanded && devices.isNotEmpty()) expanded = true }
                     .onSizeChanged { dropDownWidth = it.width },
         )

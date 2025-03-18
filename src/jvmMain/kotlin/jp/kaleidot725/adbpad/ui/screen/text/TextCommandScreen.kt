@@ -44,6 +44,8 @@ fun TextCommandScreen(
             Column {
                 TextCommandHeader(
                     searchText = state.searchText,
+                    sortType = state.sortType,
+                    onUpdateSortType = { onAction(TextCommandAction.UpdateSortType(it)) },
                     onUpdateSearchText = { onAction(TextCommandAction.UpdateSearchText(it)) },
                     onAddNewTextCommand = { onAction(TextCommandAction.AddNewText) },
                 )

@@ -8,6 +8,7 @@ import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.os.OSContext
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
+import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -60,13 +61,26 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         }
     }
 
-    override suspend fun getScreenshots(): List<Screenshot> =
+    override suspend fun getScreenshots(
+        searchText: String,
+        sortType: SortType,
+    ): List<Screenshot> =
         withContext(Dispatchers.IO) {
-            val files = getDirectory().listFiles()
-            files
-                .filter { file -> file.isFile }
-                .map { file -> Screenshot(file) }
-                .sortedByDescending { screenshot -> screenshot.file?.name ?: "" }
+            val files = getDirectory().listFiles() ?: emptyArray()
+            val filteredFiles =
+                files
+                    .filter { file -> file.isFile }
+                    .map { file -> Screenshot(file) }
+                    .filter { (it.file?.name ?: "").startsWith(searchText) }
+            when (sortType) {
+                SortType.SORT_BY_NAME_ASC -> {
+                    filteredFiles.sortedBy { screenshot -> screenshot.file?.name ?: "" }
+                }
+
+                SortType.SORT_BY_NAME_DESC -> {
+                    filteredFiles.sortedByDescending { screenshot -> screenshot.file?.name ?: "" }
+                }
+            }
         }
 
     override suspend fun delete(screenshot: Screenshot) {

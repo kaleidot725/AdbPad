@@ -2,28 +2,26 @@ package jp.kaleidot725.adbpad.ui.screen.screenshot.component
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.language.Language
+import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import jp.kaleidot725.adbpad.ui.component.DefaultTextField
+import jp.kaleidot725.adbpad.ui.component.SearchSortDropBox
 
 @Composable
 fun ScreenshotHeader(
     searchText: String,
+    sortType: SortType,
+    onUpdateSortType: (SortType) -> Unit,
     onUpdateSearchText: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(modifier) {
-        Icon(
-            imageVector = Icons.Default.Search,
-            contentDescription = null,
-            modifier = Modifier.align(Alignment.CenterVertically).padding(12.dp),
+        SearchSortDropBox(
+            selectedSortType = sortType,
+            onSelectType = onUpdateSortType,
         )
 
         DefaultTextField(
@@ -40,6 +38,8 @@ fun ScreenshotHeader(
 private fun Preview() {
     ScreenshotHeader(
         searchText = "TEST",
+        sortType = SortType.SORT_BY_NAME_ASC,
+        onUpdateSortType = {},
         onUpdateSearchText = {},
     )
 }
