@@ -17,7 +17,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.UserColor
+import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.cursorForHorizontalResize
 import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandActions
