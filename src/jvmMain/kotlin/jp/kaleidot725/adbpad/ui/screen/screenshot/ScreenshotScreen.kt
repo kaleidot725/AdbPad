@@ -77,6 +77,7 @@ fun ScreenshotScreen(
                         sortType = sortType,
                         onUpdateSortType = onUpdateSortType,
                         onUpdateSearchText = onUpdateSearchText,
+                        onDelete = onDeleteScreenshot,
                         modifier = Modifier,
                     )
 
@@ -100,7 +101,6 @@ fun ScreenshotScreen(
                         isCapturing = isCapturing,
                         onOpenDirectory = onOpenDirectory,
                         onCopyScreenshot = onCopyScreenshot,
-                        onDeleteScreenshot = onDeleteScreenshot,
                         modifier =
                             Modifier
                                 .weight(1.0f)

@@ -221,14 +221,24 @@ class TextCommandStateHolder(
                 searchText = currentState.searchText,
                 sortType = currentState.sortType,
             )
-        val newSelectedCommand = commands.getOrNull(selectedCommandIndex)
-        val newSelectedCommandIndex = if (newSelectedCommand == null) commands.lastIndex else selectedCommandIndex
-        val newSelectedCommandId = commands[newSelectedCommandIndex].id
-        update {
-            copy(
-                commands = commands,
-                selectedCommandId = newSelectedCommandId,
-            )
+
+        if (commands.isEmpty()) {
+            update {
+                copy(
+                    commands = commands,
+                    selectedCommandId = null,
+                )
+            }
+        } else {
+            val newSelectedCommand = commands.getOrNull(selectedCommandIndex)
+            val newSelectedCommandIndex = if (newSelectedCommand == null) commands.lastIndex else selectedCommandIndex
+            val newSelectedCommandId = commands[newSelectedCommandIndex].id
+            update {
+                copy(
+                    commands = commands,
+                    selectedCommandId = newSelectedCommandId,
+                )
+            }
         }
     }
 

@@ -7,10 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -25,7 +21,6 @@ fun TextCommandEditor(
     command: TextCommand,
     onUpdateTitle: (id: String, value: String) -> Unit,
     onUpdateText: (id: String, value: String) -> Unit,
-    onDelete: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier) {
@@ -39,15 +34,6 @@ fun TextCommandEditor(
                 onUpdateText = { onUpdateTitle(command.id, it) },
                 modifier = Modifier.weight(1.0f).height(48.dp).padding(horizontal = 12.dp),
             )
-
-            IconButton(
-                onClick = onDelete,
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = "",
-                )
-            }
         }
 
         Divider(modifier = Modifier.height(1.dp).fillMaxWidth().defaultBorder())
@@ -70,6 +56,5 @@ private fun Preview() {
         command = TextCommandDummy.value,
         onUpdateTitle = { _, _ -> },
         onUpdateText = { _, _ -> },
-        onDelete = {},
     )
 }

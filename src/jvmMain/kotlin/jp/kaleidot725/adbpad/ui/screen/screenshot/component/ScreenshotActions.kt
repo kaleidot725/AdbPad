@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.FileCopy
 import androidx.compose.material.icons.filled.FileOpen
 import androidx.compose.runtime.Composable
@@ -28,30 +27,12 @@ fun ScreenshotActions(
     enabled: Boolean,
     onOpen: () -> Unit,
     onCopy: () -> Unit,
-    onDelete: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         modifier = modifier,
     ) {
-        IconButton(
-            onClick = onOpen,
-            enabled = enabled,
-            modifier =
-                Modifier
-                    .padding(vertical = 4.dp)
-                    .size(32.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .align(Alignment.CenterVertically),
-        ) {
-            Icon(
-                imageVector = Icons.Default.FileOpen,
-                contentDescription = "copy",
-                modifier = Modifier.height(20.dp),
-            )
-        }
-
         IconButton(
             onClick = onCopy,
             enabled = enabled,
@@ -70,7 +51,7 @@ fun ScreenshotActions(
         }
 
         IconButton(
-            onClick = onDelete,
+            onClick = onOpen,
             enabled = enabled,
             modifier =
                 Modifier
@@ -80,8 +61,8 @@ fun ScreenshotActions(
                     .align(Alignment.CenterVertically),
         ) {
             Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = "delete",
+                imageVector = Icons.Default.FileOpen,
+                contentDescription = "copy",
                 modifier = Modifier.height(20.dp),
             )
         }
@@ -95,7 +76,6 @@ private fun ScreenshotHeader_Preview() {
         enabled = true,
         onOpen = {},
         onCopy = {},
-        onDelete = {},
         modifier =
             Modifier
                 .fillMaxWidth()

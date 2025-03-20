@@ -43,7 +43,6 @@ fun ScreenshotViewer(
     isCapturing: Boolean,
     onOpenDirectory: () -> Unit,
     onCopyScreenshot: () -> Unit,
-    onDeleteScreenshot: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier) {
@@ -51,7 +50,6 @@ fun ScreenshotViewer(
             enabled = screenshot.file != null,
             onOpen = onOpenDirectory,
             onCopy = onCopyScreenshot,
-            onDelete = onDeleteScreenshot,
             modifier = Modifier.height(48.dp).padding(horizontal = 12.dp).align(Alignment.End),
         )
 
@@ -168,7 +166,6 @@ private fun ScreenshotViewer_Preview() {
         isCapturing = false,
         onOpenDirectory = {},
         onCopyScreenshot = {},
-        onDeleteScreenshot = {},
         modifier = Modifier.fillMaxSize(),
     )
 }

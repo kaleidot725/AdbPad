@@ -48,6 +48,7 @@ fun TextCommandScreen(
                     onUpdateSortType = { onAction(TextCommandAction.UpdateSortType(it)) },
                     onUpdateSearchText = { onAction(TextCommandAction.UpdateSearchText(it)) },
                     onAddNewTextCommand = { onAction(TextCommandAction.AddNewText) },
+                    onDelete = { onAction(TextCommandAction.DeleteSelectedCommandText) },
                 )
 
                 Divider(modifier = Modifier.fillMaxWidth().defaultBorder())
@@ -70,7 +71,6 @@ fun TextCommandScreen(
                         command = state.selectedCommand,
                         onUpdateTitle = { id, title -> onAction(TextCommandAction.UpdateCommandTitle(id, title)) },
                         onUpdateText = { id, text -> onAction(TextCommandAction.UpdateCommandText(id, text)) },
-                        onDelete = { onAction(TextCommandAction.DeleteSelectedCommandText) },
                     )
 
                     Spacer(
