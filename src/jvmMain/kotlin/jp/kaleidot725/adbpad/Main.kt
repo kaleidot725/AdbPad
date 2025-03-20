@@ -20,14 +20,14 @@ import androidx.compose.ui.window.application
 import jp.kaleidot725.adbpad.MainCategory
 import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.domain.di.domainModule
-import jp.kaleidot725.adbpad.domain.model.Dialog
-import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.model.setting.getWindowSize
 import jp.kaleidot725.adbpad.repository.di.repositoryModule
+import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.component.NavigationRail
 import jp.kaleidot725.adbpad.ui.di.stateHolderModule
+import jp.kaleidot725.adbpad.ui.model.Dialog
 import jp.kaleidot725.adbpad.ui.screen.CommandScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
 import jp.kaleidot725.adbpad.ui.screen.command.CommandAction
@@ -157,6 +157,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 selectCommand = screenshotState.selectedCommand,
                                 commands = screenshotState.commands,
                                 searchText = screenshotState.searchText,
+                                sortType = screenshotState.sortType,
                                 onOpenDirectory = {
                                     onAction(ScreenshotAction.OpenDirectory)
                                 },
@@ -183,6 +184,9 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 },
                                 onSelectCommand = {
                                     onAction(ScreenshotAction.SelectScreenshotCommand(it))
+                                },
+                                onUpdateSortType = {
+                                    onAction(ScreenshotAction.UpdateSortType(it))
                                 },
                             )
                         }

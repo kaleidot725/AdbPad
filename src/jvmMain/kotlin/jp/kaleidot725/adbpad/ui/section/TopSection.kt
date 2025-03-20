@@ -53,7 +53,7 @@ fun TopSection(
         modifier = Modifier.fillMaxWidth().height(40.dp),
     ) {
         Box {
-            Row(Modifier.align(Alignment.CenterStart).wrapContentSize()) {
+            Row(Modifier.align(Alignment.CenterStart).wrapContentSize().padding(start = 4.dp)) {
                 DropDownDeviceMenu(
                     devices = state.devices,
                     selectedDevice = state.selectedDevice,

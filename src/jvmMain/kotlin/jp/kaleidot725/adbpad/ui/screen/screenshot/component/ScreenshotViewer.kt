@@ -27,9 +27,9 @@ import coil3.compose.AsyncImage
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Minus
 import com.composables.icons.lucide.Plus
-import jp.kaleidot725.adbpad.domain.model.UserColor
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
+import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
 import jp.kaleidot725.adbpad.ui.component.CommandIconButton
 import jp.kaleidot725.adbpad.ui.component.CommandTextButton
@@ -43,7 +43,6 @@ fun ScreenshotViewer(
     isCapturing: Boolean,
     onOpenDirectory: () -> Unit,
     onCopyScreenshot: () -> Unit,
-    onDeleteScreenshot: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier) {
@@ -51,7 +50,6 @@ fun ScreenshotViewer(
             enabled = screenshot.file != null,
             onOpen = onOpenDirectory,
             onCopy = onCopyScreenshot,
-            onDelete = onDeleteScreenshot,
             modifier = Modifier.height(48.dp).padding(horizontal = 12.dp).align(Alignment.End),
         )
 
@@ -168,7 +166,6 @@ private fun ScreenshotViewer_Preview() {
         isCapturing = false,
         onOpenDirectory = {},
         onCopyScreenshot = {},
-        onDeleteScreenshot = {},
         modifier = Modifier.fillMaxSize(),
     )
 }

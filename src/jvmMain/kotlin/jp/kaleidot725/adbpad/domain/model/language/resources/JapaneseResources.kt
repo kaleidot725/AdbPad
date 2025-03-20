@@ -112,4 +112,7 @@ object JapaneseResources : StringResources {
     override val adbErrorTitle = "ADBエラー"
     override val adbErrorMessage = "ADBサーバーを開始できませんでした、ADBの設定を変更してください"
     override val adbErrorOpenSetting = "設定を開く"
+
+    override val sortByNameAsc: String = "名前(昇順)"
+    override val sortByNameDesc: String = "名前(降順)"
 }

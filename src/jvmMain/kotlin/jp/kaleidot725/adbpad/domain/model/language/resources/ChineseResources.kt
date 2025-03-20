@@ -113,4 +113,7 @@ object ChineseResources : StringResources {
     override val adbErrorTitle = "ADB 错误"
     override val adbErrorMessage = "无法启动 ADB 服务，请更改 ADB 设置。"
     override val adbErrorOpenSetting = "打开设置"
+
+    override val sortByNameAsc: String = "名稱(升序)"
+    override val sortByNameDesc: String = "名稱(降序)"
 }

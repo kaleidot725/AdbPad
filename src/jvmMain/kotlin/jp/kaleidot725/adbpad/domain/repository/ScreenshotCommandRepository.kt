@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.domain.repository
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
+import jp.kaleidot725.adbpad.domain.model.sort.SortType
 
 interface ScreenshotCommandRepository {
     fun getCommands(): List<ScreenshotCommand>
@@ -15,7 +16,10 @@ interface ScreenshotCommandRepository {
         onFailed: suspend () -> Unit,
     )
 
-    suspend fun getScreenshots(): List<Screenshot>
+    suspend fun getScreenshots(
+        searchText: String,
+        sortType: SortType,
+    ): List<Screenshot>
 
     suspend fun delete(screenshot: Screenshot)
 }

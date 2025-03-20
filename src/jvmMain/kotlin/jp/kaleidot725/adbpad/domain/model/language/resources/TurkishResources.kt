@@ -113,4 +113,7 @@ object TurkishResources : StringResources {
     override val adbErrorTitle = "Adb Hatası"
     override val adbErrorMessage = "Adb sunucusu başlatılamıyor, lütfen adb ayarlarını değiştirin."
     override val adbErrorOpenSetting = "Ayarları Aç"
+
+    override val sortByNameAsc: String = "İsim (artan sıra)"
+    override val sortByNameDesc: String = " İsim (azalan sıra)"
 }

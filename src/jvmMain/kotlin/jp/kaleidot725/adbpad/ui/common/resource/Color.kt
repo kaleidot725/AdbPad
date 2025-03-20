@@ -17,16 +17,15 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.UserColor.getSplitterColor
+import jp.kaleidot725.adbpad.ui.common.resource.UserColor.getSplitterColor
 
 @Composable
-fun Modifier.selectedBackground(isSelected: Boolean): Modifier {
-    return if (isSelected) {
+fun Modifier.selectedBackground(isSelected: Boolean): Modifier =
+    if (isSelected) {
         this.background(color = MaterialTheme.colors.primary.copy(alpha = 0.2f))
     } else {
         this
     }
-}
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -61,6 +60,4 @@ fun Modifier.clickableBackground(
 }
 
 @Composable
-fun Modifier.defaultBorder(): Modifier {
-    return this.border(shape = RoundedCornerShape(8.dp), color = getSplitterColor(), width = 1.dp)
-}
+fun Modifier.defaultBorder(): Modifier = this.border(shape = RoundedCornerShape(8.dp), color = getSplitterColor(), width = 1.dp)

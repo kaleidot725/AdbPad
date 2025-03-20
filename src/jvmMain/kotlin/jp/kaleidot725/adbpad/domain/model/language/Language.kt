@@ -211,6 +211,12 @@ object Language : StringResources {
     override val textCommandOptionTab: String
         get() = getCurrentResources().textCommandOptionTab
 
+    override val sortByNameAsc: String
+        get() = getCurrentResources().sortByNameAsc
+
+    override val sortByNameDesc: String
+        get() = getCurrentResources().sortByNameDesc
+
     private var currentType: Type = Type.ENGLISH
 
     fun switch(type: Type) {

@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.domain.model
+package jp.kaleidot725.adbpad.ui.common.resource
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable

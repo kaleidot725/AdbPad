@@ -113,4 +113,7 @@ object EnglishResources : StringResources {
     override val adbErrorTitle = "Adb Error"
     override val adbErrorMessage = "Can't start adb server, Please change adb setting."
     override val adbErrorOpenSetting = "Open Setting"
+
+    override val sortByNameAsc: String = "Name(Asc)"
+    override val sortByNameDesc: String = "Name(Desc)"
 }

@@ -32,7 +32,6 @@ interface StringResources {
     val commandStartEventFormat: String
     val commandEndEventFormat: String
     val commandErrorEventFormat: String
-
     val commandPointerLocationOnTitle: String
     val commandPointerLocationOnDetails: String
     val commandPointerLocationOffTitle: String
@@ -94,13 +93,11 @@ interface StringResources {
     val menuScreenshot: String
 
     val settingAppearanceHeader: String
-
     val settingLanguageHeader: String
     val settingLanguageEnglish: String
     val settingLanguageJapanese: String
     val settingLanguageChinese: String
     val settingLanguageTurkish: String
-
     val settingAdbHeader: String
     val settingAdbDirectoryPathTitle: String
     val settingAdbPortNumberTitle: String
@@ -114,4 +111,7 @@ interface StringResources {
 
     val textCommandOptionNewLine: String
     val textCommandOptionTab: String
+
+    val sortByNameAsc: String
+    val sortByNameDesc: String
 }

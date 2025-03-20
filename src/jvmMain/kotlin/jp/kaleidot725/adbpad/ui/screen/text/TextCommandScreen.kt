@@ -17,7 +17,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.UserColor
+import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.cursorForHorizontalResize
 import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandActions
@@ -44,8 +44,11 @@ fun TextCommandScreen(
             Column {
                 TextCommandHeader(
                     searchText = state.searchText,
+                    sortType = state.sortType,
+                    onUpdateSortType = { onAction(TextCommandAction.UpdateSortType(it)) },
                     onUpdateSearchText = { onAction(TextCommandAction.UpdateSearchText(it)) },
                     onAddNewTextCommand = { onAction(TextCommandAction.AddNewText) },
+                    onDelete = { onAction(TextCommandAction.DeleteSelectedCommandText) },
                 )
 
                 Divider(modifier = Modifier.fillMaxWidth().defaultBorder())
@@ -68,7 +71,6 @@ fun TextCommandScreen(
                         command = state.selectedCommand,
                         onUpdateTitle = { id, title -> onAction(TextCommandAction.UpdateCommandTitle(id, title)) },
                         onUpdateText = { id, text -> onAction(TextCommandAction.UpdateCommandText(id, text)) },
-                        onDelete = { onAction(TextCommandAction.DeleteSelectedCommandText) },
                     )
 
                     Spacer(
