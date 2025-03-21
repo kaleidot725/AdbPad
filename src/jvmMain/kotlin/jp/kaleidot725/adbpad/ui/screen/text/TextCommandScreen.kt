@@ -69,6 +69,7 @@ fun TextCommandScreen(
                 if (state.selectedCommand != null) {
                     TextCommandEditor(
                         command = state.selectedCommand,
+                        option = state.selectedTextCommandOption,
                         onUpdateTitle = { id, title -> onAction(TextCommandAction.UpdateCommandTitle(id, title)) },
                         onUpdateText = { id, text -> onAction(TextCommandAction.UpdateCommandText(id, text)) },
                     )

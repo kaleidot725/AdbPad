@@ -6,10 +6,26 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.OffsetMapping
+import androidx.compose.ui.text.input.TransformedText
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.ui.common.dummy.TextCommandDummy
@@ -19,6 +35,7 @@ import jp.kaleidot725.adbpad.ui.component.DefaultTextField
 @Composable
 fun TextCommandEditor(
     command: TextCommand,
+    option: TextCommand.Option,
     onUpdateTitle: (id: String, value: String) -> Unit,
     onUpdateText: (id: String, value: String) -> Unit,
     modifier: Modifier = Modifier,
@@ -38,12 +55,21 @@ fun TextCommandEditor(
 
         Divider(modifier = Modifier.height(1.dp).fillMaxWidth().defaultBorder())
 
-        DefaultTextField(
-            id = command.id,
-            initialText = command.text,
-            placeHolder = "",
+        val primaryColor = MaterialTheme.colors.primary
+        val transformation by remember(primaryColor, option) {
+            mutableStateOf(LineBreakTransformation(option, primaryColor))
+        }
+        var commandText by remember(command.id) { mutableStateOf(command.text) }
+        BasicTextField(
+            value = commandText,
+            onValueChange = { textValue ->
+                commandText = textValue
+                onUpdateText(command.id, commandText)
+            },
+            visualTransformation = transformation,
             maxLines = Int.MAX_VALUE,
-            onUpdateText = { onUpdateText(command.id, it) },
+            textStyle = TextStyle(color = MaterialTheme.colors.onSurface, fontSize = 16.sp),
+            cursorBrush = SolidColor(MaterialTheme.colors.onSurface),
             modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp, horizontal = 12.dp),
         )
     }
@@ -54,7 +80,56 @@ fun TextCommandEditor(
 private fun Preview() {
     TextCommandEditor(
         command = TextCommandDummy.value,
+        option = TextCommand.Option.SendWithTab,
         onUpdateTitle = { _, _ -> },
         onUpdateText = { _, _ -> },
     )
+}
+
+private class LineBreakTransformation(
+    private val option: TextCommand.Option,
+    private val optionTextColor: Color = Color.Gray,
+) : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
+        val optionCharacter =
+            when (option) {
+                TextCommand.Option.SendWithTab -> '⇥'
+                TextCommand.Option.SendWithNewLine -> '↵'
+            }
+
+        val builder = AnnotatedString.Builder()
+        val originalText = text.toString()
+        var lastIndex = 0
+
+        val newlineIndices = originalText.indices.filter { originalText[it] == '\n' }
+        for (newlineIndex in newlineIndices) {
+            builder.append(originalText.substring(lastIndex, newlineIndex))
+
+            builder.withStyle(SpanStyle(color = optionTextColor)) {
+                append(optionCharacter)
+            }
+
+            builder.append("\n")
+
+            lastIndex = newlineIndex + 1
+        }
+        if (lastIndex < originalText.length) builder.append(originalText.substring(lastIndex))
+
+        val annotatedString = builder.toAnnotatedString()
+        val offsetMapping =
+            object : OffsetMapping {
+                override fun originalToTransformed(offset: Int): Int {
+                    val originalSubstring = originalText.substring(0, offset)
+                    val newlineCount = originalSubstring.count { it == '\n' }
+                    return offset + newlineCount
+                }
+
+                override fun transformedToOriginal(offset: Int): Int {
+                    val transformedText = annotatedString.text.substring(0, offset)
+                    val specialCharCount = transformedText.count { it == optionCharacter }
+                    return offset - specialCharCount
+                }
+            }
+        return TransformedText(annotatedString, offsetMapping)
+    }
 }
