@@ -1,3 +1,5 @@
+package jp.kaleidot725.adbpad
+
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Colors
@@ -17,17 +19,14 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowScope
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import jp.kaleidot725.adbpad.MainCategory
-import jp.kaleidot725.adbpad.MainStateHolder
-import jp.kaleidot725.adbpad.domain.di.domainModule
+import jp.kaleidot725.adbpad.di.domainModule
+import jp.kaleidot725.adbpad.di.repositoryModule
+import jp.kaleidot725.adbpad.di.stateHolderModule
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.model.setting.getWindowSize
-import jp.kaleidot725.adbpad.repository.di.repositoryModule
 import jp.kaleidot725.adbpad.ui.common.resource.UserColor
-import jp.kaleidot725.adbpad.ui.component.NavigationRail
-import jp.kaleidot725.adbpad.ui.di.stateHolderModule
-import jp.kaleidot725.adbpad.ui.model.Dialog
+import jp.kaleidot725.adbpad.ui.component.rail.NavigationRail
 import jp.kaleidot725.adbpad.ui.screen.CommandScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
 import jp.kaleidot725.adbpad.ui.screen.command.CommandAction
@@ -39,7 +38,8 @@ import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingSideEffect
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
-import jp.kaleidot725.adbpad.ui.section.TopSection
+import jp.kaleidot725.adbpad.ui.section.top.TopAction
+import jp.kaleidot725.adbpad.ui.section.top.TopSection
 import org.jetbrains.compose.reload.DevelopmentEntryPoint
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
 import org.jetbrains.compose.splitpane.rememberSplitPaneState
@@ -90,31 +90,33 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
     val screenshotSplitPaneState = rememberSplitPaneState()
 
     DisposableEffect(mainStateHolder) {
-        mainStateHolder.setup()
+        mainStateHolder.onSetup()
         onDispose {
-            mainStateHolder.saveSetting(decoratedWindowScope.getWindowSize())
-            mainStateHolder.dispose()
+            mainStateHolder.onAction(MainAction.SaveSetting(decoratedWindowScope.getWindowSize()))
+            mainStateHolder.onDispose()
         }
     }
 
     Crossfade(state.language) {
         Surface {
             ScreenLayout(
-                top = {
-                    val topStateHolder = mainStateHolder.topStateHolder
-                    val topState by topStateHolder.state.collectAsState()
-                    TopSection(
-                        state = topState,
-                        onExecuteCommand = topStateHolder::executeCommand,
-                        onSelectDevice = topStateHolder::selectDevice,
-                        onRefresh = mainStateHolder::refresh,
-                    )
-                },
                 navigationRail = {
                     NavigationRail(
                         category = state.category,
                         onSelectCategory = mainStateHolder::clickCategory,
-                        onOpenSetting = mainStateHolder::openSetting,
+                        onOpenSetting = { mainStateHolder.onAction(MainAction.OpenSetting) },
+                    )
+                },
+                top = {
+                    val topStateHolder = mainStateHolder.topStateHolder
+                    val topState by topStateHolder.state.collectAsState()
+                    val onAction = topStateHolder::onAction
+
+                    TopSection(
+                        state = topState,
+                        onExecuteCommand = { onAction(TopAction.ExecuteCommand(it)) },
+                        onSelectDevice = { onAction(TopAction.SelectDevice(it)) },
+                        onRefresh = mainStateHolder::onRefresh,
                     )
                 },
                 content = {
@@ -194,7 +196,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                 },
                 dialog = {
                     when (state.dialog) {
-                        Dialog.Setting -> {
+                        MainDialog.Setting -> {
                             val settingStateHolder by remember {
                                 mutableStateOf(
                                     GlobalContext.get().get<SettingStateHolder>(),
@@ -206,7 +208,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                             LaunchedEffect(Unit) {
                                 settingStateHolder.sideEffect.collect {
                                     when (it) {
-                                        SettingSideEffect.Saved -> mainStateHolder.refresh()
+                                        SettingSideEffect.Saved -> mainStateHolder.onRefresh()
                                     }
                                 }
                             }
@@ -232,14 +234,14 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                 onSave = { settingAction(SettingAction.Save) },
                                 canSave = settingState.canSave,
                                 isSaving = settingState.isSaving,
-                                onCancel = { mainStateHolder.refresh() },
+                                onCancel = { mainStateHolder.onRefresh() },
                                 canCancel = settingState.canCancel,
                             )
                         }
 
-                        Dialog.AdbError -> {
+                        MainDialog.AdbError -> {
                             AdbErrorScreen(
-                                onOpenSetting = { mainStateHolder.openSetting() },
+                                onOpenSetting = { mainStateHolder.onAction(MainAction.OpenSetting) },
                             )
                         }
 

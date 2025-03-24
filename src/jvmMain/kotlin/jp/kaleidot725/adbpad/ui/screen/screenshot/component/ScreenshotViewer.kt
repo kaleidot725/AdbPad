@@ -31,8 +31,8 @@ import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
-import jp.kaleidot725.adbpad.ui.component.CommandIconButton
-import jp.kaleidot725.adbpad.ui.component.CommandTextButton
+import jp.kaleidot725.adbpad.ui.component.button.CommandIconButton
+import jp.kaleidot725.adbpad.ui.component.button.CommandTextButton
 import kotlinx.coroutines.launch
 import net.engawapg.lib.zoomable.rememberZoomState
 import net.engawapg.lib.zoomable.zoomable

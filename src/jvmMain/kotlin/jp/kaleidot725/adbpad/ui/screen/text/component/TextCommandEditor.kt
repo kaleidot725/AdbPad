@@ -30,7 +30,7 @@ import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.ui.common.dummy.TextCommandDummy
 import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
-import jp.kaleidot725.adbpad.ui.component.DefaultTextField
+import jp.kaleidot725.adbpad.ui.component.text.DefaultTextField
 
 @Composable
 fun TextCommandEditor(

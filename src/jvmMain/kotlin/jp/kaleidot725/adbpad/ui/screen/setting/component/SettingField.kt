@@ -4,7 +4,7 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import jp.kaleidot725.adbpad.ui.component.DefaultOutlineTextField
+import jp.kaleidot725.adbpad.ui.component.text.DefaultOutlineTextField
 
 @Composable
 fun SettingField(

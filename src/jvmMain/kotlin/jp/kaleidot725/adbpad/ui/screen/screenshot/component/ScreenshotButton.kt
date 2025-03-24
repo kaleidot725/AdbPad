@@ -24,7 +24,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
-import jp.kaleidot725.adbpad.ui.component.RunningIndicator
+import jp.kaleidot725.adbpad.ui.component.indicator.RunningIndicator
 
 @Composable
 fun ScreenshotButton(
