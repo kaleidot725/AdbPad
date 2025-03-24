@@ -1,5 +1,10 @@
 package jp.kaleidot725.adbpad
 
+import jp.kaleidot725.adbpad.core.mvi.MVI
+import jp.kaleidot725.adbpad.core.mvi.MVIAction
+import jp.kaleidot725.adbpad.core.mvi.MVISideEffect
+import jp.kaleidot725.adbpad.core.mvi.MVIState
+import jp.kaleidot725.adbpad.core.mvi.mvi
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
@@ -8,23 +13,12 @@ import jp.kaleidot725.adbpad.domain.usecase.refresh.RefreshUseCase
 import jp.kaleidot725.adbpad.domain.usecase.theme.GetDarkModeFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
-import jp.kaleidot725.adbpad.ui.common.ChildStateHolder
-import jp.kaleidot725.adbpad.ui.common.ParentStateHolder
-import jp.kaleidot725.adbpad.ui.model.Dialog
 import jp.kaleidot725.adbpad.ui.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
-import jp.kaleidot725.adbpad.ui.section.TopStateHolder
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import jp.kaleidot725.adbpad.ui.section.top.TopStateHolder
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class MainStateHolder(
@@ -38,72 +32,56 @@ class MainStateHolder(
     private val getDarkModeFlowUseCase: GetDarkModeFlowUseCase,
     private val getLanguageUseCase: GetLanguageUseCase,
     private val refreshUseCase: RefreshUseCase,
-) : ParentStateHolder {
-    private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
-    private val language: MutableStateFlow<Language.Type> = MutableStateFlow(Language.Type.ENGLISH)
-    private val windowSize: MutableStateFlow<WindowSize> = MutableStateFlow(WindowSize.UNKNOWN)
-    private val isDark: MutableStateFlow<Boolean?> = MutableStateFlow(null)
-    private val dialog: MutableStateFlow<Dialog?> = MutableStateFlow(null)
-    private val category: MutableStateFlow<MainCategory> = MutableStateFlow(MainCategory.Command)
-
-    val state: StateFlow<MainState> =
-        combine(language, isDark, windowSize, dialog, category) { data ->
-            MainState(
-                data[0] as Language.Type,
-                data[1] as Boolean?,
-                data[2] as WindowSize,
-                data[3] as Dialog?,
-                data[4] as MainCategory,
-            )
-        }.stateIn(coroutineScope, SharingStarted.WhileSubscribed(), MainState())
-
-    private val children: List<ChildStateHolder<*>> =
+) : MVI<MainState, MainAction, MainSideEffect> by mvi(initialUiState = MainState()) {
+    private val children: List<MVI<out MVIState, out MVIAction, out MVISideEffect>> =
         listOf(
+            commandStateHolder,
+            textCommandStateHolder,
+            screenshotStateHolder,
             topStateHolder,
         )
 
     init {
-        startSyncDarkMode()
         restoreWindowSize()
+        startSyncDarkMode()
         checkAdbServer()
         syncLanguage()
     }
 
-    override fun setup() {
-        children.forEach { it.setup() }
-        textCommandStateHolder.onSetup()
-        screenshotStateHolder.onSetup()
-        commandStateHolder.onSetup()
+    override fun onSetup() {
+        children.forEach { it.onSetup() }
     }
 
-    override fun refresh() {
+    override fun onRefresh() {
         startSyncDarkMode()
         checkAdbServer()
         syncLanguage()
         refreshUseCase()
-        children.forEach { it.refresh() }
-        textCommandStateHolder.onRefresh()
-        screenshotStateHolder.onRefresh()
-        commandStateHolder.onRefresh()
+        children.forEach { it.onRefresh() }
     }
 
-    override fun dispose() {
-        children.forEach { it.dispose() }
-        textCommandStateHolder.onDispose()
-        screenshotStateHolder.onDispose()
-        commandStateHolder.onDispose()
+    override fun onDispose() {
+        children.forEach { it.onDispose() }
     }
 
-    fun saveSetting(windowSize: WindowSize) {
+    override fun onAction(uiAction: MainAction) {
+        when (uiAction) {
+            MainAction.OpenSetting -> openSetting()
+            is MainAction.SaveSetting -> saveSetting(uiAction.windowSize)
+            is MainAction.ClickCategory -> clickCategory(uiAction.category)
+        }
+    }
+
+    private fun saveSetting(windowSize: WindowSize) {
         saveWindowSize(windowSize)
     }
 
-    fun openSetting() {
-        dialog.value = Dialog.Setting
+    private fun openSetting() {
+        update { copy(dialog = MainDialog.Setting) }
     }
 
     fun clickCategory(category: MainCategory) {
-        this.category.value = category
+        update { copy(category = category) }
     }
 
     private var themeFlowJob: Job? = null
@@ -112,10 +90,7 @@ class MainStateHolder(
         themeFlowJob?.cancel()
         themeFlowJob =
             coroutineScope.launch {
-                val flow = getDarkModeFlowUseCase()
-                flow.collectLatest {
-                    isDark.value = it
-                }
+                getDarkModeFlowUseCase().collectLatest { update { copy(isDark = it) } }
             }
     }
 
@@ -127,13 +102,15 @@ class MainStateHolder(
 
     private fun restoreWindowSize() {
         coroutineScope.launch {
-            windowSize.value = getWindowSizeUseCase()
+            val size = getWindowSizeUseCase()
+            update { copy(size = size) }
         }
     }
 
     private fun checkAdbServer() {
         coroutineScope.launch {
-            dialog.value = if (startAdbUseCase()) null else Dialog.AdbError
+            val dialog = if (startAdbUseCase()) null else MainDialog.AdbError
+            update { copy(dialog = dialog) }
         }
     }
 
@@ -141,7 +118,7 @@ class MainStateHolder(
         coroutineScope.launch {
             val type = getLanguageUseCase()
             Language.switch(type)
-            language.value = type
+            update { copy(language = type) }
         }
     }
 }

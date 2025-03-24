@@ -20,8 +20,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.sort.SortType
-import jp.kaleidot725.adbpad.ui.component.DefaultTextField
-import jp.kaleidot725.adbpad.ui.component.SearchSortDropBox
+import jp.kaleidot725.adbpad.ui.component.dropbox.SearchSortDropBox
+import jp.kaleidot725.adbpad.ui.component.text.DefaultTextField
 
 @Composable
 fun TextCommandHeader(

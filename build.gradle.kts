@@ -48,7 +48,7 @@ kotlin {
 
 compose.desktop {
     application {
-        mainClass = "MainKt"
+        mainClass = "jp.kaleidot725.adbpad.MainKt"
         buildTypes.release {
             proguard.isEnabled = false
         }
@@ -117,5 +117,5 @@ configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
 
 // build.gradle.kts
 tasks.register<ComposeHotRun>("runHot") {
-    mainClass.set("MainKt")
+    mainClass.set("jp.kaleidot725.adbpad.MainKt")
 }

@@ -21,9 +21,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
-import jp.kaleidot725.adbpad.ui.component.DefaultOutlineTextField
-import jp.kaleidot725.adbpad.ui.component.FloatingDialog
-import jp.kaleidot725.adbpad.ui.component.RadioButtons
+import jp.kaleidot725.adbpad.ui.component.button.FloatingDialog
+import jp.kaleidot725.adbpad.ui.component.button.RadioButtons
+import jp.kaleidot725.adbpad.ui.component.text.DefaultOutlineTextField
 import jp.kaleidot725.adbpad.ui.screen.setting.component.LanguageDropButton
 import jp.kaleidot725.adbpad.ui.screen.setting.component.SettingHeader
 import jp.kaleidot725.adbpad.ui.screen.setting.component.SettingTitle
