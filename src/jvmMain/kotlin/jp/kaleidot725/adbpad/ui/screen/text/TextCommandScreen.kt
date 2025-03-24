@@ -24,6 +24,8 @@ import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandActions
 import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandEditor
 import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandHeader
 import jp.kaleidot725.adbpad.ui.screen.text.component.TextCommandList
+import jp.kaleidot725.adbpad.ui.screen.text.state.TextCommandAction
+import jp.kaleidot725.adbpad.ui.screen.text.state.TextCommandState
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
 import org.jetbrains.compose.splitpane.HorizontalSplitPane
 import org.jetbrains.compose.splitpane.SplitPaneState

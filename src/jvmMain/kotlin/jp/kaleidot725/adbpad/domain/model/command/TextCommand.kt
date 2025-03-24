@@ -28,4 +28,11 @@ data class TextCommand(
         SendWithTab,
         SendWithNewLine,
     }
+
+    companion object {
+        fun createNew(
+            title: String,
+            text: String,
+        ): TextCommand = TextCommand(title = title, text = text, isRunning = false)
+    }
 }

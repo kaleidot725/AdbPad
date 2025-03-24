@@ -2,6 +2,7 @@ package jp.kaleidot725.adbpad.ui.screen.screenshot
 
 import jp.kaleidot725.adbpad.core.mvi.MVI
 import jp.kaleidot725.adbpad.core.mvi.mvi
+import jp.kaleidot725.adbpad.core.utils.ClipBoardUtils
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.os.OSContext
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
@@ -10,7 +11,9 @@ import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
-import jp.kaleidot725.adbpad.domain.utils.ClipBoardUtils
+import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotAction
+import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotSideEffect
+import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
