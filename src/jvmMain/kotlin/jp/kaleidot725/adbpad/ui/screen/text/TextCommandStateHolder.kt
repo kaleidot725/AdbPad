@@ -8,6 +8,9 @@ import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.ExecuteTextCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.text.GetTextCommandUseCase
+import jp.kaleidot725.adbpad.ui.screen.text.state.TextCommandAction
+import jp.kaleidot725.adbpad.ui.screen.text.state.TextCommandSideEffect
+import jp.kaleidot725.adbpad.ui.screen.text.state.TextCommandState
 import kotlinx.coroutines.launch
 
 class TextCommandStateHolder(

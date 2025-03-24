@@ -7,6 +7,9 @@ import jp.kaleidot725.adbpad.domain.model.command.NormalCommandCategory
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetNormalCommandGroup
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
+import jp.kaleidot725.adbpad.ui.screen.command.state.CommandAction
+import jp.kaleidot725.adbpad.ui.screen.command.state.CommandSideEffect
+import jp.kaleidot725.adbpad.ui.screen.command.state.CommandState
 import kotlinx.coroutines.launch
 
 class CommandStateHolder(

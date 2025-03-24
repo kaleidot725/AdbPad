@@ -1,7 +1,7 @@
 package jp.kaleidot725.adbpad.domain.usecase.text
 
+import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
-import jp.kaleidot725.adbpad.domain.service.TextCommandFactory
 
 class AddTextCommandUseCase(
     private val textCommandRepository: TextCommandRepository,
@@ -9,5 +9,5 @@ class AddTextCommandUseCase(
     suspend operator fun invoke(
         title: String,
         text: String,
-    ): Boolean = textCommandRepository.addTextCommand(TextCommandFactory.createNew(title, text))
+    ): Boolean = textCommandRepository.addTextCommand(TextCommand.createNew(title, text))
 }
