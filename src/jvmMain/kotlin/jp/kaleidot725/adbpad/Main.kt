@@ -30,6 +30,7 @@ import jp.kaleidot725.adbpad.ui.component.rail.NavigationRail
 import jp.kaleidot725.adbpad.ui.screen.CommandScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
 import jp.kaleidot725.adbpad.ui.screen.command.state.CommandAction
+import jp.kaleidot725.adbpad.ui.screen.device.DeviceScreen
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotAction
@@ -103,7 +104,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                 navigationRail = {
                     NavigationRail(
                         category = state.category,
-                        onSelectCategory = mainStateHolder::clickCategory,
+                        onSelectCategory = { mainStateHolder.onAction(MainAction.ClickCategory(it)) },
                         onOpenSetting = { mainStateHolder.onAction(MainAction.OpenSetting) },
                     )
                 },
@@ -117,6 +118,7 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                         onExecuteCommand = { onAction(TopAction.ExecuteCommand(it)) },
                         onSelectDevice = { onAction(TopAction.SelectDevice(it)) },
                         onRefresh = mainStateHolder::onRefresh,
+                        onOpenDevice = { mainStateHolder.onAction(MainAction.OpenDevice) },
                     )
                 },
                 content = {
@@ -242,6 +244,12 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                         MainDialog.AdbError -> {
                             AdbErrorScreen(
                                 onOpenSetting = { mainStateHolder.onAction(MainAction.OpenSetting) },
+                            )
+                        }
+
+                        MainDialog.Device -> {
+                            DeviceScreen(
+                                onClose = { mainStateHolder.onRefresh() },
                             )
                         }
 

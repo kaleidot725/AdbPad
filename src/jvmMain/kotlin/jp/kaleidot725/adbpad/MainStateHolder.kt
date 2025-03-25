@@ -66,7 +66,8 @@ class MainStateHolder(
 
     override fun onAction(uiAction: MainAction) {
         when (uiAction) {
-            MainAction.OpenSetting -> openSetting()
+            is MainAction.OpenSetting -> openSetting()
+            is MainAction.OpenDevice -> openDevice()
             is MainAction.SaveSetting -> saveSetting(uiAction.windowSize)
             is MainAction.ClickCategory -> clickCategory(uiAction.category)
         }
@@ -80,7 +81,11 @@ class MainStateHolder(
         update { copy(dialog = MainDialog.Setting) }
     }
 
-    fun clickCategory(category: MainCategory) {
+    private fun openDevice() {
+        update { copy(dialog = MainDialog.Device) }
+    }
+
+    private fun clickCategory(category: MainCategory) {
         update { copy(category = category) }
     }
 
