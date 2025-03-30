@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.ui.screen.setting.component
+package jp.kaleidot725.adbpad.ui.component.text
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.material.MaterialTheme
@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun SettingTitle(
+fun SubTitle(
     text: String,
     modifier: Modifier = Modifier,
 ) {
@@ -16,6 +16,6 @@ fun SettingTitle(
 
 @Preview
 @Composable
-private fun SettingTitle_Preview() {
-    SettingTitle("ADB ＆ Android SDK")
+private fun Preview() {
+    SubTitle("ADB ＆ Android SDK")
 }

@@ -13,4 +13,6 @@ sealed class MainAction : MVIAction {
     ) : MainAction()
 
     data object OpenSetting : MainAction()
+
+    data object OpenDevice : MainAction()
 }

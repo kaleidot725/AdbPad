@@ -71,3 +71,5 @@ gradle-app.setting
 .gradle/*
 
 local.properties
+.kotlin/sessions
+.idea/artifacts

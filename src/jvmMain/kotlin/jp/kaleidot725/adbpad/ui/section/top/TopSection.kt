@@ -1,6 +1,7 @@
 package jp.kaleidot725.adbpad.ui.section.top
 
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -44,6 +45,7 @@ fun TopSection(
     state: TopState,
     onExecuteCommand: (DeviceControlCommand) -> Unit,
     onSelectDevice: (Device) -> Unit,
+    onOpenDevice: () -> Unit,
     onRefresh: () -> Unit,
 ) {
     var isPress: Boolean by remember { mutableStateOf(false) }
@@ -59,6 +61,7 @@ fun TopSection(
                     devices = state.devices,
                     selectedDevice = state.selectedDevice,
                     onSelectDevice = onSelectDevice,
+                    onOpenDevice = onOpenDevice,
                     modifier = Modifier.wrapContentWidth(),
                 )
             }
@@ -124,4 +127,16 @@ fun TopSection(
             }
         }
     }
+}
+
+@Preview
+@Composable
+private fun Preview() {
+    TopSection(
+        state = TopState(),
+        onExecuteCommand = {},
+        onSelectDevice = {},
+        onRefresh = {},
+        onOpenDevice = {},
+    )
 }

@@ -26,10 +26,10 @@ fun DeviceSelector(
     Box(modifier) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 4.dp),
         ) {
             Text(
-                text = selectedDevice?.serial ?: Language.notFoundDevice,
+                text = selectedDevice?.displayName ?: Language.notFoundDevice,
                 style = MaterialTheme.typography.subtitle2,
                 color = MaterialTheme.colors.onBackground,
                 modifier = Modifier.align(Alignment.CenterVertically),
@@ -48,6 +48,6 @@ fun DeviceSelector(
 @Preview
 @Composable
 private fun SelectedDevice_Preview() {
-    val sample = Device("DEVICE", DeviceState.DEVICE)
+    val sample = Device("DEVICE", "NAME", DeviceState.DEVICE)
     DeviceSelector(selectedDevice = sample)
 }

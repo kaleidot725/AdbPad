@@ -11,6 +11,5 @@ data class MainState(
     val size: WindowSize = WindowSize.UNKNOWN,
     val dialog: MainDialog? = null,
     val category: MainCategory = MainCategory.Command,
-    val devices: List<Device> = emptyList(),
     val selectedDevice: Device? = null,
 ) : MVIState

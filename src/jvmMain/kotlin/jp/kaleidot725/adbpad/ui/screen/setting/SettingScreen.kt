@@ -24,9 +24,9 @@ import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.ui.component.button.FloatingDialog
 import jp.kaleidot725.adbpad.ui.component.button.RadioButtons
 import jp.kaleidot725.adbpad.ui.component.text.DefaultOutlineTextField
+import jp.kaleidot725.adbpad.ui.component.text.SubTitle
+import jp.kaleidot725.adbpad.ui.component.text.Title
 import jp.kaleidot725.adbpad.ui.screen.setting.component.LanguageDropButton
-import jp.kaleidot725.adbpad.ui.screen.setting.component.SettingHeader
-import jp.kaleidot725.adbpad.ui.screen.setting.component.SettingTitle
 
 @Composable
 fun SettingScreen(
@@ -64,11 +64,11 @@ fun SettingScreen(
 
         Box(modifier = Modifier.padding(16.dp)) {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                SettingHeader(modifier = Modifier.fillMaxWidth())
+                Title(text = Language.setting, modifier = Modifier.fillMaxWidth())
 
                 Divider(modifier = Modifier.fillMaxWidth())
 
-                SettingTitle(
+                SubTitle(
                     text = Language.settingLanguageHeader,
                     modifier = Modifier.padding(horizontal = 4.dp),
                 )
@@ -82,7 +82,7 @@ fun SettingScreen(
 
                 Divider(modifier = Modifier.fillMaxWidth())
 
-                SettingTitle(
+                SubTitle(
                     text = Language.settingAppearanceHeader,
                     modifier = Modifier.padding(horizontal = 4.dp),
                 )
@@ -96,7 +96,7 @@ fun SettingScreen(
 
                 Divider(modifier = Modifier.fillMaxWidth())
 
-                SettingTitle(
+                SubTitle(
                     text = Language.settingAdbHeader,
                     modifier = Modifier.padding(horizontal = 4.dp),
                 )
