@@ -1,48 +1,35 @@
 package jp.kaleidot725.adbpad.data.local
 
 import jp.kaleidot725.adbpad.domain.model.language.Language
-import jp.kaleidot725.adbpad.domain.model.os.OSContext
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.domain.model.setting.SdkPath
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import java.io.File
 import java.io.IOException
 
 object SettingFileCreator {
+    private const val FILE_NAME = "config.json"
+
     fun save(setting: Setting): Boolean =
         try {
-            createDir()
-            File(getFilePath()).outputStream().apply {
+            FilePathUtil.createDir()
+            FilePathUtil.getFilePath(FILE_NAME).outputStream().apply {
                 this.write(Json.encodeToString(setting).toByteArray())
                 this.close()
             }
             true
-        } catch (exception: IOException) {
+        } catch (_: IOException) {
             false
         }
 
     fun load(): Setting =
         try {
-            val content = File(getFilePath()).readText()
+            val content = FilePathUtil.getFilePath(FILE_NAME).readText()
             Json.decodeFromString(string = content)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             Setting()
         }
-
-    private fun getDirPath() = OSContext.resolveOSContext().directory
-
-    private fun getFilePath() = getDirPath() + "config.json"
-
-    private fun createDir() {
-        try {
-            val file = File(getDirPath())
-            if (!file.exists()) file.mkdir()
-        } catch (e: Exception) {
-            return
-        }
-    }
 
     @Serializable
     data class Setting(

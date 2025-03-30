@@ -29,7 +29,7 @@ fun DeviceSelector(
             modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 4.dp),
         ) {
             Text(
-                text = selectedDevice?.serial ?: Language.notFoundDevice,
+                text = selectedDevice?.displayName ?: Language.notFoundDevice,
                 style = MaterialTheme.typography.subtitle2,
                 color = MaterialTheme.colors.onBackground,
                 modifier = Modifier.align(Alignment.CenterVertically),

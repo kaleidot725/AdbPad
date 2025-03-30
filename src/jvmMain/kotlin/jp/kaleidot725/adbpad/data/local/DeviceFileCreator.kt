@@ -1,14 +1,13 @@
 package jp.kaleidot725.adbpad.data.local
 
-import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.io.IOException
 
-object TextCommandFileCreator {
-    private const val FILE_NAME = "text_command.json"
+object DeviceFileCreator {
+    private const val FILE_NAME = "device.json"
 
-    fun save(setting: TextCommandSetting): Boolean =
+    fun save(setting: DevicesSetting): Boolean =
         try {
             FilePathUtil.createDir()
             FilePathUtil.getFilePath(FILE_NAME).outputStream().apply {
@@ -20,16 +19,22 @@ object TextCommandFileCreator {
             false
         }
 
-    fun load(): TextCommandSetting =
+    fun load(): DevicesSetting =
         try {
             val content = FilePathUtil.getFilePath(FILE_NAME).readText()
             Json.decodeFromString(string = content)
         } catch (_: Exception) {
-            TextCommandSetting()
+            DevicesSetting()
         }
 
     @Serializable
-    data class TextCommandSetting(
-        val values: List<TextCommand> = emptyList(),
+    data class DevicesSetting(
+        val values: List<DeviceSetting> = emptyList(),
+    )
+
+    @Serializable
+    data class DeviceSetting(
+        val serial: String,
+        val name: String,
     )
 }

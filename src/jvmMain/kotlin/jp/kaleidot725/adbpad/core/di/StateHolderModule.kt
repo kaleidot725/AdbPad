@@ -60,6 +60,7 @@ val stateHolderModule =
 
         factory {
             DeviceStateHolder(
+                deviceRepository = get(),
                 updateDevicesUseCase = get(),
             )
         }

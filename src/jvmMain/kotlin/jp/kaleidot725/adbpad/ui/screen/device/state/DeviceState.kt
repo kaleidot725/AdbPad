@@ -4,5 +4,6 @@ import jp.kaleidot725.adbpad.core.mvi.MVIState
 import jp.kaleidot725.adbpad.domain.model.device.Device
 
 data class DeviceState(
-    val devices: List<Device>,
+    val devices: List<Device> = emptyList(),
+    val isUpdating: Boolean = false,
 ) : MVIState

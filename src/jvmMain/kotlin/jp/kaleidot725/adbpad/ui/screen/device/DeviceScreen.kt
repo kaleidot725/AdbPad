@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,18 +20,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.ui.component.button.FloatingDialog
 import jp.kaleidot725.adbpad.ui.component.text.Title
 import jp.kaleidot725.adbpad.ui.screen.device.component.DeviceHeader
 import jp.kaleidot725.adbpad.ui.screen.device.component.DeviceItem
+import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceAction
+import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceState
 
 @Composable
 fun DeviceScreen(
-    devices: List<Device>,
-    onUpdateDeviceName: (Device, String) -> Unit,
-    onClose: () -> Unit,
+    state: DeviceState,
+    onAction: (DeviceAction) -> Unit,
 ) {
     FloatingDialog(
         modifier =
@@ -52,10 +54,10 @@ fun DeviceScreen(
                 ) {
                     DeviceHeader(modifier = Modifier.fillMaxWidth())
 
-                    devices.forEach { device ->
+                    state.devices.forEach { device ->
                         DeviceItem(
                             device = device,
-                            onUpdateName = { onUpdateDeviceName(device, it) },
+                            onUpdateName = { onAction(DeviceAction.UpdateDeviceName(device, it)) },
                             modifier = Modifier.fillMaxWidth(),
                         )
 
@@ -68,7 +70,8 @@ fun DeviceScreen(
                     modifier = Modifier.wrapContentSize().align(Alignment.End),
                 ) {
                     Button(
-                        onClick = onClose,
+                        enabled = state.isUpdating.not(),
+                        onClick = { onAction(DeviceAction.Close) },
                     ) {
                         Text(
                             text = Language.cancel,
@@ -78,13 +81,24 @@ fun DeviceScreen(
                     }
 
                     Button(
-                        onClick = onClose,
+                        enabled = state.isUpdating.not(),
+                        onClick = { onAction(DeviceAction.Save) },
                     ) {
-                        Text(
-                            text = Language.save,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.width(100.dp),
-                        )
+                        if (state.isUpdating) {
+                            Box(
+                                modifier = Modifier.width(100.dp),
+                            ) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(12.dp).align(Alignment.Center),
+                                )
+                            }
+                        } else {
+                            Text(
+                                text = Language.save,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.width(100.dp),
+                            )
+                        }
                     }
                 }
             }
@@ -96,8 +110,7 @@ fun DeviceScreen(
 @Composable
 private fun Preview() {
     DeviceScreen(
-        devices = emptyList(),
-        onClose = {},
-        onUpdateDeviceName = { _, _ -> },
+        state = DeviceState(),
+        onAction = {},
     )
 }

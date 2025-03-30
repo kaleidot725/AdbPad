@@ -31,6 +31,7 @@ import jp.kaleidot725.adbpad.ui.screen.CommandScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
 import jp.kaleidot725.adbpad.ui.screen.command.state.CommandAction
 import jp.kaleidot725.adbpad.ui.screen.device.DeviceScreen
+import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSideEffect
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotAction
@@ -41,6 +42,7 @@ import jp.kaleidot725.adbpad.ui.screen.setting.state.SettingSideEffect
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.section.top.TopSection
 import jp.kaleidot725.adbpad.ui.section.top.state.TopAction
+import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.reload.DevelopmentEntryPoint
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
 import org.jetbrains.compose.splitpane.rememberSplitPaneState
@@ -252,10 +254,16 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                             val deviceState by deviceStateHolder.state.collectAsState()
                             val onAction = deviceStateHolder::onAction
 
+                            LaunchedEffect(Unit) {
+                                deviceStateHolder.sideEffect.collectLatest {
+                                    when (it) {
+                                        DeviceSideEffect.Close -> mainStateHolder.onRefresh()
+                                    }
+                                }
+                            }
                             DeviceScreen(
-                                devices = deviceState.devices,
-                                onUpdateDeviceName = { _, _ -> },
-                                onClose = { mainStateHolder.onRefresh() },
+                                state = deviceState,
+                                onAction = onAction,
                             )
                         }
 

@@ -93,7 +93,7 @@ fun DropDownDeviceMenu(
                     modifier = Modifier.height(24.dp),
                 ) {
                     Text(
-                        text = device.serial,
+                        text = device.displayName,
                         color = MaterialTheme.colors.onBackground,
                         style = MaterialTheme.typography.subtitle2,
                         modifier = Modifier.align(Alignment.CenterVertically).padding(bottom = 4.dp),
