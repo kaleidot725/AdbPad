@@ -25,6 +25,9 @@ object UserColor {
         }
     }
 
+    @Composable
+    fun getContentBackgroundColor(): Color = MaterialTheme.colors.primary.copy(alpha = 0.2f)
+
     object Light {
         val PRIMARY = Color(0xFF006B5D)
         val PRIMARY_VARIANT = Color(0xFFFFFFFF)

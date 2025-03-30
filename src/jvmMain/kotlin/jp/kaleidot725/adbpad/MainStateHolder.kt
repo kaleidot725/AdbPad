@@ -14,6 +14,7 @@ import jp.kaleidot725.adbpad.domain.usecase.theme.GetDarkModeFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
 import jp.kaleidot725.adbpad.ui.screen.command.CommandStateHolder
+import jp.kaleidot725.adbpad.ui.screen.device.DeviceStateHolder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
 import jp.kaleidot725.adbpad.ui.section.top.TopStateHolder
@@ -26,6 +27,7 @@ class MainStateHolder(
     val textCommandStateHolder: TextCommandStateHolder,
     val screenshotStateHolder: ScreenshotStateHolder,
     val topStateHolder: TopStateHolder,
+    val deviceStateHolder: DeviceStateHolder,
     private val getWindowSizeUseCase: GetWindowSizeUseCase,
     private val saveWindowSizeUseCase: SaveWindowSizeUseCase,
     private val startAdbUseCase: StartAdbUseCase,
@@ -39,6 +41,7 @@ class MainStateHolder(
             textCommandStateHolder,
             screenshotStateHolder,
             topStateHolder,
+            deviceStateHolder,
         )
 
     init {

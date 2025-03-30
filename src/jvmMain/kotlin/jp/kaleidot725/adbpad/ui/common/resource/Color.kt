@@ -22,7 +22,7 @@ import jp.kaleidot725.adbpad.ui.common.resource.UserColor.getSplitterColor
 @Composable
 fun Modifier.selectedBackground(isSelected: Boolean): Modifier =
     if (isSelected) {
-        this.background(color = MaterialTheme.colors.primary.copy(alpha = 0.2f))
+        this.background(color = UserColor.getContentBackgroundColor())
     } else {
         this
     }
@@ -31,7 +31,7 @@ fun Modifier.selectedBackground(isSelected: Boolean): Modifier =
 @Composable
 fun Modifier.clickableBackground(
     isSelected: Boolean = false,
-    selectedColor: Color = MaterialTheme.colors.primary.copy(alpha = 0.2f),
+    selectedColor: Color = UserColor.getContentBackgroundColor(),
     shape: Shape = RectangleShape,
     isDarker: Boolean = false,
 ): Modifier {

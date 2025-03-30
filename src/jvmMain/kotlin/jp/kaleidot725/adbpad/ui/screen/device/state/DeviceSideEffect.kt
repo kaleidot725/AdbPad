@@ -1,4 +1,5 @@
 package jp.kaleidot725.adbpad.ui.screen.device.state
 
-class DeviceSideEffect {
-}
+import jp.kaleidot725.adbpad.core.mvi.MVISideEffect
+
+sealed class DeviceSideEffect : MVISideEffect

@@ -248,7 +248,13 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                         }
 
                         MainDialog.Device -> {
+                            val deviceStateHolder = mainStateHolder.deviceStateHolder
+                            val deviceState by deviceStateHolder.state.collectAsState()
+                            val onAction = deviceStateHolder::onAction
+
                             DeviceScreen(
+                                devices = deviceState.devices,
+                                onUpdateDeviceName = { _, _ -> },
                                 onClose = { mainStateHolder.onRefresh() },
                             )
                         }

@@ -107,7 +107,7 @@ fun DropDownDeviceMenu(
 @Preview
 @Composable
 private fun DeviceList_Preview() {
-    val sample = Device("DEVICE", DeviceState.DEVICE)
+    val sample = Device("DEVICE", "NAME", DeviceState.DEVICE)
     DropDownDeviceMenu(
         devices = listOf(sample),
         selectedDevice = sample,

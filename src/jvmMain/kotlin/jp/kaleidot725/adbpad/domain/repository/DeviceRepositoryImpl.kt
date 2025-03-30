@@ -30,7 +30,10 @@ class DeviceRepositoryImpl : DeviceRepository {
         return devices
     }
 
-    private fun List<com.malinskiy.adam.request.device.Device>.convert(): List<Device> = map { Device(it.serial, it.state.convert()) }
+    private fun List<com.malinskiy.adam.request.device.Device>.convert(): List<Device> =
+        map {
+            Device(it.serial, "TODO", it.state.convert())
+        }
 
     private fun com.malinskiy.adam.request.device.DeviceState.convert(): DeviceState =
         when (this) {
