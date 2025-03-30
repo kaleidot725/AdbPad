@@ -26,7 +26,7 @@ fun DeviceSelector(
     Box(modifier) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 4.dp),
         ) {
             Text(
                 text = selectedDevice?.serial ?: Language.notFoundDevice,
