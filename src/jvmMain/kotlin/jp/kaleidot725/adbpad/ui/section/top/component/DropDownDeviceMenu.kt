@@ -1,7 +1,6 @@
 package jp.kaleidot725.adbpad.ui.section.top.component
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.DropdownMenu
@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceState
 import jp.kaleidot725.adbpad.domain.model.language.Language
-import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
 import jp.kaleidot725.adbpad.ui.component.button.CommandIconButton
 
 @Composable
@@ -48,19 +47,18 @@ fun DropDownDeviceMenu(
     Box(modifier) {
         DeviceSelector(
             selectedDevice = selectedDevice,
+            onClick = { if (!expanded && devices.isNotEmpty()) expanded = true },
             modifier =
                 Modifier
                     .wrapContentSize()
                     .clip(RoundedCornerShape(4.dp))
-                    .clickableBackground(isDarker = !MaterialTheme.colors.isLight)
-                    .clickable { if (!expanded && devices.isNotEmpty()) expanded = true }
                     .onSizeChanged { dropDownWidth = it.width },
         )
 
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.width(with(LocalDensity.current) { dropDownWidth.toDp() }),
+            modifier = Modifier.widthIn(min = with(LocalDensity.current) { dropDownWidth.toDp() }),
         ) {
             Row(
                 modifier = Modifier.height(22.dp).padding(start = 16.dp, end = 8.dp),
