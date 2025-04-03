@@ -5,14 +5,18 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DoubleArrow
-import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Textsms
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.composables.icons.lucide.Camera
+import com.composables.icons.lucide.ChevronsRight
+import com.composables.icons.lucide.Command
+import com.composables.icons.lucide.File
+import com.composables.icons.lucide.FileText
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.Settings
+import com.composables.icons.lucide.Text
 import jp.kaleidot725.adbpad.MainCategory
 
 @Composable
@@ -24,7 +28,7 @@ fun NavigationRail(
     Column(modifier = Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         NavigationRailItem(
             label = "Command",
-            icon = Icons.Default.DoubleArrow,
+            icon = Lucide.ChevronsRight,
             contentDescription = "device menu",
             isSelected = category == MainCategory.Command,
             onClick = { onSelectCategory(MainCategory.Command) },
@@ -32,7 +36,7 @@ fun NavigationRail(
 
         NavigationRailItem(
             label = "Text",
-            icon = Icons.Default.Textsms,
+            icon = Lucide.FileText,
             contentDescription = "text menu",
             isSelected = category == MainCategory.Text,
             onClick = { onSelectCategory(MainCategory.Text) },
@@ -40,17 +44,27 @@ fun NavigationRail(
 
         NavigationRailItem(
             label = "Screenshot",
-            icon = Icons.Default.PhotoCamera,
+            icon = Lucide.Camera,
             contentDescription = "screenshot menu",
             isSelected = category == MainCategory.Screenshot,
             onClick = { onSelectCategory(MainCategory.Screenshot) },
         )
 
+        if (false) {
+            NavigationRailItem(
+                label = "File",
+                icon = Lucide.File,
+                contentDescription = "file menu",
+                isSelected = category == MainCategory.File,
+                onClick = { onSelectCategory(MainCategory.File) },
+            )
+        }
+
         Spacer(Modifier.weight(1.0f))
 
         NavigationRailItem(
             label = "Setting",
-            icon = Icons.Default.Settings,
+            icon = Lucide.Settings,
             contentDescription = "device menu",
             isSelected = false,
             onClick = onOpenSetting,

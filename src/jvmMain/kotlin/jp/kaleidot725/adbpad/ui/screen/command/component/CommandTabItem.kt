@@ -6,20 +6,22 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Preview
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.Presentation
 import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
 
 @Composable
@@ -33,21 +35,29 @@ fun CommandTabItem(
     Box(
         modifier
             .widthIn(min = 200.dp)
-            .heightIn(min = 40.dp)
+            .heightIn(min = 32.dp)
             .clickableBackground(isSelected = isSelected, shape = RoundedCornerShape(8.dp))
             .clip(RoundedCornerShape(8.dp))
             .clickable(onClick = onClick),
     ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            modifier = Modifier.align(Alignment.CenterStart).padding(start = 12.dp, top = 4.dp),
-        )
+        Box(
+            modifier =
+                Modifier
+                    .padding(start = 12.dp)
+                    .align(Alignment.CenterStart),
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(20.dp),
+            )
+        }
+
         Text(
             text = title,
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.subtitle1,
-            modifier = Modifier.align(Alignment.Center),
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.align(Alignment.Center).padding(bottom = 4.dp),
         )
     }
 }
@@ -56,7 +66,7 @@ fun CommandTabItem(
 @Composable
 private fun CommandTabItemPreview() {
     Row {
-        CommandTabItem("one", Icons.Default.Preview, false, {})
-        CommandTabItem("two", Icons.Default.Preview, true, {})
+        CommandTabItem("one", Lucide.Presentation, false, {})
+        CommandTabItem("two", Lucide.Presentation, true, {})
     }
 }

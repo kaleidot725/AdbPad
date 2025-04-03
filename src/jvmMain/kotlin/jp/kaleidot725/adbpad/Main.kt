@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -29,12 +30,13 @@ import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.component.rail.NavigationRail
 import jp.kaleidot725.adbpad.ui.screen.CommandScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
-import jp.kaleidot725.adbpad.ui.screen.command.state.CommandAction
+import jp.kaleidot725.adbpad.ui.screen.command.state.CommandAction.*
 import jp.kaleidot725.adbpad.ui.screen.device.DeviceScreen
 import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSideEffect
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotAction
+import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotAction.*
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.state.SettingAction
@@ -133,9 +135,9 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                             CommandScreen(
                                 commands = commandState.commands,
                                 filtered = commandState.filtered,
-                                onClickFilter = { commandAction(CommandAction.ClickCategoryTab(it)) },
+                                onClickFilter = { commandAction(ClickCategoryTab(it)) },
                                 canExecute = commandState.canExecuteCommand,
-                                onExecute = { command -> commandAction(CommandAction.ExecuteCommand(command)) },
+                                onExecute = { command -> commandAction(ExecuteCommand(command)) },
                             )
                         }
 
@@ -174,10 +176,10 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                     onAction(ScreenshotAction.DeleteScreenshotToClipboard)
                                 },
                                 onTakeScreenshot = { screenshot ->
-                                    onAction(ScreenshotAction.TakeScreenshot(screenshot))
+                                    onAction(TakeScreenshot(screenshot))
                                 },
                                 onSelectScreenshot = { screenshot ->
-                                    onAction(ScreenshotAction.SelectScreenshot(screenshot))
+                                    onAction(SelectScreenshot(screenshot))
                                 },
                                 onNextScreenshot = {
                                     onAction(ScreenshotAction.NextScreenshot)
@@ -186,15 +188,18 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                     onAction(ScreenshotAction.PreviousScreenshot)
                                 },
                                 onUpdateSearchText = {
-                                    onAction(ScreenshotAction.UpdateSearchText(it))
+                                    onAction(UpdateSearchText(it))
                                 },
                                 onSelectCommand = {
-                                    onAction(ScreenshotAction.SelectScreenshotCommand(it))
+                                    onAction(SelectScreenshotCommand(it))
                                 },
                                 onUpdateSortType = {
-                                    onAction(ScreenshotAction.UpdateSortType(it))
+                                    onAction(UpdateSortType(it))
                                 },
                             )
+                        }
+                        MainCategory.File -> {
+                            Text("TEST")
                         }
                     }
                 },

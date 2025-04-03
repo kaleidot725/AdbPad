@@ -12,8 +12,6 @@ import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,6 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.composables.icons.lucide.ChevronDown
+import com.composables.icons.lucide.Lucide
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
 import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
@@ -52,7 +52,7 @@ fun LanguageDropButton(
             )
 
             Icon(
-                imageVector = Icons.Default.ArrowDropDown,
+                imageVector = Lucide.ChevronDown,
                 contentDescription = null,
                 modifier = Modifier.align(Alignment.CenterVertically),
             )
@@ -81,14 +81,13 @@ fun LanguageDropButton(
     }
 }
 
-private fun Language.Type.title(): String {
-    return when (this) {
+private fun Language.Type.title(): String =
+    when (this) {
         Language.Type.ENGLISH -> Language.settingLanguageEnglish
         Language.Type.JAPANESE -> Language.settingLanguageJapanese
         Language.Type.CHINESE -> Language.settingLanguageChinese
         Language.Type.TURKISH -> Language.settingLanguageTurkish
     }
-}
 
 @Preview
 @Composable

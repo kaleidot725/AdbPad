@@ -14,8 +14,6 @@ import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
@@ -27,6 +25,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.composables.icons.lucide.Check
+import com.composables.icons.lucide.ChevronDown
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.Search
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
@@ -51,25 +53,27 @@ fun SearchSortDropBox(
                     }.width(40.dp),
         ) {
             Icon(
-                imageVector = Icons.Default.Search,
+                imageVector = Lucide.Search,
                 contentDescription = null,
                 modifier =
                     Modifier
                         .align(Alignment.Center)
                         .offset(x = (-6).dp)
                         .padding(vertical = 8.dp)
-                        .size(24.dp),
+                        .size(24.dp)
+                        .padding(2.dp),
             )
 
             Icon(
-                imageVector = Icons.Filled.ArrowDropDown,
+                imageVector = Lucide.ChevronDown,
                 contentDescription = "Device DropDown Icon",
                 tint = MaterialTheme.colors.onBackground,
                 modifier =
                     Modifier
                         .align(Alignment.Center)
-                        .offset(x = 10.dp)
-                        .size(24.dp),
+                        .offset(x = 12.dp)
+                        .size(24.dp)
+                        .padding(4.dp),
             )
         }
     }
@@ -96,7 +100,7 @@ fun SearchSortDropBox(
                     ) {
                         if (selectedSortType == sortType) {
                             Icon(
-                                imageVector = Icons.Default.Check,
+                                imageVector = Lucide.Check,
                                 contentDescription = "Check",
                                 tint = MaterialTheme.colors.onBackground,
                                 modifier = Modifier.align(Alignment.Center).size(20.dp),

@@ -10,13 +10,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.Trash
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import jp.kaleidot725.adbpad.ui.component.dropbox.SearchSortDropBox
@@ -54,7 +54,7 @@ fun ScreenshotHeader(
                     .align(Alignment.CenterVertically),
         ) {
             Icon(
-                imageVector = Icons.Default.Delete,
+                imageVector = Lucide.Trash,
                 contentDescription = "delete",
                 modifier = Modifier.height(20.dp),
             )
