@@ -88,13 +88,12 @@ fun main() {
 @OptIn(ExperimentalSplitPaneApi::class)
 @Composable
 fun WindowScope.App(mainStateHolder: MainStateHolder) {
-    val state by mainStateHolder.state.collectAsState()
     val decoratedWindowScope = this
     val textSplitPaneState = rememberSplitPaneState()
     val screenshotSplitPaneState = rememberSplitPaneState()
 
+    val state by mainStateHolder.state.collectAsState()
     DisposableEffect(mainStateHolder) {
-        mainStateHolder.onSetup()
         onDispose {
             mainStateHolder.onAction(MainAction.SaveSetting(decoratedWindowScope.getWindowSize()))
             mainStateHolder.onDispose()

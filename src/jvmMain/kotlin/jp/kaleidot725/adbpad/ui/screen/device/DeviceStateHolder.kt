@@ -1,23 +1,18 @@
 package jp.kaleidot725.adbpad.ui.screen.device
 
-import jp.kaleidot725.adbpad.core.mvi.MVI
-import jp.kaleidot725.adbpad.core.mvi.mvi
+import jp.kaleidot725.adbpad.core.mvi.MVIBase
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.repository.DeviceRepository
 import jp.kaleidot725.adbpad.domain.usecase.device.UpdateDevicesUseCase
 import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceAction
 import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSideEffect
 import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceState
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class DeviceStateHolder(
     private val deviceRepository: DeviceRepository,
     private val updateDevicesUseCase: UpdateDevicesUseCase,
-) : MVI<DeviceState, DeviceAction, DeviceSideEffect> by mvi(initialUiState = DeviceState(emptyList())) {
-    private var deviceJob: Job? = null
-
+) : MVIBase<DeviceState, DeviceAction, DeviceSideEffect>(initialUiState = DeviceState(emptyList())) {
     override fun onSetup() {
         getDevices()
     }
@@ -27,7 +22,7 @@ class DeviceStateHolder(
     }
 
     override fun onDispose() {
-        coroutineScope.cancel()
+        super.onDispose()
     }
 
     override fun onAction(uiAction: DeviceAction) {

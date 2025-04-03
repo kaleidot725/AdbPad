@@ -1,10 +1,9 @@
 package jp.kaleidot725.adbpad
 
-import jp.kaleidot725.adbpad.core.mvi.MVI
 import jp.kaleidot725.adbpad.core.mvi.MVIAction
+import jp.kaleidot725.adbpad.core.mvi.MVIBase
 import jp.kaleidot725.adbpad.core.mvi.MVISideEffect
 import jp.kaleidot725.adbpad.core.mvi.MVIState
-import jp.kaleidot725.adbpad.core.mvi.mvi
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
@@ -34,8 +33,8 @@ class MainStateHolder(
     private val getDarkModeFlowUseCase: GetDarkModeFlowUseCase,
     private val getLanguageUseCase: GetLanguageUseCase,
     private val refreshUseCase: RefreshUseCase,
-) : MVI<MainState, MainAction, MainSideEffect> by mvi(initialUiState = MainState()) {
-    private val children: List<MVI<out MVIState, out MVIAction, out MVISideEffect>> =
+) : MVIBase<MainState, MainAction, MainSideEffect>(initialUiState = MainState()) {
+    private val children: List<MVIBase<out MVIState, out MVIAction, out MVISideEffect>> =
         listOf(
             commandStateHolder,
             textCommandStateHolder,
@@ -44,14 +43,11 @@ class MainStateHolder(
             deviceStateHolder,
         )
 
-    init {
+    override fun onSetup() {
         restoreWindowSize()
         startSyncDarkMode()
         checkAdbServer()
         syncLanguage()
-    }
-
-    override fun onSetup() {
         children.forEach { it.onSetup() }
     }
 
@@ -64,6 +60,7 @@ class MainStateHolder(
     }
 
     override fun onDispose() {
+        super.onDispose()
         children.forEach { it.onDispose() }
     }
 

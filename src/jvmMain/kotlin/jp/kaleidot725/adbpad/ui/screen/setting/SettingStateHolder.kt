@@ -1,7 +1,6 @@
 package jp.kaleidot725.adbpad.ui.screen.setting
 
-import jp.kaleidot725.adbpad.core.mvi.MVI
-import jp.kaleidot725.adbpad.core.mvi.mvi
+import jp.kaleidot725.adbpad.core.mvi.MVIBase
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.domain.usecase.adb.RestartAdbUseCase
@@ -24,7 +23,7 @@ class SettingStateHolder(
     private val getLanguageUseCase: GetLanguageUseCase,
     private val saveLanguageUseCase: SaveLanguageUseCase,
     private val restartAdbUseCase: RestartAdbUseCase,
-) : MVI<SettingState, SettingAction, SettingSideEffect> by mvi(initialUiState = SettingState()) {
+) : MVIBase<SettingState, SettingAction, SettingSideEffect>(initialUiState = SettingState()) {
     private var oldAdbDirectoryPath: String = ""
     private var oldAdbPortNumber: Int = 0
 
@@ -50,6 +49,8 @@ class SettingStateHolder(
             }
         }
     }
+
+    override fun onRefresh() {}
 
     override fun onAction(uiAction: SettingAction) {
         coroutineScope.launch {
