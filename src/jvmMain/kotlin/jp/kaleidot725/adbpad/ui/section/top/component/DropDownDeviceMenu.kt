@@ -15,7 +15,6 @@ import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,6 +27,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.Settings
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceState
 import jp.kaleidot725.adbpad.domain.model.language.Language
@@ -73,7 +74,7 @@ fun DropDownDeviceMenu(
                 Spacer(modifier = Modifier.weight(1.0f))
 
                 CommandIconButton(
-                    image = Icons.Default.Settings,
+                    image = Lucide.Settings,
                     onClick = {
                         expanded = false
                         onOpenDevice()

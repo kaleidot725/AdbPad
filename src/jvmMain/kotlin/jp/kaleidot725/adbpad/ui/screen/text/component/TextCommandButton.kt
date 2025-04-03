@@ -15,14 +15,14 @@ import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.composables.icons.lucide.ChevronDown
+import com.composables.icons.lucide.Lucide
 import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.ui.component.indicator.RunningIndicator
@@ -85,7 +85,7 @@ fun TextCommandButton(
                         .clickable(enabled = canSend) { onChangeOption() },
             ) {
                 Icon(
-                    imageVector = Icons.Default.ArrowDropDown,
+                    imageVector = Lucide.ChevronDown,
                     contentDescription = "",
                     tint = MaterialTheme.colors.onPrimary,
                     modifier = Modifier.align(Alignment.Center),

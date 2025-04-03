@@ -4,4 +4,5 @@ enum class MainCategory {
     Command,
     Text,
     Screenshot,
+    File,
 }

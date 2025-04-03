@@ -12,15 +12,15 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FileCopy
-import androidx.compose.material.icons.filled.FileOpen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.composables.icons.lucide.ClipboardCopy
+import com.composables.icons.lucide.FolderOpen
+import com.composables.icons.lucide.Lucide
 
 @Composable
 fun ScreenshotActions(
@@ -44,7 +44,7 @@ fun ScreenshotActions(
                     .align(Alignment.CenterVertically),
         ) {
             Icon(
-                imageVector = Icons.Default.FileCopy,
+                imageVector = Lucide.ClipboardCopy,
                 contentDescription = "copy",
                 modifier = Modifier.height(20.dp),
             )
@@ -61,7 +61,7 @@ fun ScreenshotActions(
                     .align(Alignment.CenterVertically),
         ) {
             Icon(
-                imageVector = Icons.Default.FileOpen,
+                imageVector = Lucide.FolderOpen,
                 contentDescription = "copy",
                 modifier = Modifier.height(20.dp),
             )
