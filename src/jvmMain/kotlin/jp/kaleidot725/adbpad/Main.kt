@@ -30,13 +30,12 @@ import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.component.rail.NavigationRail
 import jp.kaleidot725.adbpad.ui.screen.CommandScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
-import jp.kaleidot725.adbpad.ui.screen.command.state.CommandAction.*
+import jp.kaleidot725.adbpad.ui.screen.command.state.CommandAction
 import jp.kaleidot725.adbpad.ui.screen.device.DeviceScreen
 import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSideEffect
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotAction
-import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotAction.*
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.state.SettingAction
@@ -135,9 +134,9 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                             CommandScreen(
                                 commands = commandState.commands,
                                 filtered = commandState.filtered,
-                                onClickFilter = { commandAction(ClickCategoryTab(it)) },
+                                onClickFilter = { commandAction(CommandAction.ClickCategoryTab(it)) },
                                 canExecute = commandState.canExecuteCommand,
-                                onExecute = { command -> commandAction(ExecuteCommand(command)) },
+                                onExecute = { command -> commandAction(CommandAction.ExecuteCommand(command)) },
                             )
                         }
 
@@ -176,10 +175,10 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                     onAction(ScreenshotAction.DeleteScreenshotToClipboard)
                                 },
                                 onTakeScreenshot = { screenshot ->
-                                    onAction(TakeScreenshot(screenshot))
+                                    onAction(ScreenshotAction.TakeScreenshot(screenshot))
                                 },
                                 onSelectScreenshot = { screenshot ->
-                                    onAction(SelectScreenshot(screenshot))
+                                    onAction(ScreenshotAction.SelectScreenshot(screenshot))
                                 },
                                 onNextScreenshot = {
                                     onAction(ScreenshotAction.NextScreenshot)
@@ -188,13 +187,13 @@ fun WindowScope.App(mainStateHolder: MainStateHolder) {
                                     onAction(ScreenshotAction.PreviousScreenshot)
                                 },
                                 onUpdateSearchText = {
-                                    onAction(UpdateSearchText(it))
+                                    onAction(ScreenshotAction.UpdateSearchText(it))
                                 },
                                 onSelectCommand = {
-                                    onAction(SelectScreenshotCommand(it))
+                                    onAction(ScreenshotAction.SelectScreenshotCommand(it))
                                 },
                                 onUpdateSortType = {
-                                    onAction(UpdateSortType(it))
+                                    onAction(ScreenshotAction.UpdateSortType(it))
                                 },
                             )
                         }
