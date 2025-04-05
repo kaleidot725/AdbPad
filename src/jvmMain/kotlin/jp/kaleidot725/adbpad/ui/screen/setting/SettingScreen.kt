@@ -27,6 +27,35 @@ import jp.kaleidot725.adbpad.ui.component.text.DefaultOutlineTextField
 import jp.kaleidot725.adbpad.ui.component.text.SubTitle
 import jp.kaleidot725.adbpad.ui.component.text.Title
 import jp.kaleidot725.adbpad.ui.screen.setting.component.LanguageDropButton
+import jp.kaleidot725.adbpad.ui.screen.setting.state.SettingAction
+import jp.kaleidot725.adbpad.ui.screen.setting.state.SettingState
+
+@Composable
+fun SettingScreen(
+    state: SettingState,
+    onAction: (SettingAction) -> Unit,
+    onMainRefresh: () -> Unit,
+) {
+    SettingScreen(
+        initialized = state.initialized,
+        languages = state.languages,
+        selectLanguage = state.selectedLanguage,
+        onUpdateLanguage = { onAction(SettingAction.UpdateLanguage(it)) },
+        appearance = state.appearance,
+        updateAppearance = { onAction(SettingAction.UpdateAppearance(it)) },
+        adbDirectoryPath = state.adbDirectoryPath,
+        onChangeAdbDirectoryPath = { onAction(SettingAction.UpdateAdbDirectoryPath(it)) },
+        isValidAdbDirectoryPath = state.isValidAdbDirectoryPath,
+        adbPortNumber = state.adbPortNumber,
+        onChangeAdbPortNumber = { onAction(SettingAction.UpdateAdbPortNumberPath(it)) },
+        isValidAdbPortNumber = state.isValidAdbPortNumber,
+        onSave = { onAction(SettingAction.Save) },
+        canSave = state.canSave,
+        isSaving = state.isSaving,
+        onCancel = { onMainRefresh() },
+        canCancel = state.canCancel,
+    )
+}
 
 @Composable
 fun SettingScreen(

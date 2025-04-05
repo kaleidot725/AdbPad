@@ -37,11 +37,28 @@ import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.ui.component.button.CommandIconButton
 import jp.kaleidot725.adbpad.ui.component.divider.CommandIconDivider
 import jp.kaleidot725.adbpad.ui.section.top.component.DropDownDeviceMenu
+import jp.kaleidot725.adbpad.ui.section.top.state.TopAction
 import jp.kaleidot725.adbpad.ui.section.top.state.TopState
+
+@Composable
+fun TopSection(
+    state: TopState,
+    onAction: (TopAction) -> Unit,
+    onMainRefresh: () -> Unit,
+    onMainOpenDevice: () -> Unit,
+) {
+    TopSection(
+        state = state,
+        onExecuteCommand = { onAction(TopAction.ExecuteCommand(it)) },
+        onSelectDevice = { onAction(TopAction.SelectDevice(it)) },
+        onRefresh = onMainRefresh,
+        onOpenDevice = onMainOpenDevice,
+    )
+}
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun TopSection(
+private fun TopSection(
     state: TopState,
     onExecuteCommand: (DeviceControlCommand) -> Unit,
     onSelectDevice: (Device) -> Unit,

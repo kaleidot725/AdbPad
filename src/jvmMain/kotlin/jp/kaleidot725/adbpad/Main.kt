@@ -8,8 +8,6 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,12 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
-import androidx.compose.ui.window.WindowScope
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import jp.kaleidot725.adbpad.core.di.domainModule
 import jp.kaleidot725.adbpad.core.di.repositoryModule
 import jp.kaleidot725.adbpad.core.di.stateHolderModule
+import jp.kaleidot725.adbpad.core.mvi.MVIContent
+import jp.kaleidot725.adbpad.core.mvi.MVILifecycleContent
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.model.setting.getWindowSize
@@ -30,254 +29,25 @@ import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.component.rail.NavigationRail
 import jp.kaleidot725.adbpad.ui.screen.CommandScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
-import jp.kaleidot725.adbpad.ui.screen.command.state.CommandAction
+import jp.kaleidot725.adbpad.ui.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.device.DeviceScreen
+import jp.kaleidot725.adbpad.ui.screen.device.DeviceStateHolder
 import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSideEffect
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
-import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotAction
+import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
-import jp.kaleidot725.adbpad.ui.screen.setting.state.SettingAction
 import jp.kaleidot725.adbpad.ui.screen.setting.state.SettingSideEffect
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
+import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
 import jp.kaleidot725.adbpad.ui.section.top.TopSection
-import jp.kaleidot725.adbpad.ui.section.top.state.TopAction
-import kotlinx.coroutines.flow.collectLatest
+import jp.kaleidot725.adbpad.ui.section.top.TopStateHolder
 import org.jetbrains.compose.reload.DevelopmentEntryPoint
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
 import org.jetbrains.compose.splitpane.rememberSplitPaneState
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
-
-fun main() {
-    startKoin {
-        modules(repositoryModule, domainModule, stateHolderModule)
-    }
-
-    application {
-        val mainStateHolder by remember { mutableStateOf(GlobalContext.get().get<MainStateHolder>()) }
-        val state by mainStateHolder.state.collectAsState()
-
-        if (state.size == WindowSize.UNKNOWN) {
-            return@application
-        }
-
-        val windowState by remember(state.size.width, state.size.height) {
-            mutableStateOf(WindowState(width = state.size.width.dp, height = state.size.height.dp))
-        }
-
-        val isDark = state.isDark
-        if (isDark != null) {
-            MaterialTheme(colors = if (isDark) DarkColors else LightColors) {
-                Window(
-                    title = Language.windowTitle,
-                    icon = painterResource("icon.png"),
-                    onCloseRequest = ::exitApplication,
-                    state = windowState,
-                ) {
-                    DevelopmentEntryPoint {
-                        App(mainStateHolder)
-                    }
-                }
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalSplitPaneApi::class)
-@Composable
-fun WindowScope.App(mainStateHolder: MainStateHolder) {
-    val decoratedWindowScope = this
-    val textSplitPaneState = rememberSplitPaneState()
-    val screenshotSplitPaneState = rememberSplitPaneState()
-
-    val state by mainStateHolder.state.collectAsState()
-    DisposableEffect(mainStateHolder) {
-        onDispose {
-            mainStateHolder.onAction(MainAction.SaveSetting(decoratedWindowScope.getWindowSize()))
-            mainStateHolder.onDispose()
-        }
-    }
-
-    Crossfade(state.language) {
-        Surface {
-            ScreenLayout(
-                navigationRail = {
-                    NavigationRail(
-                        category = state.category,
-                        onSelectCategory = { mainStateHolder.onAction(MainAction.ClickCategory(it)) },
-                        onOpenSetting = { mainStateHolder.onAction(MainAction.OpenSetting) },
-                    )
-                },
-                top = {
-                    val topStateHolder = mainStateHolder.topStateHolder
-                    val topState by topStateHolder.state.collectAsState()
-                    val onAction = topStateHolder::onAction
-
-                    TopSection(
-                        state = topState,
-                        onExecuteCommand = { onAction(TopAction.ExecuteCommand(it)) },
-                        onSelectDevice = { onAction(TopAction.SelectDevice(it)) },
-                        onRefresh = mainStateHolder::onRefresh,
-                        onOpenDevice = { mainStateHolder.onAction(MainAction.OpenDevice) },
-                    )
-                },
-                content = {
-                    when (state.category) {
-                        MainCategory.Command -> {
-                            val commandStateHolder = mainStateHolder.commandStateHolder
-                            val commandState by commandStateHolder.state.collectAsState()
-                            val commandAction = commandStateHolder::onAction
-
-                            CommandScreen(
-                                commands = commandState.commands,
-                                filtered = commandState.filtered,
-                                onClickFilter = { commandAction(CommandAction.ClickCategoryTab(it)) },
-                                canExecute = commandState.canExecuteCommand,
-                                onExecute = { command -> commandAction(CommandAction.ExecuteCommand(command)) },
-                            )
-                        }
-
-                        MainCategory.Text -> {
-                            val inputTextState by mainStateHolder.textCommandStateHolder.state.collectAsState()
-                            val onAction = mainStateHolder.textCommandStateHolder::onAction
-                            TextCommandScreen(
-                                state = inputTextState,
-                                onAction = onAction,
-                                splitterState = textSplitPaneState,
-                            )
-                        }
-
-                        MainCategory.Screenshot -> {
-                            val screenshotStateHolder = mainStateHolder.screenshotStateHolder
-                            val screenshotState by screenshotStateHolder.state.collectAsState()
-                            val onAction = screenshotStateHolder::onAction
-
-                            ScreenshotScreen(
-                                screenshot = screenshotState.preview,
-                                splitterState = screenshotSplitPaneState,
-                                screenshots = screenshotState.previews,
-                                canCapture = screenshotState.canExecute,
-                                isCapturing = screenshotState.isCapturing,
-                                selectCommand = screenshotState.selectedCommand,
-                                commands = screenshotState.commands,
-                                searchText = screenshotState.searchText,
-                                sortType = screenshotState.sortType,
-                                onOpenDirectory = {
-                                    onAction(ScreenshotAction.OpenDirectory)
-                                },
-                                onCopyScreenshot = {
-                                    onAction(ScreenshotAction.CopyScreenshotToClipboard)
-                                },
-                                onDeleteScreenshot = {
-                                    onAction(ScreenshotAction.DeleteScreenshotToClipboard)
-                                },
-                                onTakeScreenshot = { screenshot ->
-                                    onAction(ScreenshotAction.TakeScreenshot(screenshot))
-                                },
-                                onSelectScreenshot = { screenshot ->
-                                    onAction(ScreenshotAction.SelectScreenshot(screenshot))
-                                },
-                                onNextScreenshot = {
-                                    onAction(ScreenshotAction.NextScreenshot)
-                                },
-                                onPreviousScreenshot = {
-                                    onAction(ScreenshotAction.PreviousScreenshot)
-                                },
-                                onUpdateSearchText = {
-                                    onAction(ScreenshotAction.UpdateSearchText(it))
-                                },
-                                onSelectCommand = {
-                                    onAction(ScreenshotAction.SelectScreenshotCommand(it))
-                                },
-                                onUpdateSortType = {
-                                    onAction(ScreenshotAction.UpdateSortType(it))
-                                },
-                            )
-                        }
-                        MainCategory.File -> {
-                            Text("TEST")
-                        }
-                    }
-                },
-                dialog = {
-                    when (state.dialog) {
-                        MainDialog.Setting -> {
-                            val settingStateHolder by remember {
-                                mutableStateOf(
-                                    GlobalContext.get().get<SettingStateHolder>(),
-                                )
-                            }
-                            val settingState by settingStateHolder.state.collectAsState()
-                            val settingAction = settingStateHolder::onAction
-
-                            LaunchedEffect(Unit) {
-                                settingStateHolder.sideEffect.collect {
-                                    when (it) {
-                                        SettingSideEffect.Saved -> mainStateHolder.onRefresh()
-                                    }
-                                }
-                            }
-
-                            DisposableEffect(mainStateHolder) {
-                                settingStateHolder.onSetup()
-                                onDispose { settingStateHolder.onDispose() }
-                            }
-
-                            SettingScreen(
-                                initialized = settingState.initialized,
-                                languages = settingState.languages,
-                                selectLanguage = settingState.selectedLanguage,
-                                onUpdateLanguage = { settingAction(SettingAction.UpdateLanguage(it)) },
-                                appearance = settingState.appearance,
-                                updateAppearance = { settingAction(SettingAction.UpdateAppearance(it)) },
-                                adbDirectoryPath = settingState.adbDirectoryPath,
-                                onChangeAdbDirectoryPath = { settingAction(SettingAction.UpdateAdbDirectoryPath(it)) },
-                                isValidAdbDirectoryPath = settingState.isValidAdbDirectoryPath,
-                                adbPortNumber = settingState.adbPortNumber,
-                                onChangeAdbPortNumber = { settingAction(SettingAction.UpdateAdbPortNumberPath(it)) },
-                                isValidAdbPortNumber = settingState.isValidAdbPortNumber,
-                                onSave = { settingAction(SettingAction.Save) },
-                                canSave = settingState.canSave,
-                                isSaving = settingState.isSaving,
-                                onCancel = { mainStateHolder.onRefresh() },
-                                canCancel = settingState.canCancel,
-                            )
-                        }
-
-                        MainDialog.AdbError -> {
-                            AdbErrorScreen(
-                                onOpenSetting = { mainStateHolder.onAction(MainAction.OpenSetting) },
-                            )
-                        }
-
-                        MainDialog.Device -> {
-                            val deviceStateHolder = mainStateHolder.deviceStateHolder
-                            val deviceState by deviceStateHolder.state.collectAsState()
-                            val onAction = deviceStateHolder::onAction
-
-                            LaunchedEffect(Unit) {
-                                deviceStateHolder.sideEffect.collectLatest {
-                                    when (it) {
-                                        DeviceSideEffect.Close -> mainStateHolder.onRefresh()
-                                    }
-                                }
-                            }
-                            DeviceScreen(
-                                state = deviceState,
-                                onAction = onAction,
-                            )
-                        }
-
-                        null -> Unit
-                    }
-                },
-                modifier = Modifier.fillMaxSize(),
-            )
-        }
-    }
-}
 
 private val LightColors =
     Colors(
@@ -312,3 +82,178 @@ private val DarkColors =
         onSurface = UserColor.Dark.ON_SURFACE,
         isLight = false,
     )
+
+fun main() {
+    startKoin { modules(repositoryModule, domainModule, stateHolderModule) }
+    application {
+        val mainStateHolder by remember { mutableStateOf(GlobalContext.get().get<MainStateHolder>()) }
+        MVILifecycleContent(mvi = mainStateHolder) { state, onAction ->
+            if (state.size == WindowSize.UNKNOWN) return@MVILifecycleContent
+            if (state.isDark == null) return@MVILifecycleContent
+
+            val windowState by remember(state.size.width, state.size.height) {
+                mutableStateOf(WindowState(width = state.size.width.dp, height = state.size.height.dp))
+            }
+
+            Window(
+                title = Language.windowTitle,
+                icon = painterResource("icon.png"),
+                onCloseRequest = ::exitApplication,
+                state = windowState,
+            ) {
+                DisposableEffect(Unit) { onDispose { onAction(MainAction.SaveSetting(this@Window.getWindowSize())) } }
+                MaterialTheme(colors = if (state.isDark) DarkColors else LightColors) {
+                    DevelopmentEntryPoint {
+                        App(
+                            state = state,
+                            onMainAction = onAction,
+                            onMainRefresh = { mainStateHolder.onRefresh() },
+                            commandStateHolder = mainStateHolder.commandStateHolder,
+                            textCommandStateHolder = mainStateHolder.textCommandStateHolder,
+                            screenshotStateHolder = mainStateHolder.screenshotStateHolder,
+                            topStateHolder = mainStateHolder.topStateHolder,
+                            deviceStateHolder = mainStateHolder.deviceStateHolder,
+                            settingStateHolder = mainStateHolder.settingStateHolder,
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalSplitPaneApi::class)
+@Composable
+fun App(
+    state: MainState,
+    onMainAction: (MainAction) -> Unit,
+    onMainRefresh: () -> Unit,
+    commandStateHolder: CommandStateHolder,
+    textCommandStateHolder: TextCommandStateHolder,
+    screenshotStateHolder: ScreenshotStateHolder,
+    topStateHolder: TopStateHolder,
+    deviceStateHolder: DeviceStateHolder,
+    settingStateHolder: SettingStateHolder,
+) {
+    val textSplitPaneState = rememberSplitPaneState()
+    val screenshotSplitPaneState = rememberSplitPaneState()
+
+    Crossfade(state.language) {
+        Surface {
+            ScreenLayout(
+                navigationRail = {
+                    NavigationRail(
+                        category = state.category,
+                        onSelectCategory = { onMainAction(MainAction.ClickCategory(it)) },
+                        onOpenSetting = { onMainAction(MainAction.OpenSetting) },
+                    )
+                },
+                top = {
+                    MVIContent(
+                        mvi = topStateHolder,
+                        content = { state, onAction ->
+                            TopSection(
+                                state = state,
+                                onAction = onAction,
+                                onMainRefresh = onMainRefresh,
+                                onMainOpenDevice = { onMainAction(MainAction.OpenDevice) },
+                            )
+                        },
+                    )
+                },
+                content = {
+                    when (state.category) {
+                        MainCategory.Command -> {
+                            MVIContent(
+                                mvi = commandStateHolder,
+                                content = { state, onAction ->
+                                    CommandScreen(
+                                        state = state,
+                                        onAction = onAction,
+                                    )
+                                },
+                            )
+                        }
+
+                        MainCategory.Text -> {
+                            MVIContent(
+                                mvi = textCommandStateHolder,
+                                content = { state, onAction ->
+                                    TextCommandScreen(
+                                        state = state,
+                                        onAction = onAction,
+                                        splitterState = textSplitPaneState,
+                                    )
+                                },
+                            )
+                        }
+
+                        MainCategory.Screenshot -> {
+                            MVIContent(
+                                mvi = screenshotStateHolder,
+                                content = { state, onAction ->
+                                    ScreenshotScreen(
+                                        state = state,
+                                        onAction = onAction,
+                                        screenshotSplitPaneState = screenshotSplitPaneState,
+                                    )
+                                },
+                            )
+                        }
+
+                        MainCategory.File -> {
+                            Text("TEST")
+                        }
+                    }
+                },
+                dialog = {
+                    when (state.dialog) {
+                        MainDialog.Setting -> {
+                            MVILifecycleContent(
+                                mvi = settingStateHolder,
+                                onSideEffect = {
+                                    when (it) {
+                                        SettingSideEffect.Saved -> {
+                                            onMainRefresh()
+                                        }
+                                    }
+                                },
+                            ) { state, onAction ->
+                                SettingScreen(
+                                    state = state,
+                                    onAction = onAction,
+                                    onMainRefresh = onMainRefresh,
+                                )
+                            }
+                        }
+
+                        MainDialog.AdbError -> {
+                            AdbErrorScreen(
+                                onOpenSetting = { onMainAction(MainAction.OpenSetting) },
+                            )
+                        }
+
+                        MainDialog.Device -> {
+                            MVILifecycleContent(
+                                mvi = deviceStateHolder,
+                                onSideEffect = {
+                                    when (it) {
+                                        DeviceSideEffect.Close -> onMainRefresh()
+                                    }
+                                },
+                            ) { state, onAction ->
+                                DeviceScreen(
+                                    state = state,
+                                    onAction = onAction,
+                                )
+                            }
+                        }
+
+                        null -> Unit
+                    }
+                },
+                modifier = Modifier.fillMaxSize(),
+            )
+        }
+    }
+}

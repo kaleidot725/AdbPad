@@ -30,6 +30,8 @@ import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotExplorer
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotHeader
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotMenu
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotViewer
+import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotAction
+import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotState
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
 import org.jetbrains.compose.splitpane.HorizontalSplitPane
 import org.jetbrains.compose.splitpane.SplitPaneState
@@ -41,6 +43,56 @@ fun Modifier.cursorForHorizontalResize(): Modifier = pointerHoverIcon(PointerIco
 @OptIn(ExperimentalSplitPaneApi::class)
 @Composable
 fun ScreenshotScreen(
+    state: ScreenshotState,
+    onAction: (ScreenshotAction) -> Unit,
+    screenshotSplitPaneState: SplitPaneState,
+) {
+    ScreenshotScreen(
+        screenshot = state.preview,
+        splitterState = screenshotSplitPaneState,
+        screenshots = state.previews,
+        canCapture = state.canExecute,
+        isCapturing = state.isCapturing,
+        selectCommand = state.selectedCommand,
+        commands = state.commands,
+        searchText = state.searchText,
+        sortType = state.sortType,
+        onOpenDirectory = {
+            onAction(ScreenshotAction.OpenDirectory)
+        },
+        onCopyScreenshot = {
+            onAction(ScreenshotAction.CopyScreenshotToClipboard)
+        },
+        onDeleteScreenshot = {
+            onAction(ScreenshotAction.DeleteScreenshotToClipboard)
+        },
+        onTakeScreenshot = { screenshot ->
+            onAction(ScreenshotAction.TakeScreenshot(screenshot))
+        },
+        onSelectScreenshot = { screenshot ->
+            onAction(ScreenshotAction.SelectScreenshot(screenshot))
+        },
+        onNextScreenshot = {
+            onAction(ScreenshotAction.NextScreenshot)
+        },
+        onPreviousScreenshot = {
+            onAction(ScreenshotAction.PreviousScreenshot)
+        },
+        onUpdateSearchText = {
+            onAction(ScreenshotAction.UpdateSearchText(it))
+        },
+        onSelectCommand = {
+            onAction(ScreenshotAction.SelectScreenshotCommand(it))
+        },
+        onUpdateSortType = {
+            onAction(ScreenshotAction.UpdateSortType(it))
+        },
+    )
+}
+
+@OptIn(ExperimentalSplitPaneApi::class)
+@Composable
+private fun ScreenshotScreen(
     screenshot: Screenshot,
     splitterState: SplitPaneState,
     screenshots: List<Screenshot>,

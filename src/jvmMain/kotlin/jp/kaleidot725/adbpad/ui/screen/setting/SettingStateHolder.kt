@@ -50,8 +50,6 @@ class SettingStateHolder(
         }
     }
 
-    override fun onRefresh() {}
-
     override fun onAction(uiAction: SettingAction) {
         coroutineScope.launch {
             when (uiAction) {
@@ -62,6 +60,13 @@ class SettingStateHolder(
                 is SettingAction.UpdateLanguage -> updateLanguage(uiAction.value)
             }
         }
+    }
+
+    override fun onRefresh() {}
+
+    override fun onReset() {
+        update { SettingState() }
+        super.onReset()
     }
 
     private suspend fun save() {

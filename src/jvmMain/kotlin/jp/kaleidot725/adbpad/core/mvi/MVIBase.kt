@@ -16,12 +16,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 abstract class MVIBase<UiState : MVIState, UiAction : MVIAction, SideEffect : MVISideEffect>(
-    initialUiState: UiState,
+    private val initialUiState: UiState,
 ) {
-    val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
-
+    var coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
+        private set
     private val uiState = MutableStateFlow(initialUiState)
-    val state: StateFlow<UiState> by lazy {
+    var state: StateFlow<UiState> =
         uiState
             .onSubscription {
                 onSetup()
@@ -30,10 +30,12 @@ abstract class MVIBase<UiState : MVIState, UiAction : MVIAction, SideEffect : MV
                 SharingStarted.WhileSubscribed(),
                 initialUiState,
             )
-    }
+        private set
+
     val currentState: UiState get() = state.value
     private val _sideEffect by lazy { Channel<SideEffect>() }
-    val sideEffect: Flow<SideEffect> by lazy { _sideEffect.receiveAsFlow() }
+    var sideEffect: Flow<SideEffect> = _sideEffect.receiveAsFlow()
+        private set
 
     abstract fun onSetup()
 
@@ -41,8 +43,19 @@ abstract class MVIBase<UiState : MVIState, UiAction : MVIAction, SideEffect : MV
 
     abstract fun onRefresh()
 
-    open fun onDispose() {
+    open fun onReset() {
         coroutineScope.cancel()
+        coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
+        state =
+            uiState
+                .onSubscription {
+                    onSetup()
+                }.stateIn(
+                    coroutineScope,
+                    SharingStarted.WhileSubscribed(),
+                    initialUiState,
+                )
+        sideEffect = _sideEffect.receiveAsFlow()
     }
 
     fun update(block: UiState.() -> UiState) {

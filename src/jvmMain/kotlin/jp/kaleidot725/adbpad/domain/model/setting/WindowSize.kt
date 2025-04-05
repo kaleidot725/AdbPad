@@ -1,6 +1,6 @@
 package jp.kaleidot725.adbpad.domain.model.setting
 
-import androidx.compose.ui.window.WindowScope
+import androidx.compose.ui.window.FrameWindowScope
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -14,9 +14,8 @@ data class WindowSize(
     }
 }
 
-fun WindowScope.getWindowSize(): WindowSize {
-    return WindowSize(
+fun FrameWindowScope.getWindowSize(): WindowSize =
+    WindowSize(
         this.window.width,
         this.window.height,
     )
-}

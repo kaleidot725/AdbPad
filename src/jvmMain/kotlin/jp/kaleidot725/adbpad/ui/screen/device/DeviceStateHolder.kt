@@ -14,15 +14,22 @@ class DeviceStateHolder(
     private val updateDevicesUseCase: UpdateDevicesUseCase,
 ) : MVIBase<DeviceState, DeviceAction, DeviceSideEffect>(initialUiState = DeviceState(emptyList())) {
     override fun onSetup() {
-        getDevices()
+        coroutineScope.launch {
+            val devices = updateDevicesUseCase()
+            update {
+                this.copy(
+                    devices = devices,
+                    isUpdating = false,
+                )
+            }
+        }
     }
 
-    override fun onRefresh() {
-        getDevices()
-    }
+    override fun onRefresh() {}
 
-    override fun onDispose() {
-        super.onDispose()
+    override fun onReset() {
+        update { DeviceState(emptyList()) }
+        super.onReset()
     }
 
     override fun onAction(uiAction: DeviceAction) {
@@ -35,7 +42,7 @@ class DeviceStateHolder(
         }
     }
 
-    private suspend fun close() {
+    private fun close() {
         sideEffect(DeviceSideEffect.Close)
     }
 
@@ -45,25 +52,15 @@ class DeviceStateHolder(
         sideEffect(DeviceSideEffect.Close)
     }
 
-    private suspend fun updateDeviceName(
+    private fun updateDeviceName(
         device: Device,
         name: String,
     ) {
-        val targetIndex = currentState.devices.indexOfFirst { it.name == device.name }
-        val newDevice = currentState.devices[targetIndex].copy(name = name)
-        val newDevices = currentState.devices.toMutableList().apply { set(targetIndex, newDevice) }
-        update { this.copy(devices = newDevices) }
-    }
-
-    private fun getDevices() {
-        coroutineScope.launch {
-            val devices = updateDevicesUseCase()
-            update {
-                this.copy(
-                    devices = devices,
-                    isUpdating = false,
-                )
-            }
+        update {
+            val targetIndex = this.devices.indexOfFirst { it.serial == device.serial }
+            val newDevices = this.devices.toMutableList()
+            newDevices[targetIndex] = this.devices[targetIndex].copy(name = name)
+            this.copy(devices = newDevices)
         }
     }
 }

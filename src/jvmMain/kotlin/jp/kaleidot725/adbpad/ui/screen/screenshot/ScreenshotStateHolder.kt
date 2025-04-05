@@ -60,10 +60,6 @@ class ScreenshotStateHolder(
         }
     }
 
-    override fun onDispose() {
-        super.onDispose()
-    }
-
     override fun onAction(uiAction: ScreenshotAction) {
         coroutineScope.launch {
             when (uiAction) {

@@ -15,9 +15,25 @@ import jp.kaleidot725.adbpad.domain.model.command.NormalCommandGroup
 import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.screen.command.component.CommandList
 import jp.kaleidot725.adbpad.ui.screen.command.component.CommandTab
+import jp.kaleidot725.adbpad.ui.screen.command.state.CommandAction
+import jp.kaleidot725.adbpad.ui.screen.command.state.CommandState
 
 @Composable
 fun CommandScreen(
+    state: CommandState,
+    onAction: (CommandAction) -> Unit,
+) {
+    CommandScreen(
+        commands = state.commands,
+        filtered = state.filtered,
+        onClickFilter = { onAction(CommandAction.ClickCategoryTab(it)) },
+        canExecute = state.canExecuteCommand,
+        onExecute = { command -> onAction(CommandAction.ExecuteCommand(command)) },
+    )
+}
+
+@Composable
+private fun CommandScreen(
     commands: NormalCommandGroup,
     filtered: NormalCommandCategory,
     onClickFilter: (NormalCommandCategory) -> Unit,

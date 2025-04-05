@@ -35,8 +35,8 @@ class CommandStateHolder(
         }
     }
 
-    override fun onDispose() {
-        super.onDispose()
+    override fun onReset() {
+        super.onReset()
     }
 
     override fun onAction(uiAction: CommandAction) {

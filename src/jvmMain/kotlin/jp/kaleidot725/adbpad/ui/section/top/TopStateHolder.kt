@@ -33,10 +33,6 @@ class TopStateHolder(
         collectDevices()
     }
 
-    override fun onDispose() {
-        coroutineScope.cancel()
-    }
-
     override fun onAction(uiAction: TopAction) {
         coroutineScope.launch {
             when (uiAction) {
