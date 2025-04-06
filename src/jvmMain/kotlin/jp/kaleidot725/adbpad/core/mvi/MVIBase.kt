@@ -46,6 +46,7 @@ abstract class MVIBase<UiState : MVIState, UiAction : MVIAction, SideEffect : MV
     fun onReset() {
         coroutineScope.cancel()
         coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
+        uiState.update { initialUiState }
         state =
             uiState
                 .onSubscription {

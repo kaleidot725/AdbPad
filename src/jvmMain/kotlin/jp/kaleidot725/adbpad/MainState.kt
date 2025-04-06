@@ -9,7 +9,7 @@ data class MainState(
     val language: Language.Type = Language.Type.ENGLISH,
     val isDark: Boolean? = null,
     val size: WindowSize = WindowSize.UNKNOWN,
-    val dialog: MainDialog? = null,
+    val dialog: MainDialog = MainDialog.Empty,
     val category: MainCategory = MainCategory.Command,
     val selectedDevice: Device? = null,
 ) : MVIState

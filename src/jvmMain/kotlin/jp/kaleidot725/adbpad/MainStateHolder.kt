@@ -110,7 +110,7 @@ class MainStateHolder(
 
     private fun checkAdbServer() {
         coroutineScope.launch {
-            val dialog = if (startAdbUseCase()) null else MainDialog.AdbError
+            val dialog = if (startAdbUseCase()) MainDialog.Empty else MainDialog.AdbError
             update { copy(dialog = dialog) }
         }
     }
