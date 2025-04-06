@@ -66,6 +66,18 @@ val stateHolderModule =
         }
 
         factory {
+            SettingStateHolder(
+                getSdkPathUseCase = get(),
+                saveSdkPathUseCase = get(),
+                getAppearanceUseCase = get(),
+                saveAppearanceUseCase = get(),
+                getLanguageUseCase = get(),
+                saveLanguageUseCase = get(),
+                restartAdbUseCase = get(),
+            )
+        }
+
+        factory {
             MainStateHolder(
                 commandStateHolder = get(),
                 textCommandStateHolder = get(),
@@ -78,6 +90,7 @@ val stateHolderModule =
                 refreshUseCase = get(),
                 topStateHolder = get(),
                 deviceStateHolder = get(),
+                settingStateHolder = get(),
             )
         }
     }

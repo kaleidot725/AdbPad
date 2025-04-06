@@ -1,7 +1,6 @@
 package jp.kaleidot725.adbpad.ui.section.top
 
-import jp.kaleidot725.adbpad.core.mvi.MVI
-import jp.kaleidot725.adbpad.core.mvi.mvi
+import jp.kaleidot725.adbpad.core.mvi.MVIBase
 import jp.kaleidot725.adbpad.domain.model.command.DeviceControlCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteDeviceControlCommandUseCase
@@ -22,7 +21,7 @@ class TopStateHolder(
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
     private val selectDeviceUseCase: SelectDeviceUseCase,
     private val executeDeviceControlCommandUseCase: ExecuteDeviceControlCommandUseCase,
-) : MVI<TopState, TopAction, TopSideEffect> by mvi(initialUiState = TopState()) {
+) : MVIBase<TopState, TopAction, TopSideEffect>(TopState()) {
     private var deviceJob: Job? = null
     private var selectedDeviceJob: Job? = null
 
@@ -32,10 +31,6 @@ class TopStateHolder(
 
     override fun onRefresh() {
         collectDevices()
-    }
-
-    override fun onDispose() {
-        coroutineScope.cancel()
     }
 
     override fun onAction(uiAction: TopAction) {

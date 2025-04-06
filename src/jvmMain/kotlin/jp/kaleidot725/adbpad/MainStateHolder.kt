@@ -1,10 +1,9 @@
 package jp.kaleidot725.adbpad
 
-import jp.kaleidot725.adbpad.core.mvi.MVI
 import jp.kaleidot725.adbpad.core.mvi.MVIAction
+import jp.kaleidot725.adbpad.core.mvi.MVIBase
 import jp.kaleidot725.adbpad.core.mvi.MVISideEffect
 import jp.kaleidot725.adbpad.core.mvi.MVIState
-import jp.kaleidot725.adbpad.core.mvi.mvi
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
@@ -16,6 +15,7 @@ import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
 import jp.kaleidot725.adbpad.ui.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.device.DeviceStateHolder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
+import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
 import jp.kaleidot725.adbpad.ui.section.top.TopStateHolder
 import kotlinx.coroutines.Job
@@ -28,30 +28,27 @@ class MainStateHolder(
     val screenshotStateHolder: ScreenshotStateHolder,
     val topStateHolder: TopStateHolder,
     val deviceStateHolder: DeviceStateHolder,
+    val settingStateHolder: SettingStateHolder,
     private val getWindowSizeUseCase: GetWindowSizeUseCase,
     private val saveWindowSizeUseCase: SaveWindowSizeUseCase,
     private val startAdbUseCase: StartAdbUseCase,
     private val getDarkModeFlowUseCase: GetDarkModeFlowUseCase,
     private val getLanguageUseCase: GetLanguageUseCase,
     private val refreshUseCase: RefreshUseCase,
-) : MVI<MainState, MainAction, MainSideEffect> by mvi(initialUiState = MainState()) {
-    private val children: List<MVI<out MVIState, out MVIAction, out MVISideEffect>> =
+) : MVIBase<MainState, MainAction, MainSideEffect>(initialUiState = MainState()) {
+    private val children: List<MVIBase<out MVIState, out MVIAction, out MVISideEffect>> =
         listOf(
             commandStateHolder,
             textCommandStateHolder,
             screenshotStateHolder,
             topStateHolder,
-            deviceStateHolder,
         )
 
-    init {
+    override fun onSetup() {
         restoreWindowSize()
         startSyncDarkMode()
         checkAdbServer()
         syncLanguage()
-    }
-
-    override fun onSetup() {
         children.forEach { it.onSetup() }
     }
 
@@ -61,10 +58,6 @@ class MainStateHolder(
         syncLanguage()
         refreshUseCase()
         children.forEach { it.onRefresh() }
-    }
-
-    override fun onDispose() {
-        children.forEach { it.onDispose() }
     }
 
     override fun onAction(uiAction: MainAction) {

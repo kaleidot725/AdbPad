@@ -1,7 +1,6 @@
 package jp.kaleidot725.adbpad.ui.screen.screenshot
 
-import jp.kaleidot725.adbpad.core.mvi.MVI
-import jp.kaleidot725.adbpad.core.mvi.mvi
+import jp.kaleidot725.adbpad.core.mvi.MVIBase
 import jp.kaleidot725.adbpad.core.utils.ClipBoardUtils
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.os.OSContext
@@ -26,7 +25,7 @@ class ScreenshotStateHolder(
     private val getScreenshotCommandUseCase: GetScreenshotCommandUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
     private val screenshotCommandRepository: ScreenshotCommandRepository,
-) : MVI<ScreenshotState, ScreenshotAction, ScreenshotSideEffect> by mvi(initialUiState = ScreenshotState()) {
+) : MVIBase<ScreenshotState, ScreenshotAction, ScreenshotSideEffect>(initialUiState = ScreenshotState()) {
     override fun onSetup() {
         coroutineScope.launch {
             val commands = getScreenshotCommandUseCase()

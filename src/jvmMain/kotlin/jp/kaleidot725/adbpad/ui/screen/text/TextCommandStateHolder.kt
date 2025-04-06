@@ -1,7 +1,6 @@
 package jp.kaleidot725.adbpad.ui.screen.text
 
-import jp.kaleidot725.adbpad.core.mvi.MVI
-import jp.kaleidot725.adbpad.core.mvi.mvi
+import jp.kaleidot725.adbpad.core.mvi.MVIBase
 import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository
@@ -18,7 +17,7 @@ class TextCommandStateHolder(
     private val getTextCommandUseCase: GetTextCommandUseCase,
     private val executeTextCommandUseCase: ExecuteTextCommandUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
-) : MVI<TextCommandState, TextCommandAction, TextCommandSideEffect> by mvi(initialUiState = TextCommandState()) {
+) : MVIBase<TextCommandState, TextCommandAction, TextCommandSideEffect>(initialUiState = TextCommandState()) {
     override fun onSetup() {
         coroutineScope.launch {
             getSelectedDeviceFlowUseCase().collect {
