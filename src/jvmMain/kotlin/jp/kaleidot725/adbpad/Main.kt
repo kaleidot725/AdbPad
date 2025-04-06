@@ -228,12 +228,6 @@ fun App(
                             }
                         }
 
-                        MainDialog.AdbError -> {
-                            AdbErrorScreen(
-                                onOpenSetting = { onMainAction(MainAction.OpenSetting) },
-                            )
-                        }
-
                         MainDialog.Device -> {
                             MVIDialogContent(
                                 mvi = deviceStateHolder,
@@ -250,7 +244,14 @@ fun App(
                             }
                         }
 
-                        null -> Unit
+                        MainDialog.AdbError -> {
+                            AdbErrorScreen(
+                                onOpenSetting = { onMainAction(MainAction.OpenSetting) },
+                            )
+                        }
+
+                        MainDialog.Empty -> {
+                        }
                     }
                 },
                 modifier = Modifier.fillMaxSize(),

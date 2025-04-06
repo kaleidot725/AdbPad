@@ -6,4 +6,6 @@ sealed class MainDialog {
     data object Setting : MainDialog()
 
     data object AdbError : MainDialog()
+
+    data object Empty : MainDialog()
 }
