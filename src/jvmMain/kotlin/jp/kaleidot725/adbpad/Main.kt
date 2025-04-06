@@ -20,8 +20,9 @@ import androidx.compose.ui.window.application
 import jp.kaleidot725.adbpad.core.di.domainModule
 import jp.kaleidot725.adbpad.core.di.repositoryModule
 import jp.kaleidot725.adbpad.core.di.stateHolderModule
-import jp.kaleidot725.adbpad.core.mvi.MVIContent
-import jp.kaleidot725.adbpad.core.mvi.MVILifecycleContent
+import jp.kaleidot725.adbpad.core.mvi.MVIChildContent
+import jp.kaleidot725.adbpad.core.mvi.MVIDialogContent
+import jp.kaleidot725.adbpad.core.mvi.MVIRootContent
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.model.setting.getWindowSize
@@ -87,9 +88,9 @@ fun main() {
     startKoin { modules(repositoryModule, domainModule, stateHolderModule) }
     application {
         val mainStateHolder by remember { mutableStateOf(GlobalContext.get().get<MainStateHolder>()) }
-        MVILifecycleContent(mvi = mainStateHolder) { state, onAction ->
-            if (state.size == WindowSize.UNKNOWN) return@MVILifecycleContent
-            if (state.isDark == null) return@MVILifecycleContent
+        MVIRootContent(mvi = mainStateHolder) { state, onAction ->
+            if (state.size == WindowSize.UNKNOWN) return@MVIRootContent
+            if (state.isDark == null) return@MVIRootContent
 
             val windowState by remember(state.size.width, state.size.height) {
                 mutableStateOf(WindowState(width = state.size.width.dp, height = state.size.height.dp))
@@ -149,7 +150,7 @@ fun App(
                     )
                 },
                 top = {
-                    MVIContent(
+                    MVIChildContent(
                         mvi = topStateHolder,
                         content = { state, onAction ->
                             TopSection(
@@ -164,7 +165,7 @@ fun App(
                 content = {
                     when (state.category) {
                         MainCategory.Command -> {
-                            MVIContent(
+                            MVIChildContent(
                                 mvi = commandStateHolder,
                                 content = { state, onAction ->
                                     CommandScreen(
@@ -176,7 +177,7 @@ fun App(
                         }
 
                         MainCategory.Text -> {
-                            MVIContent(
+                            MVIChildContent(
                                 mvi = textCommandStateHolder,
                                 content = { state, onAction ->
                                     TextCommandScreen(
@@ -189,7 +190,7 @@ fun App(
                         }
 
                         MainCategory.Screenshot -> {
-                            MVIContent(
+                            MVIChildContent(
                                 mvi = screenshotStateHolder,
                                 content = { state, onAction ->
                                     ScreenshotScreen(
@@ -209,7 +210,7 @@ fun App(
                 dialog = {
                     when (state.dialog) {
                         MainDialog.Setting -> {
-                            MVILifecycleContent(
+                            MVIDialogContent(
                                 mvi = settingStateHolder,
                                 onSideEffect = {
                                     when (it) {
@@ -234,7 +235,7 @@ fun App(
                         }
 
                         MainDialog.Device -> {
-                            MVILifecycleContent(
+                            MVIDialogContent(
                                 mvi = deviceStateHolder,
                                 onSideEffect = {
                                     when (it) {
