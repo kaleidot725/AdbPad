@@ -64,11 +64,6 @@ class SettingStateHolder(
 
     override fun onRefresh() {}
 
-    override fun onReset() {
-        update { SettingState() }
-        super.onReset()
-    }
-
     private suspend fun save() {
         update { this.copy(isSaving = true) }
         saveLanguageUseCase(currentState.selectedLanguage)

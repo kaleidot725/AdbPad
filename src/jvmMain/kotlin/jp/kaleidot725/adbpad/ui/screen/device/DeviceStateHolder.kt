@@ -27,11 +27,6 @@ class DeviceStateHolder(
 
     override fun onRefresh() {}
 
-    override fun onReset() {
-        update { DeviceState(emptyList()) }
-        super.onReset()
-    }
-
     override fun onAction(uiAction: DeviceAction) {
         coroutineScope.launch {
             when (uiAction) {

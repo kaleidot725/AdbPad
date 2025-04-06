@@ -43,7 +43,7 @@ abstract class MVIBase<UiState : MVIState, UiAction : MVIAction, SideEffect : MV
 
     abstract fun onRefresh()
 
-    open fun onReset() {
+    fun onReset() {
         coroutineScope.cancel()
         coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
         state =

@@ -35,10 +35,6 @@ class CommandStateHolder(
         }
     }
 
-    override fun onReset() {
-        super.onReset()
-    }
-
     override fun onAction(uiAction: CommandAction) {
         coroutineScope.launch {
             when (uiAction) {

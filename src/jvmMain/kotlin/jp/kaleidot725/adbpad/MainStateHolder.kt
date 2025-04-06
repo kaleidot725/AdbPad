@@ -60,11 +60,6 @@ class MainStateHolder(
         children.forEach { it.onRefresh() }
     }
 
-    override fun onReset() {
-        super.onReset()
-        children.forEach { it.onReset() }
-    }
-
     override fun onAction(uiAction: MainAction) {
         when (uiAction) {
             is MainAction.OpenSetting -> openSetting()
