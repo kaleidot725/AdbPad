@@ -73,13 +73,25 @@ private fun TopSection(
         modifier = Modifier.fillMaxWidth().height(40.dp),
     ) {
         Box {
-            Row(Modifier.align(Alignment.CenterStart).wrapContentSize().padding(start = 4.dp)) {
+            Row(Modifier.align(Alignment.CenterStart).wrapContentSize().padding(start = 12.dp)) {
                 DropDownDeviceMenu(
                     devices = state.devices,
                     selectedDevice = state.selectedDevice,
                     onSelectDevice = onSelectDevice,
                     onOpenDevice = onOpenDevice,
                     modifier = Modifier.wrapContentWidth(),
+                )
+
+                CommandIconButton(
+                    modifier =
+                        Modifier
+                            .padding(vertical = 4.dp)
+                            .onPointerEvent(PointerEventType.Press) { isPress = true }
+                            .onPointerEvent(PointerEventType.Release) { isPress = false },
+                    image = Lucide.RefreshCcw,
+                    degrees = degrees,
+                    onClick = { onRefresh() },
+                    padding = 2.dp,
                 )
             }
 
@@ -126,19 +138,6 @@ private fun TopSection(
                 CommandIconButton(
                     image = Lucide.Square,
                     onClick = { onExecuteCommand(DeviceControlCommand.Recents) },
-                    padding = 2.dp,
-                )
-
-                CommandIconDivider()
-
-                CommandIconButton(
-                    modifier =
-                        Modifier
-                            .onPointerEvent(PointerEventType.Press) { isPress = true }
-                            .onPointerEvent(PointerEventType.Release) { isPress = false },
-                    image = Lucide.RefreshCcw,
-                    degrees = degrees,
-                    onClick = { onRefresh() },
                     padding = 2.dp,
                 )
             }
