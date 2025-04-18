@@ -30,7 +30,6 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import com.composables.icons.lucide.Circle
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Power
@@ -43,6 +42,7 @@ import com.composables.icons.lucide.VolumeX
 import jp.kaleidot725.adbpad.domain.model.command.DeviceControlCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.language.Language
+import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.component.button.CommandIconButton
 import jp.kaleidot725.adbpad.ui.component.divider.CommandIconDivider
 import jp.kaleidot725.adbpad.ui.section.top.component.DropDownDeviceMenu
@@ -190,13 +190,14 @@ private fun TopSection(
 @Composable
 private fun CommandTooltip(
     text: String,
-    tooltipPlacement: TooltipPlacement = TooltipPlacement.ComponentRect(
-        anchor = Alignment.TopCenter,
-        alignment = Alignment.BottomCenter,
-        offset = DpOffset(0.dp, 30.dp),
-    ),
+    tooltipPlacement: TooltipPlacement =
+        TooltipPlacement.ComponentRect(
+            anchor = Alignment.TopCenter,
+            alignment = Alignment.BottomCenter,
+            offset = DpOffset(0.dp, 30.dp),
+        ),
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     TooltipArea(
         delayMillis = 300,
@@ -213,7 +214,7 @@ private fun CommandTooltip(
         },
         tooltipPlacement = tooltipPlacement,
         modifier = modifier,
-        content = content
+        content = content,
     )
 }
 
