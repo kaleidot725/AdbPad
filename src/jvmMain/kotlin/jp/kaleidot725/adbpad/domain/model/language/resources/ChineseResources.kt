@@ -116,4 +116,14 @@ object ChineseResources : StringResources {
 
     override val sortByNameAsc: String = "名稱(升序)"
     override val sortByNameDesc: String = "名稱(降序)"
+
+    // TopSection tooltips
+    override val tooltipRefresh: String = "刷新"
+    override val tooltipPower: String = "电源"
+    override val tooltipVolumeUp: String = "音量增大"
+    override val tooltipVolumeDown: String = "音量减小"
+    override val tooltipVolumeMute: String = "静音"
+    override val tooltipBack: String = "返回"
+    override val tooltipHome: String = "主页"
+    override val tooltipRecents: String = "最近任务"
 }

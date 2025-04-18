@@ -115,4 +115,14 @@ object JapaneseResources : StringResources {
 
     override val sortByNameAsc: String = "名前(昇順)"
     override val sortByNameDesc: String = "名前(降順)"
+
+    // TopSection tooltips
+    override val tooltipRefresh: String = "更新"
+    override val tooltipPower: String = "電源"
+    override val tooltipVolumeUp: String = "音量アップ"
+    override val tooltipVolumeDown: String = "音量ダウン"
+    override val tooltipVolumeMute: String = "ミュート"
+    override val tooltipBack: String = "戻る"
+    override val tooltipHome: String = "ホーム"
+    override val tooltipRecents: String = "最近のアプリ"
 }
