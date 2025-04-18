@@ -126,4 +126,11 @@ object ChineseResources : StringResources {
     override val tooltipBack: String = "返回"
     override val tooltipHome: String = "主页"
     override val tooltipRecents: String = "最近任务"
+
+    // NavigationRail tooltips
+    override val tooltipCommand: String = "命令"
+    override val tooltipText: String = "文本"
+    override val tooltipScreenshot: String = "截图"
+    override val tooltipFile: String = "文件"
+    override val tooltipSetting: String = "设置"
 }

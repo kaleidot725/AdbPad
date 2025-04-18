@@ -126,4 +126,11 @@ object EnglishResources : StringResources {
     override val tooltipBack: String = "Back"
     override val tooltipHome: String = "Home"
     override val tooltipRecents: String = "Recents"
+
+    // NavigationRail tooltips
+    override val tooltipCommand: String = "Command"
+    override val tooltipText: String = "Text"
+    override val tooltipScreenshot: String = "Screenshot"
+    override val tooltipFile: String = "File"
+    override val tooltipSetting: String = "Setting"
 }

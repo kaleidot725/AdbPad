@@ -235,6 +235,18 @@ object Language : StringResources {
     override val tooltipRecents: String
         get() = getCurrentResources().tooltipRecents
 
+    // NavigationRail tooltips
+    override val tooltipCommand: String
+        get() = getCurrentResources().tooltipCommand
+    override val tooltipText: String
+        get() = getCurrentResources().tooltipText
+    override val tooltipScreenshot: String
+        get() = getCurrentResources().tooltipScreenshot
+    override val tooltipFile: String
+        get() = getCurrentResources().tooltipFile
+    override val tooltipSetting: String
+        get() = getCurrentResources().tooltipSetting
+
     private var currentType: Type = Type.ENGLISH
 
     fun switch(type: Type) {

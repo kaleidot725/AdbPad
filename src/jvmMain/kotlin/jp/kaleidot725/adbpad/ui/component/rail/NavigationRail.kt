@@ -18,6 +18,7 @@ import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Settings
 import com.composables.icons.lucide.Text
 import jp.kaleidot725.adbpad.MainCategory
+import jp.kaleidot725.adbpad.domain.model.language.Language
 
 @Composable
 fun NavigationRail(
@@ -27,7 +28,7 @@ fun NavigationRail(
 ) {
     Column(modifier = Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         NavigationRailItem(
-            label = "Command",
+            label = Language.tooltipCommand,
             icon = Lucide.ChevronsRight,
             contentDescription = "device menu",
             isSelected = category == MainCategory.Command,
@@ -35,7 +36,7 @@ fun NavigationRail(
         )
 
         NavigationRailItem(
-            label = "Text",
+            label = Language.tooltipText,
             icon = Lucide.FileText,
             contentDescription = "text menu",
             isSelected = category == MainCategory.Text,
@@ -43,7 +44,7 @@ fun NavigationRail(
         )
 
         NavigationRailItem(
-            label = "Screenshot",
+            label = Language.tooltipScreenshot,
             icon = Lucide.Camera,
             contentDescription = "screenshot menu",
             isSelected = category == MainCategory.Screenshot,
@@ -52,7 +53,7 @@ fun NavigationRail(
 
         if (false) {
             NavigationRailItem(
-                label = "File",
+                label = Language.tooltipFile,
                 icon = Lucide.File,
                 contentDescription = "file menu",
                 isSelected = category == MainCategory.File,
@@ -63,7 +64,7 @@ fun NavigationRail(
         Spacer(Modifier.weight(1.0f))
 
         NavigationRailItem(
-            label = "Setting",
+            label = Language.tooltipSetting,
             icon = Lucide.Settings,
             contentDescription = "device menu",
             isSelected = false,

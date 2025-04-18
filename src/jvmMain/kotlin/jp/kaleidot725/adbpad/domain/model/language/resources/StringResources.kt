@@ -124,4 +124,11 @@ interface StringResources {
     val tooltipBack: String
     val tooltipHome: String
     val tooltipRecents: String
+
+    // NavigationRail tooltips
+    val tooltipCommand: String
+    val tooltipText: String
+    val tooltipScreenshot: String
+    val tooltipFile: String
+    val tooltipSetting: String
 }

@@ -125,4 +125,11 @@ object JapaneseResources : StringResources {
     override val tooltipBack: String = "戻る"
     override val tooltipHome: String = "ホーム"
     override val tooltipRecents: String = "最近のアプリ"
+
+    // NavigationRail tooltips
+    override val tooltipCommand: String = "コマンド"
+    override val tooltipText: String = "テキスト"
+    override val tooltipScreenshot: String = "スクリーンショット"
+    override val tooltipFile: String = "ファイル"
+    override val tooltipSetting: String = "設定"
 }

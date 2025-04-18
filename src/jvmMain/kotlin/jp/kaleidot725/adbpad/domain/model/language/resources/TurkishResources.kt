@@ -126,4 +126,11 @@ object TurkishResources : StringResources {
     override val tooltipBack: String = "Geri"
     override val tooltipHome: String = "Ana Ekran"
     override val tooltipRecents: String = "Son Uygulamalar"
+
+    // NavigationRail tooltips
+    override val tooltipCommand: String = "Komut"
+    override val tooltipText: String = "Metin"
+    override val tooltipScreenshot: String = "Ekran Görüntüsü"
+    override val tooltipFile: String = "Dosya"
+    override val tooltipSetting: String = "Ayarlar"
 }
