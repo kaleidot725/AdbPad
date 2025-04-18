@@ -114,4 +114,21 @@ interface StringResources {
 
     val sortByNameAsc: String
     val sortByNameDesc: String
+
+    // TopSection tooltips
+    val tooltipRefresh: String
+    val tooltipPower: String
+    val tooltipVolumeUp: String
+    val tooltipVolumeDown: String
+    val tooltipVolumeMute: String
+    val tooltipBack: String
+    val tooltipHome: String
+    val tooltipRecents: String
+
+    // NavigationRail tooltips
+    val tooltipCommand: String
+    val tooltipText: String
+    val tooltipScreenshot: String
+    val tooltipFile: String
+    val tooltipSetting: String
 }

@@ -116,4 +116,21 @@ object EnglishResources : StringResources {
 
     override val sortByNameAsc: String = "Name(Asc)"
     override val sortByNameDesc: String = "Name(Desc)"
+
+    // TopSection tooltips
+    override val tooltipRefresh: String = "Refresh"
+    override val tooltipPower: String = "Power"
+    override val tooltipVolumeUp: String = "Volume Up"
+    override val tooltipVolumeDown: String = "Volume Down"
+    override val tooltipVolumeMute: String = "Volume Mute"
+    override val tooltipBack: String = "Back"
+    override val tooltipHome: String = "Home"
+    override val tooltipRecents: String = "Recents"
+
+    // NavigationRail tooltips
+    override val tooltipCommand: String = "Command"
+    override val tooltipText: String = "Text"
+    override val tooltipScreenshot: String = "Screenshot"
+    override val tooltipFile: String = "File"
+    override val tooltipSetting: String = "Setting"
 }

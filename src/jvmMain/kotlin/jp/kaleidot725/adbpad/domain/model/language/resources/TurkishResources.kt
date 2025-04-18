@@ -116,4 +116,21 @@ object TurkishResources : StringResources {
 
     override val sortByNameAsc: String = "İsim (artan sıra)"
     override val sortByNameDesc: String = " İsim (azalan sıra)"
+
+    // TopSection tooltips
+    override val tooltipRefresh: String = "Yenile"
+    override val tooltipPower: String = "Güç"
+    override val tooltipVolumeUp: String = "Sesi Artır"
+    override val tooltipVolumeDown: String = "Sesi Azalt"
+    override val tooltipVolumeMute: String = "Sessiz"
+    override val tooltipBack: String = "Geri"
+    override val tooltipHome: String = "Ana Ekran"
+    override val tooltipRecents: String = "Son Uygulamalar"
+
+    // NavigationRail tooltips
+    override val tooltipCommand: String = "Komut"
+    override val tooltipText: String = "Metin"
+    override val tooltipScreenshot: String = "Ekran Görüntüsü"
+    override val tooltipFile: String = "Dosya"
+    override val tooltipSetting: String = "Ayarlar"
 }
