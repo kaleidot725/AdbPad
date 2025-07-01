@@ -256,6 +256,8 @@ object Language : StringResources {
         get() = getCurrentResources().menuWindowMinimize
     override val menuWindowFullscreen: String
         get() = getCurrentResources().menuWindowFullscreen
+    override val menuWindowAlwaysOnTop: String
+        get() = getCurrentResources().menuWindowAlwaysOnTop
 
     private var currentType: Type = Type.ENGLISH
 

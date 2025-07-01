@@ -139,4 +139,5 @@ object TurkishResources : StringResources {
     override val menuWindowMaximize: String = "Büyüt"
     override val menuWindowMinimize: String = "Küçült"
     override val menuWindowFullscreen: String = "Tam Ekran"
+    override val menuWindowAlwaysOnTop: String = "Her Zaman Üstte"
 }

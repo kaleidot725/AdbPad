@@ -12,4 +12,5 @@ data class MainState(
     val dialog: MainDialog = MainDialog.Empty,
     val category: MainCategory = MainCategory.Command,
     val selectedDevice: Device? = null,
+    val isAlwaysOnTop: Boolean = false,
 ) : MVIState

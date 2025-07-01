@@ -139,4 +139,5 @@ object ChineseResources : StringResources {
     override val menuWindowMaximize: String = "最大化"
     override val menuWindowMinimize: String = "最小化"
     override val menuWindowFullscreen: String = "全屏"
+    override val menuWindowAlwaysOnTop: String = "始终置顶"
 }

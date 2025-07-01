@@ -138,4 +138,5 @@ object JapaneseResources : StringResources {
     override val menuWindowMaximize: String = "最大化"
     override val menuWindowMinimize: String = "最小化"
     override val menuWindowFullscreen: String = "フルスクリーン"
+    override val menuWindowAlwaysOnTop: String = "常に最前面に表示"
 }

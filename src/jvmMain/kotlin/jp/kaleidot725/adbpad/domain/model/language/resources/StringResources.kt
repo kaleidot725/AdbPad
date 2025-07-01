@@ -137,4 +137,5 @@ interface StringResources {
     val menuWindowMaximize: String
     val menuWindowMinimize: String
     val menuWindowFullscreen: String
+    val menuWindowAlwaysOnTop: String
 }

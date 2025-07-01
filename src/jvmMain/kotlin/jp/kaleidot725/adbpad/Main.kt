@@ -103,6 +103,7 @@ fun main() {
                 icon = painterResource("icon.png"),
                 onCloseRequest = ::exitApplication,
                 state = windowState,
+                alwaysOnTop = state.isAlwaysOnTop,
             ) {
                 MenuBar {
                     Menu(Language.menuWindow) {
@@ -133,6 +134,13 @@ fun main() {
                                 } else {
                                     WindowPlacement.Fullscreen
                                 }
+                            }
+                        )
+                        CheckboxItem(
+                            text = Language.menuWindowAlwaysOnTop,
+                            checked = state.isAlwaysOnTop,
+                            onCheckedChange = {
+                                onAction(MainAction.ToggleAlwaysOnTop)
                             }
                         )
                     }
