@@ -133,4 +133,11 @@ object ChineseResources : StringResources {
     override val tooltipScreenshot: String = "截图"
     override val tooltipFile: String = "文件"
     override val tooltipSetting: String = "设置"
+
+    // MenuBar Window menu
+    override val menuWindow: String = "窗口"
+    override val menuWindowMaximize: String = "最大化"
+    override val menuWindowMinimize: String = "最小化"
+    override val menuWindowFullscreen: String = "全屏"
+    override val menuWindowAlwaysOnTop: String = "始终置顶"
 }

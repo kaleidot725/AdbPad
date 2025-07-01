@@ -66,6 +66,7 @@ class MainStateHolder(
             is MainAction.OpenDevice -> openDevice()
             is MainAction.SaveSetting -> saveSetting(uiAction.windowSize)
             is MainAction.ClickCategory -> clickCategory(uiAction.category)
+            is MainAction.ToggleAlwaysOnTop -> toggleAlwaysOnTop()
         }
     }
 
@@ -83,6 +84,10 @@ class MainStateHolder(
 
     private fun clickCategory(category: MainCategory) {
         update { copy(category = category) }
+    }
+
+    private fun toggleAlwaysOnTop() {
+        update { copy(isAlwaysOnTop = !isAlwaysOnTop) }
     }
 
     private var themeFlowJob: Job? = null

@@ -133,4 +133,11 @@ object TurkishResources : StringResources {
     override val tooltipScreenshot: String = "Ekran Görüntüsü"
     override val tooltipFile: String = "Dosya"
     override val tooltipSetting: String = "Ayarlar"
+
+    // MenuBar Window menu
+    override val menuWindow: String = "Pencere"
+    override val menuWindowMaximize: String = "Büyüt"
+    override val menuWindowMinimize: String = "Küçült"
+    override val menuWindowFullscreen: String = "Tam Ekran"
+    override val menuWindowAlwaysOnTop: String = "Her Zaman Üstte"
 }
