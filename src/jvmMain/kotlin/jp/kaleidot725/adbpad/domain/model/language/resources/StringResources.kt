@@ -131,4 +131,10 @@ interface StringResources {
     val tooltipScreenshot: String
     val tooltipFile: String
     val tooltipSetting: String
+
+    // MenuBar Window menu
+    val menuWindow: String
+    val menuWindowMaximize: String
+    val menuWindowMinimize: String
+    val menuWindowFullscreen: String
 }

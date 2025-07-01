@@ -14,7 +14,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import jp.kaleidot725.adbpad.core.di.domainModule
@@ -102,6 +104,39 @@ fun main() {
                 onCloseRequest = ::exitApplication,
                 state = windowState,
             ) {
+                MenuBar {
+                    Menu(Language.menuWindow) {
+                        CheckboxItem(
+                            text = Language.menuWindowMaximize,
+                            checked = windowState.placement == WindowPlacement.Maximized,
+                            onCheckedChange = {
+                                windowState.placement = if (windowState.placement == WindowPlacement.Maximized) {
+                                    WindowPlacement.Floating
+                                } else {
+                                    WindowPlacement.Maximized
+                                }
+                            }
+                        )
+                        CheckboxItem(
+                            text = Language.menuWindowMinimize,
+                            checked = windowState.isMinimized,
+                            onCheckedChange = {
+                                windowState.isMinimized = !windowState.isMinimized
+                            }
+                        )
+                        CheckboxItem(
+                            text = Language.menuWindowFullscreen,
+                            checked = windowState.placement == WindowPlacement.Fullscreen,
+                            onCheckedChange = {
+                                windowState.placement = if (windowState.placement == WindowPlacement.Fullscreen) {
+                                    WindowPlacement.Floating
+                                } else {
+                                    WindowPlacement.Fullscreen
+                                }
+                            }
+                        )
+                    }
+                }
                 DisposableEffect(Unit) { onDispose { onAction(MainAction.SaveSetting(this@Window.getWindowSize())) } }
                 MaterialTheme(colors = if (state.isDark) DarkColors else LightColors) {
                     DevelopmentEntryPoint {

@@ -133,4 +133,10 @@ object EnglishResources : StringResources {
     override val tooltipScreenshot: String = "Screenshot"
     override val tooltipFile: String = "File"
     override val tooltipSetting: String = "Setting"
+
+    // MenuBar Window menu
+    override val menuWindow: String = "Window"
+    override val menuWindowMaximize: String = "Maximize"
+    override val menuWindowMinimize: String = "Minimize"
+    override val menuWindowFullscreen: String = "Fullscreen"
 }

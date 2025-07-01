@@ -132,4 +132,10 @@ object JapaneseResources : StringResources {
     override val tooltipScreenshot: String = "スクリーンショット"
     override val tooltipFile: String = "ファイル"
     override val tooltipSetting: String = "設定"
+
+    // MenuBar Window menu
+    override val menuWindow: String = "ウィンドウ"
+    override val menuWindowMaximize: String = "最大化"
+    override val menuWindowMinimize: String = "最小化"
+    override val menuWindowFullscreen: String = "フルスクリーン"
 }

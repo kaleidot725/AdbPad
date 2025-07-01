@@ -247,6 +247,16 @@ object Language : StringResources {
     override val tooltipSetting: String
         get() = getCurrentResources().tooltipSetting
 
+    // MenuBar Window menu
+    override val menuWindow: String
+        get() = getCurrentResources().menuWindow
+    override val menuWindowMaximize: String
+        get() = getCurrentResources().menuWindowMaximize
+    override val menuWindowMinimize: String
+        get() = getCurrentResources().menuWindowMinimize
+    override val menuWindowFullscreen: String
+        get() = getCurrentResources().menuWindowFullscreen
+
     private var currentType: Type = Type.ENGLISH
 
     fun switch(type: Type) {
