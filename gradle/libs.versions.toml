@@ -1,36 +1,35 @@
 [versions]
+adam="0.5.10"
+coil = "3.1.0"
+compose="1.7.3"
+compose_hot_reload = "1.0.0-alpha01"
+junit="5.11.4"
+koin="4.0.2"
 kotlin="2.1.20-Beta2"
 kotlin_coroutines="1.10.1"
 kotlin_serialization="1.8.0"
-compose_hot_reload = "1.0.0-alpha01"
-compose="1.7.3"
 ktlint_plugin="12.1.2"
-adam="0.5.10"
-junit="5.11.4"
-koin="4.0.2"
-system_theme_detector="3.9.1"
 ktor = "3.1.0"
 lucide = "1.1.0"
-coil = "3.1.0"
+system_theme_detector="3.9.1"
 
 [libraries]
 adam = { module = "com.malinskiy.adam:adam", version.ref = "adam" }
-kotlin_coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin_coroutines" }
-kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlin_coroutines" }
-kotlin_serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin_serialization" }
+coil = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+jSystemThemeDetectorVer = { module = "com.github.Dansoftowner:jSystemThemeDetector", version.ref = "system_theme_detector" }
 junit5 = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-jSystemThemeDetectorVer = { module = "com.github.Dansoftowner:jSystemThemeDetector", version.ref = "system_theme_detector" }
-ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+kotlin_coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin_coroutines" }
+kotlin_serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin_serialization" }
+kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlin_coroutines" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 lucide = { module = "com.composables:icons-lucide", version.ref = "lucide" }
-coil = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 
 [plugins]
-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 compose-hot-reload = { id = "org.jetbrains.compose.hot-reload", version.ref = "compose_hot_reload" }
-
-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint_plugin" }
+multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
