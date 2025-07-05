@@ -15,15 +15,6 @@ import javax.imageio.ImageIO
 object ClipBoardUtils {
     private val clipboard get() = Toolkit.getDefaultToolkit().systemClipboard
 
-    fun copyFile(file: File): Boolean =
-        try {
-            val fileSelection = FileSelection(file)
-            clipboard.setContents(fileSelection, fileSelection)
-            true
-        } catch (e: IllegalStateException) {
-            false
-        }
-
     fun copyImage(file: File): Boolean =
         try {
             val image = ImageIO.read(file) ?: return false
@@ -33,23 +24,6 @@ object ClipBoardUtils {
         } catch (e: Exception) {
             false
         }
-
-    private class FileSelection(
-        private val file: File,
-    ) : Transferable,
-        ClipboardOwner {
-        override fun getTransferDataFlavors(): Array<DataFlavor> = arrayOf(DataFlavor.javaFileListFlavor)
-
-        override fun isDataFlavorSupported(flavor: DataFlavor): Boolean = DataFlavor.javaFileListFlavor.equals(flavor)
-
-        @Throws(UnsupportedFlavorException::class, IOException::class)
-        override fun getTransferData(flavor: DataFlavor): Any = listOf(file)
-
-        override fun lostOwnership(
-            clipboard: Clipboard?,
-            contents: Transferable?,
-        ) {}
-    }
 
     private class ImageSelection(
         private val image: BufferedImage,

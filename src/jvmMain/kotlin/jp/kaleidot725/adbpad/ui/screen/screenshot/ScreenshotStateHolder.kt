@@ -149,7 +149,7 @@ class ScreenshotStateHolder(
 
     private fun copyScreenShotToClipboard() {
         val file = currentState.preview.file ?: return
-        if (!ClipBoardUtils.copyImage(file)) ClipBoardUtils.copyFile(file)
+        ClipBoardUtils.copyImage(file)
     }
 
     private suspend fun deleteScreenShotToClipboard() {
