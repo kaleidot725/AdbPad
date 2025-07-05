@@ -1,6 +1,5 @@
 package jp.kaleidot725.adbpad.core.utils
 
-import java.awt.Image
 import java.awt.Toolkit
 import java.awt.datatransfer.Clipboard
 import java.awt.datatransfer.ClipboardOwner
