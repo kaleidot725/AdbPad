@@ -149,10 +149,7 @@ class ScreenshotStateHolder(
 
     private fun copyScreenShotToClipboard() {
         val file = currentState.preview.file ?: return
-        // 画像データとしてクリップボードにコピーを試行、失敗した場合はファイルとしてコピー
-        if (!ClipBoardUtils.copyImage(file)) {
-            ClipBoardUtils.copyFile(file)
-        }
+        if (!ClipBoardUtils.copyImage(file)) ClipBoardUtils.copyFile(file)
     }
 
     private suspend fun deleteScreenShotToClipboard() {
