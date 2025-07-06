@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.composables.icons.lucide.ClipboardCopy
 import com.composables.icons.lucide.FolderOpen
 import com.composables.icons.lucide.Lucide
 
@@ -26,30 +25,12 @@ import com.composables.icons.lucide.Lucide
 fun ScreenshotActions(
     enabled: Boolean,
     onOpen: () -> Unit,
-    onCopy: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         modifier = modifier,
     ) {
-        IconButton(
-            onClick = onCopy,
-            enabled = enabled,
-            modifier =
-                Modifier
-                    .padding(vertical = 4.dp)
-                    .size(32.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .align(Alignment.CenterVertically),
-        ) {
-            Icon(
-                imageVector = Lucide.ClipboardCopy,
-                contentDescription = "copy",
-                modifier = Modifier.height(20.dp),
-            )
-        }
-
         IconButton(
             onClick = onOpen,
             enabled = enabled,
@@ -75,7 +56,6 @@ private fun ScreenshotHeader_Preview() {
     ScreenshotActions(
         enabled = true,
         onOpen = {},
-        onCopy = {},
         modifier =
             Modifier
                 .fillMaxWidth()

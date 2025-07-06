@@ -49,7 +49,6 @@ fun ScreenshotViewer(
         ScreenshotActions(
             enabled = screenshot.file != null,
             onOpen = onOpenDirectory,
-            onCopy = onCopyScreenshot,
             modifier = Modifier.height(48.dp).padding(horizontal = 12.dp).align(Alignment.End),
         )
 

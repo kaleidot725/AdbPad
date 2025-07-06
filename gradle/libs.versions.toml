@@ -1,7 +1,7 @@
 [versions]
-kotlin="2.1.20-Beta2"
-kotlin_coroutines="1.10.2"
+kotlin="2.2.0"
 kotlin_serialization="1.8.0"
+kotlin_coroutines="1.10.1"
 compose_hot_reload = "1.0.0-alpha01"
 compose="1.8.2"
 ktlint_plugin="12.1.2"
