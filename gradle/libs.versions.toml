@@ -11,7 +11,7 @@ koin="4.0.2"
 system_theme_detector="3.9.1"
 ktor = "3.1.0"
 lucide = "1.1.0"
-coil = "3.1.0"
+coil = "3.2.0"
 
 [libraries]
 adam = { module = "com.malinskiy.adam:adam", version.ref = "adam" }
