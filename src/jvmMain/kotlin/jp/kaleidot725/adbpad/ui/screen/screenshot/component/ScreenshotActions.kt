@@ -25,7 +25,6 @@ import com.composables.icons.lucide.Lucide
 fun ScreenshotActions(
     enabled: Boolean,
     onOpen: () -> Unit,
-    onCopy: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -57,7 +56,6 @@ private fun ScreenshotHeader_Preview() {
     ScreenshotActions(
         enabled = true,
         onOpen = {},
-        onCopy = {},
         modifier =
             Modifier
                 .fillMaxWidth()
