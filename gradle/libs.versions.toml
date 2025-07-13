@@ -12,6 +12,7 @@ system_theme_detector="3.9.1"
 ktor = "3.2.1"
 lucide = "1.1.0"
 coil = "3.2.0"
+zoomable = "2.8.1"
 
 [libraries]
 adam = { module = "com.malinskiy.adam:adam", version.ref = "adam" }
@@ -25,6 +26,7 @@ ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 lucide = { module = "com.composables:icons-lucide", version.ref = "lucide" }
 coil = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+zoomable = { module = "net.engawapg.lib:zoomable", version.ref = "zoomable" }
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

@@ -39,7 +39,7 @@ kotlin {
         implementation(libs.ktor.client.okhttp)
         implementation(libs.jSystemThemeDetectorVer)
         implementation(libs.coil)
-        implementation("net.engawapg.lib:zoomable:2.8.1")
+        implementation(libs.zoomable)
     }
     sourceSets.jvmTest.dependencies {
         implementation(libs.junit5)
