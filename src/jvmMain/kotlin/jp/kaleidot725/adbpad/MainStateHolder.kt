@@ -7,6 +7,7 @@ import jp.kaleidot725.adbpad.core.mvi.MVIState
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
+import jp.kaleidot725.adbpad.domain.usecase.app.ShutdownAppUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.refresh.RefreshUseCase
 import jp.kaleidot725.adbpad.domain.usecase.theme.GetDarkModeFlowUseCase
@@ -35,6 +36,7 @@ class MainStateHolder(
     private val getDarkModeFlowUseCase: GetDarkModeFlowUseCase,
     private val getLanguageUseCase: GetLanguageUseCase,
     private val refreshUseCase: RefreshUseCase,
+    private val shutdownAppUseCase: ShutdownAppUseCase,
 ) : MVIBase<MainState, MainAction, MainSideEffect>(initialUiState = MainState()) {
     private val children: List<MVIBase<out MVIState, out MVIAction, out MVISideEffect>> =
         listOf(
@@ -67,6 +69,7 @@ class MainStateHolder(
             is MainAction.SaveSetting -> saveSetting(uiAction.windowSize)
             is MainAction.ClickCategory -> clickCategory(uiAction.category)
             is MainAction.ToggleAlwaysOnTop -> toggleAlwaysOnTop()
+            is MainAction.Shutdown -> shutdown()
         }
     }
 
@@ -88,6 +91,14 @@ class MainStateHolder(
 
     private fun toggleAlwaysOnTop() {
         update { copy(isAlwaysOnTop = !isAlwaysOnTop) }
+    }
+
+    private fun shutdown() {
+        // Terminate all running Scrcpy processes before app shutdown
+        shutdownAppUseCase()
+        
+        // Cancel any ongoing coroutines
+        themeFlowJob?.cancel()
     }
 
     private var themeFlowJob: Job? = null

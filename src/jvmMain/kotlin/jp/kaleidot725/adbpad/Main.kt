@@ -101,7 +101,10 @@ fun main() {
             Window(
                 title = Language.windowTitle,
                 icon = painterResource("icon.png"),
-                onCloseRequest = ::exitApplication,
+                onCloseRequest = {
+                    onAction(MainAction.Shutdown)
+                    exitApplication()
+                },
                 state = windowState,
                 alwaysOnTop = state.isAlwaysOnTop,
             ) {

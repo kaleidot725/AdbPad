@@ -2,6 +2,7 @@ package jp.kaleidot725.adbpad.core.di
 
 import jp.kaleidot725.adbpad.domain.usecase.adb.RestartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
+import jp.kaleidot725.adbpad.domain.usecase.app.ShutdownAppUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
@@ -85,7 +86,7 @@ val domainModule =
             SaveScrcpySettingsUseCase(get())
         }
         factory {
-            LaunchScrcpyUseCase(get())
+            LaunchScrcpyUseCase(get(), get())
         }
         factory {
             GetAppearanceUseCase(get())
@@ -107,5 +108,8 @@ val domainModule =
         }
         factory {
             UpdateDevicesUseCase(get())
+        }
+        factory {
+            ShutdownAppUseCase(get())
         }
     }

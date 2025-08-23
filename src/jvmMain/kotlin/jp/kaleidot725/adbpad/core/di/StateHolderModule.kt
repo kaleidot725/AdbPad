@@ -96,6 +96,7 @@ val stateHolderModule =
                 topStateHolder = get(),
                 deviceStateHolder = get(),
                 settingStateHolder = get(),
+                shutdownAppUseCase = get(),
             )
         }
     }

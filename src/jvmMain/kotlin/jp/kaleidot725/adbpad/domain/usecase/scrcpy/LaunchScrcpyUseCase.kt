@@ -1,6 +1,7 @@
 package jp.kaleidot725.adbpad.domain.usecase.scrcpy
 
 import jp.kaleidot725.adbpad.domain.model.device.Device
+import jp.kaleidot725.adbpad.domain.repository.ScrcpyProcessRepository
 import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 import jp.kaleidot725.scrcpykt.ScrcpyClient
 import jp.kaleidot725.scrcpykt.ScrcpyResult
@@ -9,8 +10,12 @@ import java.io.File
 
 class LaunchScrcpyUseCase(
     private val settingRepository: SettingRepository,
+    private val scrcpyProcessRepository: ScrcpyProcessRepository,
 ) {
-    suspend operator fun invoke(device: Device) {
+    suspend operator fun invoke(device: Device): Boolean {
+        // Terminate existing process for this device if running
+        scrcpyProcessRepository.getProcess(device.serial)?.terminate()
+
         val scrcpySettings = settingRepository.getScrcpySettings()
 
         // Check if custom binary path is provided and exists
@@ -37,12 +42,13 @@ class LaunchScrcpyUseCase(
         val result = client.execute(command)
 
         // Handle result if needed
-        when (result) {
+        return when (result) {
             is ScrcpyResult.Success -> {
-                println("Scrcpy started successfully for device: ${device.serial}")
+                scrcpyProcessRepository.storeProcess(device.serial, result.process)
+                true
             }
             is ScrcpyResult.Error -> {
-                throw RuntimeException("Failed to start Scrcpy: ${result.message}")
+                false
             }
         }
     }

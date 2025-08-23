@@ -17,4 +17,6 @@ sealed class MainAction : MVIAction {
     data object OpenDevice : MainAction()
 
     data object ToggleAlwaysOnTop : MainAction()
+
+    data object Shutdown : MainAction()
 }

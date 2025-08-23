@@ -34,12 +34,13 @@ import com.composables.icons.lucide.Circle
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Power
 import com.composables.icons.lucide.RefreshCcw
+import com.composables.icons.lucide.ScreenShare
+import com.composables.icons.lucide.Smartphone
 import com.composables.icons.lucide.Square
 import com.composables.icons.lucide.Triangle
 import com.composables.icons.lucide.Volume1
 import com.composables.icons.lucide.Volume2
 import com.composables.icons.lucide.VolumeX
-import com.composables.icons.lucide.Smartphone
 import jp.kaleidot725.adbpad.domain.model.command.DeviceControlCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.language.Language
@@ -191,7 +192,7 @@ private fun TopSection(
                     text = Language.tooltipScrcpy,
                 ) {
                     CommandIconButton(
-                        image = Lucide.Smartphone,
+                        image = Lucide.ScreenShare,
                         onClick = { onLaunchScrcpy() },
                         padding = 2.dp,
                     )
