@@ -39,6 +39,7 @@ import com.composables.icons.lucide.Triangle
 import com.composables.icons.lucide.Volume1
 import com.composables.icons.lucide.Volume2
 import com.composables.icons.lucide.VolumeX
+import com.composables.icons.lucide.Monitor
 import jp.kaleidot725.adbpad.domain.model.command.DeviceControlCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.language.Language
@@ -60,6 +61,7 @@ fun TopSection(
         state = state,
         onExecuteCommand = { onAction(TopAction.ExecuteCommand(it)) },
         onSelectDevice = { onAction(TopAction.SelectDevice(it)) },
+        onLaunchScrcpy = { onAction(TopAction.LaunchScrcpy) },
         onRefresh = onMainRefresh,
         onOpenDevice = onMainOpenDevice,
     )
@@ -71,6 +73,7 @@ private fun TopSection(
     state: TopState,
     onExecuteCommand: (DeviceControlCommand) -> Unit,
     onSelectDevice: (Device) -> Unit,
+    onLaunchScrcpy: () -> Unit,
     onOpenDevice: () -> Unit,
     onRefresh: () -> Unit,
 ) {
@@ -181,6 +184,18 @@ private fun TopSection(
                         padding = 2.dp,
                     )
                 }
+
+                CommandIconDivider()
+
+                CommandTooltip(
+                    text = "Launch Scrcpy",
+                ) {
+                    CommandIconButton(
+                        image = Lucide.Monitor,
+                        onClick = { onLaunchScrcpy() },
+                        padding = 2.dp,
+                    )
+                }
             }
         }
     }
@@ -225,6 +240,7 @@ private fun Preview() {
         state = TopState(),
         onExecuteCommand = {},
         onSelectDevice = {},
+        onLaunchScrcpy = {},
         onRefresh = {},
         onOpenDevice = {},
     )

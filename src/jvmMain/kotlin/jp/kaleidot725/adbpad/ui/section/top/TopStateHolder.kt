@@ -10,8 +10,9 @@ import jp.kaleidot725.adbpad.domain.usecase.device.UpdateDevicesUseCase
 import jp.kaleidot725.adbpad.ui.section.top.state.TopAction
 import jp.kaleidot725.adbpad.ui.section.top.state.TopSideEffect
 import jp.kaleidot725.adbpad.ui.section.top.state.TopState
+import jp.kaleidot725.scrcpykt.ScrcpyClient
+import jp.kaleidot725.scrcpykt.ScrcpyResult
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -38,6 +39,7 @@ class TopStateHolder(
             when (uiAction) {
                 is TopAction.ExecuteCommand -> executeCommand(uiAction.command)
                 is TopAction.SelectDevice -> selectDevice(uiAction.device)
+                is TopAction.LaunchScrcpy -> launchScrcpy()
             }
         }
     }
@@ -52,6 +54,36 @@ class TopStateHolder(
             device = device,
             command = command,
         )
+    }
+
+    private fun launchScrcpy() {
+        val device = currentState.selectedDevice ?: return
+
+        coroutineScope.launch {
+            try {
+                val client = ScrcpyClient.create()
+                val result =
+                    client.mirror {
+                        connection {
+                            serial(device.serial)
+                        }
+                        display {
+                            windowTitle("AdbPad - ${device.name}")
+                        }
+                    }
+
+                when (result) {
+                    is ScrcpyResult.Success -> {
+                        println("Scrcpy mirroring started for device: ${device.name}")
+                    }
+                    is ScrcpyResult.Error -> {
+                        println("Failed to launch Scrcpy: ${result.message}")
+                    }
+                }
+            } catch (e: Exception) {
+                println("Failed to launch Scrcpy: ${e.message}")
+            }
+        }
     }
 
     private fun collectDevices() {

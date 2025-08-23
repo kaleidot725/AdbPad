@@ -12,4 +12,6 @@ sealed class TopAction : MVIAction {
     data class ExecuteCommand(
         val command: DeviceControlCommand,
     ) : TopAction()
+
+    data object LaunchScrcpy : TopAction()
 }
