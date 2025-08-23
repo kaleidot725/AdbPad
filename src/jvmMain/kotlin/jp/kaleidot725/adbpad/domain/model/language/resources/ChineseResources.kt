@@ -110,6 +110,9 @@ object ChineseResources : StringResources {
     override val settingAndroidSdkDirectoryPathTitle = "目录路径"
     override val settingAdbRestartTitle = "重启 ADB"
 
+    override val settingScrcpyHeader = "Scrcpy"
+    override val settingScrcpyBinaryPathTitle = "二进制路径"
+
     override val adbErrorTitle = "ADB 错误"
     override val adbErrorMessage = "无法启动 ADB 服务，请更改 ADB 设置。"
     override val adbErrorOpenSetting = "打开设置"
@@ -133,6 +136,7 @@ object ChineseResources : StringResources {
     override val tooltipScreenshot: String = "截图"
     override val tooltipFile: String = "文件"
     override val tooltipSetting: String = "设置"
+    override val tooltipScrcpy: String = "启动 Scrcpy"
 
     // MenuBar Window menu
     override val menuWindow: String = "窗口"

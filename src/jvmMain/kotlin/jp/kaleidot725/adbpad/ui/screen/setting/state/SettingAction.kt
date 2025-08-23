@@ -22,4 +22,8 @@ sealed class SettingAction : MVIAction {
     data class UpdateAdbPortNumberPath(
         val value: String,
     ) : SettingAction()
+
+    data class UpdateScrcpyBinaryPath(
+        val value: String,
+    ) : SettingAction()
 }

@@ -45,6 +45,8 @@ val stateHolderModule =
                 saveAppearanceUseCase = get(),
                 getLanguageUseCase = get(),
                 saveLanguageUseCase = get(),
+                getScrcpySettingsUseCase = get(),
+                saveScrcpySettingsUseCase = get(),
                 restartAdbUseCase = get(),
             )
         }
@@ -55,6 +57,7 @@ val stateHolderModule =
                 getSelectedDeviceFlowUseCase = get(),
                 selectDeviceUseCase = get(),
                 executeDeviceControlCommandUseCase = get(),
+                launchScrcpyUseCase = get(),
             )
         }
 
@@ -73,6 +76,8 @@ val stateHolderModule =
                 saveAppearanceUseCase = get(),
                 getLanguageUseCase = get(),
                 saveLanguageUseCase = get(),
+                getScrcpySettingsUseCase = get(),
+                saveScrcpySettingsUseCase = get(),
                 restartAdbUseCase = get(),
             )
         }

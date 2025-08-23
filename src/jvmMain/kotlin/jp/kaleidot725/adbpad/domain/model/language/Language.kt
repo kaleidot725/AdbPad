@@ -195,6 +195,12 @@ object Language : StringResources {
         get() = getCurrentResources().settingAdbPortNumberTitle
     override val settingAdbRestartTitle: String
         get() = getCurrentResources().settingAdbRestartTitle
+
+    override val settingScrcpyHeader: String
+        get() = getCurrentResources().settingScrcpyHeader
+    override val settingScrcpyBinaryPathTitle: String
+        get() = getCurrentResources().settingScrcpyBinaryPathTitle
+
     override val settingAndroidSdkHeader: String
         get() = getCurrentResources().settingAndroidSdkHeader
     override val settingAndroidSdkDirectoryPathTitle: String
@@ -246,6 +252,8 @@ object Language : StringResources {
         get() = getCurrentResources().tooltipFile
     override val tooltipSetting: String
         get() = getCurrentResources().tooltipSetting
+    override val tooltipScrcpy: String
+        get() = getCurrentResources().tooltipScrcpy
 
     // MenuBar Window menu
     override val menuWindow: String

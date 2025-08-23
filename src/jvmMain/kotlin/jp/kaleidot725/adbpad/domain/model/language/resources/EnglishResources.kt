@@ -110,6 +110,9 @@ object EnglishResources : StringResources {
     override val settingAndroidSdkDirectoryPathTitle = "Directory Path"
     override val settingAdbRestartTitle: String = "Restart ADB"
 
+    override val settingScrcpyHeader = "Scrcpy"
+    override val settingScrcpyBinaryPathTitle = "Binary Path"
+
     override val adbErrorTitle = "Adb Error"
     override val adbErrorMessage = "Can't start adb server, Please change adb setting."
     override val adbErrorOpenSetting = "Open Setting"
@@ -133,6 +136,7 @@ object EnglishResources : StringResources {
     override val tooltipScreenshot: String = "Screenshot"
     override val tooltipFile: String = "File"
     override val tooltipSetting: String = "Setting"
+    override val tooltipScrcpy: String = "Launch Scrcpy"
 
     // MenuBar Window menu
     override val menuWindow: String = "Window"

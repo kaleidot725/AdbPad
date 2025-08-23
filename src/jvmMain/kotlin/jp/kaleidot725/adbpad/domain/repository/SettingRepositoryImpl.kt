@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.domain.repository
 import jp.kaleidot725.adbpad.data.local.SettingFileCreator
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
+import jp.kaleidot725.adbpad.domain.model.setting.ScrcpySettings
 import jp.kaleidot725.adbpad.domain.model.setting.SdkPath
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import kotlinx.coroutines.Dispatchers
@@ -66,6 +67,21 @@ class SettingRepositoryImpl : SettingRepository {
         return withContext(Dispatchers.IO) {
             val setting = SettingFileCreator.load()
             return@withContext setting.language
+        }
+    }
+
+    override suspend fun updateScrcpySettings(scrcpySettings: ScrcpySettings): Boolean {
+        return withContext(Dispatchers.IO) {
+            val oldSetting = SettingFileCreator.load()
+            val newSetting = oldSetting.copy(scrcpySettings = scrcpySettings)
+            return@withContext SettingFileCreator.save(newSetting)
+        }
+    }
+
+    override suspend fun getScrcpySettings(): ScrcpySettings {
+        return withContext(Dispatchers.IO) {
+            val setting = SettingFileCreator.load()
+            return@withContext setting.scrcpySettings
         }
     }
 }

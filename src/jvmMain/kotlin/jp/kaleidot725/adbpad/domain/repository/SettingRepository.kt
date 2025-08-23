@@ -2,6 +2,7 @@ package jp.kaleidot725.adbpad.domain.repository
 
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
+import jp.kaleidot725.adbpad.domain.model.setting.ScrcpySettings
 import jp.kaleidot725.adbpad.domain.model.setting.SdkPath
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 
@@ -21,4 +22,8 @@ interface SettingRepository {
     suspend fun updateLanguage(language: Language.Type): Boolean
 
     suspend fun getLanguage(): Language.Type
+
+    suspend fun updateScrcpySettings(scrcpySettings: ScrcpySettings): Boolean
+
+    suspend fun getScrcpySettings(): ScrcpySettings
 }
