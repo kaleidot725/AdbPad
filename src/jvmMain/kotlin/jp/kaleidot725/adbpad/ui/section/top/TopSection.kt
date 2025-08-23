@@ -35,7 +35,6 @@ import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Power
 import com.composables.icons.lucide.RefreshCcw
 import com.composables.icons.lucide.ScreenShare
-import com.composables.icons.lucide.Smartphone
 import com.composables.icons.lucide.Square
 import com.composables.icons.lucide.Triangle
 import com.composables.icons.lucide.Volume1

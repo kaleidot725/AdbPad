@@ -96,7 +96,7 @@ class MainStateHolder(
     private fun shutdown() {
         // Terminate all running Scrcpy processes before app shutdown
         shutdownAppUseCase()
-        
+
         // Cancel any ongoing coroutines
         themeFlowJob?.cancel()
     }

@@ -6,10 +6,10 @@ import jp.kaleidot725.adbpad.domain.repository.DeviceRepository
 import jp.kaleidot725.adbpad.domain.repository.DeviceRepositoryImpl
 import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepository
 import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepositoryImpl
-import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
-import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepositoryImpl
 import jp.kaleidot725.adbpad.domain.repository.ScrcpyProcessRepository
 import jp.kaleidot725.adbpad.domain.repository.ScrcpyProcessRepositoryImpl
+import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
+import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepositoryImpl
 import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 import jp.kaleidot725.adbpad.domain.repository.SettingRepositoryImpl
 import jp.kaleidot725.adbpad.domain.repository.TextCommandRepository

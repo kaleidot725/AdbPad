@@ -1,7 +1,6 @@
 package jp.kaleidot725.adbpad.domain.repository
 
 import jp.kaleidot725.scrcpykt.ScrcpyProcess
-import java.util.concurrent.TimeUnit
 
 class ScrcpyProcessRepositoryImpl : ScrcpyProcessRepository {
     private val runningProcesses = mutableMapOf<String, ScrcpyProcess>()

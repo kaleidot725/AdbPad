@@ -8,7 +8,7 @@ class ShutdownAppUseCase(
     operator fun invoke() {
         // Terminate all running Scrcpy processes
         scrcpyProcessRepository.terminateAllProcesses()
-        
+
         println("Application shutdown complete.")
     }
 }
