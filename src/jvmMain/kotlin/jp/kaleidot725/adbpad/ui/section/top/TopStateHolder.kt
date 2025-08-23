@@ -11,6 +11,7 @@ import jp.kaleidot725.adbpad.ui.section.top.state.TopAction
 import jp.kaleidot725.adbpad.ui.section.top.state.TopSideEffect
 import jp.kaleidot725.adbpad.ui.section.top.state.TopState
 import jp.kaleidot725.scrcpykt.ScrcpyClient
+import jp.kaleidot725.scrcpykt.ScrcpyProcess
 import jp.kaleidot725.scrcpykt.ScrcpyResult
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -25,6 +26,7 @@ class TopStateHolder(
 ) : MVIBase<TopState, TopAction, TopSideEffect>(TopState()) {
     private var deviceJob: Job? = null
     private var selectedDeviceJob: Job? = null
+    private val scrcpyProcesses = mutableMapOf<String, ScrcpyProcess>()
 
     override fun onSetup() {
         collectDevices()
@@ -61,6 +63,13 @@ class TopStateHolder(
 
         coroutineScope.launch {
             try {
+                // Check if there's already a running process for this device
+                scrcpyProcesses[device.serial]?.let { existingProcess ->
+                    println("Stopping existing Scrcpy process for device: ${device.name}")
+                    existingProcess.terminate()
+                    scrcpyProcesses.remove(device.serial)
+                }
+
                 val client = ScrcpyClient.create()
                 val result =
                     client.mirror {
@@ -75,6 +84,8 @@ class TopStateHolder(
                 when (result) {
                     is ScrcpyResult.Success -> {
                         println("Scrcpy mirroring started for device: ${device.name}")
+                        // Store the process for future management
+                        scrcpyProcesses[device.serial] = result.process
                     }
                     is ScrcpyResult.Error -> {
                         println("Failed to launch Scrcpy: ${result.message}")
