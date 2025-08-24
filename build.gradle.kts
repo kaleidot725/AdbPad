@@ -60,7 +60,7 @@ compose.desktop {
             description = "Android Debug Bridge GUI Application for easier device management"
             copyright = "© 2024 kaleidot725. All rights reserved."
             vendor = "kaleidot725"
-            
+
             modules("jdk.management")
             modules("jdk.unsupported")
 
@@ -83,13 +83,9 @@ compose.desktop {
 
             windows {
                 iconFile.set(project.file("icon.ico"))
-                
-                // Enable desktop and start menu shortcuts for Windows installer
                 shortcut = true
                 menu = true
                 dirChooser = true
-                
-                // Application registry settings for proper uninstallation
                 upgradeUuid = "C7C2E2ED-0A7D-4E8F-B2FC-9F5A1E2D3C4B"
             }
 
