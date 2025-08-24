@@ -110,6 +110,9 @@ object TurkishResources : StringResources {
     override val settingAndroidSdkDirectoryPathTitle = "Dizin Yolu"
     override val settingAdbRestartTitle: String = "ADB'yi Yeniden Başlat"
 
+    override val settingScrcpyHeader = "Scrcpy"
+    override val settingScrcpyBinaryPathTitle = "Yürütülebilir Dosya Yolu"
+
     override val adbErrorTitle = "Adb Hatası"
     override val adbErrorMessage = "Adb sunucusu başlatılamıyor, lütfen adb ayarlarını değiştirin."
     override val adbErrorOpenSetting = "Ayarları Aç"
@@ -133,6 +136,7 @@ object TurkishResources : StringResources {
     override val tooltipScreenshot: String = "Ekran Görüntüsü"
     override val tooltipFile: String = "Dosya"
     override val tooltipSetting: String = "Ayarlar"
+    override val tooltipScrcpy: String = "Scrcpy'yi Başlat"
 
     // MenuBar Window menu
     override val menuWindow: String = "Pencere"

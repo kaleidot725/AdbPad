@@ -40,6 +40,7 @@ kotlin {
         implementation(libs.jSystemThemeDetectorVer)
         implementation(libs.coil)
         implementation(libs.zoomable)
+        implementation(libs.scrcpy.kt)
     }
     sourceSets.jvmTest.dependencies {
         implementation(libs.junit5)

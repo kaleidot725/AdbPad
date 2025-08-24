@@ -34,6 +34,7 @@ import com.composables.icons.lucide.Circle
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Power
 import com.composables.icons.lucide.RefreshCcw
+import com.composables.icons.lucide.ScreenShare
 import com.composables.icons.lucide.Square
 import com.composables.icons.lucide.Triangle
 import com.composables.icons.lucide.Volume1
@@ -60,6 +61,7 @@ fun TopSection(
         state = state,
         onExecuteCommand = { onAction(TopAction.ExecuteCommand(it)) },
         onSelectDevice = { onAction(TopAction.SelectDevice(it)) },
+        onLaunchScrcpy = { onAction(TopAction.LaunchScrcpy) },
         onRefresh = onMainRefresh,
         onOpenDevice = onMainOpenDevice,
     )
@@ -71,6 +73,7 @@ private fun TopSection(
     state: TopState,
     onExecuteCommand: (DeviceControlCommand) -> Unit,
     onSelectDevice: (Device) -> Unit,
+    onLaunchScrcpy: () -> Unit,
     onOpenDevice: () -> Unit,
     onRefresh: () -> Unit,
 ) {
@@ -181,6 +184,18 @@ private fun TopSection(
                         padding = 2.dp,
                     )
                 }
+
+                CommandIconDivider()
+
+                CommandTooltip(
+                    text = Language.tooltipScrcpy,
+                ) {
+                    CommandIconButton(
+                        image = Lucide.ScreenShare,
+                        onClick = { onLaunchScrcpy() },
+                        padding = 2.dp,
+                    )
+                }
             }
         }
     }
@@ -225,6 +240,7 @@ private fun Preview() {
         state = TopState(),
         onExecuteCommand = {},
         onSelectDevice = {},
+        onLaunchScrcpy = {},
         onRefresh = {},
         onOpenDevice = {},
     )

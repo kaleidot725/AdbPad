@@ -109,6 +109,9 @@ object JapaneseResources : StringResources {
     override val settingAndroidSdkDirectoryPathTitle = "Directory Path"
     override val settingAdbRestartTitle: String = "ADB再起動"
 
+    override val settingScrcpyHeader = "Scrcpy"
+    override val settingScrcpyBinaryPathTitle = "バイナリパス"
+
     override val adbErrorTitle = "ADBエラー"
     override val adbErrorMessage = "ADBサーバーを開始できませんでした、ADBの設定を変更してください"
     override val adbErrorOpenSetting = "設定を開く"
@@ -132,6 +135,7 @@ object JapaneseResources : StringResources {
     override val tooltipScreenshot: String = "スクリーンショット"
     override val tooltipFile: String = "ファイル"
     override val tooltipSetting: String = "設定"
+    override val tooltipScrcpy: String = "Scrcpyを起動"
 
     // MenuBar Window menu
     override val menuWindow: String = "ウィンドウ"

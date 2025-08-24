@@ -2,6 +2,7 @@ package jp.kaleidot725.adbpad.data.local
 
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
+import jp.kaleidot725.adbpad.domain.model.setting.ScrcpySettings
 import jp.kaleidot725.adbpad.domain.model.setting.SdkPath
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import kotlinx.serialization.Serializable
@@ -37,5 +38,6 @@ object SettingFileCreator {
         val appearance: Appearance = Appearance.LIGHT,
         val sdkPath: SdkPath = SdkPath(),
         val windowSize: WindowSize = WindowSize.DEFAULT,
+        val scrcpySettings: ScrcpySettings = ScrcpySettings(),
     )
 }

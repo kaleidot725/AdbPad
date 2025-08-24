@@ -101,7 +101,10 @@ fun main() {
             Window(
                 title = Language.windowTitle,
                 icon = painterResource("icon.png"),
-                onCloseRequest = ::exitApplication,
+                onCloseRequest = {
+                    onAction(MainAction.Shutdown)
+                    exitApplication()
+                },
                 state = windowState,
                 alwaysOnTop = state.isAlwaysOnTop,
             ) {
@@ -111,37 +114,39 @@ fun main() {
                             text = Language.menuWindowMaximize,
                             checked = windowState.placement == WindowPlacement.Maximized,
                             onCheckedChange = {
-                                windowState.placement = if (windowState.placement == WindowPlacement.Maximized) {
-                                    WindowPlacement.Floating
-                                } else {
-                                    WindowPlacement.Maximized
-                                }
-                            }
+                                windowState.placement =
+                                    if (windowState.placement == WindowPlacement.Maximized) {
+                                        WindowPlacement.Floating
+                                    } else {
+                                        WindowPlacement.Maximized
+                                    }
+                            },
                         )
                         CheckboxItem(
                             text = Language.menuWindowMinimize,
                             checked = windowState.isMinimized,
                             onCheckedChange = {
                                 windowState.isMinimized = !windowState.isMinimized
-                            }
+                            },
                         )
                         CheckboxItem(
                             text = Language.menuWindowFullscreen,
                             checked = windowState.placement == WindowPlacement.Fullscreen,
                             onCheckedChange = {
-                                windowState.placement = if (windowState.placement == WindowPlacement.Fullscreen) {
-                                    WindowPlacement.Floating
-                                } else {
-                                    WindowPlacement.Fullscreen
-                                }
-                            }
+                                windowState.placement =
+                                    if (windowState.placement == WindowPlacement.Fullscreen) {
+                                        WindowPlacement.Floating
+                                    } else {
+                                        WindowPlacement.Fullscreen
+                                    }
+                            },
                         )
                         CheckboxItem(
                             text = Language.menuWindowAlwaysOnTop,
                             checked = state.isAlwaysOnTop,
                             onCheckedChange = {
                                 onAction(MainAction.ToggleAlwaysOnTop)
-                            }
+                            },
                         )
                     }
                 }

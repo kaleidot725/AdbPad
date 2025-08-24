@@ -7,6 +7,7 @@ import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteDeviceControlCommandU
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.UpdateDevicesUseCase
+import jp.kaleidot725.adbpad.domain.usecase.scrcpy.LaunchScrcpyUseCase
 import jp.kaleidot725.adbpad.ui.section.top.state.TopAction
 import jp.kaleidot725.adbpad.ui.section.top.state.TopSideEffect
 import jp.kaleidot725.adbpad.ui.section.top.state.TopState
@@ -21,6 +22,7 @@ class TopStateHolder(
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
     private val selectDeviceUseCase: SelectDeviceUseCase,
     private val executeDeviceControlCommandUseCase: ExecuteDeviceControlCommandUseCase,
+    private val launchScrcpyUseCase: LaunchScrcpyUseCase,
 ) : MVIBase<TopState, TopAction, TopSideEffect>(TopState()) {
     private var deviceJob: Job? = null
     private var selectedDeviceJob: Job? = null
@@ -38,6 +40,7 @@ class TopStateHolder(
             when (uiAction) {
                 is TopAction.ExecuteCommand -> executeCommand(uiAction.command)
                 is TopAction.SelectDevice -> selectDevice(uiAction.device)
+                TopAction.LaunchScrcpy -> launchScrcpy()
             }
         }
     }
@@ -52,6 +55,15 @@ class TopStateHolder(
             device = device,
             command = command,
         )
+    }
+
+    private suspend fun launchScrcpy() {
+        val device = currentState.selectedDevice ?: return
+        try {
+            launchScrcpyUseCase(device)
+        } catch (e: Exception) {
+            println("Failed to launch Scrcpy: ${e.message}")
+        }
     }
 
     private fun collectDevices() {

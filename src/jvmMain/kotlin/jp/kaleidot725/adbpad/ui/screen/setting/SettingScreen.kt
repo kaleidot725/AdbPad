@@ -49,6 +49,9 @@ fun SettingScreen(
         adbPortNumber = state.adbPortNumber,
         onChangeAdbPortNumber = { onAction(SettingAction.UpdateAdbPortNumberPath(it)) },
         isValidAdbPortNumber = state.isValidAdbPortNumber,
+        scrcpyBinaryPath = state.scrcpyBinaryPath,
+        onChangeScrcpyBinaryPath = { onAction(SettingAction.UpdateScrcpyBinaryPath(it)) },
+        isValidScrcpyBinaryPath = state.isValidScrcpyBinaryPath,
         onSave = { onAction(SettingAction.Save) },
         canSave = state.canSave,
         isSaving = state.isSaving,
@@ -71,6 +74,9 @@ fun SettingScreen(
     adbPortNumber: String,
     onChangeAdbPortNumber: (String) -> Unit,
     isValidAdbPortNumber: Boolean,
+    scrcpyBinaryPath: String,
+    onChangeScrcpyBinaryPath: (String) -> Unit,
+    isValidScrcpyBinaryPath: Boolean,
     onSave: () -> Unit,
     canSave: Boolean,
     isSaving: Boolean,
@@ -147,6 +153,23 @@ fun SettingScreen(
                     label = Language.settingAdbPortNumberTitle,
                     modifier = Modifier.fillMaxWidth(),
                     isError = !isValidAdbPortNumber,
+                    placeHolder = "",
+                )
+
+                Divider(modifier = Modifier.fillMaxWidth())
+
+                SubTitle(
+                    text = Language.settingScrcpyHeader,
+                    modifier = Modifier.padding(horizontal = 4.dp),
+                )
+
+                DefaultOutlineTextField(
+                    id = initialized,
+                    initialText = scrcpyBinaryPath,
+                    onUpdateText = onChangeScrcpyBinaryPath,
+                    label = Language.settingScrcpyBinaryPathTitle,
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = !isValidScrcpyBinaryPath,
                     placeHolder = "",
                 )
             }

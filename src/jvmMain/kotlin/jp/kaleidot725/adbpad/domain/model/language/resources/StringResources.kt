@@ -105,6 +105,9 @@ interface StringResources {
     val settingAndroidSdkDirectoryPathTitle: String
     val settingAdbRestartTitle: String
 
+    val settingScrcpyHeader: String
+    val settingScrcpyBinaryPathTitle: String
+
     val adbErrorTitle: String
     val adbErrorMessage: String
     val adbErrorOpenSetting: String
@@ -131,6 +134,7 @@ interface StringResources {
     val tooltipScreenshot: String
     val tooltipFile: String
     val tooltipSetting: String
+    val tooltipScrcpy: String
 
     // MenuBar Window menu
     val menuWindow: String
