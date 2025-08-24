@@ -3,8 +3,8 @@ package jp.kaleidot725.adbpad.ui.component.text
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,7 +31,7 @@ fun DefaultTextField(
         if (localText.isEmpty()) {
             Text(
                 text = placeHolder,
-                color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                 fontSize = 16.sp,
                 modifier = Modifier.align(Alignment.CenterStart),
             )
@@ -44,8 +44,8 @@ fun DefaultTextField(
                 onUpdateText(it)
             },
             maxLines = maxLines,
-            textStyle = TextStyle(color = MaterialTheme.colors.onSurface, fontSize = 16.sp),
-            cursorBrush = SolidColor(MaterialTheme.colors.onSurface),
+            textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface, fontSize = 16.sp),
+            cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurface),
             modifier = Modifier.align(Alignment.CenterStart),
         )
     }

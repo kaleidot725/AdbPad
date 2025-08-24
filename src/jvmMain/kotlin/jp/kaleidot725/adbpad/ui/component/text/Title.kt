@@ -2,8 +2,8 @@ package jp.kaleidot725.adbpad.ui.component.text
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -16,7 +16,7 @@ fun Title(
 ) {
     Text(
         text = text,
-        style = MaterialTheme.typography.h5,
+        style = MaterialTheme.typography.headlineSmall,
         fontWeight = FontWeight.Bold,
         modifier = modifier.padding(horizontal = 4.dp),
     )

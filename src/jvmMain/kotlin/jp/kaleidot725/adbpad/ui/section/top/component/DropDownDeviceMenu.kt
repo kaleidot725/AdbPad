@@ -1,6 +1,8 @@
 package jp.kaleidot725.adbpad.ui.section.top.component
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,11 +13,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +33,7 @@ import com.composables.icons.lucide.Settings
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceState
 import jp.kaleidot725.adbpad.domain.model.language.Language
+import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.component.button.CommandIconButton
 
 @Composable
@@ -59,15 +61,25 @@ fun DropDownDeviceMenu(
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.widthIn(min = with(LocalDensity.current) { dropDownWidth.toDp() }),
+            modifier =
+                Modifier
+                    .widthIn(min = with(LocalDensity.current) { dropDownWidth.toDp() })
+                    .background(
+                        color = UserColor.getDropdownBackgroundColor(),
+                        shape = RoundedCornerShape(4.dp),
+                    ).border(
+                        width = 1.dp,
+                        color = UserColor.getSplitterColor(),
+                        shape = RoundedCornerShape(4.dp),
+                    ),
         ) {
             Row(
                 modifier = Modifier.height(22.dp).padding(start = 16.dp, end = 8.dp),
             ) {
                 Text(
                     text = Language.targetDevice,
-                    color = MaterialTheme.colors.onBackground.copy(alpha = 0.8f),
-                    style = MaterialTheme.typography.caption,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f),
+                    style = MaterialTheme.typography.labelSmall,
                     modifier = Modifier.align(Alignment.CenterVertically).padding(bottom = 2.dp),
                 )
 
@@ -85,19 +97,20 @@ fun DropDownDeviceMenu(
 
             devices.forEach { device ->
                 DropdownMenuItem(
+                    text = {
+                        Text(
+                            text = device.displayName,
+                            color = MaterialTheme.colorScheme.onBackground,
+                            style = MaterialTheme.typography.titleSmall,
+                            modifier = Modifier.padding(bottom = 4.dp),
+                        )
+                    },
                     onClick = {
                         onSelectDevice(device)
                         expanded = false
                     },
                     modifier = Modifier.height(24.dp),
-                ) {
-                    Text(
-                        text = device.displayName,
-                        color = MaterialTheme.colors.onBackground,
-                        style = MaterialTheme.typography.subtitle2,
-                        modifier = Modifier.align(Alignment.CenterVertically).padding(bottom = 4.dp),
-                    )
-                }
+                )
             }
         }
     }

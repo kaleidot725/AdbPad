@@ -28,6 +28,7 @@ kotlin {
         implementation(compose.desktop.currentOs)
         implementation(compose.desktop.components.splitPane)
         implementation(compose.material)
+        implementation(compose.material3)
         implementation(compose.materialIconsExtended)
         implementation(libs.adam)
         implementation(libs.lucide)

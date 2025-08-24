@@ -5,7 +5,6 @@ import jp.kaleidot725.adbpad.domain.repository.ScrcpyProcessRepository
 import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 import jp.kaleidot725.scrcpykt.ScrcpyClient
 import jp.kaleidot725.scrcpykt.ScrcpyResult
-import java.io.File
 
 class LaunchScrcpyUseCase(
     private val settingRepository: SettingRepository,

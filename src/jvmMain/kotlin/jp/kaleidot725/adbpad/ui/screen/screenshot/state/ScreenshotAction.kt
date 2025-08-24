@@ -28,6 +28,10 @@ sealed class ScreenshotAction : MVIAction {
 
     data object DeleteScreenshotToClipboard : ScreenshotAction()
 
+    data class DeleteScreenshot(
+        val screenshot: Screenshot,
+    ) : ScreenshotAction()
+
     data class SelectScreenshot(
         val screenshot: Screenshot,
     ) : ScreenshotAction()

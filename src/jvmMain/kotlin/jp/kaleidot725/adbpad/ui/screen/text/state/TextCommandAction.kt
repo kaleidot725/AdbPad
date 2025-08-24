@@ -29,6 +29,10 @@ sealed class TextCommandAction : MVIAction {
 
     data object DeleteSelectedCommandText : TextCommandAction()
 
+    data class DeleteCommandText(
+        val command: TextCommand,
+    ) : TextCommandAction()
+
     data object NextCommand : TextCommandAction()
 
     data class SelectCommand(

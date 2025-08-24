@@ -54,6 +54,10 @@ class TextCommandStateHolder(
                     deleteInputText()
                 }
 
+                is TextCommandAction.DeleteCommandText -> {
+                    deleteCommandText(uiAction.command)
+                }
+
                 is TextCommandAction.SendTextCommand -> {
                     sendTextCommand()
                 }
@@ -268,5 +272,46 @@ class TextCommandStateHolder(
 
     private fun updateTextCommandOption(value: TextCommand.Option) {
         update { copy(selectedTextCommandOption = value) }
+    }
+
+    private suspend fun deleteCommandText(command: TextCommand) {
+        val commandIndex = currentState.commands.indexOf(command)
+        textCommandRepository.removeTextCommand(command)
+
+        val commands =
+            getTextCommandUseCase(
+                searchText = currentState.searchText,
+                sortType = currentState.sortType,
+            )
+
+        if (commands.isEmpty()) {
+            update {
+                copy(
+                    commands = commands,
+                    selectedCommandId = null,
+                )
+            }
+        } else {
+            val currentSelectedId = currentState.selectedCommandId
+            val wasSelectedCommandDeleted = command.id == currentSelectedId
+
+            if (wasSelectedCommandDeleted) {
+                val newSelectedCommand = commands.getOrNull(commandIndex)
+                val newSelectedCommandIndex = if (newSelectedCommand == null) commands.lastIndex else commandIndex
+                val newSelectedCommandId = commands[newSelectedCommandIndex].id
+                update {
+                    copy(
+                        commands = commands,
+                        selectedCommandId = newSelectedCommandId,
+                    )
+                }
+            } else {
+                update {
+                    copy(
+                        commands = commands,
+                    )
+                }
+            }
+        }
     }
 }

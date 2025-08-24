@@ -10,10 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Divider
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -97,11 +97,14 @@ fun SettingScreen(
             return@FloatingDialog
         }
 
-        Box(modifier = Modifier.padding(16.dp)) {
-            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Title(text = Language.setting, modifier = Modifier.fillMaxWidth())
 
-                Divider(modifier = Modifier.fillMaxWidth())
+                HorizontalDivider(modifier = Modifier.fillMaxWidth())
 
                 SubTitle(
                     text = Language.settingLanguageHeader,
@@ -115,7 +118,7 @@ fun SettingScreen(
                     modifier = Modifier.padding(horizontal = 4.dp),
                 )
 
-                Divider(modifier = Modifier.fillMaxWidth())
+                HorizontalDivider(modifier = Modifier.fillMaxWidth())
 
                 SubTitle(
                     text = Language.settingAppearanceHeader,
@@ -129,7 +132,7 @@ fun SettingScreen(
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                 )
 
-                Divider(modifier = Modifier.fillMaxWidth())
+                HorizontalDivider(modifier = Modifier.fillMaxWidth())
 
                 SubTitle(
                     text = Language.settingAdbHeader,
@@ -156,7 +159,7 @@ fun SettingScreen(
                     placeHolder = "",
                 )
 
-                Divider(modifier = Modifier.fillMaxWidth())
+                HorizontalDivider(modifier = Modifier.fillMaxWidth())
 
                 SubTitle(
                     text = Language.settingScrcpyHeader,

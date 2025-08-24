@@ -14,10 +14,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -81,7 +81,7 @@ private fun TopSection(
     val degrees: Float by animateFloatAsState(if (isPress) -90f else 0f)
 
     Surface(
-        color = MaterialTheme.colors.background,
+        color = MaterialTheme.colorScheme.background,
         modifier = Modifier.fillMaxWidth().height(40.dp),
     ) {
         Box {
@@ -91,7 +91,7 @@ private fun TopSection(
                     selectedDevice = state.selectedDevice,
                     onSelectDevice = onSelectDevice,
                     onOpenDevice = onOpenDevice,
-                    modifier = Modifier.wrapContentWidth(),
+                    modifier = Modifier.wrapContentWidth().align(Alignment.CenterVertically),
                 )
 
                 CommandTooltip(
@@ -222,7 +222,7 @@ private fun CommandTooltip(
             ) {
                 Text(
                     text = text,
-                    style = MaterialTheme.typography.caption,
+                    style = MaterialTheme.typography.labelSmall,
                     modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
                 )
             }

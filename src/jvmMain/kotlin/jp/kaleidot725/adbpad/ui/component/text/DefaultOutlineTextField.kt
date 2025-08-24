@@ -1,9 +1,9 @@
 package jp.kaleidot725.adbpad.ui.component.text
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,7 +34,7 @@ fun DefaultOutlineTextField(
             onUpdateText(it)
         },
         maxLines = maxLines,
-        textStyle = TextStyle(color = MaterialTheme.colors.onSurface, fontSize = 16.sp),
+        textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface, fontSize = 16.sp),
         isError = isError,
         modifier = modifier,
     )
