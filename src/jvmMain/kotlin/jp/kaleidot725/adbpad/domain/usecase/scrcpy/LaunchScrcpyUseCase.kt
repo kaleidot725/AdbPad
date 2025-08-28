@@ -5,7 +5,6 @@ import jp.kaleidot725.adbpad.domain.repository.ScrcpyProcessRepository
 import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 import jp.kaleidot725.scrcpykt.ScrcpyClient
 import jp.kaleidot725.scrcpykt.ScrcpyResult
-import jp.kaleidot725.scrcpykt.builder.ScrcpyCommandBuilder
 import java.io.File
 
 class LaunchScrcpyUseCase(
@@ -17,29 +16,18 @@ class LaunchScrcpyUseCase(
         scrcpyProcessRepository.getProcess(device.serial)?.terminate()
 
         val scrcpySettings = settingRepository.getScrcpySettings()
+        val scrcpyPath = scrcpySettings.binaryPath
 
-        // Check if custom binary path is provided and exists
-        if (scrcpySettings.binaryPath.isNotEmpty()) {
-            val binaryFile = File(scrcpySettings.binaryPath)
-            if (!binaryFile.exists()) {
-                throw IllegalArgumentException("Scrcpy binary not found at path: ${scrcpySettings.binaryPath}")
+        val adbSettings = settingRepository.getSdkPath()
+        val adbPath = adbSettings.adbDirectory
+
+        val client = ScrcpyClient.create(binaryPath = scrcpyPath, adbPath = adbPath)
+        val result =
+            client.mirror {
+                display {
+                    windowTitle("${device.name} - ${device.serial}")
+                }
             }
-        }
-
-        // Create ScrcpyCommand with or without custom binary path
-        val command =
-            if (scrcpySettings.binaryPath.isNotEmpty()) {
-                ScrcpyCommandBuilder(scrcpySettings.binaryPath)
-            } else {
-                ScrcpyCommandBuilder()
-            }.connection {
-                serial(device.serial)
-            }.display {
-                windowTitle("${device.name} - ${device.serial}")
-            }.build()
-
-        val client = ScrcpyClient.create()
-        val result = client.execute(command)
 
         // Handle result if needed
         return when (result) {
@@ -47,6 +35,7 @@ class LaunchScrcpyUseCase(
                 scrcpyProcessRepository.storeProcess(device.serial, result.process)
                 true
             }
+
             is ScrcpyResult.Error -> {
                 false
             }
