@@ -4,6 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
+import jp.kaleidot725.adbpad.domain.model.setting.AccentColor
 
 object UserColor {
     @Composable
@@ -37,6 +38,10 @@ object UserColor {
         } else {
             Dark.SURFACE
         }
+    }
+
+    fun getPrimaryColor(accentColor: AccentColor, isLight: Boolean): Color {
+        return accentColor.getColor(isLight)
     }
 
     object Light {

@@ -3,9 +3,12 @@ package jp.kaleidot725.adbpad.ui.screen.setting
 import jp.kaleidot725.adbpad.core.mvi.MVIBase
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
+import jp.kaleidot725.adbpad.domain.model.setting.AccentColor
 import jp.kaleidot725.adbpad.domain.usecase.adb.RestartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAppearanceUseCase
+import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAccentColorUseCase
+import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAccentColorUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.SaveLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.scrcpy.GetScrcpySettingsUseCase
@@ -27,6 +30,8 @@ class SettingStateHolder(
     private val getScrcpySettingsUseCase: GetScrcpySettingsUseCase,
     private val saveScrcpySettingsUseCase: SaveScrcpySettingsUseCase,
     private val restartAdbUseCase: RestartAdbUseCase,
+    private val getAccentColorUseCase: GetAccentColorUseCase,
+    private val saveAccentColorUseCase: SaveAccentColorUseCase,
 ) : MVIBase<SettingState, SettingAction, SettingSideEffect>(initialUiState = SettingState()) {
     private var oldAdbDirectoryPath: String = ""
     private var oldAdbPortNumber: Int = 0
@@ -35,6 +40,7 @@ class SettingStateHolder(
         coroutineScope.launch {
             val language = getLanguageUseCase()
             val appearance = getAppearanceUseCase()
+            val accentColor = getAccentColorUseCase()
             val sdkPath = getSdkPathUseCase()
             val scrcpySettings = getScrcpySettingsUseCase()
             val adbDirectoryPath = sdkPath.adbDirectory
@@ -48,6 +54,7 @@ class SettingStateHolder(
                 this.copy(
                     selectedLanguage = language,
                     appearance = appearance,
+                    accentColor = accentColor,
                     adbDirectoryPath = adbDirectoryPath,
                     adbPortNumber = adbPortNumber,
                     scrcpyBinaryPath = scrcpyBinaryPath,
@@ -66,6 +73,7 @@ class SettingStateHolder(
                 is SettingAction.UpdateScrcpyBinaryPath -> updateScrcpyBinaryPath(uiAction.value)
                 is SettingAction.UpdateAppearance -> updateAppearance(uiAction.value)
                 is SettingAction.UpdateLanguage -> updateLanguage(uiAction.value)
+                is SettingAction.UpdateAccentColor -> updateAccentColor(uiAction.value)
             }
         }
     }
@@ -76,6 +84,7 @@ class SettingStateHolder(
         update { this.copy(isSaving = true) }
         saveLanguageUseCase(currentState.selectedLanguage)
         saveAppearanceUseCase(currentState.appearance)
+        saveAccentColorUseCase(currentState.accentColor)
         saveSdkPathUseCase(currentState.adbDirectoryPath, currentState.adbPortNumber.toIntOrNull())
         saveScrcpySettingsUseCase(currentState.scrcpyBinaryPath)
         restartAdbUseCase(oldAdbDirectory = oldAdbDirectoryPath, oldServerPort = oldAdbPortNumber)
@@ -100,5 +109,9 @@ class SettingStateHolder(
 
     private fun updateScrcpyBinaryPath(value: String) {
         update { this.copy(scrcpyBinaryPath = value) }
+    }
+
+    private fun updateAccentColor(value: AccentColor) {
+        update { this.copy(accentColor = value) }
     }
 }

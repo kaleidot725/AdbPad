@@ -3,12 +3,14 @@ package jp.kaleidot725.adbpad.ui.screen.setting.state
 import jp.kaleidot725.adbpad.core.mvi.MVIState
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
+import jp.kaleidot725.adbpad.domain.model.setting.AccentColor
 
 data class SettingState(
     val initialized: Boolean = false,
     val languages: List<Language.Type> = Language.Type.entries,
     val selectedLanguage: Language.Type = Language.Type.ENGLISH,
     val appearance: Appearance = Appearance.DARK,
+    val accentColor: AccentColor = AccentColor.BLUE,
     val adbDirectoryPath: String = "",
     val adbPortNumber: String = "",
     val scrcpyBinaryPath: String = "",

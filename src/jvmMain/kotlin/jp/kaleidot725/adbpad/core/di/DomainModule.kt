@@ -5,6 +5,8 @@ import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.app.ShutdownAppUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAppearanceUseCase
+import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAccentColorUseCase
+import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAccentColorUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteDeviceControlCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetNormalCommandGroup
@@ -93,6 +95,12 @@ val domainModule =
         }
         factory {
             SaveAppearanceUseCase(get())
+        }
+        factory {
+            GetAccentColorUseCase(get())
+        }
+        factory {
+            SaveAccentColorUseCase(get())
         }
         factory {
             GetDarkModeFlowUseCase(get())

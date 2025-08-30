@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.domain.repository
 import jp.kaleidot725.adbpad.data.local.SettingFileCreator
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
+import jp.kaleidot725.adbpad.domain.model.setting.AccentColor
 import jp.kaleidot725.adbpad.domain.model.setting.ScrcpySettings
 import jp.kaleidot725.adbpad.domain.model.setting.SdkPath
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
@@ -82,6 +83,21 @@ class SettingRepositoryImpl : SettingRepository {
         return withContext(Dispatchers.IO) {
             val setting = SettingFileCreator.load()
             return@withContext setting.scrcpySettings
+        }
+    }
+
+    override suspend fun updateAccentColor(accentColor: AccentColor): Boolean {
+        return withContext(Dispatchers.IO) {
+            val oldSetting = SettingFileCreator.load()
+            val newSetting = oldSetting.copy(accentColor = accentColor)
+            return@withContext SettingFileCreator.save(newSetting)
+        }
+    }
+
+    override suspend fun getAccentColor(): AccentColor {
+        return withContext(Dispatchers.IO) {
+            val setting = SettingFileCreator.load()
+            return@withContext setting.accentColor
         }
     }
 }

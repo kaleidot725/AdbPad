@@ -175,6 +175,24 @@ object Language : StringResources {
         get() = getCurrentResources().menuInputTextTitle
     override val menuScreenshot: String
         get() = getCurrentResources().menuScreenshot
+    override val settingThemeHeader: String
+        get() = getCurrentResources().settingThemeHeader
+    override val settingAccentColorHeader: String
+        get() = getCurrentResources().settingAccentColorHeader
+    override val accentColorBlue: String
+        get() = getCurrentResources().accentColorBlue
+    override val accentColorPurple: String
+        get() = getCurrentResources().accentColorPurple
+    override val accentColorGreen: String
+        get() = getCurrentResources().accentColorGreen
+    override val accentColorOrange: String
+        get() = getCurrentResources().accentColorOrange
+    override val accentColorRed: String
+        get() = getCurrentResources().accentColorRed
+    override val accentColorTeal: String
+        get() = getCurrentResources().accentColorTeal
+    override val accentColorIndigo: String
+        get() = getCurrentResources().accentColorIndigo
     override val settingLanguageHeader: String
         get() = getCurrentResources().settingLanguageHeader
     override val settingLanguageEnglish: String
@@ -185,8 +203,6 @@ object Language : StringResources {
         get() = getCurrentResources().settingLanguageChinese
     override val settingLanguageTurkish: String
         get() = getCurrentResources().settingLanguageTurkish
-    override val settingAppearanceHeader: String
-        get() = getCurrentResources().settingAppearanceHeader
     override val settingAdbHeader: String
         get() = getCurrentResources().settingAdbHeader
     override val settingAdbDirectoryPathTitle: String

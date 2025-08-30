@@ -9,6 +9,7 @@ import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.app.ShutdownAppUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
+import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAccentColorUseCase
 import jp.kaleidot725.adbpad.domain.usecase.refresh.RefreshUseCase
 import jp.kaleidot725.adbpad.domain.usecase.theme.GetDarkModeFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
@@ -35,6 +36,7 @@ class MainStateHolder(
     private val startAdbUseCase: StartAdbUseCase,
     private val getDarkModeFlowUseCase: GetDarkModeFlowUseCase,
     private val getLanguageUseCase: GetLanguageUseCase,
+    private val getAccentColorUseCase: GetAccentColorUseCase,
     private val refreshUseCase: RefreshUseCase,
     private val shutdownAppUseCase: ShutdownAppUseCase,
 ) : MVIBase<MainState, MainAction, MainSideEffect>(initialUiState = MainState()) {
@@ -51,6 +53,7 @@ class MainStateHolder(
         startSyncDarkMode()
         checkAdbServer()
         syncLanguage()
+        syncAccentColor()
         children.forEach { it.onSetup() }
     }
 
@@ -58,6 +61,7 @@ class MainStateHolder(
         startSyncDarkMode()
         checkAdbServer()
         syncLanguage()
+        syncAccentColor()
         refreshUseCase()
         children.forEach { it.onRefresh() }
     }
@@ -136,6 +140,13 @@ class MainStateHolder(
             val type = getLanguageUseCase()
             Language.switch(type)
             update { copy(language = type) }
+        }
+    }
+
+    private fun syncAccentColor() {
+        coroutineScope.launch {
+            val accentColor = getAccentColorUseCase()
+            update { copy(accentColor = accentColor) }
         }
     }
 }

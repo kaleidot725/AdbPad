@@ -2,6 +2,7 @@ package jp.kaleidot725.adbpad.data.local
 
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
+import jp.kaleidot725.adbpad.domain.model.setting.AccentColor
 import jp.kaleidot725.adbpad.domain.model.setting.ScrcpySettings
 import jp.kaleidot725.adbpad.domain.model.setting.SdkPath
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
@@ -39,5 +40,6 @@ object SettingFileCreator {
         val sdkPath: SdkPath = SdkPath(),
         val windowSize: WindowSize = WindowSize.DEFAULT,
         val scrcpySettings: ScrcpySettings = ScrcpySettings(),
+        val accentColor: AccentColor = AccentColor.BLUE,
     )
 }
