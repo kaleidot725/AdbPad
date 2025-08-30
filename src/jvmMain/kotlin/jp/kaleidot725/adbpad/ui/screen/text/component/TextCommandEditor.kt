@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -55,7 +55,7 @@ fun TextCommandEditor(
 
         Divider(modifier = Modifier.height(1.dp).fillMaxWidth().defaultBorder())
 
-        val primaryColor = MaterialTheme.colors.primary
+        val primaryColor = MaterialTheme.colorScheme.primary
         val transformation by remember(primaryColor, option) {
             mutableStateOf(LineBreakTransformation(option, primaryColor))
         }
@@ -68,8 +68,8 @@ fun TextCommandEditor(
             },
             visualTransformation = transformation,
             maxLines = Int.MAX_VALUE,
-            textStyle = TextStyle(color = MaterialTheme.colors.onSurface, fontSize = 16.sp),
-            cursorBrush = SolidColor(MaterialTheme.colors.onSurface),
+            textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface, fontSize = 16.sp),
+            cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurface),
             modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp, horizontal = 12.dp),
         )
     }

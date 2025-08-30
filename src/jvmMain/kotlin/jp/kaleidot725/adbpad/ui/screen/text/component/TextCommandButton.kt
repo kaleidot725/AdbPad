@@ -11,10 +11,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,8 +42,8 @@ fun TextCommandButton(
                     .padding(8.dp)
                     .width(250.dp)
                     .height(35.dp)
-                    .alpha(if (canSend) 1f else ContentAlpha.disabled)
-                    .background(MaterialTheme.colors.primary, RoundedCornerShape(4.dp)),
+                    .alpha(if (canSend) 1f else 0.38f)
+                    .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(4.dp)),
         ) {
             Box(
                 modifier =
@@ -62,7 +61,7 @@ fun TextCommandButton(
                                 TextCommand.Option.SendWithTab -> Language.textCommandOptionTab
                                 TextCommand.Option.SendWithNewLine -> Language.textCommandOptionNewLine
                             },
-                        color = MaterialTheme.colors.onPrimary,
+                        color = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.align(Alignment.Center),
                     )
                 }
@@ -87,7 +86,7 @@ fun TextCommandButton(
                 Icon(
                     imageVector = Lucide.ChevronDown,
                     contentDescription = "",
-                    tint = MaterialTheme.colors.onPrimary,
+                    tint = MaterialTheme.colorScheme.onPrimary,
                     modifier = Modifier.align(Alignment.Center),
                 )
             }

@@ -13,8 +13,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -66,6 +66,9 @@ fun ScreenshotScreen(
         onDeleteScreenshot = {
             onAction(ScreenshotAction.DeleteScreenshotToClipboard)
         },
+        onDeleteSpecificScreenshot = { screenshot ->
+            onAction(ScreenshotAction.DeleteScreenshot(screenshot))
+        },
         onTakeScreenshot = { screenshot ->
             onAction(ScreenshotAction.TakeScreenshot(screenshot))
         },
@@ -105,6 +108,7 @@ private fun ScreenshotScreen(
     onOpenDirectory: () -> Unit,
     onCopyScreenshot: () -> Unit,
     onDeleteScreenshot: () -> Unit,
+    onDeleteSpecificScreenshot: (Screenshot) -> Unit,
     onSelectCommand: (ScreenshotCommand) -> Unit,
     onTakeScreenshot: (ScreenshotCommand) -> Unit,
     onSelectScreenshot: (Screenshot) -> Unit,
@@ -131,7 +135,6 @@ private fun ScreenshotScreen(
                         sortType = sortType,
                         onUpdateSortType = onUpdateSortType,
                         onUpdateSearchText = onUpdateSearchText,
-                        onDelete = onDeleteScreenshot,
                         modifier = Modifier,
                     )
 
@@ -141,6 +144,7 @@ private fun ScreenshotScreen(
                         selectedScreenshot = screenshot,
                         screenshots = screenshots,
                         onSelectScreenShot = onSelectScreenshot,
+                        onDeleteScreenshot = onDeleteSpecificScreenshot,
                         onNextScreenshot = onNextScreenshot,
                         onPreviousScreenshot = onPreviousScreenshot,
                         modifier = Modifier.fillMaxSize(),
@@ -149,7 +153,7 @@ private fun ScreenshotScreen(
             }
 
             second {
-                Column(modifier = Modifier.background(MaterialTheme.colors.surface)) {
+                Column(modifier = Modifier.background(MaterialTheme.colorScheme.surface)) {
                     ScreenshotViewer(
                         screenshot = screenshot,
                         isCapturing = isCapturing,
@@ -215,6 +219,7 @@ private fun ScreenshotScreen_Preview() {
         onOpenDirectory = {},
         onCopyScreenshot = {},
         onDeleteScreenshot = {},
+        onDeleteSpecificScreenshot = {},
         onTakeScreenshot = {},
         onSelectScreenshot = {},
         onNextScreenshot = {},

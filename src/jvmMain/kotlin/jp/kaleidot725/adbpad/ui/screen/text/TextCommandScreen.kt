@@ -12,8 +12,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -49,8 +49,6 @@ fun TextCommandScreen(
                     sortType = state.sortType,
                     onUpdateSortType = { onAction(TextCommandAction.UpdateSortType(it)) },
                     onUpdateSearchText = { onAction(TextCommandAction.UpdateSearchText(it)) },
-                    onAddNewTextCommand = { onAction(TextCommandAction.AddNewText) },
-                    onDelete = { onAction(TextCommandAction.DeleteSelectedCommandText) },
                 )
 
                 Divider(modifier = Modifier.fillMaxWidth().defaultBorder())
@@ -59,6 +57,8 @@ fun TextCommandScreen(
                     selectedCommand = state.selectedCommand,
                     commands = state.commands,
                     onSelectCommand = { onAction(TextCommandAction.SelectCommand(it)) },
+                    onDeleteCommand = { onAction(TextCommandAction.DeleteCommandText(it)) },
+                    onAddNewTextCommand = { onAction(TextCommandAction.AddNewText) },
                     onNextCommand = { onAction(TextCommandAction.NextCommand) },
                     onPreviousCommand = { onAction(TextCommandAction.PreviousCommand) },
                     modifier = Modifier.fillMaxSize().padding(top = 2.dp),
@@ -67,7 +67,7 @@ fun TextCommandScreen(
         }
 
         second {
-            Column(modifier = Modifier.background(MaterialTheme.colors.surface)) {
+            Column(modifier = Modifier.background(MaterialTheme.colorScheme.surface)) {
                 if (state.selectedCommand != null) {
                     TextCommandEditor(
                         command = state.selectedCommand,

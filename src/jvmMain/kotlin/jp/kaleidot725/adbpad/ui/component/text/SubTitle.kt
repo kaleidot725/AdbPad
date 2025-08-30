@@ -1,8 +1,8 @@
 package jp.kaleidot725.adbpad.ui.component.text
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -11,7 +11,7 @@ fun SubTitle(
     text: String,
     modifier: Modifier = Modifier,
 ) {
-    Text(text = text, style = MaterialTheme.typography.h6, modifier = modifier)
+    Text(text = text, style = MaterialTheme.typography.titleLarge, modifier = modifier)
 }
 
 @Preview

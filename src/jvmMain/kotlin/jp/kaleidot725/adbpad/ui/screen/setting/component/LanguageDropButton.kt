@@ -1,17 +1,19 @@
 package jp.kaleidot725.adbpad.ui.screen.setting.component
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.composables.icons.lucide.ChevronDown
 import com.composables.icons.lucide.Lucide
 import jp.kaleidot725.adbpad.domain.model.language.Language
+import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
 import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
 
@@ -61,21 +64,31 @@ fun LanguageDropButton(
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.width(200.dp),
+            modifier = Modifier
+                .width(200.dp)
+                .background(
+                    color = UserColor.getDropdownBackgroundColor(),
+                    shape = RoundedCornerShape(4.dp)
+                )
+                .border(
+                    width = 1.dp,
+                    color = UserColor.getSplitterColor(),
+                    shape = RoundedCornerShape(4.dp)
+                ),
         ) {
             languages.forEach { language ->
                 DropdownMenuItem(
+                    text = {
+                        Text(
+                            text = language.title(),
+                            style = MaterialTheme.typography.titleSmall,
+                        )
+                    },
                     onClick = {
                         expanded = false
                         onSelect(language)
                     },
-                ) {
-                    Text(
-                        text = language.title(),
-                        style = MaterialTheme.typography.subtitle2,
-                        modifier = Modifier.align(Alignment.CenterVertically),
-                    )
-                }
+                )
             }
         }
     }

@@ -67,6 +67,7 @@ class ScreenshotStateHolder(
                 ScreenshotAction.OpenDirectory -> openDirectory()
                 ScreenshotAction.CopyScreenshotToClipboard -> copyScreenShotToClipboard()
                 ScreenshotAction.DeleteScreenshotToClipboard -> deleteScreenShotToClipboard()
+                is ScreenshotAction.DeleteScreenshot -> deleteSpecificScreenshot(uiAction.screenshot)
                 is ScreenshotAction.SelectScreenshot -> selectScreenshot(uiAction.screenshot)
                 ScreenshotAction.NextScreenshot -> nextScreenshot()
                 ScreenshotAction.PreviousScreenshot -> previousScreenshot()
@@ -155,6 +156,41 @@ class ScreenshotStateHolder(
     private suspend fun deleteScreenShotToClipboard() {
         screenshotCommandRepository.delete(currentState.preview)
         initPreviews()
+    }
+
+    private suspend fun deleteSpecificScreenshot(screenshot: Screenshot) {
+        screenshotCommandRepository.delete(screenshot)
+        val screenshots =
+            screenshotCommandRepository.getScreenshots(
+                currentState.searchText,
+                currentState.sortType,
+            )
+
+        if (screenshots.isEmpty()) {
+            update {
+                copy(
+                    previews = screenshots,
+                    preview = Screenshot(null),
+                )
+            }
+        } else {
+            val wasSelectedScreenshotDeleted = currentState.preview == screenshot
+            if (wasSelectedScreenshotDeleted) {
+                val newSelectedScreenshot = screenshots.firstOrNull() ?: Screenshot(null)
+                update {
+                    copy(
+                        previews = screenshots,
+                        preview = newSelectedScreenshot,
+                    )
+                }
+            } else {
+                update {
+                    copy(
+                        previews = screenshots,
+                    )
+                }
+            }
+        }
     }
 
     private fun selectScreenshot(screenshot: Screenshot) {

@@ -1,5 +1,6 @@
 package jp.kaleidot725.adbpad.ui.screen.screenshot.component
 
+import androidx.compose.foundation.ContextMenuItem
 import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,14 +25,17 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
+import jp.kaleidot725.adbpad.ui.component.menu.ThemedContextMenuArea
 
 @Composable
 fun ScreenshotExplorer(
     selectedScreenshot: Screenshot,
     screenshots: List<Screenshot>,
     onSelectScreenShot: (Screenshot) -> Unit,
+    onDeleteScreenshot: (Screenshot) -> Unit,
     onNextScreenshot: () -> Unit,
     onPreviousScreenshot: () -> Unit,
     modifier: Modifier = Modifier,
@@ -64,20 +68,31 @@ fun ScreenshotExplorer(
                     items = screenshots,
                     key = { screenshot -> screenshot.file?.absolutePath ?: "" },
                 ) { screenshot ->
-                    Row(
-                        modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .clickableBackground(
-                                    isSelected = selectedScreenshot == screenshot,
-                                    shape = RoundedCornerShape(4.dp),
-                                ).clickable { onSelectScreenShot(screenshot) }
-                                .padding(horizontal = 12.dp, vertical = 4.dp),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    ThemedContextMenuArea(
+                        items = {
+                            listOf(
+                                ContextMenuItem(
+                                    label = Language.delete,
+                                    onClick = { onDeleteScreenshot(screenshot) },
+                                ),
+                            )
+                        },
                     ) {
-                        Text(
-                            text = screenshot.file?.name ?: "",
-                        )
+                        Row(
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .clickableBackground(
+                                        isSelected = selectedScreenshot == screenshot,
+                                        shape = RoundedCornerShape(4.dp),
+                                    ).clickable { onSelectScreenShot(screenshot) }
+                                    .padding(horizontal = 12.dp, vertical = 4.dp),
+                            horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        ) {
+                            Text(
+                                text = screenshot.file?.name ?: "",
+                            )
+                        }
                     }
                 }
             }

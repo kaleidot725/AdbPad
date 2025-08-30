@@ -2,15 +2,15 @@ package jp.kaleidot725.adbpad.ui.component.indicator
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun RunningIndicator(color: Color = MaterialTheme.colors.onPrimary) {
+fun RunningIndicator(color: Color = MaterialTheme.colorScheme.onPrimary) {
     CircularProgressIndicator(
         color = color,
         strokeWidth = 2.dp,

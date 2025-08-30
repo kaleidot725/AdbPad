@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -32,9 +32,9 @@ fun ScreenLayout(
             top()
             Spacer(Modifier.height(1.dp).fillMaxWidth().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
             Row(modifier = Modifier.weight(0.9f, true)) {
-                Box(Modifier.background(MaterialTheme.colors.background)) { navigationRail() }
+                Box(Modifier.background(MaterialTheme.colorScheme.background)) { navigationRail() }
                 Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
-                Box(Modifier.background(MaterialTheme.colors.background)) { content() }
+                Box(Modifier.background(MaterialTheme.colorScheme.background)) { content() }
             }
             Spacer(Modifier.height(1.dp).fillMaxWidth().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
         }

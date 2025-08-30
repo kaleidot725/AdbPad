@@ -9,14 +9,15 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceState
@@ -35,15 +36,15 @@ fun DeviceSelector(
             modifier =
                 Modifier
                     .widthIn(150.dp)
-                    .clickableBackground(isDarker = !MaterialTheme.colors.isLight)
+                    .clickableBackground(isDarker = MaterialTheme.colorScheme.surface.luminance() <= 0.5)
                     .clickable(onClick = onClick)
                     .padding(horizontal = 8.dp)
                     .padding(bottom = 4.dp),
         ) {
             Text(
                 text = selectedDevice?.displayName ?: Language.notFoundDevice,
-                style = MaterialTheme.typography.subtitle2,
-                color = MaterialTheme.colors.onBackground,
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.align(Alignment.CenterVertically),
             )
 
@@ -52,8 +53,8 @@ fun DeviceSelector(
             Icon(
                 imageVector = Icons.Filled.ArrowDropDown,
                 contentDescription = "Device DropDown Icon",
-                tint = MaterialTheme.colors.onBackground,
-                modifier = Modifier.align(Alignment.CenterVertically).padding(top = 6.dp),
+                tint = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.align(Alignment.CenterVertically),
             )
         }
     }

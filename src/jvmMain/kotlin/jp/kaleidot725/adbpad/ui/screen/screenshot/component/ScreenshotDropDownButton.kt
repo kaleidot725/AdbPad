@@ -1,5 +1,7 @@
 package jp.kaleidot725.adbpad.ui.screen.screenshot.component
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -7,12 +9,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.icons.filled.Check
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.composables.icons.lucide.Check
 import com.composables.icons.lucide.Lucide
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
+import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 
 @Composable
 fun ScreenshotDropDownButton(
@@ -49,39 +52,50 @@ fun ScreenshotDropDownButton(
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.width(250.dp),
+            modifier = Modifier
+                .width(250.dp)
+                .background(
+                    color = UserColor.getDropdownBackgroundColor(),
+                    shape = RoundedCornerShape(4.dp)
+                )
+                .border(
+                    width = 1.dp,
+                    color = UserColor.getSplitterColor(),
+                    shape = RoundedCornerShape(4.dp)
+                ),
         ) {
             commands.forEach { command ->
                 DropdownMenuItem(
+                    text = {
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Box(
+                                modifier =
+                                    Modifier
+                                        .padding(top = 8.dp)
+                                        .size(20.dp)
+                                        .align(Alignment.CenterVertically),
+                            ) {
+                                if (command == selectedCommand) {
+                                    Icon(
+                                        imageVector = Lucide.Check,
+                                        contentDescription = "",
+                                        modifier = Modifier.fillMaxSize(),
+                                    )
+                                }
+                            }
+
+                            Text(
+                                text = command.title,
+                                style = MaterialTheme.typography.titleSmall,
+                                modifier = Modifier.align(Alignment.CenterVertically),
+                            )
+                        }
+                    },
                     onClick = {
                         onSelectCommand(command)
                         expanded = false
                     },
-                ) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Box(
-                            modifier =
-                                Modifier
-                                    .padding(top = 8.dp)
-                                    .size(20.dp)
-                                    .align(Alignment.CenterVertically),
-                        ) {
-                            if (command == selectedCommand) {
-                                Icon(
-                                    imageVector = Lucide.Check,
-                                    contentDescription = "",
-                                    modifier = Modifier.fillMaxSize(),
-                                )
-                            }
-                        }
-
-                        Text(
-                            text = command.title,
-                            style = MaterialTheme.typography.subtitle2,
-                            modifier = Modifier.align(Alignment.CenterVertically),
-                        )
-                    }
-                }
+                )
             }
         }
     }
