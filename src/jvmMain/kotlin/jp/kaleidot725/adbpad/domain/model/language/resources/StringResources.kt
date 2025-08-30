@@ -92,7 +92,15 @@ interface StringResources {
     val menuInputTextTitle: String
     val menuScreenshot: String
 
-    val settingAppearanceHeader: String
+    val settingThemeHeader: String
+    val settingAccentColorHeader: String
+    val accentColorBlue: String
+    val accentColorPurple: String
+    val accentColorGreen: String
+    val accentColorOrange: String
+    val accentColorRed: String
+    val accentColorTeal: String
+    val accentColorIndigo: String
     val settingLanguageHeader: String
     val settingLanguageEnglish: String
     val settingLanguageJapanese: String

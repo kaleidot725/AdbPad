@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.ui.screen.setting.state
 import jp.kaleidot725.adbpad.core.mvi.MVIAction
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
+import jp.kaleidot725.adbpad.domain.model.setting.AccentColor
 
 sealed class SettingAction : MVIAction {
     data object Save : SettingAction()
@@ -25,5 +26,9 @@ sealed class SettingAction : MVIAction {
 
     data class UpdateScrcpyBinaryPath(
         val value: String,
+    ) : SettingAction()
+
+    data class UpdateAccentColor(
+        val value: AccentColor,
     ) : SettingAction()
 }

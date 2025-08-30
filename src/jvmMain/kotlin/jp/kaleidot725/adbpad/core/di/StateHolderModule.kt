@@ -48,6 +48,8 @@ val stateHolderModule =
                 getScrcpySettingsUseCase = get(),
                 saveScrcpySettingsUseCase = get(),
                 restartAdbUseCase = get(),
+                getAccentColorUseCase = get(),
+                saveAccentColorUseCase = get(),
             )
         }
 
@@ -69,20 +71,6 @@ val stateHolderModule =
         }
 
         factory {
-            SettingStateHolder(
-                getSdkPathUseCase = get(),
-                saveSdkPathUseCase = get(),
-                getAppearanceUseCase = get(),
-                saveAppearanceUseCase = get(),
-                getLanguageUseCase = get(),
-                saveLanguageUseCase = get(),
-                getScrcpySettingsUseCase = get(),
-                saveScrcpySettingsUseCase = get(),
-                restartAdbUseCase = get(),
-            )
-        }
-
-        factory {
             MainStateHolder(
                 commandStateHolder = get(),
                 textCommandStateHolder = get(),
@@ -92,6 +80,7 @@ val stateHolderModule =
                 startAdbUseCase = get(),
                 getDarkModeFlowUseCase = get(),
                 getLanguageUseCase = get(),
+                getAccentColorUseCase = get(),
                 refreshUseCase = get(),
                 topStateHolder = get(),
                 deviceStateHolder = get(),

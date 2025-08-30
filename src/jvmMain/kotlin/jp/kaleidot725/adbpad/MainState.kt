@@ -4,6 +4,7 @@ import jp.kaleidot725.adbpad.core.mvi.MVIState
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
+import jp.kaleidot725.adbpad.domain.model.setting.AccentColor
 
 data class MainState(
     val language: Language.Type = Language.Type.ENGLISH,
@@ -13,4 +14,5 @@ data class MainState(
     val category: MainCategory = MainCategory.Command,
     val selectedDevice: Device? = null,
     val isAlwaysOnTop: Boolean = false,
+    val accentColor: AccentColor = AccentColor.BLUE,
 ) : MVIState

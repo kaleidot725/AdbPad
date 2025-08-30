@@ -29,6 +29,7 @@ import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.model.setting.getWindowSize
 import jp.kaleidot725.adbpad.ui.common.resource.UserColor
+import jp.kaleidot725.adbpad.domain.model.setting.AccentColor
 import jp.kaleidot725.adbpad.ui.component.rail.NavigationRail
 import jp.kaleidot725.adbpad.ui.screen.CommandScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
@@ -52,13 +53,13 @@ import org.jetbrains.compose.splitpane.rememberSplitPaneState
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
 
-private val LightColors =
+private fun createLightColorScheme(accentColor: AccentColor) =
     ColorScheme(
-        primary = UserColor.Light.PRIMARY,
+        primary = accentColor.lightColor,
         onPrimary = UserColor.Light.ON_PRIMARY,
-        primaryContainer = UserColor.Light.PRIMARY_VARIANT,
-        onPrimaryContainer = UserColor.Light.ON_PRIMARY,
-        inversePrimary = UserColor.Light.PRIMARY.copy(alpha = 0.8f),
+        primaryContainer = accentColor.lightColor.copy(alpha = 0.1f),
+        onPrimaryContainer = accentColor.lightColor,
+        inversePrimary = accentColor.lightColor.copy(alpha = 0.8f),
         secondary = UserColor.Light.SECONDARY,
         onSecondary = UserColor.Light.ON_SECONDARY,
         secondaryContainer = UserColor.Light.SECONDARY_VARIANT,
@@ -73,7 +74,7 @@ private val LightColors =
         onSurface = UserColor.Light.ON_SURFACE,
         surfaceVariant = UserColor.Light.SURFACE.copy(alpha = 0.8f),
         onSurfaceVariant = UserColor.Light.ON_SURFACE.copy(alpha = 0.8f),
-        surfaceTint = UserColor.Light.PRIMARY,
+        surfaceTint = accentColor.lightColor,
         inverseSurface = UserColor.Light.ON_SURFACE,
         inverseOnSurface = UserColor.Light.SURFACE,
         error = UserColor.Light.ERROR,
@@ -92,13 +93,13 @@ private val LightColors =
         surfaceContainerLowest = UserColor.Light.SURFACE.copy(alpha = 0.4f),
     )
 
-private val DarkColors =
+private fun createDarkColorScheme(accentColor: AccentColor) =
     ColorScheme(
-        primary = UserColor.Dark.PRIMARY,
+        primary = accentColor.darkColor,
         onPrimary = UserColor.Dark.ON_PRIMARY,
-        primaryContainer = UserColor.Dark.PRIMARY_VARIANT,
-        onPrimaryContainer = UserColor.Dark.ON_PRIMARY,
-        inversePrimary = UserColor.Dark.PRIMARY.copy(alpha = 0.8f),
+        primaryContainer = accentColor.darkColor.copy(alpha = 0.2f),
+        onPrimaryContainer = accentColor.darkColor,
+        inversePrimary = accentColor.darkColor.copy(alpha = 0.8f),
         secondary = UserColor.Dark.SECONDARY,
         onSecondary = UserColor.Dark.ON_SECONDARY,
         secondaryContainer = UserColor.Dark.SECONDARY_VARIANT,
@@ -113,7 +114,7 @@ private val DarkColors =
         onSurface = UserColor.Dark.ON_SURFACE,
         surfaceVariant = UserColor.Dark.SURFACE.copy(alpha = 0.8f),
         onSurfaceVariant = UserColor.Dark.ON_SURFACE.copy(alpha = 0.8f),
-        surfaceTint = UserColor.Dark.PRIMARY,
+        surfaceTint = accentColor.darkColor,
         inverseSurface = UserColor.Dark.ON_SURFACE,
         inverseOnSurface = UserColor.Dark.SURFACE,
         error = UserColor.Dark.ERROR,
@@ -197,7 +198,7 @@ fun main() {
                     }
                 }
                 DisposableEffect(Unit) { onDispose { onAction(MainAction.SaveSetting(this@Window.getWindowSize())) } }
-                MaterialTheme(colorScheme = if (state.isDark) DarkColors else LightColors) {
+                MaterialTheme(colorScheme = if (state.isDark) createDarkColorScheme(state.accentColor) else createLightColorScheme(state.accentColor)) {
                     DevelopmentEntryPoint {
                         App(
                             state = state,

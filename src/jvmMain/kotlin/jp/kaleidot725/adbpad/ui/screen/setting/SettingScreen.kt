@@ -27,6 +27,8 @@ import jp.kaleidot725.adbpad.ui.component.text.DefaultOutlineTextField
 import jp.kaleidot725.adbpad.ui.component.text.SubTitle
 import jp.kaleidot725.adbpad.ui.component.text.Title
 import jp.kaleidot725.adbpad.ui.screen.setting.component.LanguageDropButton
+import jp.kaleidot725.adbpad.ui.screen.setting.component.AccentColorDropButton
+import jp.kaleidot725.adbpad.domain.model.setting.AccentColor
 import jp.kaleidot725.adbpad.ui.screen.setting.state.SettingAction
 import jp.kaleidot725.adbpad.ui.screen.setting.state.SettingState
 
@@ -43,6 +45,8 @@ fun SettingScreen(
         onUpdateLanguage = { onAction(SettingAction.UpdateLanguage(it)) },
         appearance = state.appearance,
         updateAppearance = { onAction(SettingAction.UpdateAppearance(it)) },
+        accentColor = state.accentColor,
+        onUpdateAccentColor = { onAction(SettingAction.UpdateAccentColor(it)) },
         adbDirectoryPath = state.adbDirectoryPath,
         onChangeAdbDirectoryPath = { onAction(SettingAction.UpdateAdbDirectoryPath(it)) },
         isValidAdbDirectoryPath = state.isValidAdbDirectoryPath,
@@ -68,6 +72,8 @@ fun SettingScreen(
     onUpdateLanguage: (Language.Type) -> Unit,
     appearance: Appearance,
     updateAppearance: (Appearance) -> Unit,
+    accentColor: AccentColor,
+    onUpdateAccentColor: (AccentColor) -> Unit,
     adbDirectoryPath: String,
     onChangeAdbDirectoryPath: (String) -> Unit,
     isValidAdbDirectoryPath: Boolean,
@@ -121,7 +127,7 @@ fun SettingScreen(
                 HorizontalDivider(modifier = Modifier.fillMaxWidth())
 
                 SubTitle(
-                    text = Language.settingAppearanceHeader,
+                    text = Language.settingThemeHeader,
                     modifier = Modifier.padding(horizontal = 4.dp),
                 )
 
@@ -130,6 +136,20 @@ fun SettingScreen(
                     items = Appearance.entries.map { it.value },
                     onSelect = { value -> updateAppearance(Appearance.entries.first { it.value == value }) },
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                )
+
+                HorizontalDivider(modifier = Modifier.fillMaxWidth())
+
+                SubTitle(
+                    text = Language.settingAccentColorHeader,
+                    modifier = Modifier.padding(horizontal = 4.dp),
+                )
+
+                AccentColorDropButton(
+                    accentColors = AccentColor.entries,
+                    selectedAccentColor = accentColor,
+                    onSelect = onUpdateAccentColor,
+                    modifier = Modifier.padding(horizontal = 4.dp),
                 )
 
                 HorizontalDivider(modifier = Modifier.fillMaxWidth())
