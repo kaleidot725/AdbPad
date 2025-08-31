@@ -2,7 +2,6 @@ package jp.kaleidot725.adbpad.domain.repository
 
 import com.malinskiy.adam.AndroidDebugBridgeClientFactory
 import com.malinskiy.adam.request.device.ListDevicesRequest
-import jp.kaleidot725.adbpad.data.local.DeviceFileCreator
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceState
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +10,9 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.withContext
 
-class DeviceRepositoryImpl : DeviceRepository {
+class DeviceRepositoryImpl(
+    private val deviceSettingsRepository: DeviceSettingsRepository
+) : DeviceRepository {
     private val adbClient = AndroidDebugBridgeClientFactory().build()
 
     private var lastSelectedDevice: Device? = null
@@ -24,51 +25,34 @@ class DeviceRepositoryImpl : DeviceRepository {
     }
 
     override suspend fun saveDevices(devices: List<Device>): Boolean {
-        val result =
-            withContext(Dispatchers.IO) {
-                val oldSetting = DeviceFileCreator.load()
-                val oldSettingDevices = oldSetting.values.associate { it.serial to it.name }
-
-                val newSettingDevices = oldSettingDevices.toMutableMap()
-                devices.forEach { device ->
-                    newSettingDevices[device.serial] = device.name
-                }
-                val newSetting =
-                    DeviceFileCreator.DevicesSetting(
-                        values =
-                            newSettingDevices.map {
-                                DeviceFileCreator.DeviceSetting(
-                                    it.key,
-                                    it.value,
-                                )
-                            },
-                    )
-
-                lastSelectedDevice = lastSelectedDevice?.let { it.copy(name = newSettingDevices[it.serial] ?: "") }
-                selectedDevice.emit(lastSelectedDevice)
-
-                DeviceFileCreator.save(newSetting)
+        return withContext(Dispatchers.IO) {
+            // For each device, get existing settings or create new ones
+            devices.forEach { device ->
+                val existingSettings = deviceSettingsRepository.getDeviceSettings(device.serial)
+                val updatedSettings = existingSettings.copy(customName = device.name)
+                deviceSettingsRepository.saveDeviceSettings(updatedSettings)
             }
-
-        return result
+            true
+        }
     }
 
     override fun getSelectedDeviceFlow(): Flow<Device?> = selectedDevice.asSharedFlow()
 
     override suspend fun updateDevices(): List<Device> {
-        val deviceSetting = DeviceFileCreator.load()
-        val settingDevices = deviceSetting.values.associate { it.serial to it.name }
-        val devices = adbClient.execute(request = ListDevicesRequest()).convert(settingDevices)
+        val rawDevices = adbClient.execute(request = ListDevicesRequest())
+        val devices = rawDevices.map { rawDevice ->
+            val deviceSettings = deviceSettingsRepository.getDeviceSettings(rawDevice.serial)
+            Device(
+                rawDevice.serial, 
+                deviceSettings.customName ?: "",
+                rawDevice.state.convert()
+            )
+        }
         if (devices.any { it.serial == lastSelectedDevice?.serial }.not()) {
             selectDevice(devices.firstOrNull())
         }
         return devices
     }
-
-    private fun List<com.malinskiy.adam.request.device.Device>.convert(settingDevices: Map<String, String>): List<Device> =
-        map {
-            Device(it.serial, settingDevices[it.serial] ?: "", it.state.convert())
-        }
 
     private fun com.malinskiy.adam.request.device.DeviceState.convert(): DeviceState =
         when (this) {

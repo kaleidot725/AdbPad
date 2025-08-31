@@ -22,7 +22,7 @@ import ui.repository.VersionRepository
 val repositoryModule =
     module {
         single<DeviceRepository> {
-            DeviceRepositoryImpl()
+            DeviceRepositoryImpl(get())
         }
         single<NormalCommandRepository> {
             NormalCommandRepositoryImpl()
