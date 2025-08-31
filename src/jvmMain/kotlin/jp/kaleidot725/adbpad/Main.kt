@@ -35,8 +35,12 @@ import jp.kaleidot725.adbpad.ui.screen.CommandScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
 import jp.kaleidot725.adbpad.ui.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.device.DeviceScreen
+import jp.kaleidot725.adbpad.ui.screen.device.DeviceSettingsScreen
 import jp.kaleidot725.adbpad.ui.screen.device.DeviceStateHolder
+import jp.kaleidot725.adbpad.ui.screen.device.DeviceSettingsStateHolder
 import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSideEffect
+import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSettingsAction
+import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSettingsSideEffect
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
@@ -209,6 +213,7 @@ fun main() {
                             screenshotStateHolder = mainStateHolder.screenshotStateHolder,
                             topStateHolder = mainStateHolder.topStateHolder,
                             deviceStateHolder = mainStateHolder.deviceStateHolder,
+                            deviceSettingsStateHolder = mainStateHolder.deviceSettingsStateHolder,
                             settingStateHolder = mainStateHolder.settingStateHolder,
                         )
                     }
@@ -229,6 +234,7 @@ fun App(
     screenshotStateHolder: ScreenshotStateHolder,
     topStateHolder: TopStateHolder,
     deviceStateHolder: DeviceStateHolder,
+    deviceSettingsStateHolder: DeviceSettingsStateHolder,
     settingStateHolder: SettingStateHolder,
 ) {
     val textSplitPaneState = rememberSplitPaneState()
@@ -252,7 +258,7 @@ fun App(
                                 state = state,
                                 onAction = onAction,
                                 onMainRefresh = onMainRefresh,
-                                onMainOpenDevice = { onMainAction(MainAction.OpenDevice) },
+                                onMainOpenDeviceSettings = { device -> onMainAction(MainAction.OpenDeviceSettings(device)) },
                             )
                         },
                     )
@@ -336,6 +342,34 @@ fun App(
                                     state = state,
                                     onAction = onAction,
                                 )
+                            }
+                        }
+                        is MainDialog.DeviceSettings -> {
+                            val device = state.dialog.device
+                            deviceSettingsStateHolder.initialize(device)
+                            MVIDialogContent(
+                                mvi = deviceSettingsStateHolder,
+                                onSideEffect = {
+                                    when (it) {
+                                        DeviceSettingsSideEffect.Saved -> onMainRefresh()
+                                        DeviceSettingsSideEffect.Cancelled -> onMainRefresh()
+                                    }
+                                },
+                            ) { deviceSettingsState, onDeviceSettingsAction ->
+                                if (deviceSettingsState.isLoaded && 
+                                    deviceSettingsState.device != null && 
+                                    deviceSettingsState.deviceSettings != null) {
+                                    DeviceSettingsScreen(
+                                        device = deviceSettingsState.device,
+                                        deviceSettings = deviceSettingsState.deviceSettings,
+                                        onUpdateDeviceSettings = { settings ->
+                                            onDeviceSettingsAction(DeviceSettingsAction.UpdateSettings(settings))
+                                        },
+                                        onSave = { onDeviceSettingsAction(DeviceSettingsAction.Save) },
+                                        onCancel = { onDeviceSettingsAction(DeviceSettingsAction.Cancel) },
+                                        isSaving = deviceSettingsState.isSaving,
+                                    )
+                                }
                             }
                         }
 

@@ -10,7 +10,9 @@ import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAccentColorUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteDeviceControlCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetNormalCommandGroup
+import jp.kaleidot725.adbpad.domain.usecase.device.GetDeviceSettingsUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
+import jp.kaleidot725.adbpad.domain.usecase.device.SaveDeviceSettingsUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.SelectDeviceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.device.UpdateDevicesUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
@@ -88,7 +90,7 @@ val domainModule =
             SaveScrcpySettingsUseCase(get())
         }
         factory {
-            LaunchScrcpyUseCase(get(), get())
+            LaunchScrcpyUseCase(get(), get(), get())
         }
         factory {
             GetAppearanceUseCase(get())
@@ -119,5 +121,11 @@ val domainModule =
         }
         factory {
             ShutdownAppUseCase(get())
+        }
+        factory {
+            GetDeviceSettingsUseCase(get())
+        }
+        factory {
+            SaveDeviceSettingsUseCase(get())
         }
     }

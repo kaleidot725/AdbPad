@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.core.di
 import jp.kaleidot725.adbpad.MainStateHolder
 import jp.kaleidot725.adbpad.ui.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.device.DeviceStateHolder
+import jp.kaleidot725.adbpad.ui.screen.device.DeviceSettingsStateHolder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
@@ -71,6 +72,13 @@ val stateHolderModule =
         }
 
         factory {
+            DeviceSettingsStateHolder(
+                getDeviceSettingsUseCase = get(),
+                saveDeviceSettingsUseCase = get(),
+            )
+        }
+
+        factory {
             MainStateHolder(
                 commandStateHolder = get(),
                 textCommandStateHolder = get(),
@@ -84,6 +92,7 @@ val stateHolderModule =
                 refreshUseCase = get(),
                 topStateHolder = get(),
                 deviceStateHolder = get(),
+                deviceSettingsStateHolder = get(),
                 settingStateHolder = get(),
                 shutdownAppUseCase = get(),
             )

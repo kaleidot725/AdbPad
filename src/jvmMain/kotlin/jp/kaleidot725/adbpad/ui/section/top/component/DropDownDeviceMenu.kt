@@ -41,7 +41,7 @@ fun DropDownDeviceMenu(
     devices: List<Device>,
     selectedDevice: Device?,
     onSelectDevice: (Device) -> Unit,
-    onOpenDevice: () -> Unit,
+    onOpenDeviceSettings: (Device) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -73,43 +73,33 @@ fun DropDownDeviceMenu(
                         shape = RoundedCornerShape(4.dp),
                     ),
         ) {
-            Row(
-                modifier = Modifier.height(22.dp).padding(start = 16.dp, end = 8.dp),
-            ) {
-                Text(
-                    text = Language.targetDevice,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f),
-                    style = MaterialTheme.typography.labelSmall,
-                    modifier = Modifier.align(Alignment.CenterVertically).padding(bottom = 2.dp),
-                )
-
-                Spacer(modifier = Modifier.weight(1.0f))
-
-                CommandIconButton(
-                    image = Lucide.Settings,
-                    onClick = {
-                        expanded = false
-                        onOpenDevice()
-                    },
-                    modifier = Modifier.align(Alignment.CenterVertically).size(24.dp),
-                )
-            }
-
             devices.forEach { device ->
                 DropdownMenuItem(
                     text = {
-                        Text(
-                            text = device.displayName,
-                            color = MaterialTheme.colorScheme.onBackground,
-                            style = MaterialTheme.typography.titleSmall,
-                            modifier = Modifier.padding(bottom = 4.dp),
-                        )
+                        Row(
+                            modifier = Modifier.padding(horizontal = 4.dp)
+                        ) {
+                            Text(
+                                text = device.displayName,
+                                color = MaterialTheme.colorScheme.onBackground,
+                                style = MaterialTheme.typography.titleSmall,
+                                modifier = Modifier.align(Alignment.CenterVertically).weight(1.0f),
+                            )
+                            
+                            CommandIconButton(
+                                image = Lucide.Settings,
+                                onClick = {
+                                    expanded = false
+                                    onOpenDeviceSettings(device)
+                                },
+                                modifier = Modifier.align(Alignment.CenterVertically).size(20.dp),
+                            )
+                        }
                     },
                     onClick = {
                         onSelectDevice(device)
                         expanded = false
                     },
-                    modifier = Modifier.height(24.dp),
                 )
             }
         }
@@ -124,6 +114,6 @@ private fun DeviceList_Preview() {
         devices = listOf(sample),
         selectedDevice = sample,
         onSelectDevice = {},
-        onOpenDevice = {},
+        onOpenDeviceSettings = {},
     )
 }
