@@ -22,6 +22,7 @@ fun DefaultOutlineTextField(
     isError: Boolean,
     onUpdateText: (String) -> Unit,
     maxLines: Int = 1,
+    enabled: Boolean = true,
     modifier: Modifier = Modifier,
 ) {
     var localText by remember(id) { mutableStateOf(initialText) }
@@ -36,6 +37,7 @@ fun DefaultOutlineTextField(
         maxLines = maxLines,
         textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface, fontSize = 16.sp),
         isError = isError,
+        enabled = enabled,
         modifier = modifier,
     )
 }
