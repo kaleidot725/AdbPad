@@ -83,16 +83,17 @@ fun SearchSortDropBox(
     DropdownMenu(
         expanded = expanded,
         onDismissRequest = { expanded = false },
-        modifier = Modifier
-            .background(
-                color = UserColor.getDropdownBackgroundColor(),
-                shape = RoundedCornerShape(4.dp)
-            )
-            .border(
-                width = 1.dp,
-                color = UserColor.getSplitterColor(),
-                shape = RoundedCornerShape(4.dp)
-            ),
+        modifier =
+            Modifier
+                .background(
+                    color = UserColor.getDropdownBackgroundColor(),
+                    shape = RoundedCornerShape(4.dp),
+                )
+                .border(
+                    width = 1.dp,
+                    color = UserColor.getSplitterColor(),
+                    shape = RoundedCornerShape(4.dp),
+                ),
     ) {
         SortType.entries.forEach { sortType ->
             DropdownMenuItem(

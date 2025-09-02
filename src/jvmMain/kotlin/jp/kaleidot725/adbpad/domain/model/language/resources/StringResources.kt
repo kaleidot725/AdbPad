@@ -150,20 +150,20 @@ interface StringResources {
     val menuWindowMinimize: String
     val menuWindowFullscreen: String
     val menuWindowAlwaysOnTop: String
-    
+
     // Device Settings Screen
     val deviceSettingsTitle: String
     val deviceNameSection: String
     val customDeviceNameLabel: String
     val scrcpySettingsSection: String
-    
+
     // Scrcpy Options Section
     val videoOptionsSection: String
     val audioOptionsSection: String
     val displayOptionsSection: String
     val controlOptionsSection: String
     val loggingOptionsSection: String
-    
+
     val noVideoLabel: String
     val noAudioLabel: String
     val fullscreenLabel: String
@@ -173,7 +173,7 @@ interface StringResources {
     val powerOffOnCloseLabel: String
     val showTouchesLabel: String
     val disableScreensaverLabel: String
-    
+
     val maxSizeLabel: String
     val videoBitRateLabel: String
     val maxFpsLabel: String
@@ -190,7 +190,7 @@ interface StringResources {
     val windowWidthLabel: String
     val windowHeightLabel: String
     val logLevelLabel: String
-    
+
     val autoLabel: String
     val defaultLabel: String
     val customTitlePlaceholder: String

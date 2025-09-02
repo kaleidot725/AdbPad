@@ -152,20 +152,20 @@ object ChineseResources : StringResources {
     override val menuWindowMinimize: String = "最小化"
     override val menuWindowFullscreen: String = "全屏"
     override val menuWindowAlwaysOnTop: String = "始终置顶"
-    
+
     // Device Settings Screen
     override val deviceSettingsTitle: String = "设备设置"
     override val deviceNameSection: String = "设备名称"
     override val customDeviceNameLabel: String = "自定义设备名称"
     override val scrcpySettingsSection: String = "Scrcpy设置"
-    
+
     // Scrcpy Options Section
     override val videoOptionsSection: String = "视频选项"
     override val audioOptionsSection: String = "音频选项"
     override val displayOptionsSection: String = "显示选项"
     override val controlOptionsSection: String = "控制选项"
     override val loggingOptionsSection: String = "日志选项"
-    
+
     override val noVideoLabel: String = "无视频"
     override val noAudioLabel: String = "无音频"
     override val fullscreenLabel: String = "全屏"
@@ -175,7 +175,7 @@ object ChineseResources : StringResources {
     override val powerOffOnCloseLabel: String = "关闭时断电"
     override val showTouchesLabel: String = "显示触摸"
     override val disableScreensaverLabel: String = "禁用屏保"
-    
+
     override val maxSizeLabel: String = "最大尺寸"
     override val videoBitRateLabel: String = "视频比特率"
     override val maxFpsLabel: String = "最大帧率"
@@ -192,7 +192,7 @@ object ChineseResources : StringResources {
     override val windowWidthLabel: String = "窗口宽度"
     override val windowHeightLabel: String = "窗口高度"
     override val logLevelLabel: String = "日志级别"
-    
+
     override val autoLabel: String = "自动"
     override val defaultLabel: String = "默认"
     override val customTitlePlaceholder: String = "自定义标题"

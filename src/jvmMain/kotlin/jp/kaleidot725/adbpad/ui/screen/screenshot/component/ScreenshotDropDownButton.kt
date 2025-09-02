@@ -52,17 +52,18 @@ fun ScreenshotDropDownButton(
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier
-                .width(250.dp)
-                .background(
-                    color = UserColor.getDropdownBackgroundColor(),
-                    shape = RoundedCornerShape(4.dp)
-                )
-                .border(
-                    width = 1.dp,
-                    color = UserColor.getSplitterColor(),
-                    shape = RoundedCornerShape(4.dp)
-                ),
+            modifier =
+                Modifier
+                    .width(250.dp)
+                    .background(
+                        color = UserColor.getDropdownBackgroundColor(),
+                        shape = RoundedCornerShape(4.dp),
+                    )
+                    .border(
+                        width = 1.dp,
+                        color = UserColor.getSplitterColor(),
+                        shape = RoundedCornerShape(4.dp),
+                    ),
         ) {
             commands.forEach { command ->
                 DropdownMenuItem(

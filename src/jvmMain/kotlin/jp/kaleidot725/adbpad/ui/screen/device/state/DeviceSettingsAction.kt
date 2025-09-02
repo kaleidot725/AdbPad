@@ -5,6 +5,8 @@ import jp.kaleidot725.adbpad.domain.model.device.DeviceSettings
 
 sealed class DeviceSettingsAction : MVIAction {
     data class UpdateSettings(val settings: DeviceSettings) : DeviceSettingsAction()
+
     data object Save : DeviceSettingsAction()
+
     data object Cancel : DeviceSettingsAction()
 }

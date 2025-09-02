@@ -151,20 +151,20 @@ object JapaneseResources : StringResources {
     override val menuWindowMinimize: String = "最小化"
     override val menuWindowFullscreen: String = "フルスクリーン"
     override val menuWindowAlwaysOnTop: String = "常に最前面に表示"
-    
+
     // Device Settings Screen
     override val deviceSettingsTitle: String = "デバイス設定"
     override val deviceNameSection: String = "デバイス名"
     override val customDeviceNameLabel: String = "カスタムデバイス名"
     override val scrcpySettingsSection: String = "Scrcpy設定"
-    
+
     // Scrcpy Options Section
     override val videoOptionsSection: String = "映像オプション"
     override val audioOptionsSection: String = "音声オプション"
     override val displayOptionsSection: String = "表示オプション"
     override val controlOptionsSection: String = "制御オプション"
     override val loggingOptionsSection: String = "ログオプション"
-    
+
     override val noVideoLabel: String = "映像なし"
     override val noAudioLabel: String = "音声なし"
     override val fullscreenLabel: String = "フルスクリーン"
@@ -174,7 +174,7 @@ object JapaneseResources : StringResources {
     override val powerOffOnCloseLabel: String = "終了時に電源オフ"
     override val showTouchesLabel: String = "タッチ表示"
     override val disableScreensaverLabel: String = "スクリーンセーバー無効"
-    
+
     override val maxSizeLabel: String = "最大サイズ"
     override val videoBitRateLabel: String = "映像ビットレート"
     override val maxFpsLabel: String = "最大FPS"
@@ -191,7 +191,7 @@ object JapaneseResources : StringResources {
     override val windowWidthLabel: String = "ウィンドウ幅"
     override val windowHeightLabel: String = "ウィンドウ高さ"
     override val logLevelLabel: String = "ログレベル"
-    
+
     override val autoLabel: String = "自動"
     override val defaultLabel: String = "デフォルト"
     override val customTitlePlaceholder: String = "カスタムタイトル"

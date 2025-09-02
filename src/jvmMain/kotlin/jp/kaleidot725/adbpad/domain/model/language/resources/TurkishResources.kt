@@ -152,20 +152,20 @@ object TurkishResources : StringResources {
     override val menuWindowMinimize: String = "Küçült"
     override val menuWindowFullscreen: String = "Tam Ekran"
     override val menuWindowAlwaysOnTop: String = "Her Zaman Üstte"
-    
+
     // Device Settings Screen
     override val deviceSettingsTitle: String = "Cihaz Ayarları"
     override val deviceNameSection: String = "Cihaz Adı"
     override val customDeviceNameLabel: String = "Özel Cihaz Adı"
     override val scrcpySettingsSection: String = "Scrcpy Ayarları"
-    
+
     // Scrcpy Options Section
     override val videoOptionsSection: String = "Video Seçenekleri"
     override val audioOptionsSection: String = "Ses Seçenekleri"
     override val displayOptionsSection: String = "Ekran Seçenekleri"
     override val controlOptionsSection: String = "Kontrol Seçenekleri"
     override val loggingOptionsSection: String = "Günlük Seçenekleri"
-    
+
     override val noVideoLabel: String = "Video Yok"
     override val noAudioLabel: String = "Ses Yok"
     override val fullscreenLabel: String = "Tam Ekran"
@@ -175,7 +175,7 @@ object TurkishResources : StringResources {
     override val powerOffOnCloseLabel: String = "Kapanışta Gücü Kes"
     override val showTouchesLabel: String = "Dokunuşları Göster"
     override val disableScreensaverLabel: String = "Ekran Koruyucuyu Devre Dışı Bırak"
-    
+
     override val maxSizeLabel: String = "Maksimum Boyut"
     override val videoBitRateLabel: String = "Video Bit Hızı"
     override val maxFpsLabel: String = "Maksimum FPS"
@@ -192,7 +192,7 @@ object TurkishResources : StringResources {
     override val windowWidthLabel: String = "Pencere Genişliği"
     override val windowHeightLabel: String = "Pencere Yüksekliği"
     override val logLevelLabel: String = "Günlük Seviyesi"
-    
+
     override val autoLabel: String = "Otomatik"
     override val defaultLabel: String = "Varsayılan"
     override val customTitlePlaceholder: String = "Özel başlık"

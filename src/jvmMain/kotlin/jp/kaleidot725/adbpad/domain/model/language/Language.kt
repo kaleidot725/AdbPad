@@ -282,7 +282,7 @@ object Language : StringResources {
         get() = getCurrentResources().menuWindowFullscreen
     override val menuWindowAlwaysOnTop: String
         get() = getCurrentResources().menuWindowAlwaysOnTop
-    
+
     // Device Settings Screen
     override val deviceSettingsTitle: String
         get() = getCurrentResources().deviceSettingsTitle
@@ -292,7 +292,7 @@ object Language : StringResources {
         get() = getCurrentResources().customDeviceNameLabel
     override val scrcpySettingsSection: String
         get() = getCurrentResources().scrcpySettingsSection
-    
+
     // Scrcpy Options Section
     override val videoOptionsSection: String
         get() = getCurrentResources().videoOptionsSection
@@ -304,7 +304,7 @@ object Language : StringResources {
         get() = getCurrentResources().controlOptionsSection
     override val loggingOptionsSection: String
         get() = getCurrentResources().loggingOptionsSection
-    
+
     override val noVideoLabel: String
         get() = getCurrentResources().noVideoLabel
     override val noAudioLabel: String
@@ -323,7 +323,7 @@ object Language : StringResources {
         get() = getCurrentResources().showTouchesLabel
     override val disableScreensaverLabel: String
         get() = getCurrentResources().disableScreensaverLabel
-    
+
     override val maxSizeLabel: String
         get() = getCurrentResources().maxSizeLabel
     override val videoBitRateLabel: String
@@ -356,7 +356,7 @@ object Language : StringResources {
         get() = getCurrentResources().windowHeightLabel
     override val logLevelLabel: String
         get() = getCurrentResources().logLevelLabel
-    
+
     override val autoLabel: String
         get() = getCurrentResources().autoLabel
     override val defaultLabel: String

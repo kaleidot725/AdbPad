@@ -9,4 +9,14 @@ data class DeviceSettingsState(
     val deviceSettings: DeviceSettings? = null,
     val isLoaded: Boolean = false,
     val isSaving: Boolean = false,
-) : MVIState
+) : MVIState {
+    val isReady: Boolean
+        get() = isLoaded && device != null && deviceSettings != null
+
+    inline fun <T> ifReady(block: (Device, DeviceSettings) -> T): T? =
+        if (isReady && device != null && deviceSettings != null) {
+            block(device, deviceSettings)
+        } else {
+            null
+        }
+}

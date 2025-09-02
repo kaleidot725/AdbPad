@@ -1,36 +1,27 @@
 package jp.kaleidot725.adbpad.ui.screen.device
 
 import jp.kaleidot725.adbpad.core.mvi.MVIBase
-import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceSettings
-import jp.kaleidot725.adbpad.domain.usecase.device.GetDeviceSettingsUseCase
-import jp.kaleidot725.adbpad.domain.usecase.device.SaveDeviceSettingsUseCase
+import jp.kaleidot725.adbpad.domain.repository.DeviceSettingsRepository
+import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSettingsAction
 import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSettingsSideEffect
 import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSettingsState
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 class DeviceSettingsStateHolder(
-    private val getDeviceSettingsUseCase: GetDeviceSettingsUseCase,
-    private val saveDeviceSettingsUseCase: SaveDeviceSettingsUseCase,
+    private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
+    private val deviceSettingsRepository: DeviceSettingsRepository,
 ) : MVIBase<DeviceSettingsState, DeviceSettingsAction, DeviceSettingsSideEffect>(
         initialUiState = DeviceSettingsState(),
     ) {
-    override fun onSetup() {}
+    override fun onSetup() {
+        initialize()
+    }
 
-    override fun onRefresh() {}
-
-    fun initialize(device: Device) {
-        coroutineScope.launch {
-            val deviceSettings = getDeviceSettingsUseCase(device.serial)
-            update {
-                copy(
-                    device = device,
-                    deviceSettings = deviceSettings,
-                    isLoaded = true,
-                )
-            }
-        }
+    override fun onRefresh() {
+        initialize()
     }
 
     override fun onAction(uiAction: DeviceSettingsAction) {
@@ -38,6 +29,20 @@ class DeviceSettingsStateHolder(
             is DeviceSettingsAction.UpdateSettings -> updateSettings(uiAction.settings)
             is DeviceSettingsAction.Save -> saveSettings()
             is DeviceSettingsAction.Cancel -> cancel()
+        }
+    }
+
+    private fun initialize() {
+        coroutineScope.launch {
+            val selected = getSelectedDeviceFlowUseCase().firstOrNull() ?: return@launch
+            val deviceSettings = deviceSettingsRepository.getDeviceSettings(selected)
+            update {
+                copy(
+                    device = selected,
+                    deviceSettings = deviceSettings,
+                    isLoaded = true,
+                )
+            }
         }
     }
 
@@ -52,7 +57,7 @@ class DeviceSettingsStateHolder(
         coroutineScope.launch {
             update { copy(isSaving = true) }
 
-            val success = saveDeviceSettingsUseCase(currentState.deviceSettings)
+            val success = deviceSettingsRepository.saveDeviceSettings(currentState.device, currentState.deviceSettings)
             if (success) {
                 sideEffect(DeviceSettingsSideEffect.Saved)
             }

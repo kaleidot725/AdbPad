@@ -4,14 +4,12 @@ import com.malinskiy.adam.AndroidDebugBridgeClientFactory
 import com.malinskiy.adam.request.device.ListDevicesRequest
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceState
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.withContext
 
 class DeviceRepositoryImpl(
-    private val deviceSettingsRepository: DeviceSettingsRepository
+    private val deviceSettingsRepository: DeviceSettingsRepository,
 ) : DeviceRepository {
     private val adbClient = AndroidDebugBridgeClientFactory().build()
 
@@ -24,30 +22,21 @@ class DeviceRepositoryImpl(
         return true
     }
 
-    override suspend fun saveDevices(devices: List<Device>): Boolean {
-        return withContext(Dispatchers.IO) {
-            // For each device, get existing settings or create new ones
-            devices.forEach { device ->
-                val existingSettings = deviceSettingsRepository.getDeviceSettings(device.serial)
-                val updatedSettings = existingSettings.copy(customName = device.name)
-                deviceSettingsRepository.saveDeviceSettings(updatedSettings)
-            }
-            true
-        }
-    }
-
     override fun getSelectedDeviceFlow(): Flow<Device?> = selectedDevice.asSharedFlow()
 
     override suspend fun updateDevices(): List<Device> {
         val rawDevices = adbClient.execute(request = ListDevicesRequest())
-        val devices = rawDevices.map { rawDevice ->
-            val deviceSettings = deviceSettingsRepository.getDeviceSettings(rawDevice.serial)
-            Device(
-                rawDevice.serial, 
-                deviceSettings.customName ?: "",
-                rawDevice.state.convert()
-            )
-        }
+        val devices =
+            rawDevices.map { rawDevice ->
+                // Create temporary device for settings lookup
+                val tempDevice = Device(rawDevice.serial, "", rawDevice.state.convert())
+                val deviceSettings = deviceSettingsRepository.getDeviceSettings(tempDevice)
+                Device(
+                    rawDevice.serial,
+                    deviceSettings.customName ?: "",
+                    rawDevice.state.convert(),
+                )
+            }
         if (devices.any { it.serial == lastSelectedDevice?.serial }.not()) {
             selectDevice(devices.firstOrNull())
         }

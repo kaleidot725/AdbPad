@@ -2,7 +2,6 @@ package jp.kaleidot725.adbpad.data.local
 
 import jp.kaleidot725.adbpad.domain.model.device.DeviceSettings
 import kotlinx.serialization.json.Json
-import java.io.File
 import java.io.IOException
 
 object DeviceSettingsFileCreator {
@@ -19,11 +18,11 @@ object DeviceSettingsFileCreator {
 
     fun load(deviceId: String): DeviceSettings {
         return try {
-            val deviceFile = FilePathUtil.getFilePath("device_${deviceId}.json")
+            val deviceFile = FilePathUtil.getFilePath("device_$deviceId.json")
             if (!deviceFile.exists()) {
                 return DeviceSettings(deviceId = deviceId)
             }
-            
+
             val content = deviceFile.readText()
             Json.decodeFromString(DeviceSettings.serializer(), content)
         } catch (_: Exception) {
@@ -33,7 +32,7 @@ object DeviceSettingsFileCreator {
 
     fun delete(deviceId: String): Boolean =
         try {
-            val deviceFile = FilePathUtil.getFilePath("device_${deviceId}.json")
+            val deviceFile = FilePathUtil.getFilePath("device_$deviceId.json")
             if (deviceFile.exists()) {
                 deviceFile.delete()
             }

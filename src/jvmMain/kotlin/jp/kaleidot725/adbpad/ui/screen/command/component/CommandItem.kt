@@ -38,9 +38,9 @@ fun CommandItem(
             Text(text = detail, maxLines = 3, overflow = TextOverflow.Clip)
             Spacer(modifier = Modifier.weight(1.0f))
             Button(
-                onClick = { onExecute() }, 
-                enabled = canExecute, 
-                modifier = Modifier.align(Alignment.End).width(100.dp)
+                onClick = { onExecute() },
+                enabled = canExecute,
+                modifier = Modifier.align(Alignment.End).width(100.dp),
             ) {
                 Box(modifier = Modifier.width(60.dp), contentAlignment = Alignment.Center) {
                     when {

@@ -15,8 +15,6 @@ sealed class MainAction : MVIAction {
 
     data object OpenSetting : MainAction()
 
-    data object OpenDevice : MainAction()
-    
     data class OpenDeviceSettings(
         val device: Device,
     ) : MainAction()

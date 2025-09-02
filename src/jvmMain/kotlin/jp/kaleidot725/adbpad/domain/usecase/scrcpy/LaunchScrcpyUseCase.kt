@@ -23,7 +23,7 @@ class LaunchScrcpyUseCase(
         val adbPath = adbSettings.adbDirectory
 
         // Get device-specific settings
-        val deviceSettings = deviceSettingsRepository.getDeviceSettings(device.serial)
+        val deviceSettings = deviceSettingsRepository.getDeviceSettings(device)
         val scrcpyOptions = deviceSettings.scrcpyOptions
 
         // Use custom name if available, otherwise use device name
