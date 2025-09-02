@@ -2,13 +2,13 @@ package jp.kaleidot725.adbpad.ui.screen.setting
 
 import jp.kaleidot725.adbpad.core.mvi.MVIBase
 import jp.kaleidot725.adbpad.domain.model.language.Language
-import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.domain.model.setting.AccentColor
+import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.domain.usecase.adb.RestartAdbUseCase
-import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAppearanceUseCase
-import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAccentColorUseCase
+import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAccentColorUseCase
+import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.SaveLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.scrcpy.GetScrcpySettingsUseCase

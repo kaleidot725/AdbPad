@@ -152,4 +152,48 @@ object EnglishResources : StringResources {
     override val menuWindowMinimize: String = "Minimize"
     override val menuWindowFullscreen: String = "Fullscreen"
     override val menuWindowAlwaysOnTop: String = "Always on Top"
+
+    // Device Settings Screen
+    override val deviceSettingsTitle: String = "Device Settings"
+    override val deviceNameSection: String = "Device Name"
+    override val customDeviceNameLabel: String = "Custom Device Name"
+    override val scrcpySettingsSection: String = "Scrcpy Settings"
+
+    // Scrcpy Options Section
+    override val videoOptionsSection: String = "Video Options"
+    override val audioOptionsSection: String = "Audio Options"
+    override val displayOptionsSection: String = "Display Options"
+    override val controlOptionsSection: String = "Control Options"
+    override val loggingOptionsSection: String = "Logging Options"
+
+    override val noVideoLabel: String = "No Video"
+    override val noAudioLabel: String = "No Audio"
+    override val fullscreenLabel: String = "Fullscreen"
+    override val alwaysOnTopLabel: String = "Always on Top"
+    override val stayAwakeLabel: String = "Stay Awake"
+    override val turnScreenOffLabel: String = "Turn Screen Off"
+    override val powerOffOnCloseLabel: String = "Power Off on Close"
+    override val showTouchesLabel: String = "Show Touches"
+    override val disableScreensaverLabel: String = "Disable Screensaver"
+
+    override val maxSizeLabel: String = "Max Size"
+    override val videoBitRateLabel: String = "Video Bit Rate"
+    override val maxFpsLabel: String = "Max FPS"
+    override val videoCodecLabel: String = "Video Codec"
+    override val videoSourceLabel: String = "Video Source"
+    override val audioBitRateLabel: String = "Audio Bit Rate"
+    override val audioBufferLabel: String = "Audio Buffer (ms)"
+    override val audioCodecLabel: String = "Audio Codec"
+    override val audioSourceLabel: String = "Audio Source"
+    override val windowTitleLabel: String = "Window Title"
+    override val displayIdLabel: String = "Display ID"
+    override val windowXLabel: String = "Window X"
+    override val windowYLabel: String = "Window Y"
+    override val windowWidthLabel: String = "Window Width"
+    override val windowHeightLabel: String = "Window Height"
+    override val logLevelLabel: String = "Log Level"
+
+    override val autoLabel: String = "Auto"
+    override val defaultLabel: String = "Default"
+    override val customTitlePlaceholder: String = "Custom title"
 }

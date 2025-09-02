@@ -26,17 +26,18 @@ import jp.kaleidot725.adbpad.core.mvi.MVIChildContent
 import jp.kaleidot725.adbpad.core.mvi.MVIDialogContent
 import jp.kaleidot725.adbpad.core.mvi.MVIRootContent
 import jp.kaleidot725.adbpad.domain.model.language.Language
+import jp.kaleidot725.adbpad.domain.model.setting.AccentColor
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.model.setting.getWindowSize
 import jp.kaleidot725.adbpad.ui.common.resource.UserColor
-import jp.kaleidot725.adbpad.domain.model.setting.AccentColor
 import jp.kaleidot725.adbpad.ui.component.rail.NavigationRail
 import jp.kaleidot725.adbpad.ui.screen.CommandScreen
 import jp.kaleidot725.adbpad.ui.screen.ScreenLayout
 import jp.kaleidot725.adbpad.ui.screen.command.CommandStateHolder
-import jp.kaleidot725.adbpad.ui.screen.device.DeviceScreen
-import jp.kaleidot725.adbpad.ui.screen.device.DeviceStateHolder
-import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSideEffect
+import jp.kaleidot725.adbpad.ui.screen.device.DeviceSettingsScreen
+import jp.kaleidot725.adbpad.ui.screen.device.DeviceSettingsStateHolder
+import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSettingsAction
+import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSettingsSideEffect
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
@@ -198,7 +199,9 @@ fun main() {
                     }
                 }
                 DisposableEffect(Unit) { onDispose { onAction(MainAction.SaveSetting(this@Window.getWindowSize())) } }
-                MaterialTheme(colorScheme = if (state.isDark) createDarkColorScheme(state.accentColor) else createLightColorScheme(state.accentColor)) {
+                MaterialTheme(
+                    colorScheme = if (state.isDark) createDarkColorScheme(state.accentColor) else createLightColorScheme(state.accentColor),
+                ) {
                     DevelopmentEntryPoint {
                         App(
                             state = state,
@@ -208,7 +211,7 @@ fun main() {
                             textCommandStateHolder = mainStateHolder.textCommandStateHolder,
                             screenshotStateHolder = mainStateHolder.screenshotStateHolder,
                             topStateHolder = mainStateHolder.topStateHolder,
-                            deviceStateHolder = mainStateHolder.deviceStateHolder,
+                            deviceSettingsStateHolder = mainStateHolder.deviceSettingsStateHolder,
                             settingStateHolder = mainStateHolder.settingStateHolder,
                         )
                     }
@@ -228,7 +231,7 @@ fun App(
     textCommandStateHolder: TextCommandStateHolder,
     screenshotStateHolder: ScreenshotStateHolder,
     topStateHolder: TopStateHolder,
-    deviceStateHolder: DeviceStateHolder,
+    deviceSettingsStateHolder: DeviceSettingsStateHolder,
     settingStateHolder: SettingStateHolder,
 ) {
     val textSplitPaneState = rememberSplitPaneState()
@@ -252,7 +255,7 @@ fun App(
                                 state = state,
                                 onAction = onAction,
                                 onMainRefresh = onMainRefresh,
-                                onMainOpenDevice = { onMainAction(MainAction.OpenDevice) },
+                                onMainOpenDeviceSettings = { device -> onMainAction(MainAction.OpenDeviceSettings(device)) },
                             )
                         },
                     )
@@ -322,20 +325,28 @@ fun App(
                                 )
                             }
                         }
-
-                        MainDialog.Device -> {
+                        is MainDialog.DeviceSettings -> {
                             MVIDialogContent(
-                                mvi = deviceStateHolder,
+                                mvi = deviceSettingsStateHolder,
                                 onSideEffect = {
                                     when (it) {
-                                        DeviceSideEffect.Close -> onMainRefresh()
+                                        DeviceSettingsSideEffect.Saved -> onMainRefresh()
+                                        DeviceSettingsSideEffect.Cancelled -> onMainRefresh()
                                     }
                                 },
-                            ) { state, onAction ->
-                                DeviceScreen(
-                                    state = state,
-                                    onAction = onAction,
-                                )
+                            ) { deviceSettingsState, onDeviceSettingsAction ->
+                                deviceSettingsState.ifReady { device, deviceSettings ->
+                                    DeviceSettingsScreen(
+                                        device = device,
+                                        deviceSettings = deviceSettings,
+                                        onUpdateDeviceSettings = { settings ->
+                                            onDeviceSettingsAction(DeviceSettingsAction.UpdateSettings(settings))
+                                        },
+                                        onSave = { onDeviceSettingsAction(DeviceSettingsAction.Save) },
+                                        onCancel = { onDeviceSettingsAction(DeviceSettingsAction.Cancel) },
+                                        isSaving = deviceSettingsState.isSaving,
+                                    )
+                                }
                             }
                         }
 

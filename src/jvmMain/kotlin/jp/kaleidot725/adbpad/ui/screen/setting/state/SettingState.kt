@@ -2,8 +2,8 @@ package jp.kaleidot725.adbpad.ui.screen.setting.state
 
 import jp.kaleidot725.adbpad.core.mvi.MVIState
 import jp.kaleidot725.adbpad.domain.model.language.Language
-import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.domain.model.setting.AccentColor
+import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 
 data class SettingState(
     val initialized: Boolean = false,

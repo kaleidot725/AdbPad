@@ -35,6 +35,7 @@ import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Power
 import com.composables.icons.lucide.RefreshCcw
 import com.composables.icons.lucide.ScreenShare
+import com.composables.icons.lucide.Settings2
 import com.composables.icons.lucide.Square
 import com.composables.icons.lucide.Triangle
 import com.composables.icons.lucide.Volume1
@@ -55,7 +56,7 @@ fun TopSection(
     state: TopState,
     onAction: (TopAction) -> Unit,
     onMainRefresh: () -> Unit,
-    onMainOpenDevice: () -> Unit,
+    onMainOpenDeviceSettings: (Device) -> Unit,
 ) {
     TopSection(
         state = state,
@@ -63,7 +64,7 @@ fun TopSection(
         onSelectDevice = { onAction(TopAction.SelectDevice(it)) },
         onLaunchScrcpy = { onAction(TopAction.LaunchScrcpy) },
         onRefresh = onMainRefresh,
-        onOpenDevice = onMainOpenDevice,
+        onOpenDeviceSettings = onMainOpenDeviceSettings,
     )
 }
 
@@ -74,7 +75,7 @@ private fun TopSection(
     onExecuteCommand: (DeviceControlCommand) -> Unit,
     onSelectDevice: (Device) -> Unit,
     onLaunchScrcpy: () -> Unit,
-    onOpenDevice: () -> Unit,
+    onOpenDeviceSettings: (Device) -> Unit,
     onRefresh: () -> Unit,
 ) {
     var isPress: Boolean by remember { mutableStateOf(false) }
@@ -90,9 +91,22 @@ private fun TopSection(
                     devices = state.devices,
                     selectedDevice = state.selectedDevice,
                     onSelectDevice = onSelectDevice,
-                    onOpenDevice = onOpenDevice,
+                    onOpenDeviceSettings = onOpenDeviceSettings,
                     modifier = Modifier.wrapContentWidth().align(Alignment.CenterVertically),
                 )
+
+                if (state.selectedDevice != null) {
+                    CommandTooltip(
+                        text = Language.tooltipSetting,
+                    ) {
+                        CommandIconButton(
+                            modifier = Modifier.padding(vertical = 4.dp),
+                            image = Lucide.Settings2,
+                            onClick = { onOpenDeviceSettings(state.selectedDevice) },
+                            padding = 2.dp,
+                        )
+                    }
+                }
 
                 CommandTooltip(
                     text = Language.tooltipRefresh,
@@ -242,6 +256,6 @@ private fun Preview() {
         onSelectDevice = {},
         onLaunchScrcpy = {},
         onRefresh = {},
-        onOpenDevice = {},
+        onOpenDeviceSettings = {},
     )
 }

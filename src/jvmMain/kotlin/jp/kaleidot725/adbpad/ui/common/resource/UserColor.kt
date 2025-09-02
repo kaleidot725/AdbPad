@@ -40,37 +40,40 @@ object UserColor {
         }
     }
 
-    fun getPrimaryColor(accentColor: AccentColor, isLight: Boolean): Color {
+    fun getPrimaryColor(
+        accentColor: AccentColor,
+        isLight: Boolean,
+    ): Color {
         return accentColor.getColor(isLight)
     }
 
     object Light {
-        val PRIMARY = Color(0xFF2196F3)          // Bright Blue
-        val PRIMARY_VARIANT = Color(0xFFE3F2FD)  // Light Blue Surface
-        val ON_PRIMARY = Color(0xFFFFFFFF)       // White
-        val SECONDARY = Color(0xFF757575)        // Medium Gray
+        val PRIMARY = Color(0xFF2196F3) // Bright Blue
+        val PRIMARY_VARIANT = Color(0xFFE3F2FD) // Light Blue Surface
+        val ON_PRIMARY = Color(0xFFFFFFFF) // White
+        val SECONDARY = Color(0xFF757575) // Medium Gray
         val SECONDARY_VARIANT = Color(0xFFE0E0E0) // Light Gray
-        val ON_SECONDARY = Color(0xFFFFFFFF)     // White
-        val ERROR = Color(0xFFD32F2F)            // Red
-        val ON_ERROR = Color(0xFFFFFFFF)         // White
-        val BACKGROUND = Color(0xFFFAFAFA)       // Very Light Gray
-        val ON_BACKGROUND = Color(0xFF212121)    // Dark Gray
-        val SURFACE = Color(0xFFFFFFFF)          // Pure White
-        val ON_SURFACE = Color(0xFF212121)       // Dark Gray
+        val ON_SECONDARY = Color(0xFFFFFFFF) // White
+        val ERROR = Color(0xFFD32F2F) // Red
+        val ON_ERROR = Color(0xFFFFFFFF) // White
+        val BACKGROUND = Color(0xFFFAFAFA) // Very Light Gray
+        val ON_BACKGROUND = Color(0xFF212121) // Dark Gray
+        val SURFACE = Color(0xFFFFFFFF) // Pure White
+        val ON_SURFACE = Color(0xFF212121) // Dark Gray
     }
 
     object Dark {
-        val PRIMARY = Color(0xFF64B5F6)          // Light Blue
-        val PRIMARY_VARIANT = Color(0xFF1E3A8A)  // Dark Blue Surface
-        val ON_PRIMARY = Color(0xFF000000)       // Black
-        val SECONDARY = Color(0xFF9E9E9E)        // Light Gray
+        val PRIMARY = Color(0xFF64B5F6) // Light Blue
+        val PRIMARY_VARIANT = Color(0xFF1E3A8A) // Dark Blue Surface
+        val ON_PRIMARY = Color(0xFF000000) // Black
+        val SECONDARY = Color(0xFF9E9E9E) // Light Gray
         val SECONDARY_VARIANT = Color(0xFF424242) // Dark Gray
-        val ON_SECONDARY = Color(0xFFFFFFFF)     // White
-        val ERROR = Color(0xFFEF5350)            // Light Red
-        val ON_ERROR = Color(0xFF000000)         // Black
-        val BACKGROUND = Color(0xFF121212)       // Very Dark Gray
-        val ON_BACKGROUND = Color(0xFFE0E0E0)    // Light Gray
-        val SURFACE = Color(0xFF1E1E1E)          // Dark Gray
-        val ON_SURFACE = Color(0xFFE0E0E0)       // Light Gray
+        val ON_SECONDARY = Color(0xFFFFFFFF) // White
+        val ERROR = Color(0xFFEF5350) // Light Red
+        val ON_ERROR = Color(0xFF000000) // Black
+        val BACKGROUND = Color(0xFF121212) // Very Dark Gray
+        val ON_BACKGROUND = Color(0xFFE0E0E0) // Light Gray
+        val SURFACE = Color(0xFF1E1E1E) // Dark Gray
+        val ON_SURFACE = Color(0xFFE0E0E0) // Light Gray
     }
 }

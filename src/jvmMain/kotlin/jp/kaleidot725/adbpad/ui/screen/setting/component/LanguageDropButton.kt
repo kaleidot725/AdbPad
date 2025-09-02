@@ -64,17 +64,18 @@ fun LanguageDropButton(
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier
-                .width(200.dp)
-                .background(
-                    color = UserColor.getDropdownBackgroundColor(),
-                    shape = RoundedCornerShape(4.dp)
-                )
-                .border(
-                    width = 1.dp,
-                    color = UserColor.getSplitterColor(),
-                    shape = RoundedCornerShape(4.dp)
-                ),
+            modifier =
+                Modifier
+                    .width(200.dp)
+                    .background(
+                        color = UserColor.getDropdownBackgroundColor(),
+                        shape = RoundedCornerShape(4.dp),
+                    )
+                    .border(
+                        width = 1.dp,
+                        color = UserColor.getSplitterColor(),
+                        shape = RoundedCornerShape(4.dp),
+                    ),
         ) {
             languages.forEach { language ->
                 DropdownMenuItem(

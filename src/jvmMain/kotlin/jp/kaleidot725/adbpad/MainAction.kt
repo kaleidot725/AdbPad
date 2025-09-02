@@ -1,6 +1,7 @@
 package jp.kaleidot725.adbpad
 
 import jp.kaleidot725.adbpad.core.mvi.MVIAction
+import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 
 sealed class MainAction : MVIAction {
@@ -14,7 +15,9 @@ sealed class MainAction : MVIAction {
 
     data object OpenSetting : MainAction()
 
-    data object OpenDevice : MainAction()
+    data class OpenDeviceSettings(
+        val device: Device,
+    ) : MainAction()
 
     data object ToggleAlwaysOnTop : MainAction()
 

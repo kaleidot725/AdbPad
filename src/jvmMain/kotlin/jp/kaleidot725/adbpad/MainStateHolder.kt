@@ -4,18 +4,19 @@ import jp.kaleidot725.adbpad.core.mvi.MVIAction
 import jp.kaleidot725.adbpad.core.mvi.MVIBase
 import jp.kaleidot725.adbpad.core.mvi.MVISideEffect
 import jp.kaleidot725.adbpad.core.mvi.MVIState
+import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.app.ShutdownAppUseCase
-import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAccentColorUseCase
+import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.refresh.RefreshUseCase
 import jp.kaleidot725.adbpad.domain.usecase.theme.GetDarkModeFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.GetWindowSizeUseCase
 import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
 import jp.kaleidot725.adbpad.ui.screen.command.CommandStateHolder
-import jp.kaleidot725.adbpad.ui.screen.device.DeviceStateHolder
+import jp.kaleidot725.adbpad.ui.screen.device.DeviceSettingsStateHolder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
@@ -29,7 +30,7 @@ class MainStateHolder(
     val textCommandStateHolder: TextCommandStateHolder,
     val screenshotStateHolder: ScreenshotStateHolder,
     val topStateHolder: TopStateHolder,
-    val deviceStateHolder: DeviceStateHolder,
+    val deviceSettingsStateHolder: DeviceSettingsStateHolder,
     val settingStateHolder: SettingStateHolder,
     private val getWindowSizeUseCase: GetWindowSizeUseCase,
     private val saveWindowSizeUseCase: SaveWindowSizeUseCase,
@@ -69,7 +70,7 @@ class MainStateHolder(
     override fun onAction(uiAction: MainAction) {
         when (uiAction) {
             is MainAction.OpenSetting -> openSetting()
-            is MainAction.OpenDevice -> openDevice()
+            is MainAction.OpenDeviceSettings -> openDeviceSettings(uiAction.device)
             is MainAction.SaveSetting -> saveSetting(uiAction.windowSize)
             is MainAction.ClickCategory -> clickCategory(uiAction.category)
             is MainAction.ToggleAlwaysOnTop -> toggleAlwaysOnTop()
@@ -85,8 +86,8 @@ class MainStateHolder(
         update { copy(dialog = MainDialog.Setting) }
     }
 
-    private fun openDevice() {
-        update { copy(dialog = MainDialog.Device) }
+    private fun openDeviceSettings(device: Device) {
+        update { copy(dialog = MainDialog.DeviceSettings(device)) }
     }
 
     private fun clickCategory(category: MainCategory) {

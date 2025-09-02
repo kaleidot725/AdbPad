@@ -13,7 +13,7 @@ ktor = "3.2.1"
 lucide = "1.1.0"
 coil = "3.2.0"
 zoomable = "2.8.1"
-scrcpy_kt = "1.6.0"
+scrcpy_kt = "1.7.0"
 
 [libraries]
 adam = { module = "com.malinskiy.adam:adam", version.ref = "adam" }

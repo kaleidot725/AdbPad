@@ -24,7 +24,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.unit.dp
 import com.composables.icons.lucide.ChevronDown
@@ -57,14 +56,15 @@ fun AccentColorDropButton(
         ) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.align(Alignment.CenterVertically).weight(1.0f)
+                modifier = Modifier.align(Alignment.CenterVertically).weight(1.0f),
             ) {
                 Box(
-                    modifier = Modifier
-                        .size(20.dp)
-                        .clip(CircleShape)
-                        .background(selectedAccentColor.getColor(isLightTheme))
-                        .align(Alignment.CenterVertically)
+                    modifier =
+                        Modifier
+                            .size(20.dp)
+                            .clip(CircleShape)
+                            .background(selectedAccentColor.getColor(isLightTheme))
+                            .align(Alignment.CenterVertically),
                 )
 
                 Text(
@@ -83,17 +83,18 @@ fun AccentColorDropButton(
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier
-                .width(200.dp)
-                .background(
-                    color = UserColor.getDropdownBackgroundColor(),
-                    shape = RoundedCornerShape(4.dp)
-                )
-                .border(
-                    width = 1.dp,
-                    color = UserColor.getSplitterColor(),
-                    shape = RoundedCornerShape(4.dp)
-                ),
+            modifier =
+                Modifier
+                    .width(200.dp)
+                    .background(
+                        color = UserColor.getDropdownBackgroundColor(),
+                        shape = RoundedCornerShape(4.dp),
+                    )
+                    .border(
+                        width = 1.dp,
+                        color = UserColor.getSplitterColor(),
+                        shape = RoundedCornerShape(4.dp),
+                    ),
         ) {
             accentColors.forEach { accentColor ->
                 DropdownMenuItem(
@@ -102,17 +103,18 @@ fun AccentColorDropButton(
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                         ) {
                             Box(
-                                modifier = Modifier
-                                    .size(20.dp)
-                                    .clip(CircleShape)
-                                    .background(accentColor.getColor(isLightTheme))
-                                    .align(Alignment.CenterVertically)
+                                modifier =
+                                    Modifier
+                                        .size(20.dp)
+                                        .clip(CircleShape)
+                                        .background(accentColor.getColor(isLightTheme))
+                                        .align(Alignment.CenterVertically),
                             )
 
                             Text(
                                 text = accentColor.getTitle(),
                                 style = MaterialTheme.typography.titleSmall,
-                                modifier = Modifier.align(Alignment.CenterVertically)
+                                modifier = Modifier.align(Alignment.CenterVertically),
                             )
                         }
                     },

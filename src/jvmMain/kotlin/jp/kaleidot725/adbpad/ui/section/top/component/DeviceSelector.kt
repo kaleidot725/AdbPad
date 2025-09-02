@@ -38,8 +38,7 @@ fun DeviceSelector(
                     .widthIn(150.dp)
                     .clickableBackground(isDarker = MaterialTheme.colorScheme.surface.luminance() <= 0.5)
                     .clickable(onClick = onClick)
-                    .padding(horizontal = 8.dp)
-                    .padding(bottom = 4.dp),
+                    .padding(horizontal = 8.dp),
         ) {
             Text(
                 text = selectedDevice?.displayName ?: Language.notFoundDevice,

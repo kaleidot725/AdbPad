@@ -10,17 +10,19 @@ enum class AccentColor(val lightColor: Color, val darkColor: Color) {
     ORANGE(Color(0xFFFF9800), Color(0xFFFFB74D)),
     RED(Color(0xFFF44336), Color(0xFFE57373)),
     TEAL(Color(0xFF009688), Color(0xFF4DB6AC)),
-    INDIGO(Color(0xFF3F51B5), Color(0xFF7986CB));
+    INDIGO(Color(0xFF3F51B5), Color(0xFF7986CB)),
+    ;
 
     fun getColor(isLight: Boolean): Color = if (isLight) lightColor else darkColor
 
-    fun getTitle(): String = when (this) {
-        BLUE -> Language.accentColorBlue
-        PURPLE -> Language.accentColorPurple
-        GREEN -> Language.accentColorGreen
-        ORANGE -> Language.accentColorOrange
-        RED -> Language.accentColorRed
-        TEAL -> Language.accentColorTeal
-        INDIGO -> Language.accentColorIndigo
-    }
+    fun getTitle(): String =
+        when (this) {
+            BLUE -> Language.accentColorBlue
+            PURPLE -> Language.accentColorPurple
+            GREEN -> Language.accentColorGreen
+            ORANGE -> Language.accentColorOrange
+            RED -> Language.accentColorRed
+            TEAL -> Language.accentColorTeal
+            INDIGO -> Language.accentColorIndigo
+        }
 }

@@ -9,4 +9,9 @@ end
 
 # Notify ktlint warning
 checkstyle_format.base_path = Dir.pwd
-checkstyle_format.report 'build/reports/ktlint/ktlintJvmMainSourceSetCheck/ktlintJvmMainSourceSetCheck.xml'
+ktlint_report_path = 'build/reports/ktlint/ktlintJvmMainSourceSetCheck/ktlintJvmMainSourceSetCheck.xml'
+if File.exist?(ktlint_report_path)
+  checkstyle_format.report ktlint_report_path
+else
+  puts "KtLint checkstyle report not found at #{ktlint_report_path}. Skipping ktlint report."
+end

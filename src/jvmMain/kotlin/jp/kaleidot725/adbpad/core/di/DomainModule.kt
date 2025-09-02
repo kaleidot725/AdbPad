@@ -3,10 +3,10 @@ package jp.kaleidot725.adbpad.core.di
 import jp.kaleidot725.adbpad.domain.usecase.adb.RestartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.adb.StartAdbUseCase
 import jp.kaleidot725.adbpad.domain.usecase.app.ShutdownAppUseCase
-import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAppearanceUseCase
-import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAccentColorUseCase
+import jp.kaleidot725.adbpad.domain.usecase.appearance.GetAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAccentColorUseCase
+import jp.kaleidot725.adbpad.domain.usecase.appearance.SaveAppearanceUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteDeviceControlCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetNormalCommandGroup
@@ -88,7 +88,7 @@ val domainModule =
             SaveScrcpySettingsUseCase(get())
         }
         factory {
-            LaunchScrcpyUseCase(get(), get())
+            LaunchScrcpyUseCase(get(), get(), get())
         }
         factory {
             GetAppearanceUseCase(get())

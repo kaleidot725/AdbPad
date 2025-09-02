@@ -20,15 +20,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.language.Language
+import jp.kaleidot725.adbpad.domain.model.setting.AccentColor
 import jp.kaleidot725.adbpad.domain.model.setting.Appearance
 import jp.kaleidot725.adbpad.ui.component.button.FloatingDialog
 import jp.kaleidot725.adbpad.ui.component.button.RadioButtons
 import jp.kaleidot725.adbpad.ui.component.text.DefaultOutlineTextField
 import jp.kaleidot725.adbpad.ui.component.text.SubTitle
 import jp.kaleidot725.adbpad.ui.component.text.Title
-import jp.kaleidot725.adbpad.ui.screen.setting.component.LanguageDropButton
 import jp.kaleidot725.adbpad.ui.screen.setting.component.AccentColorDropButton
-import jp.kaleidot725.adbpad.domain.model.setting.AccentColor
+import jp.kaleidot725.adbpad.ui.screen.setting.component.LanguageDropButton
 import jp.kaleidot725.adbpad.ui.screen.setting.state.SettingAction
 import jp.kaleidot725.adbpad.ui.screen.setting.state.SettingState
 
@@ -106,7 +106,7 @@ fun SettingScreen(
         Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Title(text = Language.setting, modifier = Modifier.fillMaxWidth())
 
