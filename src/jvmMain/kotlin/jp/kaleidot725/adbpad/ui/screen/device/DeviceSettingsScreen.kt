@@ -16,6 +16,7 @@ import jp.kaleidot725.adbpad.ui.component.button.FloatingDialog
 import jp.kaleidot725.adbpad.ui.component.text.DefaultOutlineTextField
 import jp.kaleidot725.adbpad.ui.component.text.SubTitle
 import jp.kaleidot725.adbpad.ui.component.text.Title
+import jp.kaleidot725.adbpad.ui.screen.device.section.ScrcpyOptionsSection
 
 @Composable
 fun DeviceSettingsScreen(
@@ -28,29 +29,31 @@ fun DeviceSettingsScreen(
     modifier: Modifier = Modifier,
 ) {
     FloatingDialog(
-        modifier = modifier
-            .width(800.dp)
-            .fillMaxHeight()
-            .padding(vertical = 32.dp),
+        modifier =
+            modifier
+                .width(800.dp)
+                .fillMaxHeight()
+                .padding(vertical = 32.dp),
     ) {
         Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
-                    .padding(bottom = 80.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .verticalScroll(rememberScrollState())
+                        .padding(bottom = 80.dp),
             ) {
                 Title(
-                    text = "Device Settings - ${device.displayName}",
-                    modifier = Modifier.fillMaxWidth()
+                    text = "${Language.deviceSettingsTitle} - ${device.displayName}",
+                    modifier = Modifier.fillMaxWidth(),
                 )
 
                 HorizontalDivider(modifier = Modifier.fillMaxWidth())
 
                 // Device Name Section
                 SubTitle(
-                    text = "Device Name",
+                    text = Language.deviceNameSection,
                     modifier = Modifier.padding(horizontal = 4.dp),
                 )
 
@@ -60,11 +63,11 @@ fun DeviceSettingsScreen(
                     onUpdateText = { newName ->
                         onUpdateDeviceSettings(
                             deviceSettings.copy(
-                                customName = if (newName.isNotBlank() && newName != device.name) newName else null
-                            )
+                                customName = if (newName.isNotBlank() && newName != device.name) newName else null,
+                            ),
                         )
                     },
-                    label = "Custom Device Name",
+                    label = Language.customDeviceNameLabel,
                     placeHolder = device.name,
                     isError = false,
                     modifier = Modifier.fillMaxWidth(),
@@ -74,7 +77,7 @@ fun DeviceSettingsScreen(
 
                 // Scrcpy Settings Section
                 SubTitle(
-                    text = "Scrcpy Settings",
+                    text = Language.scrcpySettingsSection,
                     modifier = Modifier.padding(horizontal = 4.dp),
                 )
 
@@ -82,7 +85,7 @@ fun DeviceSettingsScreen(
                     scrcpyOptions = deviceSettings.scrcpyOptions,
                     onUpdateOptions = { newOptions ->
                         onUpdateDeviceSettings(deviceSettings.copy(scrcpyOptions = newOptions))
-                    }
+                    },
                 )
             }
 

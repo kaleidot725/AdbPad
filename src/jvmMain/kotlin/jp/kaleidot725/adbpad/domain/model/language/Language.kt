@@ -282,6 +282,87 @@ object Language : StringResources {
         get() = getCurrentResources().menuWindowFullscreen
     override val menuWindowAlwaysOnTop: String
         get() = getCurrentResources().menuWindowAlwaysOnTop
+    
+    // Device Settings Screen
+    override val deviceSettingsTitle: String
+        get() = getCurrentResources().deviceSettingsTitle
+    override val deviceNameSection: String
+        get() = getCurrentResources().deviceNameSection
+    override val customDeviceNameLabel: String
+        get() = getCurrentResources().customDeviceNameLabel
+    override val scrcpySettingsSection: String
+        get() = getCurrentResources().scrcpySettingsSection
+    
+    // Scrcpy Options Section
+    override val videoOptionsSection: String
+        get() = getCurrentResources().videoOptionsSection
+    override val audioOptionsSection: String
+        get() = getCurrentResources().audioOptionsSection
+    override val displayOptionsSection: String
+        get() = getCurrentResources().displayOptionsSection
+    override val controlOptionsSection: String
+        get() = getCurrentResources().controlOptionsSection
+    override val loggingOptionsSection: String
+        get() = getCurrentResources().loggingOptionsSection
+    
+    override val noVideoLabel: String
+        get() = getCurrentResources().noVideoLabel
+    override val noAudioLabel: String
+        get() = getCurrentResources().noAudioLabel
+    override val fullscreenLabel: String
+        get() = getCurrentResources().fullscreenLabel
+    override val alwaysOnTopLabel: String
+        get() = getCurrentResources().alwaysOnTopLabel
+    override val stayAwakeLabel: String
+        get() = getCurrentResources().stayAwakeLabel
+    override val turnScreenOffLabel: String
+        get() = getCurrentResources().turnScreenOffLabel
+    override val powerOffOnCloseLabel: String
+        get() = getCurrentResources().powerOffOnCloseLabel
+    override val showTouchesLabel: String
+        get() = getCurrentResources().showTouchesLabel
+    override val disableScreensaverLabel: String
+        get() = getCurrentResources().disableScreensaverLabel
+    
+    override val maxSizeLabel: String
+        get() = getCurrentResources().maxSizeLabel
+    override val videoBitRateLabel: String
+        get() = getCurrentResources().videoBitRateLabel
+    override val maxFpsLabel: String
+        get() = getCurrentResources().maxFpsLabel
+    override val videoCodecLabel: String
+        get() = getCurrentResources().videoCodecLabel
+    override val videoSourceLabel: String
+        get() = getCurrentResources().videoSourceLabel
+    override val audioBitRateLabel: String
+        get() = getCurrentResources().audioBitRateLabel
+    override val audioBufferLabel: String
+        get() = getCurrentResources().audioBufferLabel
+    override val audioCodecLabel: String
+        get() = getCurrentResources().audioCodecLabel
+    override val audioSourceLabel: String
+        get() = getCurrentResources().audioSourceLabel
+    override val windowTitleLabel: String
+        get() = getCurrentResources().windowTitleLabel
+    override val displayIdLabel: String
+        get() = getCurrentResources().displayIdLabel
+    override val windowXLabel: String
+        get() = getCurrentResources().windowXLabel
+    override val windowYLabel: String
+        get() = getCurrentResources().windowYLabel
+    override val windowWidthLabel: String
+        get() = getCurrentResources().windowWidthLabel
+    override val windowHeightLabel: String
+        get() = getCurrentResources().windowHeightLabel
+    override val logLevelLabel: String
+        get() = getCurrentResources().logLevelLabel
+    
+    override val autoLabel: String
+        get() = getCurrentResources().autoLabel
+    override val defaultLabel: String
+        get() = getCurrentResources().defaultLabel
+    override val customTitlePlaceholder: String
+        get() = getCurrentResources().customTitlePlaceholder
 
     private var currentType: Type = Type.ENGLISH
 

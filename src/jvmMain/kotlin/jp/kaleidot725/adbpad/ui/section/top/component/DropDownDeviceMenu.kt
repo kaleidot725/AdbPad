@@ -41,7 +41,6 @@ fun DropDownDeviceMenu(
         DeviceSelector(
             selectedDevice = selectedDevice,
             onClick = { if (!expanded && devices.isNotEmpty()) expanded = true },
-            onOpenDeviceSettings = if (selectedDevice != null) onOpenDeviceSettings else null,
             modifier =
                 Modifier
                     .wrapContentSize()

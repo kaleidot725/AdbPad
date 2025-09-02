@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
@@ -20,60 +19,41 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.unit.dp
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Settings
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceState
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
-import jp.kaleidot725.adbpad.ui.component.button.CommandIconButton
 
 @Composable
 fun DeviceSelector(
     selectedDevice: Device?,
     onClick: () -> Unit,
-    onOpenDeviceSettings: ((Device) -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier,
-    ) {
-        Box {
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier =
-                    Modifier
-                        .widthIn(150.dp)
-                        .clickableBackground(isDarker = MaterialTheme.colorScheme.surface.luminance() <= 0.5)
-                        .clickable(onClick = onClick)
-                        .padding(horizontal = 8.dp)
-                        .padding(bottom = 4.dp),
-            ) {
-                Text(
-                    text = selectedDevice?.displayName ?: Language.notFoundDevice,
-                    style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier.align(Alignment.CenterVertically),
-                )
+    Box(modifier) {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier =
+                Modifier
+                    .widthIn(150.dp)
+                    .clickableBackground(isDarker = MaterialTheme.colorScheme.surface.luminance() <= 0.5)
+                    .clickable(onClick = onClick)
+                    .padding(horizontal = 8.dp),
+        ) {
+            Text(
+                text = selectedDevice?.displayName ?: Language.notFoundDevice,
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.align(Alignment.CenterVertically),
+            )
 
-                Spacer(modifier = Modifier.width(4.dp))
+            Spacer(modifier = Modifier.width(4.dp))
 
-                Icon(
-                    imageVector = Icons.Filled.ArrowDropDown,
-                    contentDescription = "Device DropDown Icon",
-                    tint = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier.align(Alignment.CenterVertically),
-                )
-            }
-        }
-        
-        if (selectedDevice != null && onOpenDeviceSettings != null) {
-            Spacer(modifier = Modifier.width(8.dp))
-            CommandIconButton(
-                image = Lucide.Settings,
-                onClick = { onOpenDeviceSettings(selectedDevice) },
-                modifier = Modifier.size(24.dp),
+            Icon(
+                imageVector = Icons.Filled.ArrowDropDown,
+                contentDescription = "Device DropDown Icon",
+                tint = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.align(Alignment.CenterVertically),
             )
         }
     }

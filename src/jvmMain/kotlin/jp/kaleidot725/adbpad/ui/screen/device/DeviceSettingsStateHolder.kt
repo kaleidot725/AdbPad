@@ -14,25 +14,20 @@ class DeviceSettingsStateHolder(
     private val getDeviceSettingsUseCase: GetDeviceSettingsUseCase,
     private val saveDeviceSettingsUseCase: SaveDeviceSettingsUseCase,
 ) : MVIBase<DeviceSettingsState, DeviceSettingsAction, DeviceSettingsSideEffect>(
-    initialUiState = DeviceSettingsState()
-) {
-    
-    override fun onSetup() {
-        // Device is initialized externally via initialize() method
-    }
-    
-    override fun onRefresh() {
-        // No refresh needed for device settings
-    }
-    
+        initialUiState = DeviceSettingsState(),
+    ) {
+    override fun onSetup() {}
+
+    override fun onRefresh() {}
+
     fun initialize(device: Device) {
         coroutineScope.launch {
             val deviceSettings = getDeviceSettingsUseCase(device.serial)
-            update { 
+            update {
                 copy(
                     device = device,
                     deviceSettings = deviceSettings,
-                    isLoaded = true
+                    isLoaded = true,
                 )
             }
         }
@@ -53,15 +48,15 @@ class DeviceSettingsStateHolder(
     private fun saveSettings() {
         val currentState = state.value
         if (currentState.device == null || currentState.deviceSettings == null) return
-        
+
         coroutineScope.launch {
             update { copy(isSaving = true) }
-            
+
             val success = saveDeviceSettingsUseCase(currentState.deviceSettings)
             if (success) {
                 sideEffect(DeviceSettingsSideEffect.Saved)
             }
-            
+
             update { copy(isSaving = false) }
         }
     }

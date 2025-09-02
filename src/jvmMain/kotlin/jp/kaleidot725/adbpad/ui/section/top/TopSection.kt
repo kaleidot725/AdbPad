@@ -35,6 +35,7 @@ import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Power
 import com.composables.icons.lucide.RefreshCcw
 import com.composables.icons.lucide.ScreenShare
+import com.composables.icons.lucide.Settings2
 import com.composables.icons.lucide.Square
 import com.composables.icons.lucide.Triangle
 import com.composables.icons.lucide.Volume1
@@ -93,6 +94,19 @@ private fun TopSection(
                     onOpenDeviceSettings = onOpenDeviceSettings,
                     modifier = Modifier.wrapContentWidth().align(Alignment.CenterVertically),
                 )
+
+                if (state.selectedDevice != null) {
+                    CommandTooltip(
+                        text = Language.tooltipSetting,
+                    ) {
+                        CommandIconButton(
+                            modifier = Modifier.padding(vertical = 4.dp),
+                            image = Lucide.Settings2,
+                            onClick = { onOpenDeviceSettings(state.selectedDevice) },
+                            padding = 2.dp,
+                        )
+                    }
+                }
 
                 CommandTooltip(
                     text = Language.tooltipRefresh,

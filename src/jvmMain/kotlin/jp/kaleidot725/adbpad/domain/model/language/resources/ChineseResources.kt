@@ -152,4 +152,48 @@ object ChineseResources : StringResources {
     override val menuWindowMinimize: String = "最小化"
     override val menuWindowFullscreen: String = "全屏"
     override val menuWindowAlwaysOnTop: String = "始终置顶"
+    
+    // Device Settings Screen
+    override val deviceSettingsTitle: String = "设备设置"
+    override val deviceNameSection: String = "设备名称"
+    override val customDeviceNameLabel: String = "自定义设备名称"
+    override val scrcpySettingsSection: String = "Scrcpy设置"
+    
+    // Scrcpy Options Section
+    override val videoOptionsSection: String = "视频选项"
+    override val audioOptionsSection: String = "音频选项"
+    override val displayOptionsSection: String = "显示选项"
+    override val controlOptionsSection: String = "控制选项"
+    override val loggingOptionsSection: String = "日志选项"
+    
+    override val noVideoLabel: String = "无视频"
+    override val noAudioLabel: String = "无音频"
+    override val fullscreenLabel: String = "全屏"
+    override val alwaysOnTopLabel: String = "始终置顶"
+    override val stayAwakeLabel: String = "保持唤醒"
+    override val turnScreenOffLabel: String = "关闭屏幕"
+    override val powerOffOnCloseLabel: String = "关闭时断电"
+    override val showTouchesLabel: String = "显示触摸"
+    override val disableScreensaverLabel: String = "禁用屏保"
+    
+    override val maxSizeLabel: String = "最大尺寸"
+    override val videoBitRateLabel: String = "视频比特率"
+    override val maxFpsLabel: String = "最大帧率"
+    override val videoCodecLabel: String = "视频编解码器"
+    override val videoSourceLabel: String = "视频源"
+    override val audioBitRateLabel: String = "音频比特率"
+    override val audioBufferLabel: String = "音频缓冲 (ms)"
+    override val audioCodecLabel: String = "音频编解码器"
+    override val audioSourceLabel: String = "音频源"
+    override val windowTitleLabel: String = "窗口标题"
+    override val displayIdLabel: String = "显示器ID"
+    override val windowXLabel: String = "窗口X"
+    override val windowYLabel: String = "窗口Y"
+    override val windowWidthLabel: String = "窗口宽度"
+    override val windowHeightLabel: String = "窗口高度"
+    override val logLevelLabel: String = "日志级别"
+    
+    override val autoLabel: String = "自动"
+    override val defaultLabel: String = "默认"
+    override val customTitlePlaceholder: String = "自定义标题"
 }

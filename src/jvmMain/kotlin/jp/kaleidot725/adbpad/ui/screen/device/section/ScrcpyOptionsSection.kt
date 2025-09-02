@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.ui.screen.device
+package jp.kaleidot725.adbpad.ui.screen.device.section
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -10,16 +10,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.device.ScrcpyOptions
+import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.ui.component.text.DefaultOutlineTextField
 import jp.kaleidot725.scrcpykt.option.AudioCodec
 import jp.kaleidot725.scrcpykt.option.AudioSource
-import jp.kaleidot725.scrcpykt.option.CameraFacing
-import jp.kaleidot725.scrcpykt.option.CaptureOrientation
-import jp.kaleidot725.scrcpykt.option.GamepadMode
-import jp.kaleidot725.scrcpykt.option.KeyboardMode
 import jp.kaleidot725.scrcpykt.option.LogLevel
-import jp.kaleidot725.scrcpykt.option.MouseMode
-import jp.kaleidot725.scrcpykt.option.RecordFormat
 import jp.kaleidot725.scrcpykt.option.VideoCodec
 import jp.kaleidot725.scrcpykt.option.VideoSource
 
@@ -35,7 +30,7 @@ fun ScrcpyOptionsSection(
     ) {
         // Video Options
         Text(
-            text = "Video Options",
+            text = Language.videoOptionsSection,
             style = MaterialTheme.typography.titleMedium,
         )
 
@@ -48,7 +43,7 @@ fun ScrcpyOptionsSection(
                 checked = scrcpyOptions.noVideo,
                 onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(noVideo = it)) },
             )
-            Text("No Video", modifier = Modifier.padding(start = 8.dp))
+            Text(Language.noVideoLabel, modifier = Modifier.padding(start = 8.dp))
         }
 
         // Max Size
@@ -58,7 +53,7 @@ fun ScrcpyOptionsSection(
             onUpdateText = { text ->
                 onUpdateOptions(scrcpyOptions.copy(maxSize = text.toIntOrNull()))
             },
-            label = "Max Size",
+            label = Language.maxSizeLabel,
             placeHolder = "1920",
             isError = false,
             enabled = !scrcpyOptions.noVideo,
@@ -72,7 +67,7 @@ fun ScrcpyOptionsSection(
             onUpdateText = { text ->
                 onUpdateOptions(scrcpyOptions.copy(videoBitRate = text.toIntOrNull()))
             },
-            label = "Video Bit Rate",
+            label = Language.videoBitRateLabel,
             placeHolder = "8000000",
             isError = false,
             enabled = !scrcpyOptions.noVideo,
@@ -86,7 +81,7 @@ fun ScrcpyOptionsSection(
             onUpdateText = { text ->
                 onUpdateOptions(scrcpyOptions.copy(maxFps = text.toIntOrNull()))
             },
-            label = "Max FPS",
+            label = Language.maxFpsLabel,
             placeHolder = "60",
             isError = false,
             enabled = !scrcpyOptions.noVideo,
@@ -100,8 +95,8 @@ fun ScrcpyOptionsSection(
             onValueSelected = { codec ->
                 onUpdateOptions(scrcpyOptions.copy(videoCodec = codec))
             },
-            displayName = { it?.value ?: "Auto" },
-            label = "Video Codec",
+            displayName = { it?.value ?: Language.autoLabel },
+            label = Language.videoCodecLabel,
             enabled = !scrcpyOptions.noVideo,
             modifier = Modifier.fillMaxWidth(),
         )
@@ -113,8 +108,8 @@ fun ScrcpyOptionsSection(
             onValueSelected = { source ->
                 onUpdateOptions(scrcpyOptions.copy(videoSource = source))
             },
-            displayName = { it?.value ?: "Auto" },
-            label = "Video Source",
+            displayName = { it?.value ?: Language.autoLabel },
+            label = Language.videoSourceLabel,
             enabled = !scrcpyOptions.noVideo,
             modifier = Modifier.fillMaxWidth(),
         )
@@ -123,7 +118,7 @@ fun ScrcpyOptionsSection(
 
         // Audio Options
         Text(
-            text = "Audio Options",
+            text = Language.audioOptionsSection,
             style = MaterialTheme.typography.titleMedium,
         )
 
@@ -135,7 +130,7 @@ fun ScrcpyOptionsSection(
                 checked = scrcpyOptions.noAudio,
                 onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(noAudio = it)) },
             )
-            Text("No Audio", modifier = Modifier.padding(start = 8.dp))
+            Text(Language.noAudioLabel, modifier = Modifier.padding(start = 8.dp))
         }
 
         // Audio Bit Rate
@@ -145,7 +140,7 @@ fun ScrcpyOptionsSection(
             onUpdateText = { text ->
                 onUpdateOptions(scrcpyOptions.copy(audioBitRate = text.toIntOrNull()))
             },
-            label = "Audio Bit Rate",
+            label = Language.audioBitRateLabel,
             placeHolder = "128000",
             isError = false,
             enabled = !scrcpyOptions.noAudio,
@@ -159,7 +154,7 @@ fun ScrcpyOptionsSection(
             onUpdateText = { text ->
                 onUpdateOptions(scrcpyOptions.copy(audioBuffer = text.toIntOrNull()))
             },
-            label = "Audio Buffer (ms)",
+            label = Language.audioBufferLabel,
             placeHolder = "50",
             isError = false,
             enabled = !scrcpyOptions.noAudio,
@@ -173,8 +168,8 @@ fun ScrcpyOptionsSection(
             onValueSelected = { codec ->
                 onUpdateOptions(scrcpyOptions.copy(audioCodec = codec))
             },
-            displayName = { it?.value ?: "Auto" },
-            label = "Audio Codec",
+            displayName = { it?.value ?: Language.autoLabel },
+            label = Language.audioCodecLabel,
             enabled = !scrcpyOptions.noAudio,
             modifier = Modifier.fillMaxWidth(),
         )
@@ -186,8 +181,8 @@ fun ScrcpyOptionsSection(
             onValueSelected = { source ->
                 onUpdateOptions(scrcpyOptions.copy(audioSource = source))
             },
-            displayName = { it?.value ?: "Auto" },
-            label = "Audio Source",
+            displayName = { it?.value ?: Language.autoLabel },
+            label = Language.audioSourceLabel,
             enabled = !scrcpyOptions.noAudio,
             modifier = Modifier.fillMaxWidth(),
         )
@@ -196,7 +191,7 @@ fun ScrcpyOptionsSection(
 
         // Display Options
         Text(
-            text = "Display Options",
+            text = Language.displayOptionsSection,
             style = MaterialTheme.typography.titleMedium,
         )
 
@@ -207,8 +202,8 @@ fun ScrcpyOptionsSection(
             onUpdateText = { text ->
                 onUpdateOptions(scrcpyOptions.copy(windowTitle = text.ifBlank { null }))
             },
-            label = "Window Title",
-            placeHolder = "Custom title",
+            label = Language.windowTitleLabel,
+            placeHolder = Language.customTitlePlaceholder,
             isError = false,
             modifier = Modifier.fillMaxWidth(),
         )
@@ -220,7 +215,7 @@ fun ScrcpyOptionsSection(
             onUpdateText = { text ->
                 onUpdateOptions(scrcpyOptions.copy(displayId = text.toIntOrNull()))
             },
-            label = "Display ID",
+            label = Language.displayIdLabel,
             placeHolder = "0",
             isError = false,
             modifier = Modifier.fillMaxWidth(),
@@ -233,7 +228,7 @@ fun ScrcpyOptionsSection(
             onUpdateText = { text ->
                 onUpdateOptions(scrcpyOptions.copy(windowX = text.toIntOrNull()))
             },
-            label = "Window X",
+            label = Language.windowXLabel,
             placeHolder = "100",
             isError = false,
             modifier = Modifier.fillMaxWidth(),
@@ -246,7 +241,7 @@ fun ScrcpyOptionsSection(
             onUpdateText = { text ->
                 onUpdateOptions(scrcpyOptions.copy(windowY = text.toIntOrNull()))
             },
-            label = "Window Y",
+            label = Language.windowYLabel,
             placeHolder = "100",
             isError = false,
             modifier = Modifier.fillMaxWidth(),
@@ -259,7 +254,7 @@ fun ScrcpyOptionsSection(
             onUpdateText = { text ->
                 onUpdateOptions(scrcpyOptions.copy(windowWidth = text.toIntOrNull()))
             },
-            label = "Window Width",
+            label = Language.windowWidthLabel,
             placeHolder = "800",
             isError = false,
             modifier = Modifier.fillMaxWidth(),
@@ -272,7 +267,7 @@ fun ScrcpyOptionsSection(
             onUpdateText = { text ->
                 onUpdateOptions(scrcpyOptions.copy(windowHeight = text.toIntOrNull()))
             },
-            label = "Window Height",
+            label = Language.windowHeightLabel,
             placeHolder = "600",
             isError = false,
             modifier = Modifier.fillMaxWidth(),
@@ -288,7 +283,7 @@ fun ScrcpyOptionsSection(
                     checked = scrcpyOptions.fullscreen,
                     onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(fullscreen = it)) },
                 )
-                Text("Fullscreen", modifier = Modifier.padding(start = 8.dp))
+                Text(Language.fullscreenLabel, modifier = Modifier.padding(start = 8.dp))
             }
 
             Row(
@@ -299,7 +294,7 @@ fun ScrcpyOptionsSection(
                     checked = scrcpyOptions.alwaysOnTop,
                     onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(alwaysOnTop = it)) },
                 )
-                Text("Always on Top", modifier = Modifier.padding(start = 8.dp))
+                Text(Language.alwaysOnTopLabel, modifier = Modifier.padding(start = 8.dp))
             }
         }
 
@@ -307,7 +302,7 @@ fun ScrcpyOptionsSection(
 
         // Control Options
         Text(
-            text = "Control Options",
+            text = Language.controlOptionsSection,
             style = MaterialTheme.typography.titleMedium,
         )
 
@@ -320,7 +315,7 @@ fun ScrcpyOptionsSection(
                     checked = scrcpyOptions.stayAwake,
                     onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(stayAwake = it)) },
                 )
-                Text("Stay Awake", modifier = Modifier.padding(start = 8.dp))
+                Text(Language.stayAwakeLabel, modifier = Modifier.padding(start = 8.dp))
             }
 
             Row(
@@ -331,7 +326,7 @@ fun ScrcpyOptionsSection(
                     checked = scrcpyOptions.turnScreenOff,
                     onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(turnScreenOff = it)) },
                 )
-                Text("Turn Screen Off", modifier = Modifier.padding(start = 8.dp))
+                Text(Language.turnScreenOffLabel, modifier = Modifier.padding(start = 8.dp))
             }
 
             Row(
@@ -342,7 +337,7 @@ fun ScrcpyOptionsSection(
                     checked = scrcpyOptions.powerOffOnClose,
                     onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(powerOffOnClose = it)) },
                 )
-                Text("Power Off on Close", modifier = Modifier.padding(start = 8.dp))
+                Text(Language.powerOffOnCloseLabel, modifier = Modifier.padding(start = 8.dp))
             }
 
             Row(
@@ -353,7 +348,7 @@ fun ScrcpyOptionsSection(
                     checked = scrcpyOptions.showTouches,
                     onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(showTouches = it)) },
                 )
-                Text("Show Touches", modifier = Modifier.padding(start = 8.dp))
+                Text(Language.showTouchesLabel, modifier = Modifier.padding(start = 8.dp))
             }
 
             Row(
@@ -364,7 +359,7 @@ fun ScrcpyOptionsSection(
                     checked = scrcpyOptions.disableScreensaver,
                     onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(disableScreensaver = it)) },
                 )
-                Text("Disable Screensaver", modifier = Modifier.padding(start = 8.dp))
+                Text(Language.disableScreensaverLabel, modifier = Modifier.padding(start = 8.dp))
             }
         }
 
@@ -372,7 +367,7 @@ fun ScrcpyOptionsSection(
 
         // Logging Options
         Text(
-            text = "Logging Options",
+            text = Language.loggingOptionsSection,
             style = MaterialTheme.typography.titleMedium,
         )
 
@@ -383,8 +378,8 @@ fun ScrcpyOptionsSection(
             onValueSelected = { level ->
                 onUpdateOptions(scrcpyOptions.copy(verbosity = level))
             },
-            displayName = { it?.name?.replaceFirstChar { char -> char.uppercaseChar() } ?: "Default" },
-            label = "Log Level",
+            displayName = { it?.name?.replaceFirstChar { char -> char.uppercaseChar() } ?: Language.defaultLabel },
+            label = Language.logLevelLabel,
             modifier = Modifier.fillMaxWidth(),
         )
     }
@@ -417,14 +412,15 @@ private fun <T> EnumDropDown(
             },
             modifier = Modifier.fillMaxWidth(),
         )
-        
+
         // Invisible clickable overlay
         Box(
-            modifier = Modifier
-                .matchParentSize()
-                .clickable(enabled = enabled) {
-                    if (enabled) expanded = true
-                }
+            modifier =
+                Modifier
+                    .matchParentSize()
+                    .clickable(enabled = enabled) {
+                        if (enabled) expanded = true
+                    },
         )
 
         DropdownMenu(
