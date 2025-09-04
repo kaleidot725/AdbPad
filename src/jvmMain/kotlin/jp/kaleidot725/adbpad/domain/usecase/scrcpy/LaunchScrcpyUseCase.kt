@@ -13,7 +13,6 @@ class LaunchScrcpyUseCase(
     private val deviceSettingsRepository: DeviceSettingsRepository,
 ) {
     suspend operator fun invoke(device: Device): Boolean {
-        // Terminate existing process for this device if running
         scrcpyProcessRepository.getProcess(device.serial)?.terminate()
 
         val scrcpySettings = settingRepository.getScrcpySettings()
@@ -22,17 +21,17 @@ class LaunchScrcpyUseCase(
         val adbSettings = settingRepository.getSdkPath()
         val adbPath = adbSettings.adbDirectory
 
-        // Get device-specific settings
         val deviceSettings = deviceSettingsRepository.getDeviceSettings(device)
         val scrcpyOptions = deviceSettings.scrcpyOptions
 
-        // Use custom name if available, otherwise use device name
         val displayName = deviceSettings.customName ?: device.name
-
         val client = ScrcpyClient.create(binaryPath = scrcpyPath, adbPath = adbPath)
         val result =
             client.mirror {
-                // Apply video settings from device configuration
+                connection {
+                    serial(device.serial)
+                }
+
                 video {
                     scrcpyOptions.maxSize?.let { maxSize(it) }
                     scrcpyOptions.videoBitRate?.let { bitRate(it) }
@@ -42,7 +41,6 @@ class LaunchScrcpyUseCase(
                     if (scrcpyOptions.noVideo) disableVideo()
                 }
 
-                // Apply audio settings
                 audio {
                     if (scrcpyOptions.noAudio) {
                         disableAudio()
@@ -54,7 +52,6 @@ class LaunchScrcpyUseCase(
                     }
                 }
 
-                // Apply display settings
                 display {
                     val title = scrcpyOptions.windowTitle ?: "$displayName - ${device.serial}"
                     windowTitle(title)
@@ -69,7 +66,6 @@ class LaunchScrcpyUseCase(
                     if (scrcpyOptions.fullscreen) fullscreen()
                 }
 
-                // Apply control settings
                 control {
                     if (scrcpyOptions.stayAwake) stayAwake()
                     if (scrcpyOptions.turnScreenOff) turnScreenOff()
@@ -79,7 +75,6 @@ class LaunchScrcpyUseCase(
                 }
             }
 
-        // Handle result if needed
         return when (result) {
             is ScrcpyResult.Success -> {
                 scrcpyProcessRepository.storeProcess(device.serial, result.process)
