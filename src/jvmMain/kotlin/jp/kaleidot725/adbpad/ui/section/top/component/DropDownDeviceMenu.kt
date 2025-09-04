@@ -88,22 +88,22 @@ fun DropDownDeviceMenu(
             Row(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     text = "Devices",
                     style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
                 )
-                
+
                 RefreshButton(onRefresh = onRefresh)
             }
-            
+
             HorizontalDivider(
                 modifier = Modifier.padding(horizontal = 8.dp),
-                color = UserColor.getSplitterColor()
+                color = UserColor.getSplitterColor(),
             )
-            
+
             devices.forEach { device ->
                 DropdownMenuItem(
                     text = {
@@ -124,10 +124,11 @@ fun DropDownDeviceMenu(
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)
 @Composable
 private fun RefreshButton(
     onRefresh: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var isPress by remember { mutableStateOf(false) }
     val degrees by animateFloatAsState(if (isPress) -90f else 0f)
@@ -145,17 +146,19 @@ private fun RefreshButton(
                 )
             }
         },
-        tooltipPlacement = TooltipPlacement.ComponentRect(
-            anchor = Alignment.TopCenter,
-            alignment = Alignment.BottomCenter,
-            offset = DpOffset(0.dp, 30.dp),
-        ),
+        tooltipPlacement =
+            TooltipPlacement.ComponentRect(
+                anchor = Alignment.TopCenter,
+                alignment = Alignment.BottomCenter,
+                offset = DpOffset(0.dp, 30.dp),
+            ),
         modifier = modifier,
     ) {
         CommandIconButton(
-            modifier = Modifier
-                .onPointerEvent(PointerEventType.Press) { isPress = true }
-                .onPointerEvent(PointerEventType.Release) { isPress = false },
+            modifier =
+                Modifier
+                    .onPointerEvent(PointerEventType.Press) { isPress = true }
+                    .onPointerEvent(PointerEventType.Release) { isPress = false },
             image = Lucide.RefreshCcw,
             degrees = degrees,
             onClick = { onRefresh() },
