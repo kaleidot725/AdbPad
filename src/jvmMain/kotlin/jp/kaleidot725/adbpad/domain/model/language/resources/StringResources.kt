@@ -194,4 +194,12 @@ interface StringResources {
     val autoLabel: String
     val defaultLabel: String
     val customTitlePlaceholder: String
+
+    // Setting Categories
+    val categoryAppearance: String
+    val categorySDK: String
+
+    // Device Setting Categories
+    val categoryDevice: String
+    val categoryScrcpy: String
 }

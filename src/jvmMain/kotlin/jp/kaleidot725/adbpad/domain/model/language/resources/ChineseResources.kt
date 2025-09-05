@@ -156,7 +156,7 @@ object ChineseResources : StringResources {
     // Device Settings Screen
     override val deviceSettingsTitle: String = "设备设置"
     override val deviceNameSection: String = "设备名称"
-    override val customDeviceNameLabel: String = "自定义设备名称"
+    override val customDeviceNameLabel: String = "自定义名称"
     override val scrcpySettingsSection: String = "Scrcpy设置"
 
     // Scrcpy Options Section
@@ -196,4 +196,12 @@ object ChineseResources : StringResources {
     override val autoLabel: String = "自动"
     override val defaultLabel: String = "默认"
     override val customTitlePlaceholder: String = "自定义标题"
+
+    // Setting Categories
+    override val categoryAppearance: String = "外观"
+    override val categorySDK: String = "SDK"
+
+    // Device Setting Categories
+    override val categoryDevice: String = "设备"
+    override val categoryScrcpy: String = "Scrcpy"
 }

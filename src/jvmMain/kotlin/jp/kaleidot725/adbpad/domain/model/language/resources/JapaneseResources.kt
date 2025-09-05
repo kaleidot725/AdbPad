@@ -155,7 +155,7 @@ object JapaneseResources : StringResources {
     // Device Settings Screen
     override val deviceSettingsTitle: String = "デバイス設定"
     override val deviceNameSection: String = "デバイス名"
-    override val customDeviceNameLabel: String = "カスタムデバイス名"
+    override val customDeviceNameLabel: String = "カスタム名称"
     override val scrcpySettingsSection: String = "Scrcpy設定"
 
     // Scrcpy Options Section
@@ -195,4 +195,12 @@ object JapaneseResources : StringResources {
     override val autoLabel: String = "自動"
     override val defaultLabel: String = "デフォルト"
     override val customTitlePlaceholder: String = "カスタムタイトル"
+
+    // Setting Categories
+    override val categoryAppearance: String = "外観"
+    override val categorySDK: String = "SDK"
+
+    // Device Setting Categories
+    override val categoryDevice: String = "デバイス"
+    override val categoryScrcpy: String = "Scrcpy"
 }

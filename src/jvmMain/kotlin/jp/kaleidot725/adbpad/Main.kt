@@ -339,6 +339,8 @@ fun App(
                                     DeviceSettingsScreen(
                                         device = device,
                                         deviceSettings = deviceSettings,
+                                        selectedCategory = deviceSettingsState.selectedCategory,
+                                        onAction = onDeviceSettingsAction,
                                         onUpdateDeviceSettings = { settings ->
                                             onDeviceSettingsAction(DeviceSettingsAction.UpdateSettings(settings))
                                         },

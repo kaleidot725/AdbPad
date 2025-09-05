@@ -156,7 +156,7 @@ object TurkishResources : StringResources {
     // Device Settings Screen
     override val deviceSettingsTitle: String = "Cihaz Ayarları"
     override val deviceNameSection: String = "Cihaz Adı"
-    override val customDeviceNameLabel: String = "Özel Cihaz Adı"
+    override val customDeviceNameLabel: String = "Özel Ad"
     override val scrcpySettingsSection: String = "Scrcpy Ayarları"
 
     // Scrcpy Options Section
@@ -196,4 +196,12 @@ object TurkishResources : StringResources {
     override val autoLabel: String = "Otomatik"
     override val defaultLabel: String = "Varsayılan"
     override val customTitlePlaceholder: String = "Özel başlık"
+
+    // Setting Categories
+    override val categoryAppearance: String = "Görünüm"
+    override val categorySDK: String = "SDK"
+
+    // Device Setting Categories
+    override val categoryDevice: String = "Cihaz"
+    override val categoryScrcpy: String = "Scrcpy"
 }

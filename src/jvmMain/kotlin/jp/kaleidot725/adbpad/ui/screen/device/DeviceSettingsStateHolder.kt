@@ -26,6 +26,7 @@ class DeviceSettingsStateHolder(
 
     override fun onAction(uiAction: DeviceSettingsAction) {
         when (uiAction) {
+            is DeviceSettingsAction.SelectCategory -> selectCategory(uiAction.category)
             is DeviceSettingsAction.UpdateSettings -> updateSettings(uiAction.settings)
             is DeviceSettingsAction.Save -> saveSettings()
             is DeviceSettingsAction.Cancel -> cancel()
@@ -68,5 +69,9 @@ class DeviceSettingsStateHolder(
 
     private fun cancel() {
         sideEffect(DeviceSettingsSideEffect.Cancelled)
+    }
+
+    private fun selectCategory(category: jp.kaleidot725.adbpad.ui.screen.device.model.DeviceSettingCategory) {
+        update { this.copy(selectedCategory = category) }
     }
 }
