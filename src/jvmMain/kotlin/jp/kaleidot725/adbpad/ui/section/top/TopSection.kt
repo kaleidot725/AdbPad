@@ -69,7 +69,6 @@ private fun TopSection(
     onOpenDeviceSettings: (Device) -> Unit,
     onRefresh: () -> Unit,
 ) {
-
     Surface(
         color = MaterialTheme.colorScheme.background,
         modifier = Modifier.fillMaxWidth().height(40.dp),
