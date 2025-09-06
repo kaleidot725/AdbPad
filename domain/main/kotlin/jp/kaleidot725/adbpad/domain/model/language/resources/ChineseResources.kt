@@ -77,6 +77,22 @@ object ChineseResources : StringResources {
     override val commandEnableGestureNavigationTitle: String = "手势导航 : 开启"
     override val commandEnableGestureNavigationDetails: String = "启动手势导航"
 
+    // Language Setting Commands
+    override val commandSetLanguageJapaneseTitle = "语言设置: 日本語"
+    override val commandSetLanguageJapaneseDetails = "将Android设备语言更改为日语"
+    override val commandSetLanguageEnglishTitle = "语言设置: English"
+    override val commandSetLanguageEnglishDetails = "将Android设备语言更改为英语"
+    override val commandSetLanguageChineseTitle = "语言设置: 中文"
+    override val commandSetLanguageChineseDetails = "将Android设备语言更改为中文"
+    override val commandSetLanguageKoreanTitle = "语言设置: 한국어"
+    override val commandSetLanguageKoreanDetails = "将Android设备语言更改为韩语"
+    override val commandSetLanguageSpanishTitle = "语言设置: Español"
+    override val commandSetLanguageSpanishDetails = "将Android设备语言更改为西班牙语"
+    override val commandSetLanguageFrenchTitle = "语言设置: Français"
+    override val commandSetLanguageFrenchDetails = "将Android设备语言更改为法语"
+    override val commandSetLanguageGermanTitle = "语言设置: Deutsch"
+    override val commandSetLanguageGermanDetails = "将Android设备语言更改为德语"
+
     override val textCommandStartEventFormat = "开始发送文本 「%s」"
     override val textCommandEndEventFormat = "结束发送文本 「%s」"
     override val textCommandErrorEventFormat = "发送文本失败 「%s」"

@@ -33,6 +33,13 @@ class NormalCommandRepositoryImpl : NormalCommandRepository {
             NormalCommand.EnableGestureNavigation(runningCommands.any { it is NormalCommand.EnableGestureNavigation }),
             NormalCommand.EnableTwoButtonNavigation(runningCommands.any { it is NormalCommand.EnableTwoButtonNavigation }),
             NormalCommand.EnableThreeButtonNavigation(runningCommands.any { it is NormalCommand.EnableThreeButtonNavigation }),
+            NormalCommand.SetLanguageJapanese(runningCommands.any { it is NormalCommand.SetLanguageJapanese }),
+            NormalCommand.SetLanguageEnglish(runningCommands.any { it is NormalCommand.SetLanguageEnglish }),
+            NormalCommand.SetLanguageChinese(runningCommands.any { it is NormalCommand.SetLanguageChinese }),
+            NormalCommand.SetLanguageKorean(runningCommands.any { it is NormalCommand.SetLanguageKorean }),
+            NormalCommand.SetLanguageSpanish(runningCommands.any { it is NormalCommand.SetLanguageSpanish }),
+            NormalCommand.SetLanguageFrench(runningCommands.any { it is NormalCommand.SetLanguageFrench }),
+            NormalCommand.SetLanguageGerman(runningCommands.any { it is NormalCommand.SetLanguageGerman }),
         )
 
     override suspend fun sendCommand(

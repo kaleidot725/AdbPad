@@ -77,6 +77,22 @@ object TurkishResources : StringResources {
     override val commandEnableGestureNavigationTitle: String = "Hareket tabanlı gezinme: AÇIK"
     override val commandEnableGestureNavigationDetails: String = "Hareket tabanlı gezinmeyi etkinleştir"
 
+    // Language Setting Commands
+    override val commandSetLanguageJapaneseTitle = "Dil ayarı: 日本語"
+    override val commandSetLanguageJapaneseDetails = "Android cihaz dilini Japonca olarak değiştir"
+    override val commandSetLanguageEnglishTitle = "Dil ayarı: English"
+    override val commandSetLanguageEnglishDetails = "Android cihaz dilini İngilizce olarak değiştir"
+    override val commandSetLanguageChineseTitle = "Dil ayarı: 中文"
+    override val commandSetLanguageChineseDetails = "Android cihaz dilini Çince olarak değiştir"
+    override val commandSetLanguageKoreanTitle = "Dil ayarı: 한국어"
+    override val commandSetLanguageKoreanDetails = "Android cihaz dilini Korece olarak değiştir"
+    override val commandSetLanguageSpanishTitle = "Dil ayarı: Español"
+    override val commandSetLanguageSpanishDetails = "Android cihaz dilini İspanyolca olarak değiştir"
+    override val commandSetLanguageFrenchTitle = "Dil ayarı: Français"
+    override val commandSetLanguageFrenchDetails = "Android cihaz dilini Fransızca olarak değiştir"
+    override val commandSetLanguageGermanTitle = "Dil ayarı: Deutsch"
+    override val commandSetLanguageGermanDetails = "Android cihaz dilini Almanca olarak değiştir"
+
     override val textCommandStartEventFormat = "「%s」 metni gönderiliyor"
     override val textCommandEndEventFormat = "「%s」 metni gönderildi"
     override val textCommandErrorEventFormat = "「%s」 metni gönderilirken hata oluştu"

@@ -77,6 +77,22 @@ object EnglishResources : StringResources {
     override val commandEnableGestureNavigationTitle: String = "Gesture navigation: ON"
     override val commandEnableGestureNavigationDetails: String = "Enable gesture navigation"
 
+    // Language Setting Commands
+    override val commandSetLanguageJapaneseTitle = "Language: 日本語"
+    override val commandSetLanguageJapaneseDetails = "Change the Android device language to Japanese"
+    override val commandSetLanguageEnglishTitle = "Language: English"
+    override val commandSetLanguageEnglishDetails = "Change the Android device language to English"
+    override val commandSetLanguageChineseTitle = "Language: 中文"
+    override val commandSetLanguageChineseDetails = "Change the Android device language to Chinese"
+    override val commandSetLanguageKoreanTitle = "Language: 한국어"
+    override val commandSetLanguageKoreanDetails = "Change the Android device language to Korean"
+    override val commandSetLanguageSpanishTitle = "Language: Español"
+    override val commandSetLanguageSpanishDetails = "Change the Android device language to Spanish"
+    override val commandSetLanguageFrenchTitle = "Language: Français"
+    override val commandSetLanguageFrenchDetails = "Change the Android device language to French"
+    override val commandSetLanguageGermanTitle = "Language: Deutsch"
+    override val commandSetLanguageGermanDetails = "Change the Android device language to German"
+
     override val textCommandStartEventFormat = "Start sending text「%s」"
     override val textCommandEndEventFormat = "End sending text「%s」"
     override val textCommandErrorEventFormat = "Error sending text「%s」"

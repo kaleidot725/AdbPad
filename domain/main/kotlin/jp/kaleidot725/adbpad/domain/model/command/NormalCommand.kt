@@ -195,4 +195,81 @@ interface NormalCommand {
             )
         override val category: NormalCommandCategory = NormalCommandCategory.UI
     }
+
+    data class SetLanguageJapanese(override val isRunning: Boolean = false) : NormalCommand {
+        override val title: String get() = Language.commandSetLanguageJapaneseTitle
+        override val details: String get() = Language.commandSetLanguageJapaneseDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("setprop persist.sys.locale ja-JP"),
+                ShellCommandRequest("am broadcast -a android.intent.action.LOCALE_CHANGED"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class SetLanguageEnglish(override val isRunning: Boolean = false) : NormalCommand {
+        override val title: String get() = Language.commandSetLanguageEnglishTitle
+        override val details: String get() = Language.commandSetLanguageEnglishDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("setprop persist.sys.locale en-US"),
+                ShellCommandRequest("am broadcast -a android.intent.action.LOCALE_CHANGED"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class SetLanguageChinese(override val isRunning: Boolean = false) : NormalCommand {
+        override val title: String get() = Language.commandSetLanguageChineseTitle
+        override val details: String get() = Language.commandSetLanguageChineseDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("setprop persist.sys.locale zh-CN"),
+                ShellCommandRequest("am broadcast -a android.intent.action.LOCALE_CHANGED"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class SetLanguageKorean(override val isRunning: Boolean = false) : NormalCommand {
+        override val title: String get() = Language.commandSetLanguageKoreanTitle
+        override val details: String get() = Language.commandSetLanguageKoreanDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("setprop persist.sys.locale ko-KR"),
+                ShellCommandRequest("am broadcast -a android.intent.action.LOCALE_CHANGED"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class SetLanguageSpanish(override val isRunning: Boolean = false) : NormalCommand {
+        override val title: String get() = Language.commandSetLanguageSpanishTitle
+        override val details: String get() = Language.commandSetLanguageSpanishDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("setprop persist.sys.locale es-ES"),
+                ShellCommandRequest("am broadcast -a android.intent.action.LOCALE_CHANGED"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class SetLanguageFrench(override val isRunning: Boolean = false) : NormalCommand {
+        override val title: String get() = Language.commandSetLanguageFrenchTitle
+        override val details: String get() = Language.commandSetLanguageFrenchDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("setprop persist.sys.locale fr-FR"),
+                ShellCommandRequest("am broadcast -a android.intent.action.LOCALE_CHANGED"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class SetLanguageGerman(override val isRunning: Boolean = false) : NormalCommand {
+        override val title: String get() = Language.commandSetLanguageGermanTitle
+        override val details: String get() = Language.commandSetLanguageGermanDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("setprop persist.sys.locale de-DE"),
+                ShellCommandRequest("am broadcast -a android.intent.action.LOCALE_CHANGED"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
 }
