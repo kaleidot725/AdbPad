@@ -9,7 +9,7 @@ end
 
 # Notify ktlint warning
 checkstyle_format.base_path = Dir.pwd
-ktlint_report_path = 'build/reports/ktlint/ktlintJvmMainSourceSetCheck/ktlintJvmMainSourceSetCheck.xml'
+ktlint_report_path = 'build/reports/ktlint/ktlintMainSourceSetCheck/ktlintMainSourceSetCheck.xml'
 if File.exist?(ktlint_report_path)
   checkstyle_format.report ktlint_report_path
 else
