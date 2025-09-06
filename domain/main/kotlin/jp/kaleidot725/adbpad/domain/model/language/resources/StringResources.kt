@@ -71,6 +71,22 @@ interface StringResources {
     val commandEnableGestureNavigationTitle: String
     val commandEnableGestureNavigationDetails: String
 
+    // Language Setting Commands
+    val commandSetLanguageJapaneseTitle: String
+    val commandSetLanguageJapaneseDetails: String
+    val commandSetLanguageEnglishTitle: String
+    val commandSetLanguageEnglishDetails: String
+    val commandSetLanguageChineseTitle: String
+    val commandSetLanguageChineseDetails: String
+    val commandSetLanguageKoreanTitle: String
+    val commandSetLanguageKoreanDetails: String
+    val commandSetLanguageSpanishTitle: String
+    val commandSetLanguageSpanishDetails: String
+    val commandSetLanguageFrenchTitle: String
+    val commandSetLanguageFrenchDetails: String
+    val commandSetLanguageGermanTitle: String
+    val commandSetLanguageGermanDetails: String
+
     val textCommandStartEventFormat: String
     val textCommandEndEventFormat: String
     val textCommandErrorEventFormat: String

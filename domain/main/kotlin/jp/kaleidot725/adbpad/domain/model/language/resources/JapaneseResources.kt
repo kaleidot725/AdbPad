@@ -76,6 +76,22 @@ object JapaneseResources : StringResources {
     override val commandEnableGestureNavigationTitle: String = "ジェスチャー ナビゲーション: ON"
     override val commandEnableGestureNavigationDetails: String = "ジェスチャー ナビゲーションを有効化する"
 
+    // Language Setting Commands
+    override val commandSetLanguageJapaneseTitle = "言語設定: 日本語"
+    override val commandSetLanguageJapaneseDetails = "Androidデバイスの言語を日本語に変更します"
+    override val commandSetLanguageEnglishTitle = "言語設定: English"
+    override val commandSetLanguageEnglishDetails = "Androidデバイスの言語を英語に変更します"
+    override val commandSetLanguageChineseTitle = "言語設定: 中文"
+    override val commandSetLanguageChineseDetails = "Androidデバイスの言語を中国語に変更します"
+    override val commandSetLanguageKoreanTitle = "言語設定: 한국어"
+    override val commandSetLanguageKoreanDetails = "Androidデバイスの言語を韓国語に変更します"
+    override val commandSetLanguageSpanishTitle = "言語設定: Español"
+    override val commandSetLanguageSpanishDetails = "Androidデバイスの言語をスペイン語に変更します"
+    override val commandSetLanguageFrenchTitle = "言語設定: Français"
+    override val commandSetLanguageFrenchDetails = "Androidデバイスの言語をフランス語に変更します"
+    override val commandSetLanguageGermanTitle = "言語設定: Deutsch"
+    override val commandSetLanguageGermanDetails = "Androidデバイスの言語をドイツ語に変更します"
+
     override val textCommandStartEventFormat = "「%s」のテキスト送信を開始しました"
     override val textCommandEndEventFormat = "「%s」のテキスト送信が完了しました"
     override val textCommandErrorEventFormat = "「%s」のテキスト送信に失敗しました"

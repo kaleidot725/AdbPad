@@ -142,6 +142,36 @@ object Language : StringResources {
     override val commandEnableGestureNavigationDetails: String
         get() = getCurrentResources().commandEnableGestureNavigationDetails
 
+    // Language Setting Commands
+    override val commandSetLanguageJapaneseTitle: String
+        get() = getCurrentResources().commandSetLanguageJapaneseTitle
+    override val commandSetLanguageJapaneseDetails: String
+        get() = getCurrentResources().commandSetLanguageJapaneseDetails
+    override val commandSetLanguageEnglishTitle: String
+        get() = getCurrentResources().commandSetLanguageEnglishTitle
+    override val commandSetLanguageEnglishDetails: String
+        get() = getCurrentResources().commandSetLanguageEnglishDetails
+    override val commandSetLanguageChineseTitle: String
+        get() = getCurrentResources().commandSetLanguageChineseTitle
+    override val commandSetLanguageChineseDetails: String
+        get() = getCurrentResources().commandSetLanguageChineseDetails
+    override val commandSetLanguageKoreanTitle: String
+        get() = getCurrentResources().commandSetLanguageKoreanTitle
+    override val commandSetLanguageKoreanDetails: String
+        get() = getCurrentResources().commandSetLanguageKoreanDetails
+    override val commandSetLanguageSpanishTitle: String
+        get() = getCurrentResources().commandSetLanguageSpanishTitle
+    override val commandSetLanguageSpanishDetails: String
+        get() = getCurrentResources().commandSetLanguageSpanishDetails
+    override val commandSetLanguageFrenchTitle: String
+        get() = getCurrentResources().commandSetLanguageFrenchTitle
+    override val commandSetLanguageFrenchDetails: String
+        get() = getCurrentResources().commandSetLanguageFrenchDetails
+    override val commandSetLanguageGermanTitle: String
+        get() = getCurrentResources().commandSetLanguageGermanTitle
+    override val commandSetLanguageGermanDetails: String
+        get() = getCurrentResources().commandSetLanguageGermanDetails
+
     override val textCommandStartEventFormat: String
         get() = getCurrentResources().textCommandStartEventFormat
     override val textCommandEndEventFormat: String
