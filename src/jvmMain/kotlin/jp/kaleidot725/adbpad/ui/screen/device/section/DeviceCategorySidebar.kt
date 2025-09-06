@@ -83,10 +83,11 @@ private fun CategoryItem(
         verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
     ) {
         Icon(
-            imageVector = when (category) {
-                DeviceSettingCategory.DEVICE -> Icons.Default.PhoneAndroid
-                DeviceSettingCategory.SCRCPY -> Icons.Default.ScreenShare
-            },
+            imageVector =
+                when (category) {
+                    DeviceSettingCategory.DEVICE -> Icons.Default.PhoneAndroid
+                    DeviceSettingCategory.SCRCPY -> Icons.Default.ScreenShare
+                },
             contentDescription = category.displayName,
             tint = textColor,
             modifier = Modifier.size(20.dp),

@@ -83,10 +83,11 @@ private fun CategoryItem(
         verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
     ) {
         Icon(
-            imageVector = when (category) {
-                SettingCategory.APPEARANCE -> Icons.Default.Palette
-                SettingCategory.SDK -> Icons.Default.Settings
-            },
+            imageVector =
+                when (category) {
+                    SettingCategory.APPEARANCE -> Icons.Default.Palette
+                    SettingCategory.SDK -> Icons.Default.Settings
+                },
             contentDescription = category.displayName,
             tint = textColor,
             modifier = Modifier.size(20.dp),
