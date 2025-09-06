@@ -24,27 +24,38 @@ kotlin {
         featureFlags.add(ComposeFeatureFlag.OptimizeNonSkippingGroups)
     }
 
-    sourceSets.jvmMain.dependencies {
-        implementation(compose.desktop.currentOs)
-        implementation(compose.desktop.components.splitPane)
-        implementation(compose.material)
-        implementation(compose.material3)
-        implementation(compose.materialIconsExtended)
-        implementation(libs.adam)
-        implementation(libs.lucide)
-        implementation(libs.kotlin.coroutines)
-        implementation(libs.kotlinx.coroutines.swing)
-        implementation(libs.kotlin.serialization)
-        implementation(libs.koin)
-        implementation(libs.ktor.core)
-        implementation(libs.ktor.client.okhttp)
-        implementation(libs.jSystemThemeDetectorVer)
-        implementation(libs.coil)
-        implementation(libs.zoomable)
-        implementation(libs.scrcpy.kt)
-    }
-    sourceSets.jvmTest.dependencies {
-        implementation(libs.junit5)
+    sourceSets {
+        val jvmMain by getting {
+            kotlin.srcDirs("main/kotlin")
+            resources.srcDirs("main/resources")
+            dependencies {
+                implementation(compose.desktop.currentOs)
+                implementation(compose.desktop.components.splitPane)
+                implementation(compose.material)
+                implementation(compose.material3)
+                implementation(compose.materialIconsExtended)
+                implementation(libs.lucide)
+                implementation(libs.kotlinx.coroutines.swing)
+                implementation(libs.koin)
+                implementation(libs.ktor.core)
+                implementation(libs.ktor.client.okhttp)
+                implementation(libs.jSystemThemeDetectorVer)
+                implementation(libs.coil)
+                implementation(libs.zoomable)
+                implementation(libs.scrcpy.kt)
+                implementation(project(":core:mvi"))
+                implementation(project(":core:utils"))
+                implementation(project(":data"))
+                implementation(project(":domain"))
+            }
+        }
+        val jvmTest by getting {
+            kotlin.srcDirs("test/kotlin")
+            resources.srcDirs("test/resources")
+            dependencies {
+                implementation(libs.junit5)
+            }
+        }
     }
 }
 

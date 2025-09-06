@@ -11,9 +11,13 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/mvi" />
+            <option value="$PROJECT_DIR$/core/utils" />
+            <option value="$PROJECT_DIR$/data" />
+            <option value="$PROJECT_DIR$/domain" />
           </set>
         </option>
-        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>
