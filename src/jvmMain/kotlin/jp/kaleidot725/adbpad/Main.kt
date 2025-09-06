@@ -340,7 +340,9 @@ fun App(
                                         device = device,
                                         deviceSettings = deviceSettings,
                                         selectedCategory = deviceSettingsState.selectedCategory,
-                                        onAction = onDeviceSettingsAction,
+                                        onCategorySelected = { category ->
+                                            onDeviceSettingsAction(DeviceSettingsAction.SelectCategory(category))
+                                        },
                                         onUpdateDeviceSettings = { settings ->
                                             onDeviceSettingsAction(DeviceSettingsAction.UpdateSettings(settings))
                                         },

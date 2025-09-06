@@ -25,14 +25,13 @@ import jp.kaleidot725.adbpad.ui.screen.device.model.DeviceSettingCategory
 import jp.kaleidot725.adbpad.ui.screen.device.section.DeviceCategorySidebar
 import jp.kaleidot725.adbpad.ui.screen.device.section.DeviceGeneralPane
 import jp.kaleidot725.adbpad.ui.screen.device.section.DeviceScrcpyPane
-import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSettingsAction
 
 @Composable
 fun DeviceSettingsScreen(
     device: Device,
     deviceSettings: DeviceSettings,
     selectedCategory: DeviceSettingCategory,
-    onAction: (DeviceSettingsAction) -> Unit,
+    onCategorySelected: (DeviceSettingCategory) -> Unit,
     onUpdateDeviceSettings: (DeviceSettings) -> Unit,
     onSave: () -> Unit,
     onCancel: () -> Unit,
@@ -51,7 +50,7 @@ fun DeviceSettingsScreen(
                 DeviceCategorySidebar(
                     categories = DeviceSettingCategory.entries,
                     selectedCategory = selectedCategory,
-                    onCategorySelected = { onAction(DeviceSettingsAction.SelectCategory(it)) },
+                    onCategorySelected = onCategorySelected,
                 )
 
                 VerticalDivider()
