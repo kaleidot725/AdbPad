@@ -41,7 +41,7 @@ fun CommandList(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         items(commands) { command ->
-                            CommandItem(
+                            CommandItemCard(
                                 title = command.title,
                                 detail = command.details,
                                 isRunning = command.isRunning,

@@ -24,7 +24,7 @@ import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.ui.component.indicator.RunningIndicator
 
 @Composable
-fun CommandItem(
+fun CommandItemCard(
     title: String,
     detail: String,
     isRunning: Boolean,
@@ -55,8 +55,8 @@ fun CommandItem(
 
 @Preview
 @Composable
-private fun CommandItem_Running_Preview() {
-    CommandItem(
+private fun CommandItemCard_Running_Preview() {
+    CommandItemCard(
         title = "ダークテーマON",
         detail = "端末のダークテーマ設定をONにします",
         isRunning = true,
@@ -68,8 +68,8 @@ private fun CommandItem_Running_Preview() {
 
 @Preview
 @Composable
-private fun CommandItem_NotRunning_Preview() {
-    CommandItem(
+private fun CommandItemCard_NotRunning_Preview() {
+    CommandItemCard(
         title = "ダークテーマON",
         detail = "端末のダークテーマ設定をONにします",
         isRunning = false,
@@ -81,8 +81,8 @@ private fun CommandItem_NotRunning_Preview() {
 
 @Preview
 @Composable
-private fun CommandItem_NotExecute_Preview() {
-    CommandItem(
+private fun CommandItemCard_NotExecute_Preview() {
+    CommandItemCard(
         title = "ダークテーマON",
         detail = "端末のダークテーマ設定をONにします",
         isRunning = false,
