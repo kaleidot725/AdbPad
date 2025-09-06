@@ -1,7 +1,7 @@
 package jp.kaleidot725.adbpad.domain.model.language.resources
 
 object EnglishResources : StringResources {
-    override val windowTitle = "AdbPad($APP_VERSION)"
+    override val windowTitle = "AdbPad"
 
     override val notFoundDevice = "Not found device"
     override val notFoundCommand = "Not found command"
