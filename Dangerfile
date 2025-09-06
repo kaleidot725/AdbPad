@@ -9,9 +9,14 @@ end
 
 # Notify ktlint warning
 checkstyle_format.base_path = Dir.pwd
-ktlint_report_path = 'build/reports/ktlint/ktlintMainSourceSetCheck/ktlintMainSourceSetCheck.xml'
-if File.exist?(ktlint_report_path)
-  checkstyle_format.report ktlint_report_path
+
+# Find ktlint XML reports in all modules
+ktlint_reports = Dir.glob('**/reports/ktlint/**/*.xml')
+if ktlint_reports.empty?
+  puts "No KtLint XML reports found. Skipping ktlint report."
 else
-  puts "KtLint checkstyle report not found at #{ktlint_report_path}. Skipping ktlint report."
+  ktlint_reports.each do |report_path|
+    puts "Processing ktlint report: #{report_path}"
+    checkstyle_format.report report_path
+  end
 end
