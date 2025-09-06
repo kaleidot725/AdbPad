@@ -68,6 +68,7 @@ class SettingStateHolder(
         coroutineScope.launch {
             when (uiAction) {
                 SettingAction.Save -> save()
+                is SettingAction.SelectCategory -> selectCategory(uiAction.category)
                 is SettingAction.UpdateAdbDirectoryPath -> updateAdbDirectoryPath(uiAction.value)
                 is SettingAction.UpdateAdbPortNumberPath -> updateAdbPortNumberPath(uiAction.value)
                 is SettingAction.UpdateScrcpyBinaryPath -> updateScrcpyBinaryPath(uiAction.value)
@@ -113,5 +114,9 @@ class SettingStateHolder(
 
     private fun updateAccentColor(value: AccentColor) {
         update { this.copy(accentColor = value) }
+    }
+
+    private fun selectCategory(category: jp.kaleidot725.adbpad.ui.screen.setting.model.SettingCategory) {
+        update { this.copy(selectedCategory = category) }
     }
 }

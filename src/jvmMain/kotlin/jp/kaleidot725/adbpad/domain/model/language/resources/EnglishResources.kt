@@ -156,7 +156,7 @@ object EnglishResources : StringResources {
     // Device Settings Screen
     override val deviceSettingsTitle: String = "Device Settings"
     override val deviceNameSection: String = "Device Name"
-    override val customDeviceNameLabel: String = "Custom Device Name"
+    override val customDeviceNameLabel: String = "Custom Name"
     override val scrcpySettingsSection: String = "Scrcpy Settings"
 
     // Scrcpy Options Section
@@ -196,4 +196,12 @@ object EnglishResources : StringResources {
     override val autoLabel: String = "Auto"
     override val defaultLabel: String = "Default"
     override val customTitlePlaceholder: String = "Custom title"
+
+    // Setting Categories
+    override val categoryAppearance: String = "Appearance"
+    override val categorySDK: String = "SDK"
+
+    // Device Setting Categories
+    override val categoryDevice: String = "Device"
+    override val categoryScrcpy: String = "Scrcpy"
 }

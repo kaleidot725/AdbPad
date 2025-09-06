@@ -364,6 +364,18 @@ object Language : StringResources {
     override val customTitlePlaceholder: String
         get() = getCurrentResources().customTitlePlaceholder
 
+    // Setting Categories
+    override val categoryAppearance: String
+        get() = getCurrentResources().categoryAppearance
+    override val categorySDK: String
+        get() = getCurrentResources().categorySDK
+
+    // Device Setting Categories
+    override val categoryDevice: String
+        get() = getCurrentResources().categoryDevice
+    override val categoryScrcpy: String
+        get() = getCurrentResources().categoryScrcpy
+
     private var currentType: Type = Type.ENGLISH
 
     fun switch(type: Type) {

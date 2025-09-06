@@ -5,16 +5,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,9 +26,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import jp.kaleidot725.adbpad.domain.model.device.ScrcpyOptions
+import jp.kaleidot725.adbpad.domain.model.device.DeviceSettings
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.ui.component.text.DefaultOutlineTextField
+import jp.kaleidot725.adbpad.ui.component.text.SubTitle
 import jp.kaleidot725.scrcpykt.option.AudioCodec
 import jp.kaleidot725.scrcpykt.option.AudioSource
 import jp.kaleidot725.scrcpykt.option.LogLevel
@@ -35,19 +37,29 @@ import jp.kaleidot725.scrcpykt.option.VideoCodec
 import jp.kaleidot725.scrcpykt.option.VideoSource
 
 @Composable
-fun ScrcpyOptionsSection(
-    scrcpyOptions: ScrcpyOptions,
-    onUpdateOptions: (ScrcpyOptions) -> Unit,
+fun DeviceScrcpyPane(
+    deviceSettings: DeviceSettings,
+    onUpdateDeviceSettings: (DeviceSettings) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
+        modifier =
+            modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(24.dp)
+                .padding(bottom = 100.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = modifier,
     ) {
+        val scrcpyOptions = deviceSettings.scrcpyOptions
+        val onUpdateOptions = { newOptions: jp.kaleidot725.adbpad.domain.model.device.ScrcpyOptions ->
+            onUpdateDeviceSettings(deviceSettings.copy(scrcpyOptions = newOptions))
+        }
+
         // Video Options
-        Text(
+        SubTitle(
             text = Language.videoOptionsSection,
-            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(horizontal = 4.dp),
         )
 
         // No Video checkbox first
@@ -130,12 +142,10 @@ fun ScrcpyOptionsSection(
             modifier = Modifier.fillMaxWidth(),
         )
 
-        HorizontalDivider(modifier = Modifier.fillMaxWidth())
-
         // Audio Options
-        Text(
+        SubTitle(
             text = Language.audioOptionsSection,
-            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(horizontal = 4.dp),
         )
 
         Row(
@@ -203,12 +213,10 @@ fun ScrcpyOptionsSection(
             modifier = Modifier.fillMaxWidth(),
         )
 
-        HorizontalDivider(modifier = Modifier.fillMaxWidth())
-
         // Display Options
-        Text(
+        SubTitle(
             text = Language.displayOptionsSection,
-            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(horizontal = 4.dp),
         )
 
         // Window Title
@@ -314,12 +322,10 @@ fun ScrcpyOptionsSection(
             }
         }
 
-        HorizontalDivider(modifier = Modifier.fillMaxWidth())
-
         // Control Options
-        Text(
+        SubTitle(
             text = Language.controlOptionsSection,
-            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(horizontal = 4.dp),
         )
 
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -379,12 +385,10 @@ fun ScrcpyOptionsSection(
             }
         }
 
-        HorizontalDivider(modifier = Modifier.fillMaxWidth())
-
         // Logging Options
-        Text(
+        SubTitle(
             text = Language.loggingOptionsSection,
-            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(horizontal = 4.dp),
         )
 
         // Log Level Dropdown
