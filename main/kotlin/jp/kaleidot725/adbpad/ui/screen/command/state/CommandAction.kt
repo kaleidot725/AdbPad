@@ -12,4 +12,6 @@ sealed class CommandAction : MVIAction {
     data class ClickCategoryTab(
         val category: NormalCommandCategory,
     ) : CommandAction()
+
+    data object ToggleLayoutMode : CommandAction()
 }
