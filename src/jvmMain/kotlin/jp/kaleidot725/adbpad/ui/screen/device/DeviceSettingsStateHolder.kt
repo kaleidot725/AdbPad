@@ -4,6 +4,7 @@ import jp.kaleidot725.adbpad.core.mvi.MVIBase
 import jp.kaleidot725.adbpad.domain.model.device.DeviceSettings
 import jp.kaleidot725.adbpad.domain.repository.DeviceSettingsRepository
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
+import jp.kaleidot725.adbpad.ui.screen.device.model.DeviceSettingCategory
 import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSettingsAction
 import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSettingsSideEffect
 import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSettingsState
@@ -71,7 +72,7 @@ class DeviceSettingsStateHolder(
         sideEffect(DeviceSettingsSideEffect.Cancelled)
     }
 
-    private fun selectCategory(category: jp.kaleidot725.adbpad.ui.screen.device.model.DeviceSettingCategory) {
+    private fun selectCategory(category: DeviceSettingCategory) {
         update { this.copy(selectedCategory = category) }
     }
 }
