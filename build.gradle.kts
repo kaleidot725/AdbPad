@@ -1,7 +1,7 @@
 @file:OptIn(ExperimentalComposeLibrary::class)
 
 import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.compose.reload.ComposeHotRun
+import org.jetbrains.compose.reload.gradle.ComposeHotRun
 import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
 
 plugins {
@@ -139,5 +139,5 @@ configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
 
 // build.gradle.kts
 tasks.register<ComposeHotRun>("runHot") {
-    mainClass.set("jp.kaleidot725.adbpad.MainKt")
+    mainClass = "jp.kaleidot725.adbpad.MainKt"
 }

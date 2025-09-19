@@ -46,7 +46,6 @@ import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
 import jp.kaleidot725.adbpad.ui.section.top.TopSection
 import jp.kaleidot725.adbpad.ui.section.top.TopStateHolder
-import org.jetbrains.compose.reload.DevelopmentEntryPoint
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
 import org.jetbrains.compose.splitpane.rememberSplitPaneState
 
@@ -204,19 +203,17 @@ fun MainScreen(
                     )
                 },
         ) {
-            DevelopmentEntryPoint {
-                App(
-                    state = state,
-                    onMainAction = onAction,
-                    onMainRefresh = { mainStateHolder.onRefresh() },
-                    commandStateHolder = mainStateHolder.commandStateHolder,
-                    textCommandStateHolder = mainStateHolder.textCommandStateHolder,
-                    screenshotStateHolder = mainStateHolder.screenshotStateHolder,
-                    topStateHolder = mainStateHolder.topStateHolder,
-                    deviceSettingsStateHolder = mainStateHolder.deviceSettingsStateHolder,
-                    settingStateHolder = mainStateHolder.settingStateHolder,
-                )
-            }
+            App(
+                state = state,
+                onMainAction = onAction,
+                onMainRefresh = { mainStateHolder.onRefresh() },
+                commandStateHolder = mainStateHolder.commandStateHolder,
+                textCommandStateHolder = mainStateHolder.textCommandStateHolder,
+                screenshotStateHolder = mainStateHolder.screenshotStateHolder,
+                topStateHolder = mainStateHolder.topStateHolder,
+                deviceSettingsStateHolder = mainStateHolder.deviceSettingsStateHolder,
+                settingStateHolder = mainStateHolder.settingStateHolder,
+            )
         }
     }
 }
