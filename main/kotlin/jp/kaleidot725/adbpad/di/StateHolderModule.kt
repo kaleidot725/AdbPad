@@ -6,6 +6,7 @@ import jp.kaleidot725.adbpad.ui.screen.main.MainStateHolder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
+import jp.kaleidot725.adbpad.ui.section.right.RightStateHolder
 import jp.kaleidot725.adbpad.ui.section.top.TopStateHolder
 import org.koin.dsl.module
 
@@ -64,6 +65,14 @@ val stateHolderModule =
         }
 
         factory {
+            RightStateHolder(
+                getSelectedDeviceFlowUseCase = get(),
+                executeDeviceControlCommandUseCase = get(),
+                launchScrcpyUseCase = get(),
+            )
+        }
+
+        factory {
             DeviceSettingsStateHolder(
                 getSelectedDeviceFlowUseCase = get(),
                 deviceSettingsRepository = get(),
@@ -83,6 +92,7 @@ val stateHolderModule =
                 getAccentColorUseCase = get(),
                 refreshUseCase = get(),
                 topStateHolder = get(),
+                rightStateHolder = get(),
                 deviceSettingsStateHolder = get(),
                 settingStateHolder = get(),
                 shutdownAppUseCase = get(),

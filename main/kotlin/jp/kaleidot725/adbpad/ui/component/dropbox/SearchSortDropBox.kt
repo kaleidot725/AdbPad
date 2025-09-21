@@ -88,8 +88,7 @@ fun SearchSortDropBox(
                 .background(
                     color = UserColor.getDropdownBackgroundColor(),
                     shape = RoundedCornerShape(4.dp),
-                )
-                .border(
+                ).border(
                     width = 1.dp,
                     color = UserColor.getSplitterColor(),
                     shape = RoundedCornerShape(4.dp),

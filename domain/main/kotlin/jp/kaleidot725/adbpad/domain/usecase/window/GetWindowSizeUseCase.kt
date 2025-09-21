@@ -6,7 +6,5 @@ import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 class GetWindowSizeUseCase(
     private val settingRepository: SettingRepository,
 ) {
-    suspend operator fun invoke(): WindowSize {
-        return settingRepository.getWindowSize()
-    }
+    suspend operator fun invoke(): WindowSize = settingRepository.getWindowSize()
 }

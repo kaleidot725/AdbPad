@@ -69,8 +69,7 @@ fun TextCommandActions(
                         .background(
                             color = MaterialTheme.colorScheme.surface,
                             shape = RoundedCornerShape(4.dp),
-                        )
-                        .border(
+                        ).border(
                             width = 1.dp,
                             color = UserColor.getSplitterColor(),
                             shape = RoundedCornerShape(4.dp),

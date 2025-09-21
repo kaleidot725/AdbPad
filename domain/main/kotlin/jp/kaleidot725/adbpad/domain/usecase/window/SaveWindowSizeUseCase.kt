@@ -6,7 +6,5 @@ import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 class SaveWindowSizeUseCase(
     private val settingRepository: SettingRepository,
 ) {
-    suspend operator fun invoke(size: WindowSize): Boolean {
-        return settingRepository.updateWindowSize(size)
-    }
+    suspend operator fun invoke(size: WindowSize): Boolean = settingRepository.updateWindowSize(size)
 }

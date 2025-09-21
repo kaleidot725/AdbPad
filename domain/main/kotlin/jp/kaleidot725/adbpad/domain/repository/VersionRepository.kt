@@ -15,8 +15,8 @@ import kotlinx.serialization.json.Json
 class VersionRepository {
     private val client = HttpClient(OkHttp)
 
-    suspend fun getVersions(): List<Version>? {
-        return withContext(Dispatchers.IO) {
+    suspend fun getVersions(): List<Version>? =
+        withContext(Dispatchers.IO) {
             try {
                 val url = "https://dl.google.com/android/studio/metadata/distributions.json"
                 val response = client.get(url)
@@ -27,7 +27,6 @@ class VersionRepository {
                 null
             }
         }
-    }
 
     private fun List<VersionDto>.createVersions(): List<Version> {
         var cumulativeDistribution = 100.toDouble()

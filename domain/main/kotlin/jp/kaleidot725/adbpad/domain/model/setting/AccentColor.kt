@@ -3,7 +3,10 @@ package jp.kaleidot725.adbpad.domain.model.setting
 import androidx.compose.ui.graphics.Color
 import jp.kaleidot725.adbpad.domain.model.language.Language
 
-enum class AccentColor(val lightColor: Color, val darkColor: Color) {
+enum class AccentColor(
+    val lightColor: Color,
+    val darkColor: Color,
+) {
     BLUE(Color(0xFF2196F3), Color(0xFF64B5F6)),
     PURPLE(Color(0xFF9C27B0), Color(0xFFBA68C8)),
     GREEN(Color(0xFF4CAF50), Color(0xFF81C784)),

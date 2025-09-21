@@ -7,7 +7,5 @@ import kotlinx.coroutines.flow.Flow
 class GetSelectedDeviceFlowUseCase(
     private val deviceRepository: DeviceRepository,
 ) {
-    operator fun invoke(): Flow<Device?> {
-        return deviceRepository.getSelectedDeviceFlow()
-    }
+    operator fun invoke(): Flow<Device?> = deviceRepository.getSelectedDeviceFlow()
 }

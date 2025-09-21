@@ -5,13 +5,11 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.TooltipArea
 import androidx.compose.foundation.TooltipPlacement
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -22,22 +20,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import com.composables.icons.lucide.Circle
 import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Power
 import com.composables.icons.lucide.ScreenShare
+import com.composables.icons.lucide.Settings
 import com.composables.icons.lucide.Settings2
-import com.composables.icons.lucide.Square
-import com.composables.icons.lucide.Triangle
-import com.composables.icons.lucide.Volume1
-import com.composables.icons.lucide.Volume2
-import com.composables.icons.lucide.VolumeX
-import jp.kaleidot725.adbpad.domain.model.command.DeviceControlCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.component.button.CommandIconButton
-import jp.kaleidot725.adbpad.ui.component.divider.CommandIconDivider
 import jp.kaleidot725.adbpad.ui.section.top.component.DropDownDeviceMenu
 import jp.kaleidot725.adbpad.ui.section.top.state.TopAction
 import jp.kaleidot725.adbpad.ui.section.top.state.TopState
@@ -48,14 +38,16 @@ fun TopSection(
     onAction: (TopAction) -> Unit,
     onMainRefresh: () -> Unit,
     onMainOpenDeviceSettings: (Device) -> Unit,
+    onMainOpenSetting: () -> Unit,
+    onLaunchScrcpy: () -> Unit,
 ) {
     TopSection(
         state = state,
-        onExecuteCommand = { onAction(TopAction.ExecuteCommand(it)) },
         onSelectDevice = { onAction(TopAction.SelectDevice(it)) },
-        onLaunchScrcpy = { onAction(TopAction.LaunchScrcpy) },
         onRefresh = onMainRefresh,
         onOpenDeviceSettings = onMainOpenDeviceSettings,
+        onOpenSetting = onMainOpenSetting,
+        onLaunchScrcpy = onLaunchScrcpy,
     )
 }
 
@@ -63,126 +55,64 @@ fun TopSection(
 @Composable
 private fun TopSection(
     state: TopState,
-    onExecuteCommand: (DeviceControlCommand) -> Unit,
     onSelectDevice: (Device) -> Unit,
-    onLaunchScrcpy: () -> Unit,
     onOpenDeviceSettings: (Device) -> Unit,
     onRefresh: () -> Unit,
+    onOpenSetting: () -> Unit,
+    onLaunchScrcpy: () -> Unit,
 ) {
     Surface(
         color = MaterialTheme.colorScheme.background,
         modifier = Modifier.fillMaxWidth().height(40.dp),
     ) {
-        Box {
-            Row(Modifier.align(Alignment.CenterStart).wrapContentSize().padding(start = 12.dp)) {
-                DropDownDeviceMenu(
-                    devices = state.devices,
-                    selectedDevice = state.selectedDevice,
-                    onSelectDevice = onSelectDevice,
-                    onOpenDeviceSettings = onOpenDeviceSettings,
-                    onRefresh = onRefresh,
-                    modifier = Modifier.wrapContentWidth().align(Alignment.CenterVertically),
-                )
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            DropDownDeviceMenu(
+                devices = state.devices,
+                selectedDevice = state.selectedDevice,
+                onSelectDevice = onSelectDevice,
+                onOpenDeviceSettings = onOpenDeviceSettings,
+                onRefresh = onRefresh,
+                modifier = Modifier.wrapContentWidth(),
+            )
 
-                if (state.selectedDevice != null) {
-                    CommandTooltip(
-                        text = Language.tooltipSetting,
-                    ) {
-                        CommandIconButton(
-                            modifier = Modifier.padding(vertical = 4.dp),
-                            image = Lucide.Settings2,
-                            onClick = { onOpenDeviceSettings(state.selectedDevice) },
-                            padding = 2.dp,
-                        )
-                    }
-                }
-            }
-
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
-                modifier = Modifier.align(Alignment.CenterEnd).wrapContentSize().padding(4.dp),
-            ) {
-                CommandTooltip(
-                    text = Language.tooltipPower,
-                ) {
-                    CommandIconButton(
-                        image = Lucide.Power,
-                        onClick = { onExecuteCommand(DeviceControlCommand.Power) },
-                        padding = 2.dp,
-                    )
-                }
-
-                CommandTooltip(
-                    text = Language.tooltipVolumeUp,
-                ) {
-                    CommandIconButton(
-                        image = Lucide.Volume2,
-                        onClick = { onExecuteCommand(DeviceControlCommand.VolumeUp) },
-                    )
-                }
-
-                CommandTooltip(
-                    text = Language.tooltipVolumeDown,
-                ) {
-                    CommandIconButton(
-                        image = Lucide.Volume1,
-                        onClick = { onExecuteCommand(DeviceControlCommand.VolumeDown) },
-                    )
-                }
-
-                CommandTooltip(
-                    text = Language.tooltipVolumeMute,
-                ) {
-                    CommandIconButton(
-                        image = Lucide.VolumeX,
-                        onClick = { onExecuteCommand(DeviceControlCommand.VolumeMute) },
-                    )
-                }
-
-                CommandIconDivider()
-
-                CommandTooltip(
-                    text = Language.tooltipBack,
-                ) {
-                    CommandIconButton(
-                        image = Lucide.Triangle,
-                        degrees = -90f,
-                        onClick = { onExecuteCommand(DeviceControlCommand.Back) },
-                        padding = 2.dp,
-                    )
-                }
-
-                CommandTooltip(
-                    text = Language.tooltipHome,
-                ) {
-                    CommandIconButton(
-                        image = Lucide.Circle,
-                        onClick = { onExecuteCommand(DeviceControlCommand.Home) },
-                        padding = 2.dp,
-                    )
-                }
-
-                CommandTooltip(
-                    text = Language.tooltipRecents,
-                ) {
-                    CommandIconButton(
-                        image = Lucide.Square,
-                        onClick = { onExecuteCommand(DeviceControlCommand.Recents) },
-                        padding = 2.dp,
-                    )
-                }
-
-                CommandIconDivider()
-
+            if (state.selectedDevice != null) {
                 CommandTooltip(
                     text = Language.tooltipScrcpy,
                 ) {
                     CommandIconButton(
+                        modifier = Modifier.padding(vertical = 4.dp).padding(start = 8.dp),
                         image = Lucide.ScreenShare,
                         onClick = { onLaunchScrcpy() },
                         padding = 2.dp,
                     )
                 }
+
+                CommandTooltip(
+                    text = Language.tooltipSetting,
+                ) {
+                    CommandIconButton(
+                        modifier = Modifier.padding(vertical = 4.dp).padding(start = 8.dp),
+                        image = Lucide.Settings2,
+                        onClick = { onOpenDeviceSettings(state.selectedDevice) },
+                        padding = 2.dp,
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            CommandTooltip(
+                text = Language.tooltipSetting,
+            ) {
+                CommandIconButton(
+                    modifier = Modifier.padding(vertical = 4.dp),
+                    image = Lucide.Settings,
+                    onClick = onOpenSetting,
+                    padding = 2.dp,
+                )
             }
         }
     }
@@ -225,10 +155,10 @@ private fun CommandTooltip(
 private fun Preview() {
     TopSection(
         state = TopState(),
-        onExecuteCommand = {},
         onSelectDevice = {},
-        onLaunchScrcpy = {},
         onRefresh = {},
         onOpenDeviceSettings = {},
+        onOpenSetting = {},
+        onLaunchScrcpy = {},
     )
 }

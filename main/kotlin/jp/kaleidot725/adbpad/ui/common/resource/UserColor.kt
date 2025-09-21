@@ -43,9 +43,7 @@ object UserColor {
     fun getPrimaryColor(
         accentColor: AccentColor,
         isLight: Boolean,
-    ): Color {
-        return accentColor.getColor(isLight)
-    }
+    ): Color = accentColor.getColor(isLight)
 
     object Light {
         val PRIMARY = Color(0xFF2196F3) // Bright Blue
