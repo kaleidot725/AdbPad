@@ -26,9 +26,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.unit.dp
+import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Check
 import com.composables.icons.lucide.ChevronDown
-import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Search
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.sort.SortType
@@ -88,8 +88,7 @@ fun SearchSortDropBox(
                 .background(
                     color = UserColor.getDropdownBackgroundColor(),
                     shape = RoundedCornerShape(4.dp),
-                )
-                .border(
+                ).border(
                     width = 1.dp,
                     color = UserColor.getSplitterColor(),
                     shape = RoundedCornerShape(4.dp),

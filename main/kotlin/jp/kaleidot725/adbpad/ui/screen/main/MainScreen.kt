@@ -44,6 +44,8 @@ import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.state.SettingSideEffect
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
+import jp.kaleidot725.adbpad.ui.section.right.RightSection
+import jp.kaleidot725.adbpad.ui.section.right.RightStateHolder
 import jp.kaleidot725.adbpad.ui.section.top.TopSection
 import jp.kaleidot725.adbpad.ui.section.top.TopStateHolder
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
@@ -211,6 +213,7 @@ fun MainScreen(
                 textCommandStateHolder = mainStateHolder.textCommandStateHolder,
                 screenshotStateHolder = mainStateHolder.screenshotStateHolder,
                 topStateHolder = mainStateHolder.topStateHolder,
+                rightStateHolder = mainStateHolder.rightStateHolder,
                 deviceSettingsStateHolder = mainStateHolder.deviceSettingsStateHolder,
                 settingStateHolder = mainStateHolder.settingStateHolder,
             )
@@ -228,6 +231,7 @@ private fun App(
     textCommandStateHolder: TextCommandStateHolder,
     screenshotStateHolder: ScreenshotStateHolder,
     topStateHolder: TopStateHolder,
+    rightStateHolder: RightStateHolder,
     deviceSettingsStateHolder: DeviceSettingsStateHolder,
     settingStateHolder: SettingStateHolder,
 ) {
@@ -241,7 +245,6 @@ private fun App(
                     NavigationRail(
                         category = state.category,
                         onSelectCategory = { onMainAction(MainAction.ClickCategory(it)) },
-                        onOpenSetting = { onMainAction(MainAction.OpenSetting) },
                     )
                 },
                 top = {
@@ -253,6 +256,7 @@ private fun App(
                                 onAction = onAction,
                                 onMainRefresh = onMainRefresh,
                                 onMainOpenDeviceSettings = { device -> onMainAction(MainAction.OpenDeviceSettings(device)) },
+                                onMainOpenSetting = { onMainAction(MainAction.OpenSetting) },
                             )
                         },
                     )
@@ -301,6 +305,17 @@ private fun App(
                             Text("TEST")
                         }
                     }
+                },
+                right = {
+                    MVIChildContent(
+                        mvi = rightStateHolder,
+                        content = { state, onAction ->
+                            RightSection(
+                                state = state,
+                                onAction = onAction,
+                            )
+                        },
+                    )
                 },
                 dialog = {
                     when (state.dialog) {

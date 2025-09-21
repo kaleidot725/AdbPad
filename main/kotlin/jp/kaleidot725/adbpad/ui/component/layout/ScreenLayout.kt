@@ -24,6 +24,7 @@ fun ScreenLayout(
     top: @Composable () -> Unit,
     navigationRail: @Composable () -> Unit,
     content: @Composable () -> Unit,
+    right: @Composable () -> Unit,
     dialog: @Composable () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -34,7 +35,9 @@ fun ScreenLayout(
             Row(modifier = Modifier.weight(0.9f, true)) {
                 Box(Modifier.background(MaterialTheme.colorScheme.background)) { navigationRail() }
                 Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
-                Box(Modifier.background(MaterialTheme.colorScheme.background)) { content() }
+                Box(Modifier.background(MaterialTheme.colorScheme.background).weight(1f)) { content() }
+                Spacer(Modifier.width(1.dp).fillMaxHeight().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
+                Box(Modifier.background(MaterialTheme.colorScheme.background)) { right() }
             }
             Spacer(Modifier.height(1.dp).fillMaxWidth().border(BorderStroke(1.dp, UserColor.getSplitterColor())))
         }
@@ -54,6 +57,9 @@ private fun ScreenLayout_Preview() {
         },
         content = {
             Box(Modifier.fillMaxSize().background(androidx.compose.ui.graphics.Color.Blue))
+        },
+        right = {
+            Box(Modifier.width(60.dp).fillMaxHeight().background(androidx.compose.ui.graphics.Color.Green))
         },
         dialog = {
         },
