@@ -6,7 +6,5 @@ import jp.kaleidot725.adbpad.domain.repository.DeviceRepository
 class UpdateDevicesUseCase(
     private val deviceRepository: DeviceRepository,
 ) {
-    suspend operator fun invoke(): List<Device> {
-        return deviceRepository.updateDevices()
-    }
+    suspend operator fun invoke(): List<Device> = deviceRepository.updateDevices()
 }

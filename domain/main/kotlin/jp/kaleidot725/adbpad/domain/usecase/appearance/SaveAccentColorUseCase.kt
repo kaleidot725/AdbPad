@@ -6,7 +6,5 @@ import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 class SaveAccentColorUseCase(
     private val settingRepository: SettingRepository,
 ) {
-    suspend operator fun invoke(accentColor: AccentColor): Boolean {
-        return settingRepository.updateAccentColor(accentColor)
-    }
+    suspend operator fun invoke(accentColor: AccentColor): Boolean = settingRepository.updateAccentColor(accentColor)
 }

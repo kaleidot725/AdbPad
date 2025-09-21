@@ -6,7 +6,5 @@ import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 class SaveAppearanceUseCase(
     private val settingRepository: SettingRepository,
 ) {
-    suspend operator fun invoke(appearance: Appearance): Boolean {
-        return settingRepository.updateAppearance(appearance)
-    }
+    suspend operator fun invoke(appearance: Appearance): Boolean = settingRepository.updateAppearance(appearance)
 }

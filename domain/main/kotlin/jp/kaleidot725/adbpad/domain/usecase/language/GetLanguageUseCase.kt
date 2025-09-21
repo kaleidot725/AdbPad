@@ -6,7 +6,5 @@ import jp.kaleidot725.adbpad.domain.repository.SettingRepository
 class GetLanguageUseCase(
     private val settingRepository: SettingRepository,
 ) {
-    suspend operator fun invoke(): Language.Type {
-        return settingRepository.getLanguage()
-    }
+    suspend operator fun invoke(): Language.Type = settingRepository.getLanguage()
 }

@@ -3,16 +3,15 @@ package jp.kaleidot725.adbpad.ui.component.rail
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.Camera
 import com.composables.icons.lucide.ChevronsRight
 import com.composables.icons.lucide.File
-import com.composables.icons.lucide.Camera
+import com.composables.icons.lucide.Lucide
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainCategory
 

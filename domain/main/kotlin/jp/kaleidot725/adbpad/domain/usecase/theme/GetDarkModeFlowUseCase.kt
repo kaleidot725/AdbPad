@@ -14,8 +14,8 @@ import java.util.function.Consumer
 class GetDarkModeFlowUseCase(
     private val settingRepository: SettingRepository,
 ) {
-    suspend operator fun invoke(): Flow<Boolean> {
-        return when (withContext(Dispatchers.IO) { settingRepository.getAppearance() }) {
+    suspend operator fun invoke(): Flow<Boolean> =
+        when (withContext(Dispatchers.IO) { settingRepository.getAppearance() }) {
             Appearance.DARK -> flow { emit(true) }
             Appearance.LIGHT -> flow { emit(false) }
             Appearance.SYSTEM -> {
@@ -31,5 +31,4 @@ class GetDarkModeFlowUseCase(
                 }
             }
         }
-    }
 }
