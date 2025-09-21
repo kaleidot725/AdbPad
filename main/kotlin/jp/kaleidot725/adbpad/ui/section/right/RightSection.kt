@@ -30,14 +30,8 @@ import androidx.compose.ui.unit.dp
 import com.composables.icons.lucide.Circle
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Power
-import com.composables.icons.lucide.ScreenShare
-import com.composables.icons.lucide.Speaker
 import com.composables.icons.lucide.Square
 import com.composables.icons.lucide.Triangle
-import com.composables.icons.lucide.Volume
-import com.composables.icons.lucide.Volume1
-import com.composables.icons.lucide.Volume2
-import com.composables.icons.lucide.VolumeX
 import jp.kaleidot725.adbpad.domain.model.command.DeviceControlCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceState
@@ -56,7 +50,6 @@ fun RightSection(
     RightSection(
         selectedDevice = state.selectedDevice,
         onExecuteCommand = { onAction(RightAction.ExecuteCommand(it)) },
-        onLaunchScrcpy = { onAction(RightAction.LaunchScrcpy) },
     )
 }
 
@@ -65,7 +58,6 @@ fun RightSection(
 private fun RightSection(
     selectedDevice: Device?,
     onExecuteCommand: (DeviceControlCommand) -> Unit,
-    onLaunchScrcpy: () -> Unit,
 ) {
     Surface(
         color = MaterialTheme.colorScheme.background,
@@ -155,16 +147,6 @@ private fun RightSection(
                     )
                 }
 
-                CommandTooltip(
-                    text = Language.tooltipScrcpy,
-                ) {
-                    CommandIconButton(
-                        modifier = Modifier.wrapContentSize(),
-                        image = Lucide.ScreenShare,
-                        onClick = { onLaunchScrcpy() },
-                        padding = 2.dp,
-                    )
-                }
             }
         }
     }

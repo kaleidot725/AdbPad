@@ -257,6 +257,7 @@ private fun App(
                                 onMainRefresh = onMainRefresh,
                                 onMainOpenDeviceSettings = { device -> onMainAction(MainAction.OpenDeviceSettings(device)) },
                                 onMainOpenSetting = { onMainAction(MainAction.OpenSetting) },
+                                onLaunchScrcpy = { rightStateHolder.onAction(jp.kaleidot725.adbpad.ui.section.right.state.RightAction.LaunchScrcpy) },
                             )
                         },
                     )

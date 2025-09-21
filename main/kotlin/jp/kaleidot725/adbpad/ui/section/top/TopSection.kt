@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.ScreenShare
 import com.composables.icons.lucide.Settings
 import com.composables.icons.lucide.Settings2
 import jp.kaleidot725.adbpad.domain.model.device.Device
@@ -41,6 +42,7 @@ fun TopSection(
     onMainRefresh: () -> Unit,
     onMainOpenDeviceSettings: (Device) -> Unit,
     onMainOpenSetting: () -> Unit,
+    onLaunchScrcpy: () -> Unit,
 ) {
     TopSection(
         state = state,
@@ -48,6 +50,7 @@ fun TopSection(
         onRefresh = onMainRefresh,
         onOpenDeviceSettings = onMainOpenDeviceSettings,
         onOpenSetting = onMainOpenSetting,
+        onLaunchScrcpy = onLaunchScrcpy,
     )
 }
 
@@ -59,6 +62,7 @@ private fun TopSection(
     onOpenDeviceSettings: (Device) -> Unit,
     onRefresh: () -> Unit,
     onOpenSetting: () -> Unit,
+    onLaunchScrcpy: () -> Unit,
 ) {
     Surface(
         color = MaterialTheme.colorScheme.background,
@@ -78,6 +82,17 @@ private fun TopSection(
             )
 
             if (state.selectedDevice != null) {
+                CommandTooltip(
+                    text = Language.tooltipScrcpy,
+                ) {
+                    CommandIconButton(
+                        modifier = Modifier.padding(vertical = 4.dp).padding(start = 8.dp),
+                        image = Lucide.ScreenShare,
+                        onClick = { onLaunchScrcpy() },
+                        padding = 2.dp,
+                    )
+                }
+
                 CommandTooltip(
                     text = Language.tooltipSetting,
                 ) {
@@ -147,5 +162,6 @@ private fun Preview() {
         onRefresh = {},
         onOpenDeviceSettings = {},
         onOpenSetting = {},
+        onLaunchScrcpy = {},
     )
 }
