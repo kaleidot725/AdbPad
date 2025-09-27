@@ -39,8 +39,8 @@ fun NavigationRailItem(
     Box(
         modifier =
             Modifier
-                .size(40.dp)
-                .clip(RoundedCornerShape(8.dp))
+                .size(28.dp)
+                .clip(RoundedCornerShape(4.dp))
                 .clickableBackground(isSelected)
                 .clickable(onClick = onClick),
     ) {
@@ -72,6 +72,7 @@ fun NavigationRailItem(
             Icon(
                 imageVector = icon,
                 contentDescription = contentDescription,
+                modifier = Modifier.size(16.dp),
             )
         }
     }

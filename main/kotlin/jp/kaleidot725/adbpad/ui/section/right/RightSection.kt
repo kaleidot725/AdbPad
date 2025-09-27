@@ -60,89 +60,95 @@ private fun RightSection(
         color = MaterialTheme.colorScheme.background,
         modifier = Modifier.fillMaxHeight().width(50.dp),
     ) {
-        if (selectedDevice != null) {
-            Column(
-                modifier = Modifier.fillMaxHeight().padding(vertical = 8.dp, horizontal = 2.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
+        Column(
+            modifier = Modifier.fillMaxHeight().padding(vertical = 8.dp, horizontal = 2.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            val enabled = selectedDevice != null
+            CommandTooltip(
+                text = Language.tooltipPower,
             ) {
-                CommandTooltip(
-                    text = Language.tooltipPower,
-                ) {
-                    CommandIconButton(
-                        modifier = Modifier.wrapContentSize(),
-                        image = Lucide.Power,
-                        onClick = { onExecuteCommand(DeviceControlCommand.Power) },
-                        padding = 2.dp,
-                    )
-                }
+                CommandIconButton(
+                    modifier = Modifier.wrapContentSize(),
+                    image = Lucide.Power,
+                    onClick = { onExecuteCommand(DeviceControlCommand.Power) },
+                    padding = 2.dp,
+                    enabled = enabled,
+                )
+            }
 
-                CommandTooltip(
-                    text = Language.tooltipVolumeUp,
-                ) {
-                    CommandIconButton(
-                        modifier = Modifier.wrapContentSize(),
-                        image = Icons.AutoMirrored.Filled.VolumeUp,
-                        onClick = { onExecuteCommand(DeviceControlCommand.VolumeUp) },
-                        padding = 0.dp,
-                    )
-                }
+            CommandTooltip(
+                text = Language.tooltipVolumeUp,
+            ) {
+                CommandIconButton(
+                    modifier = Modifier.wrapContentSize(),
+                    image = Icons.AutoMirrored.Filled.VolumeUp,
+                    onClick = { onExecuteCommand(DeviceControlCommand.VolumeUp) },
+                    padding = 0.dp,
+                    enabled = enabled,
+                )
+            }
 
-                CommandTooltip(
-                    text = Language.tooltipVolumeDown,
-                ) {
-                    CommandIconButton(
-                        modifier = Modifier.wrapContentSize(),
-                        image = Icons.AutoMirrored.Filled.VolumeDown,
-                        onClick = { onExecuteCommand(DeviceControlCommand.VolumeDown) },
-                        padding = 0.dp,
-                    )
-                }
+            CommandTooltip(
+                text = Language.tooltipVolumeDown,
+            ) {
+                CommandIconButton(
+                    modifier = Modifier.wrapContentSize(),
+                    image = Icons.AutoMirrored.Filled.VolumeDown,
+                    onClick = { onExecuteCommand(DeviceControlCommand.VolumeDown) },
+                    padding = 0.dp,
+                    enabled = enabled,
+                )
+            }
 
-                CommandTooltip(
-                    text = Language.tooltipVolumeMute,
-                ) {
-                    CommandIconButton(
-                        modifier = Modifier.wrapContentSize(),
-                        image = Icons.AutoMirrored.Filled.VolumeOff,
-                        onClick = { onExecuteCommand(DeviceControlCommand.VolumeMute) },
-                        padding = 0.dp,
-                    )
-                }
+            CommandTooltip(
+                text = Language.tooltipVolumeMute,
+            ) {
+                CommandIconButton(
+                    modifier = Modifier.wrapContentSize(),
+                    image = Icons.AutoMirrored.Filled.VolumeOff,
+                    onClick = { onExecuteCommand(DeviceControlCommand.VolumeMute) },
+                    padding = 0.dp,
+                    enabled = enabled,
+                )
+            }
 
-                CommandTooltip(
-                    text = Language.tooltipBack,
-                ) {
-                    CommandIconButton(
-                        modifier = Modifier.wrapContentSize(),
-                        image = Lucide.Triangle,
-                        degrees = -90f,
-                        onClick = { onExecuteCommand(DeviceControlCommand.Back) },
-                        padding = 2.dp,
-                    )
-                }
+            CommandTooltip(
+                text = Language.tooltipBack,
+            ) {
+                CommandIconButton(
+                    modifier = Modifier.wrapContentSize(),
+                    image = Lucide.Triangle,
+                    degrees = -90f,
+                    onClick = { onExecuteCommand(DeviceControlCommand.Back) },
+                    padding = 2.dp,
+                    enabled = enabled,
+                )
+            }
 
-                CommandTooltip(
-                    text = Language.tooltipHome,
-                ) {
-                    CommandIconButton(
-                        modifier = Modifier.wrapContentSize(),
-                        image = Lucide.Circle,
-                        onClick = { onExecuteCommand(DeviceControlCommand.Home) },
-                        padding = 2.dp,
-                    )
-                }
+            CommandTooltip(
+                text = Language.tooltipHome,
+            ) {
+                CommandIconButton(
+                    modifier = Modifier.wrapContentSize(),
+                    image = Lucide.Circle,
+                    onClick = { onExecuteCommand(DeviceControlCommand.Home) },
+                    padding = 2.dp,
+                    enabled = enabled,
+                )
+            }
 
-                CommandTooltip(
-                    text = Language.tooltipRecents,
-                ) {
-                    CommandIconButton(
-                        modifier = Modifier.wrapContentSize(),
-                        image = Lucide.Square,
-                        onClick = { onExecuteCommand(DeviceControlCommand.Recents) },
-                        padding = 2.dp,
-                    )
-                }
+            CommandTooltip(
+                text = Language.tooltipRecents,
+            ) {
+                CommandIconButton(
+                    modifier = Modifier.wrapContentSize(),
+                    image = Lucide.Square,
+                    onClick = { onExecuteCommand(DeviceControlCommand.Recents) },
+                    padding = 2.dp,
+                    enabled = enabled,
+                )
             }
         }
     }
