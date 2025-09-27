@@ -27,6 +27,7 @@ fun CommandIconButton(
     onClick: () -> Unit,
     degrees: Float = 0f,
     padding: Dp = 0.dp,
+    enabled: Boolean = true,
 ) {
     Box(
         modifier =
@@ -34,12 +35,17 @@ fun CommandIconButton(
                 .size(28.dp)
                 .clip(RoundedCornerShape(4.dp))
                 .clickableBackground(isDarker = true)
-                .clickable { onClick() }
+                .clickable(enabled = enabled, onClick = onClick)
                 .padding(4.dp + padding),
     ) {
         Icon(
             imageVector = image,
-            tint = MaterialTheme.colorScheme.onBackground,
+            tint =
+                if (enabled) {
+                    MaterialTheme.colorScheme.onBackground
+                } else {
+                    MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f)
+                },
             contentDescription = null,
             modifier = Modifier.align(Alignment.Center).rotate(degrees),
         )
@@ -52,5 +58,6 @@ private fun Preview() {
     CommandIconButton(
         image = Lucide.Power,
         onClick = {},
+        enabled = true,
     )
 }
