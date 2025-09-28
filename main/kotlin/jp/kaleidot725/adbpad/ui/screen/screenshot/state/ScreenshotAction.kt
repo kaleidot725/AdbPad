@@ -2,8 +2,8 @@ package jp.kaleidot725.adbpad.ui.screen.screenshot.state
 
 import jp.kaleidot725.adbpad.core.mvi.MVIAction
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
-import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.domain.model.sort.SortType
+import java.io.File
 
 sealed class ScreenshotAction : MVIAction {
     data class UpdateSearchText(
@@ -24,16 +24,18 @@ sealed class ScreenshotAction : MVIAction {
 
     data object OpenDirectory : ScreenshotAction()
 
+    data object OpenPreview : ScreenshotAction()
+
     data object CopyScreenshotToClipboard : ScreenshotAction()
 
     data object DeleteScreenshotToClipboard : ScreenshotAction()
 
     data class DeleteScreenshot(
-        val screenshot: Screenshot,
+        val file: File,
     ) : ScreenshotAction()
 
     data class SelectScreenshot(
-        val screenshot: Screenshot,
+        val file: File,
     ) : ScreenshotAction()
 
     data object NextScreenshot : ScreenshotAction()

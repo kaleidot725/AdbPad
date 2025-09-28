@@ -7,13 +7,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -28,38 +25,32 @@ import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Minus
 import com.composables.icons.lucide.Plus
 import jp.kaleidot725.adbpad.domain.model.language.Language
-import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.ui.common.resource.UserColor
-import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
 import jp.kaleidot725.adbpad.ui.component.button.CommandIconButton
 import jp.kaleidot725.adbpad.ui.component.button.CommandTextButton
 import kotlinx.coroutines.launch
 import net.engawapg.lib.zoomable.rememberZoomState
 import net.engawapg.lib.zoomable.zoomable
+import java.io.File
 
 @Composable
 fun ScreenshotViewer(
-    screenshot: Screenshot,
+    file: File?,
     isCapturing: Boolean,
+    onOpenPreview: () -> Unit,
     onOpenDirectory: () -> Unit,
     onCopyScreenshot: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier) {
-        ScreenshotActions(
-            enabled = screenshot.file != null,
-            onOpen = onOpenDirectory,
-            modifier = Modifier.height(48.dp).padding(horizontal = 12.dp).align(Alignment.End),
-        )
-
-        Divider(modifier = Modifier.height(1.dp).fillMaxWidth().defaultBorder())
-
-        if (isCapturing) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+    Box(modifier) {
+        when {
+            isCapturing -> {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                }
             }
-        } else {
-            if (screenshot.file != null) {
+
+            file != null -> {
                 val zoomState = rememberZoomState()
                 val coroutineScope = rememberCoroutineScope()
                 BoxWithConstraints(
@@ -68,7 +59,7 @@ fun ScreenshotViewer(
                     val constraints = this
 
                     AsyncImage(
-                        model = screenshot.file,
+                        model = file,
                         contentDescription = null,
                         modifier =
                             Modifier
@@ -145,7 +136,9 @@ fun ScreenshotViewer(
                         )
                     }
                 }
-            } else {
+            }
+
+            else -> {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Text(
                         text = Language.notFoundScreenshot,
@@ -154,6 +147,21 @@ fun ScreenshotViewer(
                 }
             }
         }
+
+        ScreenshotActions(
+            hasPreview = file != null,
+            onOpenPreview = onOpenPreview,
+            onCopyScreenshot = onCopyScreenshot,
+            onOpenDirectory = onOpenDirectory,
+            modifier =
+                Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(12.dp)
+                    .background(
+                        color = UserColor.getFloatingBackgroundColor(),
+                        shape = RoundedCornerShape(8.dp),
+                    ).padding(horizontal = 8.dp, vertical = 4.dp),
+        )
     }
 }
 
@@ -161,10 +169,11 @@ fun ScreenshotViewer(
 @Composable
 private fun ScreenshotViewer_Preview() {
     ScreenshotViewer(
-        screenshot = Screenshot(null),
+        file = null,
         isCapturing = false,
-        onOpenDirectory = {},
+        onOpenPreview = {},
         onCopyScreenshot = {},
+        onOpenDirectory = {},
         modifier = Modifier.fillMaxSize(),
     )
 }

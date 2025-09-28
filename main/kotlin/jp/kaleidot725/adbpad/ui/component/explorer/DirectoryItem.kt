@@ -21,7 +21,6 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 internal fun DirectoryItem(
@@ -48,7 +47,7 @@ internal fun DirectoryItem(
         Text(
             text = directory.name,
             maxLines = 1,
-            fontSize = 20.sp,
+            style = MaterialTheme.typography.bodyLarge,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.align(Alignment.CenterVertically).weight(1.0f),
         )

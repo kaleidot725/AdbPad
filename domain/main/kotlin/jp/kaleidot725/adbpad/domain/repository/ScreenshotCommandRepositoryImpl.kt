@@ -7,7 +7,6 @@ import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.os.OSContext
-import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -38,7 +37,7 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
         device: Device,
         command: ScreenshotCommand,
         onStart: suspend () -> Unit,
-        onComplete: suspend (Screenshot) -> Unit,
+        onComplete: suspend (File) -> Unit,
         onFailed: suspend () -> Unit,
     ) {
         val date = Date()
@@ -56,35 +55,34 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
 
             delay(300)
 
-            if (result) onComplete(Screenshot(getFileResult(date.time))) else onFailed()
+            if (result) onComplete(getFileResult(date.time)) else onFailed()
         }
     }
 
     override suspend fun getScreenshots(
         searchText: String,
         sortType: SortType,
-    ): List<Screenshot> =
+    ): List<File> =
         withContext(Dispatchers.IO) {
             val files = getDirectory().listFiles() ?: emptyArray()
             val filteredFiles =
                 files
                     .filter { file -> file.isFile }
-                    .map { file -> Screenshot(file) }
-                    .filter { (it.file?.name ?: "").startsWith(searchText) }
+                    .filter { file -> file.name.startsWith(searchText) }
             when (sortType) {
                 SortType.SORT_BY_NAME_ASC -> {
-                    filteredFiles.sortedBy { screenshot -> screenshot.file?.name ?: "" }
+                    filteredFiles.sortedBy { file -> file.name }
                 }
 
                 SortType.SORT_BY_NAME_DESC -> {
-                    filteredFiles.sortedByDescending { screenshot -> screenshot.file?.name ?: "" }
+                    filteredFiles.sortedByDescending { file -> file.name }
                 }
             }
         }
 
-    override suspend fun delete(screenshot: Screenshot) {
+    override suspend fun delete(file: File) {
         withContext(Dispatchers.IO) {
-            screenshot.file?.delete()
+            file.delete()
         }
     }
 

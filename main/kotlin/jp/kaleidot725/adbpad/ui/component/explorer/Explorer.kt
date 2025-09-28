@@ -1,20 +1,15 @@
 package jp.kaleidot725.adbpad.ui.component.explorer
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-
-@Composable
-internal fun getBackgrouond(selected: Boolean): Color = if (selected) BottomAppBarDefaults.bottomAppBarFabColor else Color.Transparent
+import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
 
 @Composable
 fun Explorer(
@@ -23,7 +18,6 @@ fun Explorer(
     expandedDirs: List<Directory>,
     onClickArrow: (Directory) -> Unit,
     onClickFile: (File) -> Unit,
-    onClickBookmark: (DataFile) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier) {
@@ -32,13 +26,12 @@ fun Explorer(
                 is DataFile -> {
                     DataFileItem(
                         dataFile = file,
-                        openBookmark = { onClickBookmark.invoke(file) },
                         modifier =
                             Modifier
                                 .fillMaxWidth()
                                 .padding(4.dp)
-                                .background(
-                                    color = getBackgrouond((selectedFile == file)),
+                                .clickableBackground(
+                                    isSelected = selectedFile == file,
                                     shape = RoundedCornerShape(12.dp),
                                 ).clip(shape = RoundedCornerShape(12.dp))
                                 .clickable { onClickFile.invoke(file) }
@@ -54,7 +47,6 @@ fun Explorer(
                         level = 0,
                         onClickFile = onClickFile,
                         onClickArrow = onClickArrow,
-                        onClickBookmark = onClickBookmark,
                     )
                 }
             }

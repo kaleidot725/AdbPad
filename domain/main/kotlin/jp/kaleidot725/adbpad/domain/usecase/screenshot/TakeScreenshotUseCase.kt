@@ -2,8 +2,8 @@ package jp.kaleidot725.adbpad.domain.usecase.screenshot
 
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
-import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
+import java.io.File
 
 class TakeScreenshotUseCase(
     private val screenshotCommandRepository: ScreenshotCommandRepository,
@@ -13,7 +13,7 @@ class TakeScreenshotUseCase(
         command: ScreenshotCommand,
         onStart: suspend () -> Unit,
         onFailed: suspend () -> Unit,
-        onComplete: suspend (Screenshot) -> Unit,
+        onComplete: suspend (File) -> Unit,
     ) {
         screenshotCommandRepository.captureScreenshot(
             device = device,

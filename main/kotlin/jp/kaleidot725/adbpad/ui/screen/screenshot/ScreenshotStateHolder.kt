@@ -4,7 +4,6 @@ import jp.kaleidot725.adbpad.core.mvi.MVIBase
 import jp.kaleidot725.adbpad.core.utils.ClipBoardUtils
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.os.OSContext
-import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
@@ -65,10 +64,11 @@ class ScreenshotStateHolder(
             when (uiAction) {
                 is ScreenshotAction.TakeScreenshot -> takeScreenShot(uiAction.command)
                 ScreenshotAction.OpenDirectory -> openDirectory()
+                ScreenshotAction.OpenPreview -> openPreview()
                 ScreenshotAction.CopyScreenshotToClipboard -> copyScreenShotToClipboard()
                 ScreenshotAction.DeleteScreenshotToClipboard -> deleteScreenShotToClipboard()
-                is ScreenshotAction.DeleteScreenshot -> deleteSpecificScreenshot(uiAction.screenshot)
-                is ScreenshotAction.SelectScreenshot -> selectScreenshot(uiAction.screenshot)
+                is ScreenshotAction.DeleteScreenshot -> deleteSpecificScreenshot(uiAction.file)
+                is ScreenshotAction.SelectScreenshot -> selectScreenshot(uiAction.file)
                 ScreenshotAction.NextScreenshot -> nextScreenshot()
                 ScreenshotAction.PreviousScreenshot -> previousScreenshot()
                 is ScreenshotAction.UpdateSearchText -> updateSearchText(uiAction.text)
@@ -83,7 +83,7 @@ class ScreenshotStateHolder(
         update {
             copy(
                 searchText = searchText,
-                previews = screenshots.filter { it.file?.name?.startsWith(searchText) ?: false },
+                previews = screenshots.filter { it.name.startsWith(searchText) },
             )
         }
     }
@@ -94,7 +94,7 @@ class ScreenshotStateHolder(
             copy(
                 searchText = searchText,
                 sortType = sortType,
-                previews = screenshots.filter { it.file?.name?.startsWith(searchText) ?: false },
+                previews = screenshots.filter { it.name.startsWith(searchText) },
             )
         }
     }
@@ -109,7 +109,7 @@ class ScreenshotStateHolder(
                 update {
                     copy(
                         commands = commands,
-                        preview = Screenshot.EMPTY,
+                        preview = null,
                         isCapturing = true,
                     )
                 }
@@ -119,7 +119,7 @@ class ScreenshotStateHolder(
                 update {
                     copy(
                         commands = commands,
-                        preview = Screenshot.EMPTY,
+                        preview = null,
                         isCapturing = false,
                     )
                 }
@@ -148,18 +148,26 @@ class ScreenshotStateHolder(
         withContext(Dispatchers.IO) { Desktop.getDesktop().open(file) }
     }
 
+    private suspend fun openPreview() {
+        val file = currentState.preview ?: return
+        withContext(Dispatchers.IO) {
+            runCatching { Desktop.getDesktop().open(file) }
+        }
+    }
+
     private fun copyScreenShotToClipboard() {
-        val file = currentState.preview.file ?: return
+        val file = currentState.preview ?: return
         ClipBoardUtils.copyFile(file)
     }
 
     private suspend fun deleteScreenShotToClipboard() {
-        screenshotCommandRepository.delete(currentState.preview)
+        val preview = currentState.preview ?: return
+        screenshotCommandRepository.delete(preview)
         initPreviews()
     }
 
-    private suspend fun deleteSpecificScreenshot(screenshot: Screenshot) {
-        screenshotCommandRepository.delete(screenshot)
+    private suspend fun deleteSpecificScreenshot(file: File) {
+        screenshotCommandRepository.delete(file)
         val screenshots =
             screenshotCommandRepository.getScreenshots(
                 currentState.searchText,
@@ -170,13 +178,13 @@ class ScreenshotStateHolder(
             update {
                 copy(
                     previews = screenshots,
-                    preview = Screenshot(null),
+                    preview = null,
                 )
             }
         } else {
-            val wasSelectedScreenshotDeleted = currentState.preview == screenshot
+            val wasSelectedScreenshotDeleted = currentState.preview == file
             if (wasSelectedScreenshotDeleted) {
-                val newSelectedScreenshot = screenshots.firstOrNull() ?: Screenshot(null)
+                val newSelectedScreenshot = screenshots.firstOrNull()
                 update {
                     copy(
                         previews = screenshots,
@@ -193,9 +201,9 @@ class ScreenshotStateHolder(
         }
     }
 
-    private fun selectScreenshot(screenshot: Screenshot) {
+    private fun selectScreenshot(file: File) {
         update {
-            this.copy(preview = screenshot)
+            this.copy(preview = file)
         }
     }
 
@@ -221,7 +229,7 @@ class ScreenshotStateHolder(
                 currentState.searchText,
                 currentState.sortType,
             )
-        val screenshot = screenshots.firstOrNull() ?: Screenshot(null)
+        val screenshot = screenshots.firstOrNull()
         update {
             this.copy(
                 previews = screenshots,

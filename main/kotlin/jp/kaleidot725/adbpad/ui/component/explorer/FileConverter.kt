@@ -5,8 +5,8 @@ import java.io.File as JavaFile
 fun JavaFile.toExplorerFile(): File {
     if (this.isDirectory) {
         val children = this.listFiles()?.map { it.toExplorerFile() } ?: emptyList()
-        return Directory(name = this.name, list = children)
+        return Directory(id = this.path, name = this.name, list = children)
     } else {
-        return DataFile(name = this.name, url = this.path)
+        return DataFile(id = this.path, name = this.name, url = this.path)
     }
 }
