@@ -2,6 +2,7 @@ name: Create macOS binary
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   desktop-build:

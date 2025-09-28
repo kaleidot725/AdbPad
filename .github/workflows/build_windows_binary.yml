@@ -2,6 +2,7 @@ name: Create windows binary
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   desktop-build:

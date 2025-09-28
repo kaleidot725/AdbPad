@@ -1,0 +1,15 @@
+name: Build Release Binaries
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  mac-binary:
+    uses: ./.github/workflows/build_mac_binary.yml
+    secrets: inherit
+
+  windows-binary:
+    uses: ./.github/workflows/build_windows_binary.yml
+    secrets: inherit
