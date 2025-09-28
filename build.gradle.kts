@@ -14,7 +14,7 @@ plugins {
 }
 
 group = "jp.kaleidot725"
-version = "2.10.0"
+version = "2.11.0"
 
 kotlin {
     jvm()
@@ -68,7 +68,7 @@ compose.desktop {
 
         nativeDistributions {
             packageName = "AdbPad"
-            packageVersion = "2.10.0"
+            packageVersion = "2.11.0"
             description = "Android Debug Bridge GUI Application for easier device management"
             copyright = "© 2025 kaleidot725. All rights reserved."
             vendor = "kaleidot725"
