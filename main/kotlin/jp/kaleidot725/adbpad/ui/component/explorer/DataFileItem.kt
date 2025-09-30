@@ -9,10 +9,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.domain.model.explorer.ExplorerData
 
 @Composable
 internal fun DataFileItem(
-    dataFile: DataFile,
+    dataFile: ExplorerData,
     modifier: Modifier = Modifier,
 ) {
     Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {

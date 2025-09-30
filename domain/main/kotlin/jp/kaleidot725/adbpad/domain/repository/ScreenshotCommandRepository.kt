@@ -2,6 +2,7 @@ package jp.kaleidot725.adbpad.domain.repository
 
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
+import jp.kaleidot725.adbpad.domain.model.explorer.ExplorerDirectory
 import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import java.io.File
 
@@ -20,6 +21,8 @@ interface ScreenshotCommandRepository {
         searchText: String,
         sortType: SortType,
     ): List<File>
+
+    fun getDirectory(): ExplorerDirectory
 
     suspend fun delete(file: File)
 }

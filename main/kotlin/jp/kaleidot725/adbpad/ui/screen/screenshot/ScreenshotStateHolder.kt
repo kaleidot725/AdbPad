@@ -80,21 +80,28 @@ class ScreenshotStateHolder(
 
     private suspend fun updateSearchText(searchText: String) {
         val screenshots = screenshotCommandRepository.getScreenshots(searchText, currentState.sortType)
+        val currentPreview = currentState.preview
+        val newPreview = currentPreview.takeIf { it != null && screenshots.contains(it) } ?: screenshots.firstOrNull()
         update {
             copy(
                 searchText = searchText,
-                previews = screenshots.filter { it.name.startsWith(searchText) },
+                previews = screenshots,
+                preview = newPreview,
             )
         }
     }
 
     private suspend fun updateSortType(sortType: SortType) {
-        val screenshots = screenshotCommandRepository.getScreenshots(currentState.searchText, sortType)
+        val searchText = currentState.searchText
+        val screenshots = screenshotCommandRepository.getScreenshots(searchText, sortType)
+        val currentPreview = currentState.preview
+        val newPreview = currentPreview.takeIf { it != null && screenshots.contains(it) } ?: screenshots.firstOrNull()
         update {
             copy(
                 searchText = searchText,
                 sortType = sortType,
-                previews = screenshots.filter { it.name.startsWith(searchText) },
+                previews = screenshots,
+                preview = newPreview,
             )
         }
     }
@@ -123,14 +130,13 @@ class ScreenshotStateHolder(
                         isCapturing = false,
                     )
                 }
+                initPreviews()
             },
             onComplete = {
                 val commands = getScreenshotCommandUseCase()
-                val screenshots =
-                    screenshotCommandRepository.getScreenshots(
-                        currentState.searchText,
-                        currentState.sortType,
-                    )
+                val searchText = currentState.searchText
+                val sortType = currentState.sortType
+                val screenshots = screenshotCommandRepository.getScreenshots(searchText, sortType)
                 update {
                     copy(
                         commands = commands,
@@ -168,36 +174,15 @@ class ScreenshotStateHolder(
 
     private suspend fun deleteSpecificScreenshot(file: File) {
         screenshotCommandRepository.delete(file)
-        val screenshots =
-            screenshotCommandRepository.getScreenshots(
-                currentState.searchText,
-                currentState.sortType,
+        val searchText = currentState.searchText
+        val sortType = currentState.sortType
+        val screenshots = screenshotCommandRepository.getScreenshots(searchText, sortType)
+        val newPreview = currentState.preview.takeIf { it != null && screenshots.contains(it) } ?: screenshots.firstOrNull()
+        update {
+            copy(
+                previews = screenshots,
+                preview = newPreview,
             )
-
-        if (screenshots.isEmpty()) {
-            update {
-                copy(
-                    previews = screenshots,
-                    preview = null,
-                )
-            }
-        } else {
-            val wasSelectedScreenshotDeleted = currentState.preview == file
-            if (wasSelectedScreenshotDeleted) {
-                val newSelectedScreenshot = screenshots.firstOrNull()
-                update {
-                    copy(
-                        previews = screenshots,
-                        preview = newSelectedScreenshot,
-                    )
-                }
-            } else {
-                update {
-                    copy(
-                        previews = screenshots,
-                    )
-                }
-            }
         }
     }
 
@@ -224,16 +209,14 @@ class ScreenshotStateHolder(
     }
 
     private suspend fun initPreviews() {
-        val screenshots =
-            screenshotCommandRepository.getScreenshots(
-                currentState.searchText,
-                currentState.sortType,
-            )
-        val screenshot = screenshots.firstOrNull()
+        val searchText = currentState.searchText
+        val sortType = currentState.sortType
+        val screenshots = screenshotCommandRepository.getScreenshots(searchText, sortType)
+        val newPreview = currentState.preview.takeIf { it != null && screenshots.contains(it) } ?: screenshots.firstOrNull()
         update {
             this.copy(
                 previews = screenshots,
-                preview = screenshot,
+                preview = newPreview,
             )
         }
     }

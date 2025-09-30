@@ -16,8 +16,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
@@ -37,14 +37,13 @@ import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
+import jp.kaleidot725.adbpad.domain.model.explorer.ExplorerDirectory
+import jp.kaleidot725.adbpad.domain.model.explorer.ExplorerFile
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
-import jp.kaleidot725.adbpad.ui.component.explorer.DataFile as ExplorerDataFile
-import jp.kaleidot725.adbpad.ui.component.explorer.Directory as ExplorerDirectory
 import jp.kaleidot725.adbpad.ui.component.explorer.Explorer
-import jp.kaleidot725.adbpad.ui.component.explorer.File as ExplorerFile
 import jp.kaleidot725.adbpad.ui.component.menu.ThemedContextMenuArea
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotHeader
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotMenu
@@ -57,6 +56,7 @@ import org.jetbrains.compose.splitpane.SplitPaneState
 import org.jetbrains.compose.splitpane.rememberSplitPaneState
 import java.awt.Cursor
 import java.io.File
+import jp.kaleidot725.adbpad.domain.model.explorer.ExplorerData as ExplorerDataFile
 
 fun Modifier.cursorForHorizontalResize(): Modifier = pointerHoverIcon(PointerIcon(Cursor(Cursor.E_RESIZE_CURSOR)))
 
@@ -224,7 +224,8 @@ private fun ScreenshotScreen(
                                     onClickArrow = {},
                                     onClickFile = { file ->
                                         file.asDataFile?.let { dataFile ->
-                                            files.firstOrNull { it.absolutePath == dataFile.url }
+                                            files
+                                                .firstOrNull { it.absolutePath == dataFile.url }
                                                 ?.let(onSelectScreenshot)
                                         }
                                     },
@@ -279,7 +280,6 @@ private fun ScreenshotScreen(
                                 .weight(1.0f)
                                 .fillMaxHeight(),
                     )
-
                 }
             }
 

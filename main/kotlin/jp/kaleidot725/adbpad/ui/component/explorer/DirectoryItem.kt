@@ -21,10 +21,11 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.domain.model.explorer.ExplorerDirectory
 
 @Composable
 internal fun DirectoryItem(
-    directory: Directory,
+    directory: ExplorerDirectory,
     isExpanded: Boolean,
     onExpand: () -> Unit,
     modifier: Modifier = Modifier,
