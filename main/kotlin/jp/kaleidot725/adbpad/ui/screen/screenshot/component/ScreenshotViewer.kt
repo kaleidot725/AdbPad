@@ -42,6 +42,7 @@ fun ScreenshotViewer(
     screenshot: Screenshot,
     isCapturing: Boolean,
     onOpenDirectory: () -> Unit,
+    onEditScreenshot: () -> Unit,
     onCopyScreenshot: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -49,6 +50,8 @@ fun ScreenshotViewer(
         ScreenshotActions(
             enabled = screenshot.file != null,
             onOpen = onOpenDirectory,
+            onEdit = onEditScreenshot,
+            onCopy = onCopyScreenshot,
             modifier = Modifier.height(48.dp).padding(horizontal = 12.dp).align(Alignment.End),
         )
 
@@ -164,6 +167,7 @@ private fun ScreenshotViewer_Preview() {
         screenshot = Screenshot(null),
         isCapturing = false,
         onOpenDirectory = {},
+        onEditScreenshot = {},
         onCopyScreenshot = {},
         modifier = Modifier.fillMaxSize(),
     )
