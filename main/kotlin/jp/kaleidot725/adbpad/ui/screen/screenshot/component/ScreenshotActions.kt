@@ -17,36 +17,66 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.composables.icons.lucide.FolderOpen
+import com.composables.icons.lucide.Copy
+import com.composables.icons.lucide.Folder
+import com.composables.icons.lucide.ImageUp
 import com.composables.icons.lucide.Lucide
 
 @Composable
 fun ScreenshotActions(
     enabled: Boolean,
     onOpen: () -> Unit,
+    onEdit: () -> Unit,
+    onCopy: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(4.dp),
+        verticalAlignment = Alignment.CenterVertically,
         modifier = modifier,
     ) {
-        IconButton(
+        ActionIcon(
             onClick = onOpen,
             enabled = enabled,
-            modifier =
-                Modifier
-                    .padding(vertical = 4.dp)
-                    .size(32.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .align(Alignment.CenterVertically),
-        ) {
-            Icon(
-                imageVector = Lucide.FolderOpen,
-                contentDescription = "copy",
-                modifier = Modifier.height(20.dp),
-            )
-        }
+            image = Lucide.Folder,
+        )
+
+        ActionIcon(
+            onClick = onEdit,
+            enabled = enabled,
+            image = Lucide.ImageUp,
+        )
+
+        ActionIcon(
+            onClick = onCopy,
+            enabled = enabled,
+            image = Lucide.Copy,
+        )
+    }
+}
+
+@Composable
+private fun ActionIcon(
+    onClick: () -> Unit,
+    enabled: Boolean,
+    image: ImageVector,
+) {
+    IconButton(
+        onClick = onClick,
+        enabled = enabled,
+        modifier =
+            Modifier
+                .padding(vertical = 4.dp)
+                .size(32.dp)
+                .clip(RoundedCornerShape(8.dp)),
+    ) {
+        Icon(
+            imageVector = image,
+            contentDescription = null,
+            modifier = Modifier.height(20.dp),
+        )
     }
 }
 
@@ -56,6 +86,8 @@ private fun ScreenshotHeader_Preview() {
     ScreenshotActions(
         enabled = true,
         onOpen = {},
+        onEdit = {},
+        onCopy = {},
         modifier =
             Modifier
                 .fillMaxWidth()

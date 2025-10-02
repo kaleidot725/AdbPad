@@ -60,6 +60,9 @@ fun ScreenshotScreen(
         onOpenDirectory = {
             onAction(ScreenshotAction.OpenDirectory)
         },
+        onEditScreenshot = {
+            onAction(ScreenshotAction.EditScreenshot)
+        },
         onCopyScreenshot = {
             onAction(ScreenshotAction.CopyScreenshotToClipboard)
         },
@@ -106,6 +109,7 @@ private fun ScreenshotScreen(
     searchText: String,
     sortType: SortType,
     onOpenDirectory: () -> Unit,
+    onEditScreenshot: () -> Unit,
     onCopyScreenshot: () -> Unit,
     onDeleteScreenshot: () -> Unit,
     onDeleteSpecificScreenshot: (Screenshot) -> Unit,
@@ -178,6 +182,7 @@ private fun ScreenshotScreen(
                         screenshot = screenshot,
                         isCapturing = isCapturing,
                         onOpenDirectory = onOpenDirectory,
+                        onEditScreenshot = onEditScreenshot,
                         onCopyScreenshot = onCopyScreenshot,
                         modifier =
                             Modifier
@@ -227,6 +232,7 @@ private fun ScreenshotScreen_Preview() {
         searchText = "",
         sortType = SortType.SORT_BY_NAME_ASC,
         onOpenDirectory = {},
+        onEditScreenshot = {},
         onCopyScreenshot = {},
         onDeleteScreenshot = {},
         onDeleteSpecificScreenshot = {},

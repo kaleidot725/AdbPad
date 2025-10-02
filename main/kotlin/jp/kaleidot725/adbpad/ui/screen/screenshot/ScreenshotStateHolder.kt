@@ -67,6 +67,7 @@ class ScreenshotStateHolder(
                 ScreenshotAction.OpenDirectory -> openDirectory()
                 ScreenshotAction.CopyScreenshotToClipboard -> copyScreenShotToClipboard()
                 ScreenshotAction.DeleteScreenshotToClipboard -> deleteScreenShotToClipboard()
+                ScreenshotAction.EditScreenshot -> editScreenshot()
                 is ScreenshotAction.DeleteScreenshot -> deleteSpecificScreenshot(uiAction.screenshot)
                 is ScreenshotAction.SelectScreenshot -> selectScreenshot(uiAction.screenshot)
                 ScreenshotAction.NextScreenshot -> nextScreenshot()
@@ -156,6 +157,15 @@ class ScreenshotStateHolder(
     private suspend fun deleteScreenShotToClipboard() {
         screenshotCommandRepository.delete(currentState.preview)
         initPreviews()
+    }
+
+    private suspend fun editScreenshot() {
+        val file = currentState.preview.file ?: return
+        val desktop = Desktop.getDesktop()
+        when {
+            desktop.isSupported(Desktop.Action.EDIT) -> desktop.edit(file)
+            desktop.isSupported(Desktop.Action.OPEN) -> desktop.open(file)
+        }
     }
 
     private suspend fun deleteSpecificScreenshot(screenshot: Screenshot) {
