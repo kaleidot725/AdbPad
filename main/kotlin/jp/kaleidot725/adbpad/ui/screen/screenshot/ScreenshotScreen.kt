@@ -11,8 +11,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -129,25 +129,45 @@ private fun ScreenshotScreen(
                     .weight(1.0f),
         ) {
             first(minSize = 350.dp) {
-                Column {
-                    ScreenshotHeader(
-                        searchText = searchText,
-                        sortType = sortType,
-                        onUpdateSortType = onUpdateSortType,
-                        onUpdateSearchText = onUpdateSearchText,
-                        modifier = Modifier,
-                    )
-
-                    Divider(modifier = Modifier.height(1.dp).fillMaxWidth().defaultBorder())
-
-                    ScreenshotExplorer(
-                        selectedScreenshot = screenshot,
-                        screenshots = screenshots,
-                        onSelectScreenShot = onSelectScreenshot,
-                        onDeleteScreenshot = onDeleteSpecificScreenshot,
-                        onNextScreenshot = onNextScreenshot,
-                        onPreviousScreenshot = onPreviousScreenshot,
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Column(
                         modifier = Modifier.fillMaxSize(),
+                    ) {
+                        ScreenshotHeader(
+                            searchText = searchText,
+                            sortType = sortType,
+                            onUpdateSortType = onUpdateSortType,
+                            onUpdateSearchText = onUpdateSearchText,
+                            modifier = Modifier,
+                        )
+
+                        Divider(modifier = Modifier.height(1.dp).fillMaxWidth().defaultBorder())
+
+                        ScreenshotExplorer(
+                            selectedScreenshot = screenshot,
+                            screenshots = screenshots,
+                            onSelectScreenShot = onSelectScreenshot,
+                            onDeleteScreenshot = onDeleteSpecificScreenshot,
+                            onNextScreenshot = onNextScreenshot,
+                            onPreviousScreenshot = onPreviousScreenshot,
+                            modifier =
+                                Modifier
+                                    .weight(1.0f)
+                                    .fillMaxWidth(),
+                        )
+                    }
+
+                    ScreenshotMenu(
+                        selectedCommand = selectCommand,
+                        onSelectCommand = onSelectCommand,
+                        commands = commands,
+                        canCapture = canCapture,
+                        isCapturing = isCapturing,
+                        onTakeScreenshot = onTakeScreenshot,
+                        modifier =
+                            Modifier
+                                .align(Alignment.BottomEnd)
+                                .padding(16.dp),
                     )
                 }
             }
@@ -163,16 +183,6 @@ private fun ScreenshotScreen(
                             Modifier
                                 .weight(1.0f)
                                 .fillMaxHeight(),
-                    )
-
-                    ScreenshotMenu(
-                        selectedCommand = selectCommand,
-                        onSelectCommand = onSelectCommand,
-                        commands = commands,
-                        canCapture = canCapture,
-                        isCapturing = isCapturing,
-                        onTakeScreenshot = onTakeScreenshot,
-                        modifier = Modifier.wrapContentSize().align(Alignment.End),
                     )
                 }
             }
