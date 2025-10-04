@@ -91,6 +91,15 @@ compose.desktop {
                 bundleID = "jp.kaleidot725.adbpad"
                 iconFile.set(project.file("icon.icns"))
                 entitlementsFile.set(project.file("default.entitlements"))
+                signing {
+                    sign.set(true)
+                    val identityValue = System.getenv("APPLE_CODESIGN_IDENTITY")?.takeIf { it.isNotBlank() } ?: "-"
+                    identity.set(identityValue)
+
+                    System.getenv("APPLE_CODESIGN_KEYCHAIN")
+                        ?.takeIf { it.isNotBlank() }
+                        ?.let { keychain.set(it) }
+                }
             }
 
             windows {
