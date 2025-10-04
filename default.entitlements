@@ -14,5 +14,10 @@
     <true/>
     <key>com.apple.security.inherit</key>
     <true/>
+    <key>com.apple.security.temporary-exception.mach-lookup</key>
+    <array>
+        <string>com.apple.pasteboard.pboard</string>
+        <string>com.apple.cfpasteboard.client</string>
+    </array>
 </dict>
 </plist>
