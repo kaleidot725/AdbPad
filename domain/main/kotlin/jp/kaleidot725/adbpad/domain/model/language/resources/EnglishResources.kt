@@ -145,6 +145,7 @@ object EnglishResources : StringResources {
     override val tooltipFile: String = "File"
     override val tooltipSetting: String = "Setting"
     override val tooltipScrcpy: String = "Launch Scrcpy"
+    override val tooltipNewDisplay: String = "Virtual display"
 
     // MenuBar Window menu
     override val menuWindow: String = "Window"
@@ -204,4 +205,21 @@ object EnglishResources : StringResources {
     // Device Setting Categories
     override val categoryDevice: String = "Device"
     override val categoryScrcpy: String = "Scrcpy"
+
+    override val scrcpyNewDisplayProfiles: String = "Preset profiles"
+    override val scrcpyNewDisplayOverview: String =
+        "Launch scrcpy with a virtual display that matches the selected device profile."
+    override val scrcpyNewDisplayResolution: String = "Resolution"
+    override val scrcpyNewDisplayDensity: String = "Pixel density"
+    override val scrcpyNewDisplayDensityUnknown: String = "Unknown"
+    override val scrcpyNewDisplayRefresh: String = "Refresh rate"
+    override val scrcpyNewDisplayRefreshUnknown: String = "Unknown"
+    override val scrcpyNewDisplayPanel: String = "Panel"
+    override val scrcpyNewDisplayNoDevice: String = "Select a device from the toolbar to run the virtual display."
+    override val scrcpyNewDisplayLaunchSuccess: String = "Started scrcpy with the virtual display."
+    override val scrcpyNewDisplayLaunchFailure: String =
+        "Failed to launch scrcpy. Check the scrcpy path and device connection."
+    override val scrcpyNewDisplayEmpty: String = "No profiles available."
+    override val scrcpyNewDisplayTitleFormat: String = "%s virtual display"
+    override val scrcpyNewDisplayTargetDeviceFormat: String = "Target device: %s"
 }

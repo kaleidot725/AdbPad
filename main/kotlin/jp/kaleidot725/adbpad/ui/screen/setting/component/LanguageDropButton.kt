@@ -52,6 +52,7 @@ fun LanguageDropButton(
         ) {
             Text(
                 text = selectedLanguage.title(),
+                style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.align(Alignment.CenterVertically).weight(1.0f),
             )
 
@@ -82,7 +83,7 @@ fun LanguageDropButton(
                     text = {
                         Text(
                             text = language.title(),
-                            style = MaterialTheme.typography.titleSmall,
+                            style = MaterialTheme.typography.bodySmall,
                         )
                     },
                     onClick = {

@@ -10,8 +10,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun DefaultOutlineTextField(
@@ -26,16 +24,17 @@ fun DefaultOutlineTextField(
     modifier: Modifier = Modifier,
 ) {
     var localText by remember(id) { mutableStateOf(initialText) }
+    val textStyle = MaterialTheme.typography.bodySmall
     OutlinedTextField(
-        label = { Text(label) },
-        placeholder = { Text(placeHolder) },
+        label = { Text(label, style = textStyle) },
+        placeholder = { Text(placeHolder, style = textStyle) },
         value = localText,
         onValueChange = {
             localText = it
             onUpdateText(it)
         },
         maxLines = maxLines,
-        textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface, fontSize = 16.sp),
+        textStyle = textStyle.copy(color = MaterialTheme.colorScheme.onSurface),
         isError = isError,
         enabled = enabled,
         modifier = modifier,

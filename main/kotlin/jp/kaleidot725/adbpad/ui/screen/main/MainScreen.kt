@@ -37,6 +37,8 @@ import jp.kaleidot725.adbpad.ui.screen.main.state.MainAction
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainCategory
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainDialog
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainState
+import jp.kaleidot725.adbpad.ui.screen.newdisplay.ScrcpyNewDisplayScreen
+import jp.kaleidot725.adbpad.ui.screen.newdisplay.ScrcpyNewDisplayStateHolder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
@@ -46,8 +48,8 @@ import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
 import jp.kaleidot725.adbpad.ui.section.right.RightSection
 import jp.kaleidot725.adbpad.ui.section.right.RightStateHolder
-import jp.kaleidot725.adbpad.ui.section.top.TopSection
 import jp.kaleidot725.adbpad.ui.section.top.TopStateHolder
+import jp.kaleidot725.adbpad.ui.section.top.state.TopAction
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
 import org.jetbrains.compose.splitpane.rememberSplitPaneState
 
@@ -212,6 +214,7 @@ fun MainScreen(
                 commandStateHolder = mainStateHolder.commandStateHolder,
                 textCommandStateHolder = mainStateHolder.textCommandStateHolder,
                 screenshotStateHolder = mainStateHolder.screenshotStateHolder,
+                scrcpyNewDisplayStateHolder = mainStateHolder.scrcpyNewDisplayStateHolder,
                 topStateHolder = mainStateHolder.topStateHolder,
                 rightStateHolder = mainStateHolder.rightStateHolder,
                 deviceSettingsStateHolder = mainStateHolder.deviceSettingsStateHolder,
@@ -230,6 +233,7 @@ private fun App(
     commandStateHolder: CommandStateHolder,
     textCommandStateHolder: TextCommandStateHolder,
     screenshotStateHolder: ScreenshotStateHolder,
+    scrcpyNewDisplayStateHolder: ScrcpyNewDisplayStateHolder,
     topStateHolder: TopStateHolder,
     rightStateHolder: RightStateHolder,
     deviceSettingsStateHolder: DeviceSettingsStateHolder,
@@ -242,21 +246,18 @@ private fun App(
         Surface {
             ScreenLayout(
                 navigationRail = {
-                    NavigationRail(
-                        category = state.category,
-                        onSelectCategory = { onMainAction(MainAction.ClickCategory(it)) },
-                    )
-                },
-                top = {
                     MVIChildContent(
                         mvi = topStateHolder,
-                        content = { state, onAction ->
-                            TopSection(
-                                state = state,
-                                onAction = onAction,
-                                onMainRefresh = onMainRefresh,
-                                onMainOpenDeviceSettings = { device -> onMainAction(MainAction.OpenDeviceSettings(device)) },
-                                onMainOpenSetting = { onMainAction(MainAction.OpenSetting) },
+                        content = { topState, onTopAction ->
+                            NavigationRail(
+                                category = state.category,
+                                onSelectCategory = { onMainAction(MainAction.ClickCategory(it)) },
+                                onOpenSetting = { onMainAction(MainAction.OpenSetting) },
+                                devices = topState.devices,
+                                selectedDevice = topState.selectedDevice,
+                                onSelectDevice = { device -> onTopAction(TopAction.SelectDevice(device)) },
+                                onOpenDeviceSettings = { device -> onMainAction(MainAction.OpenDeviceSettings(device)) },
+                                onRefreshDevices = onMainRefresh,
                                 onLaunchScrcpy = {
                                     rightStateHolder.onAction(
                                         jp.kaleidot725.adbpad.ui.section.right.state.RightAction.LaunchScrcpy,
@@ -301,6 +302,18 @@ private fun App(
                                         state = state,
                                         onAction = onAction,
                                         screenshotSplitPaneState = screenshotSplitPaneState,
+                                    )
+                                },
+                            )
+                        }
+
+                        MainCategory.ScrcpyNewDisplay -> {
+                            MVIChildContent(
+                                mvi = scrcpyNewDisplayStateHolder,
+                                content = { state, onAction ->
+                                    ScrcpyNewDisplayScreen(
+                                        state = state,
+                                        onAction = onAction,
                                     )
                                 },
                             )

@@ -10,11 +10,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun RunningIndicator(color: Color = MaterialTheme.colorScheme.onPrimary) {
+fun RunningIndicator(
+    color: Color = MaterialTheme.colorScheme.onPrimary,
+    modifier: Modifier = Modifier,
+) {
     CircularProgressIndicator(
         color = color,
         strokeWidth = 2.dp,
-        modifier = Modifier.size(20.dp),
+        modifier = modifier.size(20.dp),
     )
 }
 

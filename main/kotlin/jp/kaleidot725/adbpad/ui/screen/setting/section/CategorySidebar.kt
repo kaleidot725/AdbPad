@@ -38,7 +38,7 @@ fun CategorySidebar(
                 .width(200.dp)
                 .fillMaxHeight()
                 .background(MaterialTheme.colorScheme.surfaceVariant)
-                .padding(16.dp),
+                .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         categories.forEach { category ->
@@ -79,7 +79,7 @@ private fun CategoryItem(
                 .clip(RoundedCornerShape(8.dp))
                 .background(backgroundColor)
                 .clickable { onClick() }
-                .padding(horizontal = 16.dp, vertical = 12.dp),
+                .padding(horizontal = 12.dp, vertical = 8.dp),
         verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
     ) {
         Icon(
@@ -96,6 +96,7 @@ private fun CategoryItem(
         Text(
             text = category.displayName,
             color = textColor,
+            style = MaterialTheme.typography.bodySmall,
             fontWeight = if (isSelected) FontWeight.Medium else FontWeight.Normal,
         )
     }

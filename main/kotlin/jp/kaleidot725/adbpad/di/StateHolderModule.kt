@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.di
 import jp.kaleidot725.adbpad.ui.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.device.DeviceSettingsStateHolder
 import jp.kaleidot725.adbpad.ui.screen.main.MainStateHolder
+import jp.kaleidot725.adbpad.ui.screen.newdisplay.ScrcpyNewDisplayStateHolder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
@@ -35,6 +36,14 @@ val stateHolderModule =
                 getScreenshotCommandUseCase = get(),
                 getSelectedDeviceFlowUseCase = get(),
                 screenshotCommandRepository = get(),
+            )
+        }
+
+        factory {
+            ScrcpyNewDisplayStateHolder(
+                getSelectedDeviceFlowUseCase = get(),
+                getScrcpyNewDisplayProfilesUseCase = get(),
+                launchScrcpyNewDisplayUseCase = get(),
             )
         }
 
@@ -84,6 +93,7 @@ val stateHolderModule =
                 commandStateHolder = get(),
                 textCommandStateHolder = get(),
                 screenshotStateHolder = get(),
+                scrcpyNewDisplayStateHolder = get(),
                 getWindowSizeUseCase = get(),
                 saveWindowSizeUseCase = get(),
                 startAdbUseCase = get(),

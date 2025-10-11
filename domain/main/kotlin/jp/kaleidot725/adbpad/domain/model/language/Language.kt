@@ -270,6 +270,8 @@ object Language : StringResources {
         get() = getCurrentResources().tooltipSetting
     override val tooltipScrcpy: String
         get() = getCurrentResources().tooltipScrcpy
+    override val tooltipNewDisplay: String
+        get() = getCurrentResources().tooltipNewDisplay
 
     // MenuBar Window menu
     override val menuWindow: String
@@ -375,6 +377,41 @@ object Language : StringResources {
         get() = getCurrentResources().categoryDevice
     override val categoryScrcpy: String
         get() = getCurrentResources().categoryScrcpy
+
+    override val scrcpyNewDisplayProfiles: String
+        get() = getCurrentResources().scrcpyNewDisplayProfiles
+    override val scrcpyNewDisplayOverview: String
+        get() = getCurrentResources().scrcpyNewDisplayOverview
+    override val scrcpyNewDisplayResolution: String
+        get() = getCurrentResources().scrcpyNewDisplayResolution
+    override val scrcpyNewDisplayDensity: String
+        get() = getCurrentResources().scrcpyNewDisplayDensity
+    override val scrcpyNewDisplayDensityUnknown: String
+        get() = getCurrentResources().scrcpyNewDisplayDensityUnknown
+    override val scrcpyNewDisplayRefresh: String
+        get() = getCurrentResources().scrcpyNewDisplayRefresh
+    override val scrcpyNewDisplayRefreshUnknown: String
+        get() = getCurrentResources().scrcpyNewDisplayRefreshUnknown
+    override val scrcpyNewDisplayPanel: String
+        get() = getCurrentResources().scrcpyNewDisplayPanel
+    override val scrcpyNewDisplayNoDevice: String
+        get() = getCurrentResources().scrcpyNewDisplayNoDevice
+    override val scrcpyNewDisplayLaunchSuccess: String
+        get() = getCurrentResources().scrcpyNewDisplayLaunchSuccess
+    override val scrcpyNewDisplayLaunchFailure: String
+        get() = getCurrentResources().scrcpyNewDisplayLaunchFailure
+    override val scrcpyNewDisplayEmpty: String
+        get() = getCurrentResources().scrcpyNewDisplayEmpty
+    override val scrcpyNewDisplayTitleFormat: String
+        get() = getCurrentResources().scrcpyNewDisplayTitleFormat
+    override val scrcpyNewDisplayTargetDeviceFormat: String
+        get() = getCurrentResources().scrcpyNewDisplayTargetDeviceFormat
+
+    fun scrcpyNewDisplayTitle(name: String): String =
+        String.format(scrcpyNewDisplayTitleFormat, name)
+
+    fun scrcpyNewDisplayTargetDevice(name: String): String =
+        String.format(scrcpyNewDisplayTargetDeviceFormat, name)
 
     private var currentType: Type = Type.ENGLISH
 

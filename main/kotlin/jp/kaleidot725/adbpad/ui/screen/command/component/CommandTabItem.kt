@@ -2,14 +2,15 @@ package jp.kaleidot725.adbpad.ui.screen.command.component
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,31 +34,36 @@ fun CommandTabItem(
 ) {
     Box(
         modifier
-            .widthIn(min = 200.dp)
-            .heightIn(min = 32.dp)
+            .widthIn(min = 160.dp)
             .clickableBackground(isSelected = isSelected, shape = RoundedCornerShape(8.dp))
             .clip(RoundedCornerShape(8.dp))
-            .clickable(onClick = onClick),
+            .clickable(onClick = onClick)
+            .padding(vertical = 8.dp, horizontal = 12.dp),
     ) {
-        Box(
-            modifier =
-                Modifier
-                    .padding(start = 12.dp)
-                    .align(Alignment.CenterStart),
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.align(Alignment.Center),
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                modifier = Modifier.size(20.dp),
+                modifier = Modifier.size(18.dp),
+            )
+
+            val textStyle =
+                if (isSelected) {
+                    MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium)
+                } else {
+                    MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Normal)
+                }
+
+            Text(
+                text = title,
+                textAlign = TextAlign.Center,
+                style = textStyle,
             )
         }
-
-        Text(
-            text = title,
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.align(Alignment.Center).padding(bottom = 4.dp),
-        )
     }
 }
 

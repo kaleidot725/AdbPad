@@ -70,6 +70,7 @@ fun AccentColorDropButton(
 
                 Text(
                     text = selectedAccentColor.getTitle(),
+                    style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.align(Alignment.CenterVertically),
                 )
             }
@@ -113,7 +114,7 @@ fun AccentColorDropButton(
 
                             Text(
                                 text = accentColor.getTitle(),
-                                style = MaterialTheme.typography.titleSmall,
+                                style = MaterialTheme.typography.bodySmall,
                                 modifier = Modifier.align(Alignment.CenterVertically),
                             )
                         }

@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,6 +27,7 @@ import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Plus
@@ -91,7 +93,11 @@ fun TextCommandList(
                                     .padding(horizontal = 12.dp, vertical = 4.dp),
                             horizontalArrangement = Arrangement.spacedBy(4.dp),
                         ) {
-                            Text(text = command.title.ifEmpty { Language.textCommandUnTitle })
+                            Text(
+                                text = command.title.ifEmpty { Language.textCommandUnTitle },
+                                style = MaterialTheme.typography.titleSmall,
+                                fontWeight = if (selectedCommand?.id == command.id) FontWeight.SemiBold else FontWeight.Normal,
+                            )
                         }
                     }
                 }

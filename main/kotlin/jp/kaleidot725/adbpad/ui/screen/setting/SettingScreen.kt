@@ -2,14 +2,17 @@ package jp.kaleidot725.adbpad.ui.screen.setting
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -19,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.ui.component.button.FloatingDialog
+import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.screen.setting.model.SettingCategory
 import jp.kaleidot725.adbpad.ui.screen.setting.section.AppearanceSettingsPane
 import jp.kaleidot725.adbpad.ui.screen.setting.section.CategorySidebar
@@ -46,15 +50,28 @@ fun SettingScreen(
             return@FloatingDialog
         }
 
-        Box(modifier = Modifier.fillMaxSize()) {
-            Row(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = 12.dp),
+        ) {
+            Text(
+                text = Language.setting,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(bottom = 16.dp),
+            )
+
+            Row(
+                modifier = Modifier.weight(1f, true).fillMaxWidth(),
+            ) {
                 CategorySidebar(
                     categories = SettingCategory.entries,
                     selectedCategory = state.selectedCategory,
                     onCategorySelected = { onAction(SettingAction.SelectCategory(it)) },
                 )
 
-                VerticalDivider()
+                VerticalDivider(
+                    thickness = 1.dp,
+                    color = UserColor.getSplitterColor(),
+                )
 
                 when (state.selectedCategory) {
                     SettingCategory.APPEARANCE -> {
@@ -88,8 +105,8 @@ fun SettingScreen(
             }
 
             Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp, alignment = Alignment.End),
+                modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
             ) {
                 Button(
                     onClick = onMainRefresh,
@@ -97,6 +114,7 @@ fun SettingScreen(
                 ) {
                     Text(
                         text = Language.cancel,
+                        style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.width(100.dp),
                         textAlign = TextAlign.Center,
                     )
@@ -116,6 +134,7 @@ fun SettingScreen(
                     } else {
                         Text(
                             text = Language.save,
+                            style = MaterialTheme.typography.bodySmall,
                             modifier = Modifier.width(100.dp),
                             textAlign = TextAlign.Center,
                         )
