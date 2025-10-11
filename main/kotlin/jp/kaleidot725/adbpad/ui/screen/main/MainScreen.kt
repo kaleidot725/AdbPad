@@ -37,6 +37,8 @@ import jp.kaleidot725.adbpad.ui.screen.main.state.MainAction
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainCategory
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainDialog
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainState
+import jp.kaleidot725.adbpad.ui.screen.newdisplay.ScrcpyNewDisplayScreen
+import jp.kaleidot725.adbpad.ui.screen.newdisplay.ScrcpyNewDisplayStateHolder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotScreen
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingScreen
@@ -212,6 +214,7 @@ fun MainScreen(
                 commandStateHolder = mainStateHolder.commandStateHolder,
                 textCommandStateHolder = mainStateHolder.textCommandStateHolder,
                 screenshotStateHolder = mainStateHolder.screenshotStateHolder,
+                scrcpyNewDisplayStateHolder = mainStateHolder.scrcpyNewDisplayStateHolder,
                 topStateHolder = mainStateHolder.topStateHolder,
                 rightStateHolder = mainStateHolder.rightStateHolder,
                 deviceSettingsStateHolder = mainStateHolder.deviceSettingsStateHolder,
@@ -230,6 +233,7 @@ private fun App(
     commandStateHolder: CommandStateHolder,
     textCommandStateHolder: TextCommandStateHolder,
     screenshotStateHolder: ScreenshotStateHolder,
+    scrcpyNewDisplayStateHolder: ScrcpyNewDisplayStateHolder,
     topStateHolder: TopStateHolder,
     rightStateHolder: RightStateHolder,
     deviceSettingsStateHolder: DeviceSettingsStateHolder,
@@ -301,6 +305,18 @@ private fun App(
                                         state = state,
                                         onAction = onAction,
                                         screenshotSplitPaneState = screenshotSplitPaneState,
+                                    )
+                                },
+                            )
+                        }
+
+                        MainCategory.ScrcpyNewDisplay -> {
+                            MVIChildContent(
+                                mvi = scrcpyNewDisplayStateHolder,
+                                content = { state, onAction ->
+                                    ScrcpyNewDisplayScreen(
+                                        state = state,
+                                        onAction = onAction,
                                     )
                                 },
                             )

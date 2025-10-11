@@ -12,6 +12,7 @@ import com.composables.icons.lucide.Camera
 import com.composables.icons.lucide.ChevronsRight
 import com.composables.icons.lucide.File
 import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.MonitorSmartphone
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainCategory
 
@@ -43,6 +44,14 @@ fun NavigationRail(
             contentDescription = "screenshot menu",
             isSelected = category == MainCategory.Screenshot,
             onClick = { onSelectCategory(MainCategory.Screenshot) },
+        )
+
+        NavigationRailItem(
+            label = Language.tooltipNewDisplay,
+            icon = Lucide.MonitorSmartphone,
+            contentDescription = "virtual display menu",
+            isSelected = category == MainCategory.ScrcpyNewDisplay,
+            onClick = { onSelectCategory(MainCategory.ScrcpyNewDisplay) },
         )
 
         if (false) {

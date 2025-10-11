@@ -22,6 +22,7 @@ import jp.kaleidot725.adbpad.ui.screen.main.state.MainCategory
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainDialog
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainSideEffect
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainState
+import jp.kaleidot725.adbpad.ui.screen.newdisplay.ScrcpyNewDisplayStateHolder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
@@ -35,6 +36,7 @@ class MainStateHolder(
     val commandStateHolder: CommandStateHolder,
     val textCommandStateHolder: TextCommandStateHolder,
     val screenshotStateHolder: ScreenshotStateHolder,
+    val scrcpyNewDisplayStateHolder: ScrcpyNewDisplayStateHolder,
     val topStateHolder: TopStateHolder,
     val rightStateHolder: RightStateHolder,
     val deviceSettingsStateHolder: DeviceSettingsStateHolder,
@@ -53,6 +55,7 @@ class MainStateHolder(
             commandStateHolder,
             textCommandStateHolder,
             screenshotStateHolder,
+            scrcpyNewDisplayStateHolder,
             topStateHolder,
             rightStateHolder,
         )

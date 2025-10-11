@@ -32,7 +32,7 @@ fun DefaultTextField(
             Text(
                 text = placeHolder,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.align(Alignment.CenterStart),
             )
         }
@@ -44,7 +44,7 @@ fun DefaultTextField(
                 onUpdateText(it)
             },
             maxLines = maxLines,
-            textStyle = TextStyle(color = MaterialTheme.colorScheme.onSurface, fontSize = 16.sp),
+            textStyle = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurface),
             cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurface),
             modifier = Modifier.align(Alignment.CenterStart),
         )

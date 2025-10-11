@@ -141,6 +141,7 @@ interface StringResources {
     val tooltipFile: String
     val tooltipSetting: String
     val tooltipScrcpy: String
+    val tooltipNewDisplay: String
 
     // MenuBar Window menu
     val menuWindow: String
@@ -200,4 +201,20 @@ interface StringResources {
     // Device Setting Categories
     val categoryDevice: String
     val categoryScrcpy: String
+
+    // Scrcpy New Display Screen
+    val scrcpyNewDisplayProfiles: String
+    val scrcpyNewDisplayOverview: String
+    val scrcpyNewDisplayResolution: String
+    val scrcpyNewDisplayDensity: String
+    val scrcpyNewDisplayDensityUnknown: String
+    val scrcpyNewDisplayRefresh: String
+    val scrcpyNewDisplayRefreshUnknown: String
+    val scrcpyNewDisplayPanel: String
+    val scrcpyNewDisplayNoDevice: String
+    val scrcpyNewDisplayLaunchSuccess: String
+    val scrcpyNewDisplayLaunchFailure: String
+    val scrcpyNewDisplayEmpty: String
+    val scrcpyNewDisplayTitleFormat: String
+    val scrcpyNewDisplayTargetDeviceFormat: String
 }
