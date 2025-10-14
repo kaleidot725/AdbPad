@@ -1,5 +1,6 @@
 package jp.kaleidot725.adbpad.ui.component.rail
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.TooltipArea
@@ -23,11 +24,18 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.composables.icons.lucide.Camera
@@ -35,6 +43,7 @@ import com.composables.icons.lucide.ChevronsRight
 import com.composables.icons.lucide.File
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.MonitorSmartphone
+import com.composables.icons.lucide.RefreshCcw
 import com.composables.icons.lucide.ScreenShare
 import com.composables.icons.lucide.Settings
 import com.composables.icons.lucide.Settings2
@@ -59,7 +68,7 @@ fun NavigationRail(
     onLaunchScrcpy: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.fillMaxHeight().padding(8.dp).width(220.dp),
+        modifier = Modifier.fillMaxHeight().padding(8.dp).width(260.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Row(
@@ -71,8 +80,6 @@ fun NavigationRail(
                 devices = devices,
                 selectedDevice = selectedDevice,
                 onSelectDevice = onSelectDevice,
-                onOpenDeviceSettings = onOpenDeviceSettings,
-                onRefresh = onRefreshDevices,
                 modifier = Modifier.weight(1f),
             )
 
@@ -89,6 +96,13 @@ fun NavigationRail(
                     selectedDevice?.let { onOpenDeviceSettings(it) }
                 },
                 enabled = selectedDevice != null,
+            )
+
+            NavigationRailIconButton(
+                tooltip = Language.tooltipRefresh,
+                icon = Lucide.RefreshCcw,
+                onClick = onRefreshDevices,
+                rotateOnPress = true,
             )
         }
 
@@ -138,15 +152,18 @@ fun NavigationRail(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
 @Composable
 private fun NavigationRailIconButton(
     tooltip: String,
     icon: ImageVector,
     onClick: () -> Unit,
     enabled: Boolean = true,
+    rotateOnPress: Boolean = false,
 ) {
     val backgroundShape = remember { RoundedCornerShape(8.dp) }
+    var isPressed by remember { mutableStateOf(false) }
+    val rotation by animateFloatAsState(if (rotateOnPress && isPressed) -90f else 0f)
     TooltipArea(
         delayMillis = 300,
         tooltip = {
@@ -172,13 +189,17 @@ private fun NavigationRailIconButton(
                 Modifier
                     .clip(backgroundShape)
                     .clickableBackground(isSelected = false, shape = backgroundShape)
-                    .clickable(enabled = enabled, onClick = onClick)
-                    .padding(8.dp),
+                    .onPointerEvent(PointerEventType.Press) { if (rotateOnPress) isPressed = true }
+                    .onPointerEvent(PointerEventType.Release) { if (rotateOnPress) isPressed = false }
+                    .clickable(enabled = enabled) {
+                        if (rotateOnPress) isPressed = false
+                        onClick()
+                    }.padding(8.dp),
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = tooltip,
-                modifier = Modifier.size(20.dp),
+                modifier = Modifier.size(16.dp).graphicsLayer(rotationZ = rotation),
                 tint = if (enabled) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
             )
         }

@@ -50,7 +50,7 @@ fun NavigationRailItem(
             Icon(
                 imageVector = icon,
                 contentDescription = contentDescription,
-                modifier = Modifier.size(18.dp),
+                modifier = Modifier.size(16.dp),
             )
 
             val textStyle =
