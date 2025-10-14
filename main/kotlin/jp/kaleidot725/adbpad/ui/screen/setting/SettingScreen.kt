@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -19,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.ui.component.button.FloatingDialog
+import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.screen.setting.model.SettingCategory
 import jp.kaleidot725.adbpad.ui.screen.setting.section.AppearanceSettingsPane
 import jp.kaleidot725.adbpad.ui.screen.setting.section.CategorySidebar
@@ -54,7 +56,10 @@ fun SettingScreen(
                     onCategorySelected = { onAction(SettingAction.SelectCategory(it)) },
                 )
 
-                VerticalDivider()
+                VerticalDivider(
+                    thickness = 1.dp,
+                    color = UserColor.getSplitterColor(),
+                )
 
                 when (state.selectedCategory) {
                     SettingCategory.APPEARANCE -> {
@@ -97,6 +102,7 @@ fun SettingScreen(
                 ) {
                     Text(
                         text = Language.cancel,
+                        style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.width(100.dp),
                         textAlign = TextAlign.Center,
                     )
@@ -116,6 +122,7 @@ fun SettingScreen(
                     } else {
                         Text(
                             text = Language.save,
+                            style = MaterialTheme.typography.bodySmall,
                             modifier = Modifier.width(100.dp),
                             textAlign = TextAlign.Center,
                         )

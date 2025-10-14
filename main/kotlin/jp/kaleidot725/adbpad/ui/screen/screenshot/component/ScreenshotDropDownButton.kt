@@ -101,29 +101,10 @@ fun ScreenshotDropDownButton(
             commands.forEach { command ->
                 DropdownMenuItem(
                     text = {
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Box(
-                                modifier =
-                                    Modifier
-                                        .padding(top = 8.dp)
-                                        .size(20.dp)
-                                        .align(Alignment.CenterVertically),
-                            ) {
-                                if (command == selectedCommand) {
-                                    Icon(
-                                        imageVector = Lucide.Check,
-                                        contentDescription = "",
-                                        modifier = Modifier.align(Alignment.Center),
-                                    )
-                                }
-                            }
-
-                            Text(
-                                text = command.title,
-                                style = MaterialTheme.typography.titleSmall,
-                                modifier = Modifier.align(Alignment.CenterVertically),
-                            )
-                        }
+                        Text(
+                            text = command.title,
+                            style = MaterialTheme.typography.titleSmall,
+                        )
                     },
                     onClick = {
                         onSelectCommand(command)

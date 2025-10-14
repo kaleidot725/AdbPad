@@ -91,7 +91,7 @@ fun DropDownDeviceMenu(
             ) {
                 Text(
                     text = "Devices",
-                    style = MaterialTheme.typography.titleSmall,
+                    style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
                 )
 
@@ -109,7 +109,7 @@ fun DropDownDeviceMenu(
                         Text(
                             text = device.displayName,
                             color = MaterialTheme.colorScheme.onBackground,
-                            style = MaterialTheme.typography.titleSmall,
+                            style = MaterialTheme.typography.bodySmall,
                             modifier = Modifier.padding(horizontal = 4.dp),
                         )
                     },

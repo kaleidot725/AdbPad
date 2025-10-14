@@ -48,8 +48,8 @@ import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
 import jp.kaleidot725.adbpad.ui.section.right.RightSection
 import jp.kaleidot725.adbpad.ui.section.right.RightStateHolder
-import jp.kaleidot725.adbpad.ui.section.top.TopSection
 import jp.kaleidot725.adbpad.ui.section.top.TopStateHolder
+import jp.kaleidot725.adbpad.ui.section.top.state.TopAction
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
 import org.jetbrains.compose.splitpane.rememberSplitPaneState
 
@@ -246,21 +246,18 @@ private fun App(
         Surface {
             ScreenLayout(
                 navigationRail = {
-                    NavigationRail(
-                        category = state.category,
-                        onSelectCategory = { onMainAction(MainAction.ClickCategory(it)) },
-                    )
-                },
-                top = {
                     MVIChildContent(
                         mvi = topStateHolder,
-                        content = { state, onAction ->
-                            TopSection(
-                                state = state,
-                                onAction = onAction,
-                                onMainRefresh = onMainRefresh,
-                                onMainOpenDeviceSettings = { device -> onMainAction(MainAction.OpenDeviceSettings(device)) },
-                                onMainOpenSetting = { onMainAction(MainAction.OpenSetting) },
+                        content = { topState, onTopAction ->
+                            NavigationRail(
+                                category = state.category,
+                                onSelectCategory = { onMainAction(MainAction.ClickCategory(it)) },
+                                onOpenSetting = { onMainAction(MainAction.OpenSetting) },
+                                devices = topState.devices,
+                                selectedDevice = topState.selectedDevice,
+                                onSelectDevice = { device -> onTopAction(TopAction.SelectDevice(device)) },
+                                onOpenDeviceSettings = { device -> onMainAction(MainAction.OpenDeviceSettings(device)) },
+                                onRefreshDevices = onMainRefresh,
                                 onLaunchScrcpy = {
                                     rightStateHolder.onAction(
                                         jp.kaleidot725.adbpad.ui.section.right.state.RightAction.LaunchScrcpy,

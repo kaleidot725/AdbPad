@@ -42,7 +42,7 @@ fun DeviceSelector(
         ) {
             Text(
                 text = selectedDevice?.displayName ?: Language.notFoundDevice,
-                style = MaterialTheme.typography.titleSmall,
+                style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.align(Alignment.CenterVertically),
             )

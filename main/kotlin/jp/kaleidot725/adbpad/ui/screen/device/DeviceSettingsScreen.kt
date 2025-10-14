@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -21,6 +22,7 @@ import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceSettings
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.ui.component.button.FloatingDialog
+import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.screen.device.model.DeviceSettingCategory
 import jp.kaleidot725.adbpad.ui.screen.device.section.DeviceCategorySidebar
 import jp.kaleidot725.adbpad.ui.screen.device.section.DeviceGeneralPane
@@ -53,7 +55,10 @@ fun DeviceSettingsScreen(
                     onCategorySelected = onCategorySelected,
                 )
 
-                VerticalDivider()
+                VerticalDivider(
+                    thickness = 1.dp,
+                    color = UserColor.getSplitterColor(),
+                )
 
                 when (selectedCategory) {
                     DeviceSettingCategory.DEVICE -> {
@@ -84,6 +89,7 @@ fun DeviceSettingsScreen(
                 ) {
                     Text(
                         text = Language.cancel,
+                        style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.width(100.dp),
                         textAlign = TextAlign.Center,
                     )
@@ -101,6 +107,7 @@ fun DeviceSettingsScreen(
                     } else {
                         Text(
                             text = Language.save,
+                            style = MaterialTheme.typography.bodySmall,
                             modifier = Modifier.width(100.dp),
                             textAlign = TextAlign.Center,
                         )
