@@ -68,7 +68,7 @@ compose.desktop {
 
         nativeDistributions {
             packageName = "AdbPad"
-            packageVersion = "3.0.0-beta01"
+            packageVersion = "3.0.0"
             description = "Android Debug Bridge GUI Application for easier device management"
             copyright = "© 2025 kaleidot725. All rights reserved."
             vendor = "kaleidot725"

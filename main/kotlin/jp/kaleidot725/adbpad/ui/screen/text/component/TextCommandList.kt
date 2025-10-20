@@ -115,6 +115,8 @@ fun TextCommandList(
                 Modifier
                     .align(Alignment.BottomEnd)
                     .padding(16.dp),
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
         ) {
             Icon(
                 imageVector = Lucide.Plus,

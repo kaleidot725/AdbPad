@@ -66,11 +66,14 @@ fun ScreenshotDropDownButton(
         FloatingActionButton(
             onClick = { if (canOpenMenu) expanded = true },
             modifier = Modifier.align(Alignment.Center).alpha(if (buttonEnabled) 1f else 0.38f),
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
         ) {
             if (isCapturing) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(20.dp),
                     strokeWidth = 2.dp,
+                    color = MaterialTheme.colorScheme.onPrimary,
                 )
             } else {
                 Icon(
