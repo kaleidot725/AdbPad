@@ -12,6 +12,7 @@ enum class ScrcpyBrand {
 enum class ScrcpyFormFactor {
     BAR,
     FOLDABLE,
+    TABLET,
 }
 
 /**
@@ -29,17 +30,23 @@ data class ScrcpyNewDisplayProfile(
     val note: String? = null,
 ) {
     val aspectRatio: String = calculateAspectRatio(width, height)
-    val shortSpec: String = "${max(width, height)} x ${min(width, height)} (${aspectRatio})"
+    val shortSpec: String = "${max(width, height)} x ${min(width, height)} ($aspectRatio)"
 
     companion object {
-        private fun calculateAspectRatio(width: Int, height: Int): String {
+        private fun calculateAspectRatio(
+            width: Int,
+            height: Int,
+        ): String {
             val gcdValue = gcd(width, height)
             val w = width / gcdValue
             val h = height / gcdValue
             return "${max(w, h)}:${min(w, h)}"
         }
 
-        private tailrec fun gcd(a: Int, b: Int): Int {
+        private tailrec fun gcd(
+            a: Int,
+            b: Int,
+        ): Int {
             val absA = abs(a)
             val absB = abs(b)
             return if (absB == 0) absA else gcd(absB, absA % absB)
@@ -50,69 +57,135 @@ data class ScrcpyNewDisplayProfile(
 fun defaultScrcpyNewDisplayProfiles(): List<ScrcpyNewDisplayProfile> =
     listOf(
         ScrcpyNewDisplayProfile(
-            id = "pixel-9-pro",
-            displayName = "Pixel 9 Pro",
-            brand = ScrcpyBrand.PIXEL,
-            formFactor = ScrcpyFormFactor.BAR,
-            width = 1344,
-            height = 2992,
-            densityDpi = 489,
-            refreshRateHz = 120,
-            note = "6.3\" LTPO OLED"
-        ),
-        ScrcpyNewDisplayProfile(
-            id = "pixel-9",
-            displayName = "Pixel 9",
+            id = "pixel-10",
+            displayName = "Pixel 10",
             brand = ScrcpyBrand.PIXEL,
             formFactor = ScrcpyFormFactor.BAR,
             width = 1080,
             height = 2424,
-            densityDpi = 425,
+            densityDpi = 422,
             refreshRateHz = 120,
-            note = "6.24\" Actua OLED"
+            note = "6.3\" Actua OLED (60-120Hz)",
         ),
         ScrcpyNewDisplayProfile(
-            id = "pixel-fold-2",
-            displayName = "Pixel Fold 2",
+            id = "pixel-10-pro",
+            displayName = "Pixel 10 Pro",
             brand = ScrcpyBrand.PIXEL,
-            formFactor = ScrcpyFormFactor.FOLDABLE,
-            width = 2076,
-            height = 2152,
-            densityDpi = 370,
+            formFactor = ScrcpyFormFactor.BAR,
+            width = 1280,
+            height = 2856,
+            densityDpi = 495,
             refreshRateHz = 120,
-            note = "7.9\" inner display"
+            note = "6.3\" Super Actua LTPO OLED (1-120Hz)",
         ),
         ScrcpyNewDisplayProfile(
-            id = "galaxy-s24-ultra",
-            displayName = "Galaxy S24 Ultra",
+            id = "pixel-10-pro-xl",
+            displayName = "Pixel 10 Pro XL",
+            brand = ScrcpyBrand.PIXEL,
+            formFactor = ScrcpyFormFactor.BAR,
+            width = 1344,
+            height = 2992,
+            densityDpi = 486,
+            refreshRateHz = 120,
+            note = "6.8\" Super Actua LTPO OLED (1-120Hz)",
+        ),
+        ScrcpyNewDisplayProfile(
+            id = "pixel-tablet-2023",
+            displayName = "Pixel Tablet",
+            brand = ScrcpyBrand.PIXEL,
+            formFactor = ScrcpyFormFactor.TABLET,
+            width = 1600,
+            height = 2560,
+            densityDpi = 276,
+            refreshRateHz = 60,
+            note = "10.95\" LCD (16:10, USI 2.0)",
+        ),
+        ScrcpyNewDisplayProfile(
+            id = "galaxy-s25",
+            displayName = "Galaxy S25",
+            brand = ScrcpyBrand.GALAXY,
+            formFactor = ScrcpyFormFactor.BAR,
+            width = 1080,
+            height = 2340,
+            densityDpi = 416,
+            refreshRateHz = 120,
+            note = "6.2\" Dynamic AMOLED 2X (1-120Hz)",
+        ),
+        ScrcpyNewDisplayProfile(
+            id = "galaxy-s25-ultra",
+            displayName = "Galaxy S25 Ultra",
             brand = ScrcpyBrand.GALAXY,
             formFactor = ScrcpyFormFactor.BAR,
             width = 1440,
             height = 3120,
             densityDpi = 505,
             refreshRateHz = 120,
-            note = "6.8\" Dynamic AMOLED 2X"
+            note = "6.9\" Dynamic AMOLED 2X (1-120Hz)",
         ),
         ScrcpyNewDisplayProfile(
-            id = "galaxy-s24",
-            displayName = "Galaxy S24",
-            brand = ScrcpyBrand.GALAXY,
-            formFactor = ScrcpyFormFactor.BAR,
-            width = 1080,
-            height = 2340,
-            densityDpi = 425,
-            refreshRateHz = 120,
-            note = "6.2\" Dynamic AMOLED 2X"
-        ),
-        ScrcpyNewDisplayProfile(
-            id = "galaxy-z-fold6",
-            displayName = "Galaxy Z Fold6",
+            id = "galaxy-z-fold7-main",
+            displayName = "Galaxy Z Fold7 (Main)",
             brand = ScrcpyBrand.GALAXY,
             formFactor = ScrcpyFormFactor.FOLDABLE,
-            width = 2160,
-            height = 1856,
-            densityDpi = 374,
+            width = 1968,
+            height = 2184,
+            densityDpi = 368,
             refreshRateHz = 120,
-            note = "7.6\" inner display"
+            note = "8.0\" Dynamic AMOLED 2X inner display",
+        ),
+        ScrcpyNewDisplayProfile(
+            id = "galaxy-z-fold7-cover",
+            displayName = "Galaxy Z Fold7 (Cover)",
+            brand = ScrcpyBrand.GALAXY,
+            formFactor = ScrcpyFormFactor.FOLDABLE,
+            width = 1080,
+            height = 2520,
+            densityDpi = 422,
+            refreshRateHz = 120,
+            note = "6.5\" Dynamic AMOLED 2X cover display",
+        ),
+        ScrcpyNewDisplayProfile(
+            id = "galaxy-z-flip7-main",
+            displayName = "Galaxy Z Flip7 (Main)",
+            brand = ScrcpyBrand.GALAXY,
+            formFactor = ScrcpyFormFactor.FOLDABLE,
+            width = 1080,
+            height = 2520,
+            densityDpi = 397,
+            refreshRateHz = 120,
+            note = "6.9\" Dynamic AMOLED 2X inner display",
+        ),
+        ScrcpyNewDisplayProfile(
+            id = "galaxy-z-flip7-cover",
+            displayName = "Galaxy Z Flip7 (Cover)",
+            brand = ScrcpyBrand.GALAXY,
+            formFactor = ScrcpyFormFactor.FOLDABLE,
+            width = 948,
+            height = 1048,
+            densityDpi = null,
+            refreshRateHz = 120,
+            note = "4.1\" Super AMOLED cover display",
+        ),
+        ScrcpyNewDisplayProfile(
+            id = "galaxy-tab-s11",
+            displayName = "Galaxy Tab S11",
+            brand = ScrcpyBrand.GALAXY,
+            formFactor = ScrcpyFormFactor.TABLET,
+            width = 1600,
+            height = 2560,
+            densityDpi = 274,
+            refreshRateHz = 120,
+            note = "11.0\" Dynamic AMOLED 2X",
+        ),
+        ScrcpyNewDisplayProfile(
+            id = "galaxy-tab-s11-ultra",
+            displayName = "Galaxy Tab S11 Ultra",
+            brand = ScrcpyBrand.GALAXY,
+            formFactor = ScrcpyFormFactor.TABLET,
+            width = 1848,
+            height = 2960,
+            densityDpi = 239,
+            refreshRateHz = 120,
+            note = "14.6\" Dynamic AMOLED 2X",
         ),
     )

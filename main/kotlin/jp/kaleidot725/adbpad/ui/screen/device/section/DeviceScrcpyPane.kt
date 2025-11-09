@@ -161,11 +161,11 @@ fun DeviceScrcpyPane(
                 checked = scrcpyOptions.noAudio,
                 onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(noAudio = it)) },
             )
-                Text(
-                    Language.noAudioLabel,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.padding(start = 8.dp),
-                )
+            Text(
+                Language.noAudioLabel,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(start = 8.dp),
+            )
         }
 
         // Audio Bit Rate

@@ -407,11 +407,9 @@ object Language : StringResources {
     override val scrcpyNewDisplayTargetDeviceFormat: String
         get() = getCurrentResources().scrcpyNewDisplayTargetDeviceFormat
 
-    fun scrcpyNewDisplayTitle(name: String): String =
-        String.format(scrcpyNewDisplayTitleFormat, name)
+    fun scrcpyNewDisplayTitle(name: String): String = String.format(scrcpyNewDisplayTitleFormat, name)
 
-    fun scrcpyNewDisplayTargetDevice(name: String): String =
-        String.format(scrcpyNewDisplayTargetDeviceFormat, name)
+    fun scrcpyNewDisplayTargetDevice(name: String): String = String.format(scrcpyNewDisplayTargetDeviceFormat, name)
 
     private var currentType: Type = Type.ENGLISH
 

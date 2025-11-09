@@ -47,6 +47,8 @@ class ScrcpyNewDisplayStateHolder(
             ScrcpyNewDisplayAction.LaunchSelectedProfile -> launchSelectedProfile()
             is ScrcpyNewDisplayAction.UpdateSearchText -> updateSearchText(uiAction.text)
             is ScrcpyNewDisplayAction.UpdateSortType -> updateSortType(uiAction.sortType)
+            ScrcpyNewDisplayAction.SelectNextProfile -> selectNextProfile()
+            ScrcpyNewDisplayAction.SelectPreviousProfile -> selectPreviousProfile()
         }
     }
 
@@ -152,6 +154,47 @@ class ScrcpyNewDisplayStateHolder(
                         },
                 )
             }
+        }
+    }
+
+    private fun selectNextProfile() {
+        val filteredProfiles = state.value.filteredProfiles
+        if (filteredProfiles.isEmpty()) return
+
+        val currentProfile = state.value.selectedProfile
+        val currentIndex = filteredProfiles.indexOfFirst { it.id == currentProfile?.id }
+        val nextIndex =
+            when {
+                currentIndex == -1 -> 0
+                currentIndex < filteredProfiles.lastIndex -> currentIndex + 1
+                else -> null
+            }
+
+        nextIndex?.let { index ->
+            val nextProfileId = filteredProfiles[index].id
+            update {
+                copy(
+                    selectedProfileId = nextProfileId,
+                    feedback = ScrcpyNewDisplayFeedback.None,
+                )
+            }
+        }
+    }
+
+    private fun selectPreviousProfile() {
+        val filteredProfiles = state.value.filteredProfiles
+        if (filteredProfiles.isEmpty()) return
+
+        val currentProfile = state.value.selectedProfile ?: return
+        val currentIndex = filteredProfiles.indexOfFirst { it.id == currentProfile.id }
+        if (currentIndex <= 0) return
+
+        val previousProfileId = filteredProfiles[currentIndex - 1].id
+        update {
+            copy(
+                selectedProfileId = previousProfileId,
+                feedback = ScrcpyNewDisplayFeedback.None,
+            )
         }
     }
 }

@@ -66,11 +66,11 @@ fun CommandItemCard(
             Spacer(modifier = Modifier.weight(1f, fill = true))
 
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
-    Button(
-                onClick = { onExecute() },
-                enabled = canExecute,
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-            ) {
+                Button(
+                    onClick = { onExecute() },
+                    enabled = canExecute,
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                ) {
                     Box(
                         modifier = Modifier.width(60.dp),
                         contentAlignment = Alignment.Center,

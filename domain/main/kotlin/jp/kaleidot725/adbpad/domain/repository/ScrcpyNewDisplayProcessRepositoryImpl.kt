@@ -3,7 +3,10 @@ package jp.kaleidot725.adbpad.domain.repository
 import jp.kaleidot725.scrcpykt.ScrcpyProcess
 
 class ScrcpyNewDisplayProcessRepositoryImpl : ScrcpyNewDisplayProcessRepository {
-    private data class EntryKey(val deviceSerial: String, val profileId: String)
+    private data class EntryKey(
+        val deviceSerial: String,
+        val profileId: String,
+    )
 
     private val runningProcesses = mutableMapOf<EntryKey, ScrcpyProcess>()
 

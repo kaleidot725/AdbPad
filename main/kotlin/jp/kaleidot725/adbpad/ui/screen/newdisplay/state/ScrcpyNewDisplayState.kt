@@ -9,10 +9,23 @@ import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import java.util.Locale
 
 sealed class ScrcpyNewDisplayAction : MVIAction {
-    data class SelectProfile(val profileId: String) : ScrcpyNewDisplayAction()
+    data class SelectProfile(
+        val profileId: String,
+    ) : ScrcpyNewDisplayAction()
+
     data object LaunchSelectedProfile : ScrcpyNewDisplayAction()
-    data class UpdateSearchText(val text: String) : ScrcpyNewDisplayAction()
-    data class UpdateSortType(val sortType: SortType) : ScrcpyNewDisplayAction()
+
+    data class UpdateSearchText(
+        val text: String,
+    ) : ScrcpyNewDisplayAction()
+
+    data class UpdateSortType(
+        val sortType: SortType,
+    ) : ScrcpyNewDisplayAction()
+
+    data object SelectNextProfile : ScrcpyNewDisplayAction()
+
+    data object SelectPreviousProfile : ScrcpyNewDisplayAction()
 }
 
 enum class ScrcpyNewDisplayFailureReason {
@@ -22,8 +35,12 @@ enum class ScrcpyNewDisplayFailureReason {
 
 sealed class ScrcpyNewDisplayFeedback {
     data object None : ScrcpyNewDisplayFeedback()
+
     data object Success : ScrcpyNewDisplayFeedback()
-    data class Failure(val reason: ScrcpyNewDisplayFailureReason) : ScrcpyNewDisplayFeedback()
+
+    data class Failure(
+        val reason: ScrcpyNewDisplayFailureReason,
+    ) : ScrcpyNewDisplayFeedback()
 }
 
 data class ScrcpyNewDisplayState(
@@ -57,18 +74,19 @@ internal fun filterScrcpyNewDisplayProfiles(
         return profiles.sortedWith(sortType)
     }
 
-    val filtered = profiles.filter { profile ->
-        val candidates =
-            buildList {
-                add(profile.displayName)
-                add(profile.shortSpec)
-                profile.note?.let { add(it) }
-                add(profile.brand.name)
-                add(profile.formFactor.name)
-            }
+    val filtered =
+        profiles.filter { profile ->
+            val candidates =
+                buildList {
+                    add(profile.displayName)
+                    add(profile.shortSpec)
+                    profile.note?.let { add(it) }
+                    add(profile.brand.name)
+                    add(profile.formFactor.name)
+                }
 
-        candidates.any { candidate -> candidate.contains(normalized, ignoreCase = true) }
-    }
+            candidates.any { candidate -> candidate.contains(normalized, ignoreCase = true) }
+        }
 
     return filtered.sortedWith(sortType)
 }

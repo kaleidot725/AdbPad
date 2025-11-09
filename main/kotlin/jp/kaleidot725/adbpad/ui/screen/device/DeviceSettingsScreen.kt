@@ -23,8 +23,8 @@ import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceSettings
 import jp.kaleidot725.adbpad.domain.model.language.Language
-import jp.kaleidot725.adbpad.ui.component.button.FloatingDialog
 import jp.kaleidot725.adbpad.ui.common.resource.UserColor
+import jp.kaleidot725.adbpad.ui.component.button.FloatingDialog
 import jp.kaleidot725.adbpad.ui.screen.device.model.DeviceSettingCategory
 import jp.kaleidot725.adbpad.ui.screen.device.section.DeviceCategorySidebar
 import jp.kaleidot725.adbpad.ui.screen.device.section.DeviceGeneralPane

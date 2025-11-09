@@ -22,9 +22,8 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,10 +34,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.isFinite
 import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.Play
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.device.DeviceState
 import jp.kaleidot725.adbpad.domain.model.language.Language
@@ -48,6 +54,7 @@ import jp.kaleidot725.adbpad.ui.common.resource.UserColor
 import jp.kaleidot725.adbpad.ui.common.resource.clickableBackground
 import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
 import jp.kaleidot725.adbpad.ui.component.dropbox.SearchSortDropBox
+import jp.kaleidot725.adbpad.ui.component.indicator.RunningIndicator
 import jp.kaleidot725.adbpad.ui.component.text.DefaultTextField
 import jp.kaleidot725.adbpad.ui.screen.newdisplay.state.ScrcpyNewDisplayAction
 import jp.kaleidot725.adbpad.ui.screen.newdisplay.state.ScrcpyNewDisplayState
@@ -82,12 +89,7 @@ fun ScrcpyNewDisplayScreen(
                     Modifier
                         .fillMaxSize(),
             ) {
-                Column(
-                    modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .padding(bottom = 88.dp),
-                ) {
+                Column(modifier = Modifier.fillMaxSize()) {
                     ScrcpyNewDisplayHeader(
                         searchText = state.searchText,
                         sortType = state.sortType,
@@ -113,9 +115,31 @@ fun ScrcpyNewDisplayScreen(
                         }
                     } else {
                         LazyColumn(
-                            modifier = Modifier.fillMaxWidth().weight(1f),
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .weight(1f)
+                                    .onKeyEvent { event ->
+                                        when {
+                                            event.key == Key.DirectionUp && event.type == KeyEventType.KeyDown -> {
+                                                onAction(ScrcpyNewDisplayAction.SelectPreviousProfile)
+                                                true
+                                            }
+                                            event.key == Key.DirectionDown && event.type == KeyEventType.KeyDown -> {
+                                                onAction(ScrcpyNewDisplayAction.SelectNextProfile)
+                                                true
+                                            }
+                                            else -> false
+                                        }
+                                    },
                             verticalArrangement = Arrangement.spacedBy(8.dp),
-                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
+                            contentPadding =
+                                PaddingValues(
+                                    start = 8.dp,
+                                    top = 4.dp,
+                                    end = 8.dp,
+                                    bottom = 24.dp,
+                                ),
                         ) {
                             items(filteredProfiles, key = { it.id }) { profile ->
                                 val selected = state.selectedProfile?.id == profile.id
@@ -128,14 +152,12 @@ fun ScrcpyNewDisplayScreen(
                         }
                     }
                 }
-
             }
         }
 
         second {
             ScrcpyNewDisplayDetailPanel(
                 profile = state.selectedProfile,
-                selectedDevice = state.selectedDevice,
                 maxProfileDimension = maxProfileDimension,
                 isLaunching = state.isLaunching,
                 canLaunch = state.canLaunch,
@@ -198,24 +220,74 @@ private fun ScrcpyNewDisplayActions(
     onLaunch: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    Row(modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        Spacer(modifier = Modifier.weight(1f))
+        ScrcpyLaunchButton(
+            isLaunching = isLaunching,
+            canLaunch = canLaunch,
+            onLaunch = onLaunch,
+        )
+    }
+}
+
+@Composable
+private fun ScrcpyLaunchButton(
+    isLaunching: Boolean,
+    canLaunch: Boolean,
+    onLaunch: () -> Unit,
+) {
+    val shape = RoundedCornerShape(4.dp)
     Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.End,
+        modifier =
+            Modifier
+                .padding(8.dp)
+                .width(250.dp)
+                .height(35.dp)
+                .alpha(if (canLaunch) 1f else 0.38f)
+                .clip(shape)
+                .background(MaterialTheme.colorScheme.primary),
     ) {
-        Button(
-            onClick = onLaunch,
-            enabled = canLaunch && !isLaunching,
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxHeight()
+                    .weight(0.8f)
+                    .clickable(enabled = canLaunch) { if (!isLaunching) onLaunch() },
         ) {
             if (isLaunching) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(16.dp),
-                    strokeWidth = 2.dp,
-                )
+                Box(Modifier.align(Alignment.Center)) { RunningIndicator() }
             } else {
-                Text(text = Language.execute)
+                Text(
+                    text = Language.execute,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.align(Alignment.Center),
+                )
             }
+        }
+
+        Spacer(
+            modifier =
+                Modifier
+                    .fillMaxHeight()
+                    .width(1.dp)
+                    .background(Color.Black.copy(alpha = 0.6f)),
+        )
+
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxHeight()
+                    .width(50.dp)
+                    .background(Color.Black.copy(alpha = 0.3f))
+                    .clickable(enabled = canLaunch) { if (!isLaunching) onLaunch() },
+        ) {
+            Icon(
+                imageVector = Lucide.Play,
+                contentDescription = "",
+                tint = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier.align(Alignment.Center).size(16.dp),
+            )
         }
     }
 }
@@ -223,7 +295,6 @@ private fun ScrcpyNewDisplayActions(
 @Composable
 private fun ScrcpyNewDisplayDetailPanel(
     profile: ScrcpyNewDisplayProfile?,
-    selectedDevice: Device?,
     maxProfileDimension: Float,
     isLaunching: Boolean,
     canLaunch: Boolean,
@@ -240,19 +311,19 @@ private fun ScrcpyNewDisplayDetailPanel(
                 modifier =
                     Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 48.dp, vertical = 40.dp),
+                        .padding(8.dp),
             ) {
                 DeviceMockup(
                     profile = profile,
                     maxDimension = maxProfileDimension,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().weight(1f),
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
 
                 ProfileDetailsCard(profile = profile)
 
-                Spacer(modifier = Modifier.weight(1f, fill = true))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 ScrcpyNewDisplayActions(
                     isLaunching = isLaunching,
@@ -273,9 +344,7 @@ private fun ScrcpyNewDisplayDetailPanel(
 }
 
 @Composable
-private fun ProfileDetailsCard(
-    profile: ScrcpyNewDisplayProfile,
-) {
+private fun ProfileDetailsCard(profile: ScrcpyNewDisplayProfile) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp),
