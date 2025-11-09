@@ -16,7 +16,9 @@ import jp.kaleidot725.adbpad.domain.usecase.device.UpdateDevicesUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.GetLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.language.SaveLanguageUseCase
 import jp.kaleidot725.adbpad.domain.usecase.refresh.RefreshUseCase
+import jp.kaleidot725.adbpad.domain.usecase.scrcpy.GetScrcpyNewDisplayProfilesUseCase
 import jp.kaleidot725.adbpad.domain.usecase.scrcpy.GetScrcpySettingsUseCase
+import jp.kaleidot725.adbpad.domain.usecase.scrcpy.LaunchScrcpyNewDisplayUseCase
 import jp.kaleidot725.adbpad.domain.usecase.scrcpy.LaunchScrcpyUseCase
 import jp.kaleidot725.adbpad.domain.usecase.scrcpy.SaveScrcpySettingsUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotCommandUseCase
@@ -85,10 +87,16 @@ val domainModule =
             GetScrcpySettingsUseCase(get())
         }
         factory {
+            GetScrcpyNewDisplayProfilesUseCase()
+        }
+        factory {
             SaveScrcpySettingsUseCase(get())
         }
         factory {
             LaunchScrcpyUseCase(get(), get(), get())
+        }
+        factory {
+            LaunchScrcpyNewDisplayUseCase(get(), get())
         }
         factory {
             GetAppearanceUseCase(get())
@@ -118,6 +126,6 @@ val domainModule =
             UpdateDevicesUseCase(get())
         }
         factory {
-            ShutdownAppUseCase(get())
+            ShutdownAppUseCase(get(), get())
         }
     }

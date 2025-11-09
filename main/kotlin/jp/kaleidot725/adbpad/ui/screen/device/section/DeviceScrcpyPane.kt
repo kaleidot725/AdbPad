@@ -16,6 +16,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -71,7 +72,11 @@ fun DeviceScrcpyPane(
                 checked = scrcpyOptions.noVideo,
                 onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(noVideo = it)) },
             )
-            Text(Language.noVideoLabel, modifier = Modifier.padding(start = 8.dp))
+            Text(
+                Language.noVideoLabel,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(start = 8.dp),
+            )
         }
 
         // Max Size
@@ -156,7 +161,11 @@ fun DeviceScrcpyPane(
                 checked = scrcpyOptions.noAudio,
                 onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(noAudio = it)) },
             )
-            Text(Language.noAudioLabel, modifier = Modifier.padding(start = 8.dp))
+            Text(
+                Language.noAudioLabel,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(start = 8.dp),
+            )
         }
 
         // Audio Bit Rate
@@ -307,7 +316,11 @@ fun DeviceScrcpyPane(
                     checked = scrcpyOptions.fullscreen,
                     onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(fullscreen = it)) },
                 )
-                Text(Language.fullscreenLabel, modifier = Modifier.padding(start = 8.dp))
+                Text(
+                    Language.fullscreenLabel,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(start = 8.dp),
+                )
             }
 
             Row(
@@ -318,7 +331,11 @@ fun DeviceScrcpyPane(
                     checked = scrcpyOptions.alwaysOnTop,
                     onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(alwaysOnTop = it)) },
                 )
-                Text(Language.alwaysOnTopLabel, modifier = Modifier.padding(start = 8.dp))
+                Text(
+                    Language.alwaysOnTopLabel,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(start = 8.dp),
+                )
             }
         }
 
@@ -337,7 +354,11 @@ fun DeviceScrcpyPane(
                     checked = scrcpyOptions.stayAwake,
                     onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(stayAwake = it)) },
                 )
-                Text(Language.stayAwakeLabel, modifier = Modifier.padding(start = 8.dp))
+                Text(
+                    Language.stayAwakeLabel,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(start = 8.dp),
+                )
             }
 
             Row(
@@ -348,7 +369,11 @@ fun DeviceScrcpyPane(
                     checked = scrcpyOptions.turnScreenOff,
                     onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(turnScreenOff = it)) },
                 )
-                Text(Language.turnScreenOffLabel, modifier = Modifier.padding(start = 8.dp))
+                Text(
+                    Language.turnScreenOffLabel,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(start = 8.dp),
+                )
             }
 
             Row(
@@ -359,7 +384,11 @@ fun DeviceScrcpyPane(
                     checked = scrcpyOptions.powerOffOnClose,
                     onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(powerOffOnClose = it)) },
                 )
-                Text(Language.powerOffOnCloseLabel, modifier = Modifier.padding(start = 8.dp))
+                Text(
+                    Language.powerOffOnCloseLabel,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(start = 8.dp),
+                )
             }
 
             Row(
@@ -370,7 +399,11 @@ fun DeviceScrcpyPane(
                     checked = scrcpyOptions.showTouches,
                     onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(showTouches = it)) },
                 )
-                Text(Language.showTouchesLabel, modifier = Modifier.padding(start = 8.dp))
+                Text(
+                    Language.showTouchesLabel,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(start = 8.dp),
+                )
             }
 
             Row(
@@ -381,7 +414,11 @@ fun DeviceScrcpyPane(
                     checked = scrcpyOptions.disableScreensaver,
                     onCheckedChange = { onUpdateOptions(scrcpyOptions.copy(disableScreensaver = it)) },
                 )
-                Text(Language.disableScreensaverLabel, modifier = Modifier.padding(start = 8.dp))
+                Text(
+                    Language.disableScreensaverLabel,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(start = 8.dp),
+                )
             }
         }
 
@@ -421,7 +458,7 @@ private fun <T> EnumDropDown(
         OutlinedTextField(
             value = displayName(selectedValue),
             onValueChange = { },
-            label = { Text(label) },
+            label = { Text(label, style = MaterialTheme.typography.bodySmall) },
             readOnly = true,
             enabled = enabled,
             trailingIcon = {
@@ -430,6 +467,7 @@ private fun <T> EnumDropDown(
                     contentDescription = "Dropdown",
                 )
             },
+            textStyle = MaterialTheme.typography.bodySmall,
             modifier = Modifier.fillMaxWidth(),
         )
 
@@ -447,19 +485,17 @@ private fun <T> EnumDropDown(
             expanded = expanded,
             onDismissRequest = { expanded = false },
         ) {
-            // "None" option
             DropdownMenuItem(
-                text = { Text(displayName(null)) },
+                text = { Text(displayName(null), style = MaterialTheme.typography.bodySmall) },
                 onClick = {
                     onValueSelected(null)
                     expanded = false
                 },
             )
 
-            // Enum values
             values.forEach { value ->
                 DropdownMenuItem(
-                    text = { Text(displayName(value)) },
+                    text = { Text(displayName(value), style = MaterialTheme.typography.bodySmall) },
                     onClick = {
                         onValueSelected(value)
                         expanded = false

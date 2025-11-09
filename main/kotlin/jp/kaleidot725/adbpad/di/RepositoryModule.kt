@@ -10,6 +10,8 @@ import jp.kaleidot725.adbpad.domain.repository.DeviceRepositoryImpl
 import jp.kaleidot725.adbpad.domain.repository.DeviceSettingsRepository
 import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepository
 import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepositoryImpl
+import jp.kaleidot725.adbpad.domain.repository.ScrcpyNewDisplayProcessRepository
+import jp.kaleidot725.adbpad.domain.repository.ScrcpyNewDisplayProcessRepositoryImpl
 import jp.kaleidot725.adbpad.domain.repository.ScrcpyProcessRepository
 import jp.kaleidot725.adbpad.domain.repository.ScrcpyProcessRepositoryImpl
 import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
@@ -44,6 +46,9 @@ val repositoryModule =
         }
         single<ScrcpyProcessRepository> {
             ScrcpyProcessRepositoryImpl()
+        }
+        single<ScrcpyNewDisplayProcessRepository> {
+            ScrcpyNewDisplayProcessRepositoryImpl()
         }
         factory<DeviceSettingsRepository> {
             DeviceSettingsRepositoryImpl()

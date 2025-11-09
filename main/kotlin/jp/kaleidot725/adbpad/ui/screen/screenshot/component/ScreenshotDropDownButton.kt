@@ -2,10 +2,7 @@ package jp.kaleidot725.adbpad.ui.screen.screenshot.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
@@ -29,7 +26,6 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import com.composables.icons.lucide.Camera
-import com.composables.icons.lucide.Check
 import com.composables.icons.lucide.Lucide
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
 import jp.kaleidot725.adbpad.ui.common.resource.UserColor
@@ -66,11 +62,14 @@ fun ScreenshotDropDownButton(
         FloatingActionButton(
             onClick = { if (canOpenMenu) expanded = true },
             modifier = Modifier.align(Alignment.Center).alpha(if (buttonEnabled) 1f else 0.38f),
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
         ) {
             if (isCapturing) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(20.dp),
                     strokeWidth = 2.dp,
+                    color = MaterialTheme.colorScheme.onPrimary,
                 )
             } else {
                 Icon(
@@ -101,29 +100,10 @@ fun ScreenshotDropDownButton(
             commands.forEach { command ->
                 DropdownMenuItem(
                     text = {
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Box(
-                                modifier =
-                                    Modifier
-                                        .padding(top = 8.dp)
-                                        .size(20.dp)
-                                        .align(Alignment.CenterVertically),
-                            ) {
-                                if (command == selectedCommand) {
-                                    Icon(
-                                        imageVector = Lucide.Check,
-                                        contentDescription = "",
-                                        modifier = Modifier.align(Alignment.Center),
-                                    )
-                                }
-                            }
-
-                            Text(
-                                text = command.title,
-                                style = MaterialTheme.typography.titleSmall,
-                                modifier = Modifier.align(Alignment.CenterVertically),
-                            )
-                        }
+                        Text(
+                            text = command.title,
+                            style = MaterialTheme.typography.titleSmall,
+                        )
                     },
                     onClick = {
                         onSelectCommand(command)
