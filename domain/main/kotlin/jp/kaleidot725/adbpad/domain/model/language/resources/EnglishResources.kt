@@ -14,6 +14,10 @@ object EnglishResources : StringResources {
     override val tab = "Tab"
     override val send = "Send"
     override val cancel = "Cancel"
+    override val open = "Open"
+    override val edit = "Edit"
+    override val copy = "Copy"
+    override val properties = "Properties"
     override val targetDevice = "Devices"
     override val tool = "Tools"
     override val setting = "Setting"
@@ -29,8 +33,12 @@ object EnglishResources : StringResources {
     override val screenshotTakeByLightTheme = "Take by light theme"
     override val screenshotTakeByBothTheme = "Take by both theme"
 
-    override val textCommandOptionNewLine: String = "Send with newline key"
-    override val textCommandOptionTab: String = "Send with tab key"
+    override val textCommandOptionNewLine: String = "Send with newline"
+    override val textCommandOptionTab: String = "Send with tab"
+    override val textCommandLineBreakSection: String = "Line Break Options"
+    override val textCommandLineBreakOptionEnter: String = "Enter"
+    override val textCommandLineBreakOptionTab: String = "Tab"
+    override val textCommandLineBreakOptionLabel: String = "Type"
 
     override val commandStartEventFormat = "Start sending command 「%s」"
     override val commandEndEventFormat = "End sending command 「%s」"
@@ -161,6 +169,7 @@ object EnglishResources : StringResources {
     override val scrcpySettingsSection: String = "Scrcpy Settings"
 
     // Scrcpy Options Section
+    override val virtualDisplayOptionsSection: String = "Virtual Display Options"
     override val videoOptionsSection: String = "Video Options"
     override val audioOptionsSection: String = "Audio Options"
     override val displayOptionsSection: String = "Display Options"
@@ -192,11 +201,17 @@ object EnglishResources : StringResources {
     override val windowYLabel: String = "Window Y"
     override val windowWidthLabel: String = "Window Width"
     override val windowHeightLabel: String = "Window Height"
+    override val virtualDisplayWidthLabel: String = "Width"
+    override val virtualDisplayHeightLabel: String = "Height"
+    override val virtualDisplayDpiLabel: String = "DPI"
     override val logLevelLabel: String = "Log Level"
 
     override val autoLabel: String = "Auto"
     override val defaultLabel: String = "Default"
     override val customTitlePlaceholder: String = "Custom title"
+    override val screenshotNamePlaceholder: String = "Screenshot name"
+    override val invalidCharactersMessage: String = "Invalid characters in name"
+    override val fileNameDuplicateMessage: String = "Name already exists"
 
     // Setting Categories
     override val categoryAppearance: String = "Appearance"
@@ -222,4 +237,9 @@ object EnglishResources : StringResources {
     override val scrcpyNewDisplayEmpty: String = "No profiles available."
     override val scrcpyNewDisplayTitleFormat: String = "%s virtual display"
     override val scrcpyNewDisplayTargetDeviceFormat: String = "Target device: %s"
+    override val scrcpyNewDisplayLaunchOptions: String = "Launch Options"
+
+    override val commandCategoryAll: String = "All"
+    override val commandCategoryUi: String = "UI"
+    override val commandCategoryCommunication: String = "Communication"
 }

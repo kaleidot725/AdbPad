@@ -30,6 +30,11 @@ sealed class ScreenshotAction : MVIAction {
 
     data object EditScreenshot : ScreenshotAction()
 
+    data class RenameScreenshot(
+        val name: String,
+        val isRealtime: Boolean = false,
+    ) : ScreenshotAction()
+
     data class DeleteScreenshot(
         val screenshot: Screenshot,
     ) : ScreenshotAction()
@@ -41,4 +46,6 @@ sealed class ScreenshotAction : MVIAction {
     data object NextScreenshot : ScreenshotAction()
 
     data object PreviousScreenshot : ScreenshotAction()
+
+    data object DismissError : ScreenshotAction()
 }

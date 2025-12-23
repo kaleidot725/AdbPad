@@ -82,6 +82,22 @@ class ScreenshotCommandRepositoryImpl : ScreenshotCommandRepository {
             }
         }
 
+    override suspend fun rename(
+        screenshot: Screenshot,
+        name: String,
+    ): Boolean {
+        return withContext(Dispatchers.IO) {
+            val file = screenshot.file ?: return@withContext false
+            if (!file.exists()) return@withContext false
+
+            val extension = file.extension
+            val newName = if (name.endsWith(".$extension")) name else "$name.$extension"
+            val newFile = File(file.parent, newName)
+
+            file.renameTo(newFile)
+        }
+    }
+
     override suspend fun delete(screenshot: Screenshot) {
         withContext(Dispatchers.IO) {
             screenshot.file?.delete()

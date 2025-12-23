@@ -36,6 +36,7 @@ val stateHolderModule =
                 getScreenshotCommandUseCase = get(),
                 getSelectedDeviceFlowUseCase = get(),
                 screenshotCommandRepository = get(),
+                renameScreenshotUseCase = get(),
             )
         }
 
@@ -44,6 +45,8 @@ val stateHolderModule =
                 getSelectedDeviceFlowUseCase = get(),
                 getScrcpyNewDisplayProfilesUseCase = get(),
                 launchScrcpyNewDisplayUseCase = get(),
+                saveScrcpyNewDisplayProfileUseCase = get(),
+                deleteScrcpyNewDisplayProfileUseCase = get(),
             )
         }
 

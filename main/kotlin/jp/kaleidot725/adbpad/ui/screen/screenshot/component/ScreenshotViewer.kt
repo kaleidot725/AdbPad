@@ -7,13 +7,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -30,7 +27,6 @@ import com.composables.icons.lucide.Plus
 import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.ui.common.resource.UserColor
-import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
 import jp.kaleidot725.adbpad.ui.component.button.CommandIconButton
 import jp.kaleidot725.adbpad.ui.component.button.CommandTextButton
 import kotlinx.coroutines.launch
@@ -47,16 +43,6 @@ fun ScreenshotViewer(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier) {
-        ScreenshotActions(
-            enabled = screenshot.file != null,
-            onOpen = onOpenDirectory,
-            onEdit = onEditScreenshot,
-            onCopy = onCopyScreenshot,
-            modifier = Modifier.height(48.dp).padding(horizontal = 12.dp).align(Alignment.End),
-        )
-
-        Divider(modifier = Modifier.height(1.dp).fillMaxWidth().defaultBorder())
-
         if (isCapturing) {
             Box(modifier = Modifier.fillMaxSize()) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))

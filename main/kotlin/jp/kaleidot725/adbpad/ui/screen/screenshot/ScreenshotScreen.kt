@@ -1,34 +1,33 @@
 package jp.kaleidot725.adbpad.ui.screen.screenshot
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
+import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import jp.kaleidot725.adbpad.ui.common.resource.UserColor
-import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
+import jp.kaleidot725.adbpad.ui.component.text.DefaultTextField
+import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotDetailMenu
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotExplorer
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotHeader
-import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotMenu
 import jp.kaleidot725.adbpad.ui.screen.screenshot.component.ScreenshotViewer
 import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotAction
 import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotState
@@ -93,6 +92,11 @@ fun ScreenshotScreen(
         onUpdateSortType = {
             onAction(ScreenshotAction.UpdateSortType(it))
         },
+        onRenameScreenshot = { name, isRealtime ->
+            onAction(ScreenshotAction.RenameScreenshot(name, isRealtime))
+        },
+        errorMessage = state.errorMessage,
+        renameResetKey = state.renameResetKey,
     )
 }
 
@@ -120,6 +124,9 @@ private fun ScreenshotScreen(
     onPreviousScreenshot: () -> Unit,
     onUpdateSearchText: (String) -> Unit,
     onUpdateSortType: (SortType) -> Unit,
+    onRenameScreenshot: (String, Boolean) -> Unit,
+    errorMessage: String?,
+    renameResetKey: Int,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -142,10 +149,16 @@ private fun ScreenshotScreen(
                             sortType = sortType,
                             onUpdateSortType = onUpdateSortType,
                             onUpdateSearchText = onUpdateSearchText,
-                            modifier = Modifier,
+                            selectedCommand = selectCommand,
+                            onSelectCommand = onSelectCommand,
+                            commands = commands,
+                            canCapture = canCapture,
+                            isCapturing = isCapturing,
+                            onTakeScreenshot = onTakeScreenshot,
+                            modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp),
                         )
 
-                        Divider(modifier = Modifier.height(1.dp).fillMaxWidth().defaultBorder())
+                        HorizontalDivider(color = UserColor.getSplitterColor())
 
                         ScreenshotExplorer(
                             selectedScreenshot = screenshot,
@@ -160,33 +173,53 @@ private fun ScreenshotScreen(
                                     .fillMaxWidth(),
                         )
                     }
-
-                    ScreenshotMenu(
-                        selectedCommand = selectCommand,
-                        onSelectCommand = onSelectCommand,
-                        commands = commands,
-                        canCapture = canCapture,
-                        isCapturing = isCapturing,
-                        onTakeScreenshot = onTakeScreenshot,
-                        modifier =
-                            Modifier
-                                .align(Alignment.BottomEnd)
-                                .padding(16.dp),
-                    )
                 }
             }
 
             second {
-                Column(modifier = Modifier.background(MaterialTheme.colorScheme.surface)) {
-                    ScreenshotViewer(
+                Row(modifier = Modifier.background(MaterialTheme.colorScheme.surface)) {
+                    Column(modifier = Modifier.weight(1.0f).fillMaxHeight()) {
+                        if (screenshot.file != null) {
+                            Row(modifier = Modifier.fillMaxWidth()) {
+                                DefaultTextField(
+                                    id = "screenshot-name-${screenshot.file!!.absolutePath}-$renameResetKey",
+                                    initialText = screenshot.file!!.nameWithoutExtension,
+                                    onUpdateText = { newText ->
+                                        onRenameScreenshot(newText, true)
+                                    },
+                                    onConfirm = { newText ->
+                                        onRenameScreenshot(newText, false)
+                                    },
+                                    errorMessage = errorMessage,
+                                    placeHolder = Language.screenshotNamePlaceholder,
+                                    modifier = Modifier.weight(1.0f).height(48.dp).padding(horizontal = 12.dp),
+                                )
+                            }
+                            HorizontalDivider(color = UserColor.getSplitterColor())
+                        }
+
+                        ScreenshotViewer(
+                            screenshot = screenshot,
+                            isCapturing = isCapturing,
+                            onOpenDirectory = onOpenDirectory,
+                            onEditScreenshot = onEditScreenshot,
+                            onCopyScreenshot = onCopyScreenshot,
+                            modifier = Modifier.weight(1.0f).fillMaxWidth(),
+                        )
+                    }
+
+                    androidx.compose.material3.VerticalDivider(
+                        modifier = Modifier.fillMaxHeight(),
+                        color = UserColor.getSplitterColor(),
+                    )
+
+                    ScreenshotDetailMenu(
                         screenshot = screenshot,
-                        isCapturing = isCapturing,
                         onOpenDirectory = onOpenDirectory,
                         onEditScreenshot = onEditScreenshot,
-                        onCopyScreenshot = onCopyScreenshot,
                         modifier =
                             Modifier
-                                .weight(1.0f)
+                                .width(300.dp)
                                 .fillMaxHeight(),
                     )
                 }
@@ -198,7 +231,7 @@ private fun ScreenshotScreen(
                         Modifier
                             .width(1.dp)
                             .fillMaxHeight()
-                            .border(BorderStroke(1.dp, UserColor.getSplitterColor())),
+                            .background(UserColor.getSplitterColor()),
                     )
                 }
 
@@ -243,5 +276,8 @@ private fun ScreenshotScreen_Preview() {
         onUpdateSearchText = {},
         onSelectCommand = {},
         onUpdateSortType = {},
+        onRenameScreenshot = { _, _ -> },
+        errorMessage = null,
+        renameResetKey = 0,
     )
 }

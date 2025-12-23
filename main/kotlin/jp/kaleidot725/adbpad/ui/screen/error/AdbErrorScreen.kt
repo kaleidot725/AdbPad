@@ -22,7 +22,7 @@ import jp.kaleidot725.adbpad.ui.component.button.FloatingDialog
 
 @Composable
 fun AdbErrorScreen(onOpenSetting: () -> Unit) {
-    FloatingDialog(modifier = Modifier.width(400.dp).wrapContentHeight()) {
+    FloatingDialog(onDismiss = {}, modifier = Modifier.width(400.dp).wrapContentHeight()) {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(8.dp),

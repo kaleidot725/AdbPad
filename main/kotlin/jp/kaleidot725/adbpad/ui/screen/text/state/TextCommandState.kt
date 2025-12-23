@@ -14,8 +14,8 @@ data class TextCommandState(
     val isSendingTab: Boolean = false,
     val searchText: String = "",
     val sortType: SortType = SortType.SORT_BY_NAME_ASC,
-    val selectedTextCommandOption: TextCommand.Option = TextCommand.Option.SendWithTab,
 ) : MVIState {
     val selectedCommand: TextCommand? = commands.firstOrNull { it.id == selectedCommandId }
     val canSend: Boolean = selectedDevice != null
+    val selectedTextCommandOption: TextCommand.Option get() = selectedCommand?.option ?: TextCommand.Option.SendWithTab
 }

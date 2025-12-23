@@ -18,12 +18,16 @@ interface TextCommandRepository {
         value: String,
     ): Boolean
 
+    suspend fun updateTextCommandOption(
+        id: String,
+        option: TextCommand.Option,
+    ): Boolean
+
     suspend fun removeTextCommand(command: TextCommand): Boolean
 
     suspend fun sendCommand(
         device: Device,
         command: TextCommand,
-        option: TextCommand.Option,
         onStart: suspend () -> Unit,
         onComplete: suspend () -> Unit,
         onFailed: suspend () -> Unit,
