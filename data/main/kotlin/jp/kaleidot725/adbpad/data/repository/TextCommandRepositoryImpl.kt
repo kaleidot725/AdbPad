@@ -57,7 +57,7 @@ class TextCommandRepositoryImpl : TextCommandRepository {
                 val oldSetting = TextCommandFileCreator.load()
                 val targetIndex = oldSetting.values.indexOfFirst { it.id == id }
                 val target = oldSetting.values.getOrNull(targetIndex) ?: return@withContext false
-                val newTarget = target.copy(title = title)
+                val newTarget = target.copy(title = title, lastModified = System.currentTimeMillis())
                 val newCommands = oldSetting.values.toMutableList()
                 newCommands.remove(target)
                 newCommands.add(targetIndex, newTarget)
@@ -70,14 +70,34 @@ class TextCommandRepositoryImpl : TextCommandRepository {
 
     override suspend fun updateTextCommandValue(
         id: String,
-        text: String,
+        value: String,
     ): Boolean {
         return withContext(Dispatchers.IO) {
             synchronized(lock) {
                 val oldSetting = TextCommandFileCreator.load()
                 val targetIndex = oldSetting.values.indexOfFirst { it.id == id }
                 val target = oldSetting.values.getOrNull(targetIndex) ?: return@withContext false
-                val newTarget = target.copy(text = text)
+                val newTarget = target.copy(text = value, lastModified = System.currentTimeMillis())
+                val newCommands = oldSetting.values.toMutableList()
+                newCommands.remove(target)
+                newCommands.add(targetIndex, newTarget)
+
+                val newSetting = oldSetting.copy(values = newCommands)
+                return@withContext TextCommandFileCreator.save(newSetting)
+            }
+        }
+    }
+
+    override suspend fun updateTextCommandOption(
+        id: String,
+        option: TextCommand.Option,
+    ): Boolean {
+        return withContext(Dispatchers.IO) {
+            synchronized(lock) {
+                val oldSetting = TextCommandFileCreator.load()
+                val targetIndex = oldSetting.values.indexOfFirst { it.id == id }
+                val target = oldSetting.values.getOrNull(targetIndex) ?: return@withContext false
+                val newTarget = target.copy(option = option, lastModified = System.currentTimeMillis())
                 val newCommands = oldSetting.values.toMutableList()
                 newCommands.remove(target)
                 newCommands.add(targetIndex, newTarget)
@@ -91,7 +111,6 @@ class TextCommandRepositoryImpl : TextCommandRepository {
     override suspend fun sendCommand(
         device: Device,
         command: TextCommand,
-        option: TextCommand.Option,
         onStart: suspend () -> Unit,
         onComplete: suspend () -> Unit,
         onFailed: suspend () -> Unit,
@@ -114,7 +133,7 @@ class TextCommandRepositoryImpl : TextCommandRepository {
 
                 if (command.requests.lastIndex != index) {
                     val keyCode =
-                        when (option) {
+                        when (command.option) {
                             TextCommand.Option.SendWithTab -> 61
                             TextCommand.Option.SendWithNewLine -> 66
                         }

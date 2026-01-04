@@ -14,6 +14,10 @@ object ChineseResources : StringResources {
     override val tab = "标签"
     override val send = "发送"
     override val cancel = "取消"
+    override val open = "打开"
+    override val edit = "编辑"
+    override val copy = "复制"
+    override val properties = "属性"
     override val targetDevice = "设备"
     override val tool = "工具"
     override val setting = "设置"
@@ -31,6 +35,10 @@ object ChineseResources : StringResources {
 
     override val textCommandOptionNewLine: String = "用换行键发送"
     override val textCommandOptionTab: String = "用制表符键发送"
+    override val textCommandLineBreakSection: String = "换行选项"
+    override val textCommandLineBreakOptionEnter: String = "Enter"
+    override val textCommandLineBreakOptionTab: String = "Tab"
+    override val textCommandLineBreakOptionLabel: String = "换行类型"
 
     override val commandStartEventFormat = "开始发送命令 「%s」"
     override val commandEndEventFormat = "结束发送命令 「%s」"
@@ -161,6 +169,7 @@ object ChineseResources : StringResources {
     override val scrcpySettingsSection: String = "Scrcpy设置"
 
     // Scrcpy Options Section
+    override val virtualDisplayOptionsSection: String = "虚拟显示选项"
     override val videoOptionsSection: String = "视频选项"
     override val audioOptionsSection: String = "音频选项"
     override val displayOptionsSection: String = "显示选项"
@@ -192,11 +201,17 @@ object ChineseResources : StringResources {
     override val windowYLabel: String = "窗口Y"
     override val windowWidthLabel: String = "窗口宽度"
     override val windowHeightLabel: String = "窗口高度"
+    override val virtualDisplayWidthLabel: String = "宽度"
+    override val virtualDisplayHeightLabel: String = "高度"
+    override val virtualDisplayDpiLabel: String = "DPI"
     override val logLevelLabel: String = "日志级别"
 
     override val autoLabel: String = "自动"
     override val defaultLabel: String = "默认"
     override val customTitlePlaceholder: String = "自定义标题"
+    override val screenshotNamePlaceholder: String = "屏幕截图名称"
+    override val invalidCharactersMessage: String = "名称包含无效字符"
+    override val fileNameDuplicateMessage: String = "名称已存在"
 
     // Setting Categories
     override val categoryAppearance: String = "外观"
@@ -220,4 +235,9 @@ object ChineseResources : StringResources {
     override val scrcpyNewDisplayEmpty: String = "没有可用的预设。"
     override val scrcpyNewDisplayTitleFormat: String = "%s 虚拟显示"
     override val scrcpyNewDisplayTargetDeviceFormat: String = "目标设备：%s"
+    override val scrcpyNewDisplayLaunchOptions: String = "启动选项"
+
+    override val commandCategoryAll: String = "全部"
+    override val commandCategoryUi: String = "界面"
+    override val commandCategoryCommunication: String = "通信"
 }

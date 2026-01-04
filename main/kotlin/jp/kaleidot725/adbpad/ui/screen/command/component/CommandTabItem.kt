@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
@@ -34,15 +35,16 @@ fun CommandTabItem(
 ) {
     Box(
         modifier
-            .widthIn(min = 160.dp)
-            .clickableBackground(isSelected = isSelected, shape = RoundedCornerShape(8.dp))
+            .widthIn(min = 184.dp)
+            .heightIn(min = 40.dp)
             .clip(RoundedCornerShape(8.dp))
+            .clickableBackground(isSelected = isSelected, shape = RoundedCornerShape(8.dp))
             .clickable(onClick = onClick)
             .padding(vertical = 8.dp, horizontal = 12.dp),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier.align(Alignment.Center),
         ) {
             Icon(
@@ -62,6 +64,7 @@ fun CommandTabItem(
                 text = title,
                 textAlign = TextAlign.Center,
                 style = textStyle,
+                maxLines = 1,
             )
         }
     }

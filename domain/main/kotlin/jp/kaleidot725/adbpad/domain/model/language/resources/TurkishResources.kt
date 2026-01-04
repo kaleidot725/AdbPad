@@ -14,6 +14,10 @@ object TurkishResources : StringResources {
     override val tab = "Sekme"
     override val send = "Gönder"
     override val cancel = "İptal"
+    override val open = "Aç"
+    override val edit = "Düzenle"
+    override val copy = "Kopyala"
+    override val properties = "Özellikler"
     override val targetDevice = "Cihazlar"
     override val tool = "Araçlar"
     override val setting = "Ayarlar"
@@ -31,6 +35,10 @@ object TurkishResources : StringResources {
 
     override val textCommandOptionNewLine: String = "Yeni satır tuşu ile gönder"
     override val textCommandOptionTab: String = "Sekme tuşu ile gönder"
+    override val textCommandLineBreakSection: String = "Satır Sonu Seçenekleri"
+    override val textCommandLineBreakOptionEnter: String = "Enter"
+    override val textCommandLineBreakOptionTab: String = "Sekme"
+    override val textCommandLineBreakOptionLabel: String = "Tip"
 
     override val commandStartEventFormat = "「%s」 komutu gönderiliyor"
     override val commandEndEventFormat = "「%s」 komutu gönderildi"
@@ -161,6 +169,7 @@ object TurkishResources : StringResources {
     override val scrcpySettingsSection: String = "Scrcpy Ayarları"
 
     // Scrcpy Options Section
+    override val virtualDisplayOptionsSection: String = "Sanal Ekran Seçenekleri"
     override val videoOptionsSection: String = "Video Seçenekleri"
     override val audioOptionsSection: String = "Ses Seçenekleri"
     override val displayOptionsSection: String = "Ekran Seçenekleri"
@@ -192,11 +201,17 @@ object TurkishResources : StringResources {
     override val windowYLabel: String = "Pencere Y"
     override val windowWidthLabel: String = "Pencere Genişliği"
     override val windowHeightLabel: String = "Pencere Yüksekliği"
+    override val virtualDisplayWidthLabel: String = "Genişlik"
+    override val virtualDisplayHeightLabel: String = "Yükseklik"
+    override val virtualDisplayDpiLabel: String = "DPI"
     override val logLevelLabel: String = "Günlük Seviyesi"
 
     override val autoLabel: String = "Otomatik"
     override val defaultLabel: String = "Varsayılan"
     override val customTitlePlaceholder: String = "Özel başlık"
+    override val screenshotNamePlaceholder: String = "Ekran görüntüsü adı"
+    override val invalidCharactersMessage: String = "İsimde geçersiz karakterler var"
+    override val fileNameDuplicateMessage: String = "İsim zaten mevcut"
 
     // Setting Categories
     override val categoryAppearance: String = "Görünüm"
@@ -222,4 +237,9 @@ object TurkishResources : StringResources {
     override val scrcpyNewDisplayEmpty: String = "Kullanılabilir profil yok."
     override val scrcpyNewDisplayTitleFormat: String = "%s sanal ekranı"
     override val scrcpyNewDisplayTargetDeviceFormat: String = "Hedef cihaz: %s"
+    override val scrcpyNewDisplayLaunchOptions: String = "Başlatma Seçenekleri"
+
+    override val commandCategoryAll: String = "Hepsi"
+    override val commandCategoryUi: String = "UI"
+    override val commandCategoryCommunication: String = "İletişim"
 }

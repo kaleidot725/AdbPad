@@ -21,5 +21,7 @@ sealed class MainAction : MVIAction {
 
     data object ToggleAlwaysOnTop : MainAction()
 
+    data object ToggleNavigationRail : MainAction()
+
     data object Shutdown : MainAction()
 }

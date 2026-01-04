@@ -44,7 +44,7 @@ fun CommandItemList(
                 Modifier
                     .fillMaxWidth()
                     .clickableBackground(isSelected = isRunning, shape = RoundedCornerShape(6.dp))
-                    .padding(horizontal = 12.dp, vertical = 8.dp),
+                    .padding(horizontal = 12.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(

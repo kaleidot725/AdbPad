@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
@@ -43,6 +44,7 @@ fun DeviceSettingsScreen(
     modifier: Modifier = Modifier,
 ) {
     FloatingDialog(
+        onDismiss = onCancel,
         modifier =
             modifier
                 .width(1000.dp)
@@ -50,13 +52,18 @@ fun DeviceSettingsScreen(
                 .padding(vertical = 32.dp),
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = 12.dp),
+            modifier = Modifier.fillMaxSize(),
         ) {
             Text(
                 text = "${Language.deviceSettingsTitle} - ${device.displayName}",
                 style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(bottom = 16.dp),
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(top = 12.dp, bottom = 16.dp),
             )
+
+            HorizontalDivider(color = UserColor.getSplitterColor())
 
             Row(
                 modifier = Modifier.weight(1f, true).fillMaxWidth(),
@@ -70,59 +77,68 @@ fun DeviceSettingsScreen(
                 VerticalDivider(
                     thickness = 1.dp,
                     color = UserColor.getSplitterColor(),
+                    modifier = Modifier.fillMaxHeight(),
                 )
 
-                when (selectedCategory) {
-                    DeviceSettingCategory.DEVICE -> {
-                        DeviceGeneralPane(
-                            device = device,
-                            deviceSettings = deviceSettings,
-                            onUpdateDeviceSettings = onUpdateDeviceSettings,
-                            modifier = Modifier.weight(1f),
-                        )
-                    }
-                    DeviceSettingCategory.SCRCPY -> {
-                        DeviceScrcpyPane(
-                            deviceSettings = deviceSettings,
-                            onUpdateDeviceSettings = onUpdateDeviceSettings,
-                            modifier = Modifier.weight(1f),
-                        )
-                    }
-                }
-            }
-
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp, alignment = Alignment.End),
-                modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
-            ) {
-                Button(
-                    onClick = onCancel,
-                    enabled = !isSaving,
+                Box(
+                    modifier = Modifier.weight(1f).fillMaxHeight(),
                 ) {
-                    Text(
-                        text = Language.cancel,
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.width(100.dp),
-                        textAlign = TextAlign.Center,
-                    )
-                }
-                Button(
-                    onClick = onSave,
-                    enabled = !isSaving,
-                ) {
-                    if (isSaving) {
-                        Box(modifier = Modifier.width(100.dp)) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(12.dp).align(Alignment.Center),
+                    when (selectedCategory) {
+                        DeviceSettingCategory.DEVICE -> {
+                            DeviceGeneralPane(
+                                device = device,
+                                deviceSettings = deviceSettings,
+                                onUpdateDeviceSettings = onUpdateDeviceSettings,
+                                modifier = Modifier.fillMaxSize(),
                             )
                         }
-                    } else {
-                        Text(
-                            text = Language.save,
-                            style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.width(100.dp),
-                            textAlign = TextAlign.Center,
-                        )
+                        DeviceSettingCategory.SCRCPY -> {
+                            DeviceScrcpyPane(
+                                deviceSettings = deviceSettings,
+                                onUpdateDeviceSettings = onUpdateDeviceSettings,
+                                modifier = Modifier.fillMaxSize(),
+                            )
+                        }
+                    }
+
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp, alignment = Alignment.End),
+                        modifier =
+                            Modifier
+                                .align(Alignment.BottomEnd)
+                                .fillMaxWidth()
+                                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 12.dp),
+                    ) {
+                        Button(
+                            onClick = onCancel,
+                            enabled = !isSaving,
+                        ) {
+                            Text(
+                                text = Language.cancel,
+                                style = MaterialTheme.typography.bodySmall,
+                                modifier = Modifier.width(100.dp),
+                                textAlign = TextAlign.Center,
+                            )
+                        }
+                        Button(
+                            onClick = onSave,
+                            enabled = !isSaving,
+                        ) {
+                            if (isSaving) {
+                                Box(modifier = Modifier.width(100.dp)) {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier.size(12.dp).align(Alignment.Center),
+                                    )
+                                }
+                            } else {
+                                Text(
+                                    text = Language.save,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    modifier = Modifier.width(100.dp),
+                                    textAlign = TextAlign.Center,
+                                )
+                            }
+                        }
                     }
                 }
             }

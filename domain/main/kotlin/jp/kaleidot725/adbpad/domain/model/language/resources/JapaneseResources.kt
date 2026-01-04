@@ -14,6 +14,10 @@ object JapaneseResources : StringResources {
     override val tab = "Tab"
     override val send = "送信"
     override val cancel = "キャンセル"
+    override val open = "開く"
+    override val edit = "編集"
+    override val copy = "コピー"
+    override val properties = "プロパティ"
     override val targetDevice = "端末"
     override val tool = "ツール"
     override val setting = "設定　"
@@ -30,6 +34,13 @@ object JapaneseResources : StringResources {
 
     override val textCommandOptionNewLine: String = "送信する(改行キー)"
     override val textCommandOptionTab: String = "送信する(タブキー)"
+    override val textCommandLineBreakSection: String = "改行オプション"
+    override val textCommandLineBreakOptionEnter: String = "Enter"
+    override val textCommandLineBreakOptionTab: String = "タブ"
+    override val textCommandLineBreakOptionLabel: String = "改行タイプ"
+
+    override val sortByNameAsc: String = "名前(昇順)"
+    override val sortByNameDesc: String = "名前(降順)"
 
     override val commandStartEventFormat = "「%s」のコマンド送信を開始しました"
     override val commandEndEventFormat = "「%s」のコマンド送信が完了しました"
@@ -124,9 +135,6 @@ object JapaneseResources : StringResources {
     override val adbErrorMessage = "ADBサーバーを開始できませんでした、ADBの設定を変更してください"
     override val adbErrorOpenSetting = "設定を開く"
 
-    override val sortByNameAsc: String = "名前(昇順)"
-    override val sortByNameDesc: String = "名前(降順)"
-
     // TopSection tooltips
     override val tooltipRefresh: String = "更新"
     override val tooltipPower: String = "電源"
@@ -160,6 +168,7 @@ object JapaneseResources : StringResources {
     override val scrcpySettingsSection: String = "Scrcpy設定"
 
     // Scrcpy Options Section
+    override val virtualDisplayOptionsSection: String = "仮想ディスプレイオプション"
     override val videoOptionsSection: String = "映像オプション"
     override val audioOptionsSection: String = "音声オプション"
     override val displayOptionsSection: String = "表示オプション"
@@ -191,11 +200,17 @@ object JapaneseResources : StringResources {
     override val windowYLabel: String = "ウィンドウY"
     override val windowWidthLabel: String = "ウィンドウ幅"
     override val windowHeightLabel: String = "ウィンドウ高さ"
+    override val virtualDisplayWidthLabel: String = "幅"
+    override val virtualDisplayHeightLabel: String = "高さ"
+    override val virtualDisplayDpiLabel: String = "DPI"
     override val logLevelLabel: String = "ログレベル"
 
     override val autoLabel: String = "自動"
     override val defaultLabel: String = "デフォルト"
     override val customTitlePlaceholder: String = "カスタムタイトル"
+    override val screenshotNamePlaceholder: String = "スクリーンショット名"
+    override val invalidCharactersMessage: String = "名前に無効な文字が含まれています"
+    override val fileNameDuplicateMessage: String = "すでに同じ名前が存在します"
 
     // Setting Categories
     override val categoryAppearance: String = "外観"
@@ -221,4 +236,9 @@ object JapaneseResources : StringResources {
     override val scrcpyNewDisplayEmpty: String = "プリセットが見つかりません。"
     override val scrcpyNewDisplayTitleFormat: String = "%s の仮想ディスプレイ"
     override val scrcpyNewDisplayTargetDeviceFormat: String = "対象端末: %s"
+    override val scrcpyNewDisplayLaunchOptions: String = "起動オプション"
+
+    override val commandCategoryAll: String = "すべて"
+    override val commandCategoryUi: String = "UI操作"
+    override val commandCategoryCommunication: String = "通信"
 }

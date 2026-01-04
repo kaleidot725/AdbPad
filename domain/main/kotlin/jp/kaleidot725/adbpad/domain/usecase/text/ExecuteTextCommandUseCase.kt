@@ -10,7 +10,6 @@ class ExecuteTextCommandUseCase(
     suspend operator fun invoke(
         device: Device,
         command: TextCommand,
-        option: TextCommand.Option,
         onStart: suspend () -> Unit,
         onFailed: suspend () -> Unit,
         onComplete: suspend () -> Unit,
@@ -18,7 +17,6 @@ class ExecuteTextCommandUseCase(
         textCommandRepository.sendCommand(
             device = device,
             command = command,
-            option = option,
             onStart = {
                 onStart()
             },

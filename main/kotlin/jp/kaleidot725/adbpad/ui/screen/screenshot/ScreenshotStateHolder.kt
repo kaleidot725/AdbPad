@@ -3,12 +3,14 @@ package jp.kaleidot725.adbpad.ui.screen.screenshot
 import jp.kaleidot725.adbpad.core.mvi.MVIBase
 import jp.kaleidot725.adbpad.core.utils.ClipBoardUtils
 import jp.kaleidot725.adbpad.domain.model.command.ScreenshotCommand
+import jp.kaleidot725.adbpad.domain.model.language.Language
 import jp.kaleidot725.adbpad.domain.model.os.OSContext
 import jp.kaleidot725.adbpad.domain.model.screenshot.Screenshot
 import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import jp.kaleidot725.adbpad.domain.repository.ScreenshotCommandRepository
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.GetScreenshotCommandUseCase
+import jp.kaleidot725.adbpad.domain.usecase.screenshot.RenameScreenshotUseCase
 import jp.kaleidot725.adbpad.domain.usecase.screenshot.TakeScreenshotUseCase
 import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotAction
 import jp.kaleidot725.adbpad.ui.screen.screenshot.state.ScreenshotSideEffect
@@ -25,6 +27,7 @@ class ScreenshotStateHolder(
     private val getScreenshotCommandUseCase: GetScreenshotCommandUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
     private val screenshotCommandRepository: ScreenshotCommandRepository,
+    private val renameScreenshotUseCase: RenameScreenshotUseCase,
 ) : MVIBase<ScreenshotState, ScreenshotAction, ScreenshotSideEffect>(initialUiState = ScreenshotState()) {
     override fun onSetup() {
         coroutineScope.launch {
@@ -68,6 +71,7 @@ class ScreenshotStateHolder(
                 ScreenshotAction.CopyScreenshotToClipboard -> copyScreenShotToClipboard()
                 ScreenshotAction.DeleteScreenshotToClipboard -> deleteScreenShotToClipboard()
                 ScreenshotAction.EditScreenshot -> editScreenshot()
+                is ScreenshotAction.RenameScreenshot -> renameScreenshot(uiAction.name, uiAction.isRealtime)
                 is ScreenshotAction.DeleteScreenshot -> deleteSpecificScreenshot(uiAction.screenshot)
                 is ScreenshotAction.SelectScreenshot -> selectScreenshot(uiAction.screenshot)
                 ScreenshotAction.NextScreenshot -> nextScreenshot()
@@ -75,7 +79,71 @@ class ScreenshotStateHolder(
                 is ScreenshotAction.UpdateSearchText -> updateSearchText(uiAction.text)
                 is ScreenshotAction.SelectScreenshotCommand -> selectScreenshotCommand(uiAction.command)
                 is ScreenshotAction.UpdateSortType -> updateSortType(uiAction.sortType)
+                ScreenshotAction.DismissError -> update { copy(errorMessage = null) }
             }
+        }
+    }
+
+    private suspend fun renameScreenshot(
+        name: String,
+        isRealtime: Boolean,
+    ) {
+        val currentScreenshot = currentState.preview
+        if (currentScreenshot.file?.nameWithoutExtension == name) {
+            update { copy(errorMessage = null) }
+            return
+        }
+
+        val isLegal = name.isNotEmpty() && name.none { ILLEGAL_FILENAME_CHARS.contains(it) }
+        if (!isLegal) {
+            update {
+                copy(
+                    errorMessage = Language.invalidCharactersMessage,
+                    renameResetKey = if (!isRealtime) renameResetKey + 1 else renameResetKey,
+                )
+            }
+            return
+        }
+
+        val isDuplicate = currentState.previews.any { it.file?.nameWithoutExtension == name }
+        if (isDuplicate) {
+            update {
+                copy(
+                    errorMessage = Language.fileNameDuplicateMessage,
+                    renameResetKey = if (!isRealtime) renameResetKey + 1 else renameResetKey,
+                )
+            }
+            return
+        }
+
+        update { copy(errorMessage = null) }
+
+        val isSuccess = renameScreenshotUseCase(currentScreenshot, name)
+        if (!isSuccess) {
+            update {
+                copy(
+                    renameResetKey = if (!isRealtime) renameResetKey + 1 else renameResetKey,
+                )
+            }
+            return
+        }
+
+        val screenshots =
+            screenshotCommandRepository.getScreenshots(
+                currentState.searchText,
+                currentState.sortType,
+            )
+
+        val newScreenshot =
+            screenshots.firstOrNull {
+                it.file?.nameWithoutExtension == name
+            } ?: screenshots.firstOrNull() ?: Screenshot(null)
+
+        update {
+            copy(
+                previews = screenshots,
+                preview = newScreenshot,
+            )
         }
     }
 
@@ -246,5 +314,9 @@ class ScreenshotStateHolder(
                 selectedCommand = command,
             )
         }
+    }
+
+    companion object {
+        private val ILLEGAL_FILENAME_CHARS = setOf('\\', '/', ':', '*', '?', '"', '<', '>', '|')
     }
 }

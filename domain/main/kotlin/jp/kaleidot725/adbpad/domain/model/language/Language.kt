@@ -29,6 +29,14 @@ object Language : StringResources {
         get() = getCurrentResources().send
     override val cancel: String
         get() = getCurrentResources().cancel
+    override val open: String
+        get() = getCurrentResources().open
+    override val edit: String
+        get() = getCurrentResources().edit
+    override val copy: String
+        get() = getCurrentResources().copy
+    override val properties: String
+        get() = getCurrentResources().properties
     override val targetDevice: String
         get() = getCurrentResources().targetDevice
     override val tool: String
@@ -232,6 +240,14 @@ object Language : StringResources {
         get() = getCurrentResources().textCommandOptionNewLine
     override val textCommandOptionTab: String
         get() = getCurrentResources().textCommandOptionTab
+    override val textCommandLineBreakSection: String
+        get() = getCurrentResources().textCommandLineBreakSection
+    override val textCommandLineBreakOptionEnter: String
+        get() = getCurrentResources().textCommandLineBreakOptionEnter
+    override val textCommandLineBreakOptionTab: String
+        get() = getCurrentResources().textCommandLineBreakOptionTab
+    override val textCommandLineBreakOptionLabel: String
+        get() = getCurrentResources().textCommandLineBreakOptionLabel
 
     override val sortByNameAsc: String
         get() = getCurrentResources().sortByNameAsc
@@ -296,6 +312,8 @@ object Language : StringResources {
         get() = getCurrentResources().scrcpySettingsSection
 
     // Scrcpy Options Section
+    override val virtualDisplayOptionsSection: String
+        get() = getCurrentResources().virtualDisplayOptionsSection
     override val videoOptionsSection: String
         get() = getCurrentResources().videoOptionsSection
     override val audioOptionsSection: String
@@ -356,6 +374,12 @@ object Language : StringResources {
         get() = getCurrentResources().windowWidthLabel
     override val windowHeightLabel: String
         get() = getCurrentResources().windowHeightLabel
+    override val virtualDisplayWidthLabel: String
+        get() = getCurrentResources().virtualDisplayWidthLabel
+    override val virtualDisplayHeightLabel: String
+        get() = getCurrentResources().virtualDisplayHeightLabel
+    override val virtualDisplayDpiLabel: String
+        get() = getCurrentResources().virtualDisplayDpiLabel
     override val logLevelLabel: String
         get() = getCurrentResources().logLevelLabel
 
@@ -365,6 +389,12 @@ object Language : StringResources {
         get() = getCurrentResources().defaultLabel
     override val customTitlePlaceholder: String
         get() = getCurrentResources().customTitlePlaceholder
+    override val screenshotNamePlaceholder: String
+        get() = getCurrentResources().screenshotNamePlaceholder
+    override val invalidCharactersMessage: String
+        get() = getCurrentResources().invalidCharactersMessage
+    override val fileNameDuplicateMessage: String
+        get() = getCurrentResources().fileNameDuplicateMessage
 
     // Setting Categories
     override val categoryAppearance: String
@@ -406,6 +436,15 @@ object Language : StringResources {
         get() = getCurrentResources().scrcpyNewDisplayTitleFormat
     override val scrcpyNewDisplayTargetDeviceFormat: String
         get() = getCurrentResources().scrcpyNewDisplayTargetDeviceFormat
+    override val scrcpyNewDisplayLaunchOptions: String
+        get() = getCurrentResources().scrcpyNewDisplayLaunchOptions
+
+    override val commandCategoryAll: String
+        get() = getCurrentResources().commandCategoryAll
+    override val commandCategoryUi: String
+        get() = getCurrentResources().commandCategoryUi
+    override val commandCategoryCommunication: String
+        get() = getCurrentResources().commandCategoryCommunication
 
     fun scrcpyNewDisplayTitle(name: String): String = String.format(scrcpyNewDisplayTitleFormat, name)
 

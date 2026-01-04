@@ -46,10 +46,10 @@ import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.state.SettingSideEffect
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
-import jp.kaleidot725.adbpad.ui.section.right.RightSection
 import jp.kaleidot725.adbpad.ui.section.right.RightStateHolder
+import jp.kaleidot725.adbpad.ui.section.right.state.RightAction
+import jp.kaleidot725.adbpad.ui.section.top.TopSection
 import jp.kaleidot725.adbpad.ui.section.top.TopStateHolder
-import jp.kaleidot725.adbpad.ui.section.top.state.TopAction
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
 import org.jetbrains.compose.splitpane.rememberSplitPaneState
 
@@ -245,26 +245,28 @@ private fun App(
     Crossfade(state.language) {
         Surface {
             ScreenLayout(
-                navigationRail = {
+                top = {
                     MVIChildContent(
                         mvi = topStateHolder,
                         content = { topState, onTopAction ->
-                            NavigationRail(
-                                category = state.category,
-                                onSelectCategory = { onMainAction(MainAction.ClickCategory(it)) },
-                                onOpenSetting = { onMainAction(MainAction.OpenSetting) },
-                                devices = topState.devices,
-                                selectedDevice = topState.selectedDevice,
-                                onSelectDevice = { device -> onTopAction(TopAction.SelectDevice(device)) },
+                            TopSection(
+                                topState = topState,
+                                onTopAction = onTopAction,
                                 onOpenDeviceSettings = { device -> onMainAction(MainAction.OpenDeviceSettings(device)) },
                                 onRefreshDevices = onMainRefresh,
-                                onLaunchScrcpy = {
-                                    rightStateHolder.onAction(
-                                        jp.kaleidot725.adbpad.ui.section.right.state.RightAction.LaunchScrcpy,
-                                    )
-                                },
+                                onLaunchScrcpy = { rightStateHolder.onAction(RightAction.LaunchScrcpy) },
+                                onExecuteCommand = { command -> rightStateHolder.onAction(RightAction.ExecuteCommand(command)) },
+                                onToggleNavigationRail = { onMainAction(MainAction.ToggleNavigationRail) },
                             )
                         },
+                    )
+                },
+                navigationRail = {
+                    NavigationRail(
+                        category = state.category,
+                        isCollapsed = state.isNavigationRailCollapsed,
+                        onSelectCategory = { onMainAction(MainAction.ClickCategory(it)) },
+                        onOpenSetting = { onMainAction(MainAction.OpenSetting) },
                     )
                 },
                 content = {
@@ -324,17 +326,7 @@ private fun App(
                         }
                     }
                 },
-                right = {
-                    MVIChildContent(
-                        mvi = rightStateHolder,
-                        content = { state, onAction ->
-                            RightSection(
-                                state = state,
-                                onAction = onAction,
-                            )
-                        },
-                    )
-                },
+                right = {},
                 dialog = {
                     when (state.dialog) {
                         MainDialog.Setting -> {

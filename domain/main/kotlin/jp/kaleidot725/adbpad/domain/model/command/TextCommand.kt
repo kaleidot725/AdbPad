@@ -9,7 +9,9 @@ data class TextCommand(
     val id: String = UUID.randomUUID().toString(),
     val title: String,
     val text: String,
+    val option: Option = Option.SendWithTab,
     val isRunning: Boolean = false,
+    val lastModified: Long = System.currentTimeMillis(),
 ) {
     val requests: List<ShellCommandRequest> get() {
         return buildList {

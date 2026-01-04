@@ -4,6 +4,7 @@ import jp.kaleidot725.adbpad.core.mvi.MVIAction
 import jp.kaleidot725.adbpad.core.mvi.MVISideEffect
 import jp.kaleidot725.adbpad.core.mvi.MVIState
 import jp.kaleidot725.adbpad.domain.model.device.Device
+import jp.kaleidot725.adbpad.domain.model.device.ScrcpyOptions
 import jp.kaleidot725.adbpad.domain.model.scrcpy.ScrcpyNewDisplayProfile
 import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import java.util.Locale
@@ -21,6 +22,34 @@ sealed class ScrcpyNewDisplayAction : MVIAction {
 
     data class UpdateSortType(
         val sortType: SortType,
+    ) : ScrcpyNewDisplayAction()
+
+    data class UpdateScrcpyOptions(
+        val options: ScrcpyOptions,
+    ) : ScrcpyNewDisplayAction()
+
+    data object AddNewProfile : ScrcpyNewDisplayAction()
+
+    data object SaveProfile : ScrcpyNewDisplayAction()
+
+    data class DeleteProfile(
+        val profile: ScrcpyNewDisplayProfile,
+    ) : ScrcpyNewDisplayAction()
+
+    data class UpdateInputName(
+        val text: String,
+    ) : ScrcpyNewDisplayAction()
+
+    data class UpdateInputWidth(
+        val text: String,
+    ) : ScrcpyNewDisplayAction()
+
+    data class UpdateInputHeight(
+        val text: String,
+    ) : ScrcpyNewDisplayAction()
+
+    data class UpdateInputDpi(
+        val text: String,
     ) : ScrcpyNewDisplayAction()
 
     data object SelectNextProfile : ScrcpyNewDisplayAction()
@@ -49,6 +78,10 @@ data class ScrcpyNewDisplayState(
     val selectedDevice: Device? = null,
     val searchText: String = "",
     val sortType: SortType = SortType.SORT_BY_NAME_ASC,
+    val inputName: String = "",
+    val inputWidth: String = "",
+    val inputHeight: String = "",
+    val inputDpi: String = "",
     val isLaunching: Boolean = false,
     val feedback: ScrcpyNewDisplayFeedback = ScrcpyNewDisplayFeedback.None,
 ) : MVIState {
@@ -81,8 +114,6 @@ internal fun filterScrcpyNewDisplayProfiles(
                     add(profile.displayName)
                     add(profile.shortSpec)
                     profile.note?.let { add(it) }
-                    add(profile.brand.name)
-                    add(profile.formFactor.name)
                 }
 
             candidates.any { candidate -> candidate.contains(normalized, ignoreCase = true) }

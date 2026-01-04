@@ -1,0 +1,26 @@
+[
+    {
+        "id": "c23fa2c9-cfe1-4e17-9639-f66eaea12b62",
+        "displayName": "書きくけこ",
+        "width": 1080,
+        "height": 1920,
+        "densityDpi": 440,
+        "refreshRateHz": 60,
+        "options": {
+            "noAudio": true
+        },
+        "lastModified": 1767532782310
+    },
+    {
+        "id": "19066979-c2c0-4598-be7b-6fc08b26472e",
+        "displayName": "test",
+        "width": 1080,
+        "height": 1920,
+        "densityDpi": 440,
+        "refreshRateHz": 60,
+        "options": {
+            "noAudio": true
+        },
+        "lastModified": 1767532784219
+    }
+]

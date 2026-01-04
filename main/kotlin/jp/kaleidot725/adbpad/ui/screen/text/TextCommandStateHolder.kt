@@ -30,7 +30,12 @@ class TextCommandStateHolder(
                     searchText = currentState.searchText,
                     sortType = currentState.sortType,
                 )
-            update { this.copy(commands = commands) }
+            update {
+                val currentId = selectedCommandId
+                val isValid = commands.any { it.id == currentId }
+                val nextSelectedId = if (isValid) currentId else commands.firstOrNull()?.id
+                this.copy(commands = commands, selectedCommandId = nextSelectedId)
+            }
         }
     }
 
@@ -42,7 +47,10 @@ class TextCommandStateHolder(
                     sortType = currentState.sortType,
                 )
             update {
-                this.copy(commands = commands)
+                val currentId = selectedCommandId
+                val isValid = commands.any { it.id == currentId }
+                val nextSelectedId = if (isValid) currentId else commands.firstOrNull()?.id
+                this.copy(commands = commands, selectedCommandId = nextSelectedId)
             }
         }
     }
@@ -163,12 +171,10 @@ class TextCommandStateHolder(
     private suspend fun sendTextCommand() {
         val selectedDevice = currentState.selectedDevice ?: return
         val selectedCommand = currentState.selectedCommand ?: return
-        val selectedOption = currentState.selectedTextCommandOption
 
         executeTextCommandUseCase(
             device = selectedDevice,
             command = selectedCommand,
-            option = selectedOption,
             onStart = {
                 val commands =
                     getTextCommandUseCase(
@@ -270,8 +276,15 @@ class TextCommandStateHolder(
         update { copy(selectedCommandId = id) }
     }
 
-    private fun updateTextCommandOption(value: TextCommand.Option) {
-        update { copy(selectedTextCommandOption = value) }
+    private suspend fun updateTextCommandOption(value: TextCommand.Option) {
+        val selectedCommandId = currentState.selectedCommandId ?: return
+        textCommandRepository.updateTextCommandOption(selectedCommandId, value)
+        val commands =
+            getTextCommandUseCase(
+                searchText = currentState.searchText,
+                sortType = currentState.sortType,
+            )
+        update { copy(commands = commands) }
     }
 
     private suspend fun deleteCommandText(command: TextCommand) {

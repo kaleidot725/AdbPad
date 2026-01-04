@@ -85,8 +85,13 @@ class MainStateHolder(
             is MainAction.SaveSetting -> saveSetting(uiAction.windowSize)
             is MainAction.ClickCategory -> clickCategory(uiAction.category)
             is MainAction.ToggleAlwaysOnTop -> toggleAlwaysOnTop()
+            is MainAction.ToggleNavigationRail -> toggleNavigationRail()
             is MainAction.Shutdown -> shutdown()
         }
+    }
+
+    private fun toggleNavigationRail() {
+        update { copy(isNavigationRailCollapsed = !isNavigationRailCollapsed) }
     }
 
     private fun saveSetting(windowSize: WindowSize) {

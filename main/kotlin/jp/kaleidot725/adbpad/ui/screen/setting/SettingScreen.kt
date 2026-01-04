@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
@@ -37,6 +38,7 @@ fun SettingScreen(
     onMainRefresh: () -> Unit,
 ) {
     FloatingDialog(
+        onDismiss = onMainRefresh,
         modifier =
             Modifier
                 .width(960.dp)
@@ -51,13 +53,18 @@ fun SettingScreen(
         }
 
         Column(
-            modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = 12.dp),
+            modifier = Modifier.fillMaxSize(),
         ) {
             Text(
                 text = Language.setting,
                 style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(bottom = 16.dp),
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(top = 12.dp, bottom = 16.dp),
             )
+
+            HorizontalDivider(color = UserColor.getSplitterColor())
 
             Row(
                 modifier = Modifier.weight(1f, true).fillMaxWidth(),
@@ -71,73 +78,82 @@ fun SettingScreen(
                 VerticalDivider(
                     thickness = 1.dp,
                     color = UserColor.getSplitterColor(),
+                    modifier = Modifier.fillMaxHeight(),
                 )
 
-                when (state.selectedCategory) {
-                    SettingCategory.APPEARANCE -> {
-                        AppearanceSettingsPane(
-                            languages = state.languages,
-                            selectedLanguage = state.selectedLanguage,
-                            onUpdateLanguage = { onAction(SettingAction.UpdateLanguage(it)) },
-                            appearance = state.appearance,
-                            onUpdateAppearance = { onAction(SettingAction.UpdateAppearance(it)) },
-                            accentColor = state.accentColor,
-                            onUpdateAccentColor = { onAction(SettingAction.UpdateAccentColor(it)) },
-                            modifier = Modifier.weight(1f),
-                        )
-                    }
-                    SettingCategory.SDK -> {
-                        SdkPathSettingsPane(
-                            initialized = state.initialized,
-                            adbDirectoryPath = state.adbDirectoryPath,
-                            onChangeAdbDirectoryPath = { onAction(SettingAction.UpdateAdbDirectoryPath(it)) },
-                            isValidAdbDirectoryPath = state.isValidAdbDirectoryPath,
-                            adbPortNumber = state.adbPortNumber,
-                            onChangeAdbPortNumber = { onAction(SettingAction.UpdateAdbPortNumberPath(it)) },
-                            isValidAdbPortNumber = state.isValidAdbPortNumber,
-                            scrcpyBinaryPath = state.scrcpyBinaryPath,
-                            onChangeScrcpyBinaryPath = { onAction(SettingAction.UpdateScrcpyBinaryPath(it)) },
-                            isValidScrcpyBinaryPath = state.isValidScrcpyBinaryPath,
-                            modifier = Modifier.weight(1f),
-                        )
-                    }
-                }
-            }
-
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp, alignment = Alignment.End),
-                modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
-            ) {
-                Button(
-                    onClick = onMainRefresh,
-                    enabled = state.canCancel,
+                Box(
+                    modifier = Modifier.weight(1f).fillMaxHeight(),
                 ) {
-                    Text(
-                        text = Language.cancel,
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.width(100.dp),
-                        textAlign = TextAlign.Center,
-                    )
-                }
-                Button(
-                    onClick = { onAction(SettingAction.Save) },
-                    enabled = state.canSave,
-                ) {
-                    if (state.isSaving) {
-                        Box(
-                            modifier = Modifier.width(100.dp),
-                        ) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(12.dp).align(Alignment.Center),
+                    when (state.selectedCategory) {
+                        SettingCategory.APPEARANCE -> {
+                            AppearanceSettingsPane(
+                                languages = state.languages,
+                                selectedLanguage = state.selectedLanguage,
+                                onUpdateLanguage = { onAction(SettingAction.UpdateLanguage(it)) },
+                                appearance = state.appearance,
+                                onUpdateAppearance = { onAction(SettingAction.UpdateAppearance(it)) },
+                                accentColor = state.accentColor,
+                                onUpdateAccentColor = { onAction(SettingAction.UpdateAccentColor(it)) },
+                                modifier = Modifier.fillMaxSize(),
                             )
                         }
-                    } else {
-                        Text(
-                            text = Language.save,
-                            style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.width(100.dp),
-                            textAlign = TextAlign.Center,
-                        )
+                        SettingCategory.SDK -> {
+                            SdkPathSettingsPane(
+                                initialized = state.initialized,
+                                adbDirectoryPath = state.adbDirectoryPath,
+                                onChangeAdbDirectoryPath = { onAction(SettingAction.UpdateAdbDirectoryPath(it)) },
+                                isValidAdbDirectoryPath = state.isValidAdbDirectoryPath,
+                                adbPortNumber = state.adbPortNumber,
+                                onChangeAdbPortNumber = { onAction(SettingAction.UpdateAdbPortNumberPath(it)) },
+                                isValidAdbPortNumber = state.isValidAdbPortNumber,
+                                scrcpyBinaryPath = state.scrcpyBinaryPath,
+                                onChangeScrcpyBinaryPath = { onAction(SettingAction.UpdateScrcpyBinaryPath(it)) },
+                                isValidScrcpyBinaryPath = state.isValidScrcpyBinaryPath,
+                                modifier = Modifier.fillMaxSize(),
+                            )
+                        }
+                    }
+
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp, alignment = Alignment.End),
+                        modifier =
+                            Modifier
+                                .align(Alignment.BottomEnd)
+                                .fillMaxWidth()
+                                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 12.dp),
+                    ) {
+                        Button(
+                            onClick = onMainRefresh,
+                            enabled = state.canCancel,
+                        ) {
+                            Text(
+                                text = Language.cancel,
+                                style = MaterialTheme.typography.bodySmall,
+                                modifier = Modifier.width(100.dp),
+                                textAlign = TextAlign.Center,
+                            )
+                        }
+                        Button(
+                            onClick = { onAction(SettingAction.Save) },
+                            enabled = state.canSave,
+                        ) {
+                            if (state.isSaving) {
+                                Box(
+                                    modifier = Modifier.width(100.dp),
+                                ) {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier.size(12.dp).align(Alignment.Center),
+                                    )
+                                }
+                            } else {
+                                Text(
+                                    text = Language.save,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    modifier = Modifier.width(100.dp),
+                                    textAlign = TextAlign.Center,
+                                )
+                            }
+                        }
                     }
                 }
             }

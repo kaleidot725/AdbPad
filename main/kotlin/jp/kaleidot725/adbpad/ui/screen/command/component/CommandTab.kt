@@ -11,6 +11,7 @@ import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.View
 import com.composables.icons.lucide.Wifi
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommandCategory
+import jp.kaleidot725.adbpad.domain.model.language.Language
 
 @Composable
 fun CommandTab(
@@ -23,21 +24,21 @@ fun CommandTab(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         CommandTabItem(
-            title = NormalCommandCategory.ALL.toString(),
+            title = Language.commandCategoryAll,
             icon = Lucide.Diamond,
             isSelected = filtered == NormalCommandCategory.ALL,
             onClick = { onClick(NormalCommandCategory.ALL) },
         )
 
         CommandTabItem(
-            title = NormalCommandCategory.UI.toString(),
+            title = Language.commandCategoryUi,
             icon = Lucide.View,
             isSelected = filtered == NormalCommandCategory.UI,
             onClick = { onClick(NormalCommandCategory.UI) },
         )
 
         CommandTabItem(
-            title = NormalCommandCategory.COM.toString(),
+            title = Language.commandCategoryCommunication,
             icon = Lucide.Wifi,
             isSelected = filtered == NormalCommandCategory.COM,
             onClick = { onClick(NormalCommandCategory.COM) },

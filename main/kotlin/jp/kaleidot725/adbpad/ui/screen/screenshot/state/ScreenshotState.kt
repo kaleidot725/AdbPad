@@ -15,6 +15,8 @@ data class ScreenshotState(
     val selectedDevice: Device? = null,
     val isCapturing: Boolean = false,
     val sortType: SortType = SortType.SORT_BY_NAME_ASC,
+    val errorMessage: String? = null,
+    val renameResetKey: Int = 0,
 ) : MVIState {
     val canExecute: Boolean = selectedDevice != null
 }

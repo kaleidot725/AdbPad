@@ -13,6 +13,10 @@ interface StringResources {
     val tab: String
     val send: String
     val cancel: String
+    val open: String
+    val edit: String
+    val copy: String
+    val properties: String
     val targetDevice: String
     val tool: String
     val setting: String
@@ -121,6 +125,11 @@ interface StringResources {
     val textCommandOptionNewLine: String
     val textCommandOptionTab: String
 
+    val textCommandLineBreakSection: String
+    val textCommandLineBreakOptionEnter: String
+    val textCommandLineBreakOptionTab: String
+    val textCommandLineBreakOptionLabel: String
+
     val sortByNameAsc: String
     val sortByNameDesc: String
 
@@ -157,6 +166,7 @@ interface StringResources {
     val scrcpySettingsSection: String
 
     // Scrcpy Options Section
+    val virtualDisplayOptionsSection: String
     val videoOptionsSection: String
     val audioOptionsSection: String
     val displayOptionsSection: String
@@ -188,11 +198,17 @@ interface StringResources {
     val windowYLabel: String
     val windowWidthLabel: String
     val windowHeightLabel: String
+    val virtualDisplayWidthLabel: String
+    val virtualDisplayHeightLabel: String
+    val virtualDisplayDpiLabel: String
     val logLevelLabel: String
 
     val autoLabel: String
     val defaultLabel: String
     val customTitlePlaceholder: String
+    val screenshotNamePlaceholder: String
+    val invalidCharactersMessage: String
+    val fileNameDuplicateMessage: String
 
     // Setting Categories
     val categoryAppearance: String
@@ -217,4 +233,9 @@ interface StringResources {
     val scrcpyNewDisplayEmpty: String
     val scrcpyNewDisplayTitleFormat: String
     val scrcpyNewDisplayTargetDeviceFormat: String
+    val scrcpyNewDisplayLaunchOptions: String
+
+    val commandCategoryAll: String
+    val commandCategoryUi: String
+    val commandCategoryCommunication: String
 }

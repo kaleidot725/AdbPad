@@ -21,5 +21,10 @@ interface ScreenshotCommandRepository {
         sortType: SortType,
     ): List<Screenshot>
 
+    suspend fun rename(
+        screenshot: Screenshot,
+        name: String,
+    ): Boolean
+
     suspend fun delete(screenshot: Screenshot)
 }
