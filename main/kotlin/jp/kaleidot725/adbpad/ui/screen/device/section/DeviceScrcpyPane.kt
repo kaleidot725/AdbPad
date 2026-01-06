@@ -33,7 +33,6 @@ import jp.kaleidot725.adbpad.ui.component.text.DefaultOutlineTextField
 import jp.kaleidot725.adbpad.ui.component.text.SubTitle
 import jp.kaleidot725.scrcpykt.option.AudioCodec
 import jp.kaleidot725.scrcpykt.option.AudioSource
-import jp.kaleidot725.scrcpykt.option.LogLevel
 import jp.kaleidot725.scrcpykt.option.VideoCodec
 import jp.kaleidot725.scrcpykt.option.VideoSource
 
@@ -422,23 +421,6 @@ fun DeviceScrcpyPane(
             }
         }
 
-        // Logging Options
-        SubTitle(
-            text = Language.loggingOptionsSection,
-            modifier = Modifier.padding(horizontal = 4.dp),
-        )
-
-        // Log Level Dropdown
-        EnumDropDown(
-            selectedValue = scrcpyOptions.verbosity,
-            values = LogLevel.entries.toList(),
-            onValueSelected = { level ->
-                onUpdateOptions(scrcpyOptions.copy(verbosity = level))
-            },
-            displayName = { it?.name?.replaceFirstChar { char -> char.uppercaseChar() } ?: Language.defaultLabel },
-            label = Language.logLevelLabel,
-            modifier = Modifier.fillMaxWidth(),
-        )
     }
 }
 

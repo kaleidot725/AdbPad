@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import jp.kaleidot725.adbpad.domain.model.command.TextCommand
 import jp.kaleidot725.adbpad.domain.model.language.Language
-import jp.kaleidot725.adbpad.ui.common.dummy.TextCommandDummy
 import jp.kaleidot725.adbpad.ui.common.resource.defaultBorder
 import jp.kaleidot725.adbpad.ui.component.text.DefaultTextField
 
@@ -79,7 +78,7 @@ fun TextCommandEditor(
 @Composable
 private fun Preview() {
     TextCommandEditor(
-        command = TextCommandDummy.value,
+        command = TextCommand(title = "Title", text = "Text"),
         option = TextCommand.Option.SendWithTab,
         onUpdateTitle = { _, _ -> },
         onUpdateText = { _, _ -> },

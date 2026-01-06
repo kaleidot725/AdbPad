@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 @Composable
 fun ThemedContextMenuArea(
     items: () -> List<ContextMenuItem>,
-    modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
     // Create custom representation with Material 3 theme colors matching DropdownMenu

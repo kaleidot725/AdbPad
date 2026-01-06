@@ -27,7 +27,7 @@ fun CommandTextButton(
         modifier =
             modifier
                 .size(28.dp)
-                .clip(RoundedCornerShape(4.dp))
+                .clip(RoundedCornerShape(8.dp))
                 .clickableBackground(isDarker = true)
                 .clickable { onClick() }
                 .padding(padding),

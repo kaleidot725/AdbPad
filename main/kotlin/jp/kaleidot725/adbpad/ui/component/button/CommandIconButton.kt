@@ -33,7 +33,7 @@ fun CommandIconButton(
         modifier =
             modifier
                 .size(28.dp)
-                .clip(RoundedCornerShape(4.dp))
+                .clip(RoundedCornerShape(8.dp))
                 .clickableBackground(isDarker = true)
                 .clickable(enabled = enabled, onClick = onClick)
                 .padding(4.dp + padding),

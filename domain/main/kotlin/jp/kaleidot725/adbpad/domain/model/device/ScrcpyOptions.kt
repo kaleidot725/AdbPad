@@ -6,7 +6,6 @@ import jp.kaleidot725.scrcpykt.option.CameraFacing
 import jp.kaleidot725.scrcpykt.option.CaptureOrientation
 import jp.kaleidot725.scrcpykt.option.GamepadMode
 import jp.kaleidot725.scrcpykt.option.KeyboardMode
-import jp.kaleidot725.scrcpykt.option.LogLevel
 import jp.kaleidot725.scrcpykt.option.MouseMode
 import jp.kaleidot725.scrcpykt.option.RecordFormat
 import jp.kaleidot725.scrcpykt.option.VideoCodec
@@ -65,7 +64,6 @@ data class ScrcpyOptions(
     val showTouches: Boolean = false,
     val disableScreensaver: Boolean = false,
     // Other options (matching ScrcpyCommand)
-    val verbosity: LogLevel? = null,
     val renderDriver: String? = null,
     val pushTarget: String? = null,
     val startApp: String? = null,
