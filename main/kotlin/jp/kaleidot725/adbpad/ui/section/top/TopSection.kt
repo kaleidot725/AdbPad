@@ -79,7 +79,7 @@ fun TopSection(
         color = MaterialTheme.colorScheme.background,
     ) {
         Row(
-            modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp),
+            modifier = Modifier.fillMaxSize().padding(8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
@@ -243,7 +243,7 @@ private fun TopSectionIconButton(
         Box(
             modifier =
                 Modifier
-                    .size(32.dp)
+                    .size(40.dp)
                     .clip(backgroundShape)
                     .clickableBackground(isSelected = false, shape = backgroundShape)
                     .onPointerEvent(PointerEventType.Press) { if (rotateOnPress) isPressed = true }
@@ -251,7 +251,7 @@ private fun TopSectionIconButton(
                     .clickable(enabled = enabled) {
                         if (rotateOnPress) isPressed = false
                         onClick()
-                    }.padding(4.dp),
+                    }.padding(8.dp),
             contentAlignment = Alignment.Center,
         ) {
             Icon(

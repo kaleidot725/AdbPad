@@ -28,7 +28,7 @@ fun NavigationRail(
     onSelectCategory: (MainCategory) -> Unit,
     onOpenSetting: () -> Unit,
 ) {
-    val width by animateDpAsState(if (isCollapsed) 60.dp else 200.dp)
+    val width by animateDpAsState(if (isCollapsed) 40.dp else 220.dp)
 
     Column(
         modifier = Modifier.fillMaxHeight().padding(8.dp).width(width),

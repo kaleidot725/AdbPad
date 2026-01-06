@@ -24,6 +24,11 @@ class ScrcpyNewDisplayProfileFileCreator {
 
     fun save(profiles: List<ScrcpyNewDisplayProfile>) {
         try {
+            file.parentFile?.let { parent ->
+                if (!parent.exists()) {
+                    parent.mkdirs()
+                }
+            }
             file.writeText(json.encodeToString(profiles))
         } catch (e: Exception) {
             e.printStackTrace()

@@ -51,7 +51,7 @@ fun NavigationRailItem(
                     .clip(RoundedCornerShape(8.dp))
                     .clickableBackground(isSelected = isSelected, shape = RoundedCornerShape(8.dp))
                     .clickable(onClick = onClick)
-                    .padding(horizontal = 12.dp, vertical = 8.dp),
+                    .padding(8.dp),
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth().align(Alignment.Center),

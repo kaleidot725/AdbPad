@@ -20,14 +20,6 @@ import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.ui.common.resource.UserColor.getSplitterColor
 
-@Composable
-fun Modifier.selectedBackground(isSelected: Boolean): Modifier =
-    if (isSelected) {
-        this.background(color = UserColor.getContentBackgroundColor())
-    } else {
-        this
-    }
-
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Modifier.clickableBackground(
