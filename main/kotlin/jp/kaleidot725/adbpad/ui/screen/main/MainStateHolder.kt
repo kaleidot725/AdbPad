@@ -26,7 +26,6 @@ import jp.kaleidot725.adbpad.ui.screen.newdisplay.ScrcpyNewDisplayStateHolder
 import jp.kaleidot725.adbpad.ui.screen.screenshot.ScreenshotStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
-import jp.kaleidot725.adbpad.ui.section.right.RightStateHolder
 import jp.kaleidot725.adbpad.ui.section.top.TopStateHolder
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
@@ -38,7 +37,6 @@ class MainStateHolder(
     val screenshotStateHolder: ScreenshotStateHolder,
     val scrcpyNewDisplayStateHolder: ScrcpyNewDisplayStateHolder,
     val topStateHolder: TopStateHolder,
-    val rightStateHolder: RightStateHolder,
     val deviceSettingsStateHolder: DeviceSettingsStateHolder,
     val settingStateHolder: SettingStateHolder,
     private val getWindowSizeUseCase: GetWindowSizeUseCase,
@@ -57,7 +55,6 @@ class MainStateHolder(
             screenshotStateHolder,
             scrcpyNewDisplayStateHolder,
             topStateHolder,
-            rightStateHolder,
         )
 
     override fun onSetup() {

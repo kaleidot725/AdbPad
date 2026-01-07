@@ -46,8 +46,6 @@ import jp.kaleidot725.adbpad.ui.screen.setting.SettingStateHolder
 import jp.kaleidot725.adbpad.ui.screen.setting.state.SettingSideEffect
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandScreen
 import jp.kaleidot725.adbpad.ui.screen.text.TextCommandStateHolder
-import jp.kaleidot725.adbpad.ui.section.right.RightStateHolder
-import jp.kaleidot725.adbpad.ui.section.right.state.RightAction
 import jp.kaleidot725.adbpad.ui.section.top.TopSection
 import jp.kaleidot725.adbpad.ui.section.top.TopStateHolder
 import org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi
@@ -216,7 +214,6 @@ fun MainScreen(
                 screenshotStateHolder = mainStateHolder.screenshotStateHolder,
                 scrcpyNewDisplayStateHolder = mainStateHolder.scrcpyNewDisplayStateHolder,
                 topStateHolder = mainStateHolder.topStateHolder,
-                rightStateHolder = mainStateHolder.rightStateHolder,
                 deviceSettingsStateHolder = mainStateHolder.deviceSettingsStateHolder,
                 settingStateHolder = mainStateHolder.settingStateHolder,
             )
@@ -235,7 +232,6 @@ private fun App(
     screenshotStateHolder: ScreenshotStateHolder,
     scrcpyNewDisplayStateHolder: ScrcpyNewDisplayStateHolder,
     topStateHolder: TopStateHolder,
-    rightStateHolder: RightStateHolder,
     deviceSettingsStateHolder: DeviceSettingsStateHolder,
     settingStateHolder: SettingStateHolder,
 ) {
@@ -254,8 +250,6 @@ private fun App(
                                 onTopAction = onTopAction,
                                 onOpenDeviceSettings = { device -> onMainAction(MainAction.OpenDeviceSettings(device)) },
                                 onRefreshDevices = onMainRefresh,
-                                onLaunchScrcpy = { rightStateHolder.onAction(RightAction.LaunchScrcpy) },
-                                onExecuteCommand = { command -> rightStateHolder.onAction(RightAction.ExecuteCommand(command)) },
                                 onToggleNavigationRail = { onMainAction(MainAction.ToggleNavigationRail) },
                             )
                         },

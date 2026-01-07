@@ -70,8 +70,6 @@ fun TopSection(
     onTopAction: (TopAction) -> Unit,
     onOpenDeviceSettings: (Device) -> Unit,
     onRefreshDevices: () -> Unit,
-    onLaunchScrcpy: () -> Unit,
-    onExecuteCommand: (DeviceControlCommand) -> Unit,
     onToggleNavigationRail: () -> Unit,
 ) {
     Surface(
@@ -111,7 +109,7 @@ fun TopSection(
                 TopSectionIconButton(
                     tooltip = Language.tooltipScrcpy,
                     icon = Lucide.ScreenShare,
-                    onClick = onLaunchScrcpy,
+                    onClick = { onTopAction(TopAction.LaunchScrcpy) },
                 )
 
                 TopSectionIconButton(
@@ -137,7 +135,7 @@ fun TopSection(
                     CommandIconButton(
                         modifier = Modifier.wrapContentSize(),
                         image = Lucide.Power,
-                        onClick = { onExecuteCommand(DeviceControlCommand.Power) },
+                        onClick = { onTopAction(TopAction.ExecuteCommand(DeviceControlCommand.Power)) },
                         padding = 2.dp,
                         enabled = enabled,
                     )
@@ -147,7 +145,7 @@ fun TopSection(
                     CommandIconButton(
                         modifier = Modifier.wrapContentSize(),
                         image = Icons.AutoMirrored.Filled.VolumeUp,
-                        onClick = { onExecuteCommand(DeviceControlCommand.VolumeUp) },
+                        onClick = { onTopAction(TopAction.ExecuteCommand(DeviceControlCommand.VolumeUp)) },
                         padding = 0.dp,
                         enabled = enabled,
                     )
@@ -157,7 +155,7 @@ fun TopSection(
                     CommandIconButton(
                         modifier = Modifier.wrapContentSize(),
                         image = Icons.AutoMirrored.Filled.VolumeDown,
-                        onClick = { onExecuteCommand(DeviceControlCommand.VolumeDown) },
+                        onClick = { onTopAction(TopAction.ExecuteCommand(DeviceControlCommand.VolumeDown)) },
                         padding = 0.dp,
                         enabled = enabled,
                     )
@@ -167,7 +165,7 @@ fun TopSection(
                     CommandIconButton(
                         modifier = Modifier.wrapContentSize(),
                         image = Icons.AutoMirrored.Filled.VolumeOff,
-                        onClick = { onExecuteCommand(DeviceControlCommand.VolumeMute) },
+                        onClick = { onTopAction(TopAction.ExecuteCommand(DeviceControlCommand.VolumeMute)) },
                         padding = 0.dp,
                         enabled = enabled,
                     )
@@ -178,7 +176,7 @@ fun TopSection(
                         modifier = Modifier.wrapContentSize(),
                         image = Lucide.Triangle,
                         degrees = -90f,
-                        onClick = { onExecuteCommand(DeviceControlCommand.Back) },
+                        onClick = { onTopAction(TopAction.ExecuteCommand(DeviceControlCommand.Back)) },
                         padding = 2.dp,
                         enabled = enabled,
                     )
@@ -188,7 +186,7 @@ fun TopSection(
                     CommandIconButton(
                         modifier = Modifier.wrapContentSize(),
                         image = Lucide.Circle,
-                        onClick = { onExecuteCommand(DeviceControlCommand.Home) },
+                        onClick = { onTopAction(TopAction.ExecuteCommand(DeviceControlCommand.Home)) },
                         padding = 2.dp,
                         enabled = enabled,
                     )
@@ -198,7 +196,7 @@ fun TopSection(
                     CommandIconButton(
                         modifier = Modifier.wrapContentSize(),
                         image = Lucide.Square,
-                        onClick = { onExecuteCommand(DeviceControlCommand.Recents) },
+                        onClick = { onTopAction(TopAction.ExecuteCommand(DeviceControlCommand.Recents)) },
                         padding = 2.dp,
                         enabled = enabled,
                     )
@@ -307,8 +305,6 @@ private fun Preview() {
         onTopAction = {},
         onOpenDeviceSettings = {},
         onRefreshDevices = {},
-        onLaunchScrcpy = {},
-        onExecuteCommand = {},
         onToggleNavigationRail = {},
     )
 }
