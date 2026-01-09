@@ -11,6 +11,14 @@ data class CommandState(
     val filtered: NormalCommandCategory = NormalCommandCategory.ALL,
     val selectedDevice: Device? = null,
     val layoutMode: CommandLayoutMode = CommandLayoutMode.CARD,
+    val selectedCommandId: String? = null,
 ) : MVIState {
     val canExecuteCommand: Boolean get() = selectedDevice != null
+
+    val selectedCommand: jp.kaleidot725.adbpad.domain.model.command.NormalCommand? get() {
+        if (selectedCommandId == null) return null
+        return commands.all.firstOrNull { command ->
+            command::class.simpleName == selectedCommandId
+        }
+    }
 }

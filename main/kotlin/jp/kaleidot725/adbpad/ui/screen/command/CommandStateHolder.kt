@@ -42,6 +42,7 @@ class CommandStateHolder(
                 is CommandAction.ClickCategoryTab -> clickTab(uiAction.category)
                 is CommandAction.ExecuteCommand -> executeCommand(uiAction.command)
                 is CommandAction.ToggleLayoutMode -> toggleLayoutMode()
+                is CommandAction.SelectCommand -> selectCommand(uiAction.command)
             }
         }
     }
@@ -83,6 +84,12 @@ class CommandStateHolder(
                     CommandLayoutMode.LIST -> CommandLayoutMode.CARD
                 }
             this.copy(layoutMode = newMode)
+        }
+    }
+
+    private fun selectCommand(command: NormalCommand?) {
+        update {
+            this.copy(selectedCommandId = command?.let { it::class.simpleName })
         }
     }
 }

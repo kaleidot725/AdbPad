@@ -9,9 +9,14 @@ interface NormalCommand {
     val isRunning: Boolean
     val requests: List<ShellCommandRequest>
     val category: NormalCommandCategory
+    val executionResult: String?
+
+    val commandStrings: List<String>
+        get() = requests.map { it.cmd }
 
     data class PointerLocationOn(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandPointerLocationOnTitle
         override val details: String get() = Language.commandPointerLocationOnDetails
@@ -24,6 +29,7 @@ interface NormalCommand {
 
     data class PointerLocationOff(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandPointerLocationOffTitle
         override val details: String get() = Language.commandPointerLocationOffDetails
@@ -36,6 +42,7 @@ interface NormalCommand {
 
     data class LayoutBorderOn(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandLayoutBorderOnTitle
         override val details: String get() = Language.commandLayoutBorderOnDetails
@@ -49,6 +56,7 @@ interface NormalCommand {
 
     data class LayoutBorderOff(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandLayoutBorderOffTitle
         override val details: String get() = Language.commandLayoutBorderOffDetails
@@ -62,6 +70,7 @@ interface NormalCommand {
 
     data class TapEffectOn(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandTapEffectOnTitle
         override val details: String get() = Language.commandTapEffectOnDetails
@@ -74,6 +83,7 @@ interface NormalCommand {
 
     data class TapEffectOff(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandTapEffectOffTitle
         override val details: String get() = Language.commandTapEffectOffDetails
@@ -86,6 +96,7 @@ interface NormalCommand {
 
     data class SleepModeOff(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandSleepModeOffTitle
         override val details: String get() = Language.commandSleepModeOffDetails
@@ -98,6 +109,7 @@ interface NormalCommand {
 
     data class SleepModeOn(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandSleepModeOnTitle
         override val details: String get() = Language.commandSleepModeOnDetails
@@ -110,6 +122,7 @@ interface NormalCommand {
 
     data class DarkThemeOn(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandDarkThemeOnTitle
         override val details: String get() = Language.commandDarkThemeOnDetails
@@ -119,6 +132,7 @@ interface NormalCommand {
 
     data class DarkThemeOff(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandDarkThemeOffTitle
         override val details: String get() = Language.commandDarkThemeOffDetails
@@ -128,6 +142,7 @@ interface NormalCommand {
 
     data class WifiOn(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandWifiOnTitle
         override val details: String get() = Language.commandWifiOnDetails
@@ -137,6 +152,7 @@ interface NormalCommand {
 
     data class WifiOff(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandWifiOffTitle
         override val details: String get() = Language.commandWifiOffDetails
@@ -146,6 +162,7 @@ interface NormalCommand {
 
     data class DataOn(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandDataOnTitle
         override val details: String get() = Language.commandDataOnDetails
@@ -155,6 +172,7 @@ interface NormalCommand {
 
     data class DataOff(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandDataOffTitle
         override val details: String get() = Language.commandDataOffDetails
@@ -164,6 +182,7 @@ interface NormalCommand {
 
     data class WifiAndDataOn(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandWifiAndDataOnTitle
         override val details: String get() = Language.commandWifiAndDataOnDetails
@@ -177,6 +196,7 @@ interface NormalCommand {
 
     data class WifiAndDataOff(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandWifiAndDataOffTitle
         override val details: String get() = Language.commandWifiAndDataOffDetails
@@ -190,6 +210,7 @@ interface NormalCommand {
 
     data class ScreenPinningOff(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandScreenPinningOffTitle
         override val details: String get() = Language.commandScreenPinningOffDetails
@@ -202,6 +223,7 @@ interface NormalCommand {
 
     data class EnableGestureNavigation(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandEnableGestureNavigationTitle
         override val details: String get() = Language.commandEnableGestureNavigationDetails
@@ -214,6 +236,7 @@ interface NormalCommand {
 
     data class EnableTwoButtonNavigation(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandEnableTwoButtonNavigationTitle
         override val details: String get() = Language.commandEnableTwoButtonNavigationDetails
@@ -226,6 +249,7 @@ interface NormalCommand {
 
     data class EnableThreeButtonNavigation(
         override val isRunning: Boolean = false,
+        override val executionResult: String? = null,
     ) : NormalCommand {
         override val title: String get() = Language.commandEnableThreeButtonNavigationTitle
         override val details: String get() = Language.commandEnableThreeButtonNavigationDetails

@@ -1,6 +1,7 @@
 package jp.kaleidot725.adbpad.ui.screen.command.component
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,12 +33,14 @@ fun CommandItemCard(
     title: String,
     detail: String,
     isRunning: Boolean,
+    isSelected: Boolean,
     canExecute: Boolean,
     onExecute: () -> Unit,
+    onSelect: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().clickable { onSelect() },
         tonalElevation = 2.dp,
         shape = RoundedCornerShape(8.dp),
     ) {
@@ -45,7 +48,7 @@ fun CommandItemCard(
             modifier =
                 Modifier
                     .fillMaxWidth()
-                    .clickableBackground(isSelected = isRunning, shape = RoundedCornerShape(6.dp))
+                    .clickableBackground(isSelected = isSelected || isRunning, shape = RoundedCornerShape(6.dp))
                     .padding(horizontal = 12.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
@@ -67,7 +70,10 @@ fun CommandItemCard(
 
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
                 Button(
-                    onClick = { onExecute() },
+                    onClick = {
+                        onSelect()
+                        onExecute()
+                    },
                     enabled = canExecute,
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                 ) {
@@ -94,8 +100,10 @@ private fun CommandItemCard_Running_Preview() {
         title = "ダークテーマON",
         detail = "端末のダークテーマ設定をONにします",
         isRunning = true,
+        isSelected = false,
         canExecute = true,
         onExecute = {},
+        onSelect = {},
         modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp),
     )
 }
@@ -107,8 +115,10 @@ private fun CommandItemCard_NotRunning_Preview() {
         title = "ダークテーマON",
         detail = "端末のダークテーマ設定をONにします",
         isRunning = false,
+        isSelected = false,
         canExecute = true,
         onExecute = {},
+        onSelect = {},
         modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp),
     )
 }
@@ -120,8 +130,10 @@ private fun CommandItemCard_NotExecute_Preview() {
         title = "ダークテーマON",
         detail = "端末のダークテーマ設定をONにします",
         isRunning = false,
+        isSelected = false,
         canExecute = false,
         onExecute = {},
+        onSelect = {},
         modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp),
     )
 }

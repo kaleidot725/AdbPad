@@ -85,6 +85,17 @@ object EnglishResources : StringResources {
     override val commandEnableGestureNavigationTitle: String = "Gesture navigation: ON"
     override val commandEnableGestureNavigationDetails: String = "Enable gesture navigation"
 
+    override val commandPropertySection: String = "Property"
+    override val commandDetailTitle: String = "Title"
+    override val commandDetailDescription: String = "Description"
+    override val commandDetailCategory: String = "Category"
+    override val commandsSection: String = "Commands"
+    override val commandExecutionResultSection: String = "Execution Result"
+    override val commandExecutionResultPlaceholder: String = "Results will be displayed here after execution"
+    override val categoryUI: String = "UI"
+    override val categoryCommunication: String = "Communication"
+    override val categoryAll: String = "All"
+
     override val textCommandStartEventFormat = "Start sending text「%s」"
     override val textCommandEndEventFormat = "End sending text「%s」"
     override val textCommandErrorEventFormat = "Error sending text「%s」"
