@@ -96,7 +96,7 @@ object EnglishResources : StringResources {
     override val categoryCommunication: String = "Communication"
     override val categoryAll: String = "All"
 
-    override val outputTerminalTitle: String = "Output Terminal"
+    override val outputTerminalTitle: String = "Output"
     override val outputTerminalPlaceholder: String = "Execution history will be displayed here"
     override val outputStatusSuccess: String = "Success"
     override val outputStatusFailed: String = "Failed"

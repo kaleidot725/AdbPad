@@ -96,7 +96,7 @@ object TurkishResources : StringResources {
     override val categoryCommunication: String = "Communication"
     override val categoryAll: String = "All"
 
-    override val outputTerminalTitle: String = "Çıktı Terminali"
+    override val outputTerminalTitle: String = "Çıktı"
     override val outputTerminalPlaceholder: String = "Yürütme geçmişi burada görüntülenecek"
     override val outputStatusSuccess: String = "Başarılı"
     override val outputStatusFailed: String = "Başarısız"

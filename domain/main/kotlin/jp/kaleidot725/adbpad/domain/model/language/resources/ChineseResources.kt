@@ -96,7 +96,7 @@ object ChineseResources : StringResources {
     override val categoryCommunication: String = "Communication"
     override val categoryAll: String = "All"
 
-    override val outputTerminalTitle: String = "输出终端"
+    override val outputTerminalTitle: String = "输出"
     override val outputTerminalPlaceholder: String = "执行历史将显示在此处"
     override val outputStatusSuccess: String = "成功"
     override val outputStatusFailed: String = "失败"

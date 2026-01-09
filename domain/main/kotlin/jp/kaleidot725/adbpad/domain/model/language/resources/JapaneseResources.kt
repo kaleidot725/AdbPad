@@ -98,7 +98,7 @@ object JapaneseResources : StringResources {
     override val categoryCommunication: String = "通信"
     override val categoryAll: String = "すべて"
 
-    override val outputTerminalTitle: String = "出力ターミナル"
+    override val outputTerminalTitle: String = "出力"
     override val outputTerminalPlaceholder: String = "実行履歴がここに表示されます"
     override val outputStatusSuccess: String = "成功"
     override val outputStatusFailed: String = "失敗"
