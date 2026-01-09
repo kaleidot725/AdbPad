@@ -86,6 +86,12 @@ interface StringResources {
     val categoryCommunication: String
     val categoryAll: String
 
+    val outputTerminalTitle: String
+    val outputTerminalPlaceholder: String
+    val outputStatusSuccess: String
+    val outputStatusFailed: String
+    val outputExitCode: String
+
     val textCommandStartEventFormat: String
     val textCommandEndEventFormat: String
     val textCommandErrorEventFormat: String

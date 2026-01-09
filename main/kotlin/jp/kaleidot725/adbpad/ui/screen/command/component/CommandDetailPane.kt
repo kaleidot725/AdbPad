@@ -2,16 +2,13 @@ package jp.kaleidot725.adbpad.ui.screen.command.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -101,29 +98,6 @@ fun CommandDetailPane(
             // コマンドセクション
             ExpandableSection(title = Language.commandsSection) {
                 CommandsContent(command = command)
-            }
-
-            // 実行結果セクション
-            ExpandableSection(
-                title = Language.commandExecutionResultSection,
-                initiallyExpanded = true,
-            ) {
-                val result = command.executionResult
-                if (result != null) {
-                    SelectionContainer {
-                        Text(
-                            text = result,
-                            style = MaterialTheme.typography.bodyMedium,
-                            fontFamily = FontFamily.Monospace,
-                        )
-                    }
-                } else {
-                    Text(
-                        text = Language.commandExecutionResultPlaceholder,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
             }
         }
 

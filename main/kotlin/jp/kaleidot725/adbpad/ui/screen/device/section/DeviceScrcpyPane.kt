@@ -420,7 +420,6 @@ fun DeviceScrcpyPane(
                 )
             }
         }
-
     }
 }
 

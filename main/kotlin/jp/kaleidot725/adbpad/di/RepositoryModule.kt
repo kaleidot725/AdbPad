@@ -10,6 +10,8 @@ import jp.kaleidot725.adbpad.domain.repository.DeviceControlCommandRepositoryImp
 import jp.kaleidot725.adbpad.domain.repository.DeviceRepository
 import jp.kaleidot725.adbpad.domain.repository.DeviceRepositoryImpl
 import jp.kaleidot725.adbpad.domain.repository.DeviceSettingsRepository
+import jp.kaleidot725.adbpad.domain.repository.NormalCommandOutputRepository
+import jp.kaleidot725.adbpad.domain.repository.NormalCommandOutputRepositoryImpl
 import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepository
 import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepositoryImpl
 import jp.kaleidot725.adbpad.domain.repository.ScrcpyNewDisplayProcessRepository
@@ -31,8 +33,11 @@ val repositoryModule =
         single<DeviceRepository> {
             DeviceRepositoryImpl(get())
         }
+        single<NormalCommandOutputRepository> {
+            NormalCommandOutputRepositoryImpl()
+        }
         single<NormalCommandRepository> {
-            NormalCommandRepositoryImpl()
+            NormalCommandRepositoryImpl(get())
         }
         single<TextCommandRepository> {
             TextCommandRepositoryImpl()

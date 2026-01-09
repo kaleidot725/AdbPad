@@ -26,6 +26,7 @@ import jp.kaleidot725.adbpad.ui.screen.command.component.CommandDetailPane
 import jp.kaleidot725.adbpad.ui.screen.command.component.CommandLayoutToggle
 import jp.kaleidot725.adbpad.ui.screen.command.component.CommandList
 import jp.kaleidot725.adbpad.ui.screen.command.component.CommandTab
+import jp.kaleidot725.adbpad.ui.screen.command.component.OutputTerminal
 import jp.kaleidot725.adbpad.ui.screen.command.model.CommandLayoutMode
 import jp.kaleidot725.adbpad.ui.screen.command.state.CommandAction
 import jp.kaleidot725.adbpad.ui.screen.command.state.CommandState
@@ -40,6 +41,7 @@ fun CommandScreen(
         filtered = state.filtered,
         layoutMode = state.layoutMode,
         selectedCommand = state.selectedCommand,
+        executionHistory = state.executionHistory,
         onClickFilter = { onAction(CommandAction.ClickCategoryTab(it)) },
         onToggleLayout = { onAction(CommandAction.ToggleLayoutMode) },
         canExecute = state.canExecuteCommand,
@@ -54,6 +56,7 @@ private fun CommandScreen(
     filtered: NormalCommandCategory,
     layoutMode: CommandLayoutMode,
     selectedCommand: NormalCommand?,
+    executionHistory: List<jp.kaleidot725.adbpad.domain.model.command.CommandExecutionHistory>,
     onClickFilter: (NormalCommandCategory) -> Unit,
     onToggleLayout: () -> Unit,
     canExecute: Boolean,
@@ -96,8 +99,17 @@ private fun CommandScreen(
                 onExecute = onExecute,
                 onSelectCommand = onSelectCommand,
                 layoutMode = layoutMode,
-                modifier = Modifier.fillMaxSize().padding(16.dp),
+                modifier = Modifier.weight(1f).fillMaxWidth().padding(16.dp),
             )
+
+            HorizontalDivider(color = UserColor.getSplitterColor())
+
+            Box(modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)) {
+                OutputTerminal(
+                    executionHistory = executionHistory,
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }
         }
 
         if (selectedCommand != null) {
@@ -129,6 +141,7 @@ private fun CommandScreen_Card_Preview() {
         filtered = NormalCommandCategory.ALL,
         layoutMode = CommandLayoutMode.CARD,
         selectedCommand = null,
+        executionHistory = emptyList(),
         onClickFilter = {},
         onToggleLayout = {},
         canExecute = true,
@@ -150,6 +163,7 @@ private fun CommandScreen_List_Preview() {
         filtered = NormalCommandCategory.ALL,
         layoutMode = CommandLayoutMode.LIST,
         selectedCommand = null,
+        executionHistory = emptyList(),
         onClickFilter = {},
         onToggleLayout = {},
         canExecute = true,

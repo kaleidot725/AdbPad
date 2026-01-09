@@ -3,6 +3,7 @@ package jp.kaleidot725.adbpad.ui.screen.command
 import jp.kaleidot725.adbpad.core.mvi.MVIBase
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommandCategory
+import jp.kaleidot725.adbpad.domain.repository.NormalCommandOutputRepository
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetNormalCommandGroup
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
@@ -16,6 +17,7 @@ class CommandStateHolder(
     private val getNormalCommandGroup: GetNormalCommandGroup,
     private val executeCommandUseCase: ExecuteCommandUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
+    private val normalCommandOutputRepository: NormalCommandOutputRepository,
 ) : MVIBase<CommandState, CommandAction, CommandSideEffect>(initialUiState = CommandState()) {
     override fun onSetup() {
         coroutineScope.launch {
@@ -26,6 +28,11 @@ class CommandStateHolder(
         coroutineScope.launch {
             val commands = getNormalCommandGroup()
             update { this.copy(commands = commands) }
+        }
+        coroutineScope.launch {
+            normalCommandOutputRepository.getExecutionHistoryFlow().collect { history ->
+                update { this.copy(executionHistory = history) }
+            }
         }
     }
 
