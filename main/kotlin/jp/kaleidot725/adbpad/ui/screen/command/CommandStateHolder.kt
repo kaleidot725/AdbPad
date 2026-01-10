@@ -30,7 +30,7 @@ class CommandStateHolder(
             update { this.copy(commands = commands) }
         }
         coroutineScope.launch {
-            normalCommandOutputRepository.getExecutionHistoryFlow().collect { history ->
+            normalCommandOutputRepository.executionHistory.collect { history ->
                 update { this.copy(executionHistory = history) }
             }
         }

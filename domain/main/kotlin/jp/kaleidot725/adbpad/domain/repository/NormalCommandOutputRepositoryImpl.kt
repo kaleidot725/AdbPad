@@ -1,22 +1,21 @@
 package jp.kaleidot725.adbpad.domain.repository
 
 import jp.kaleidot725.adbpad.domain.model.command.CommandExecutionHistory
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class NormalCommandOutputRepositoryImpl : NormalCommandOutputRepository {
-    private val executionHistoryFlow = MutableStateFlow<List<CommandExecutionHistory>>(emptyList())
-
-    override fun getExecutionHistoryFlow(): Flow<List<CommandExecutionHistory>> = executionHistoryFlow.asStateFlow()
+    private val _executionHistory = MutableStateFlow<List<CommandExecutionHistory>>(emptyList())
+    override val executionHistory: StateFlow<List<CommandExecutionHistory>> = _executionHistory.asStateFlow()
 
     override suspend fun addExecutionHistory(history: CommandExecutionHistory) {
-        val currentHistory = executionHistoryFlow.value.toMutableList()
+        val currentHistory = _executionHistory.value.toMutableList()
         currentHistory.add(history)
-        executionHistoryFlow.value = currentHistory
+        _executionHistory.value = currentHistory
     }
 
     override fun clear() {
-        executionHistoryFlow.value = emptyList()
+        _executionHistory.value = emptyList()
     }
 }

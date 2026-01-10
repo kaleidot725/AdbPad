@@ -1,10 +1,10 @@
 package jp.kaleidot725.adbpad.domain.repository
 
 import jp.kaleidot725.adbpad.domain.model.command.CommandExecutionHistory
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 interface NormalCommandOutputRepository {
-    fun getExecutionHistoryFlow(): Flow<List<CommandExecutionHistory>>
+    val executionHistory: StateFlow<List<CommandExecutionHistory>>
 
     suspend fun addExecutionHistory(history: CommandExecutionHistory)
 
