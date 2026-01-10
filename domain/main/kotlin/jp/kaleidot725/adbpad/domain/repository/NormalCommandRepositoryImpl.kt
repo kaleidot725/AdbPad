@@ -1,16 +1,13 @@
 package jp.kaleidot725.adbpad.domain.repository
 
 import com.malinskiy.adam.AndroidDebugBridgeClientFactory
-import jp.kaleidot725.adbpad.domain.model.command.CommandExecutionHistory
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
-class NormalCommandRepositoryImpl(
-    private val outputRepository: NormalCommandOutputRepository,
-) : NormalCommandRepository {
+class NormalCommandRepositoryImpl : NormalCommandRepository {
     private val runningCommands: MutableSet<NormalCommand> = mutableSetOf()
     private val adbClient = AndroidDebugBridgeClientFactory().build()
 
@@ -42,8 +39,8 @@ class NormalCommandRepositoryImpl(
         device: Device,
         command: NormalCommand,
         onStart: suspend () -> Unit,
-        onComplete: suspend () -> Unit,
-        onFailed: suspend () -> Unit,
+        onComplete: suspend (command: String, output: String) -> Unit,
+        onFailed: suspend (command: String, output: String) -> Unit,
     ) {
         withContext(Dispatchers.IO) {
             try {
@@ -53,6 +50,8 @@ class NormalCommandRepositoryImpl(
                 delay(300)
 
                 val outputs = mutableListOf<String>()
+                val formattedCommand =
+                    command.commandStrings.joinToString("\n") { "$ adb shell $it" }
 
                 command.requests.forEach { request ->
                     val result = adbClient.execute(request, device.serial)
@@ -64,41 +63,26 @@ class NormalCommandRepositoryImpl(
                     }
 
                     if (result.exitCode != 0) {
-                        // エラー時の実行履歴を追加
-                        val history =
-                            CommandExecutionHistory(
-                                commandStrings = command.commandStrings,
-                                output = output.ifEmpty { "Error: Command failed with exit code ${result.exitCode}" },
-                            )
-                        outputRepository.addExecutionHistory(history)
-
                         runningCommands.remove(command)
-                        onFailed()
+                        onFailed(
+                            formattedCommand,
+                            output.ifEmpty { "Error: Command failed with exit code ${result.exitCode}" },
+                        )
                         return@withContext
                     }
                 }
 
-                // 成功時の実行履歴を追加
-                val history =
-                    CommandExecutionHistory(
-                        commandStrings = command.commandStrings,
-                        output = outputs.joinToString("\n").ifEmpty { "Success" },
-                    )
-                outputRepository.addExecutionHistory(history)
-
                 runningCommands.remove(command)
-                onComplete()
+                onComplete(
+                    formattedCommand,
+                    outputs.joinToString("\n").ifEmpty { "Success" },
+                )
             } catch (e: Exception) {
-                // 例外時の実行履歴を追加
-                val history =
-                    CommandExecutionHistory(
-                        commandStrings = command.commandStrings,
-                        output = "Exception: ${e.message}",
-                    )
-                outputRepository.addExecutionHistory(history)
-
                 runningCommands.remove(command)
-                onFailed()
+                onFailed(
+                    command.commandStrings.joinToString("\n") { "$ adb shell $it" },
+                    "Exception: ${e.message}",
+                )
             }
         }
     }

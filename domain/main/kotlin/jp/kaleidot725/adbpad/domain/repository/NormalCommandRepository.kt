@@ -10,8 +10,8 @@ interface NormalCommandRepository {
         device: Device,
         command: NormalCommand,
         onStart: suspend () -> Unit,
-        onComplete: suspend () -> Unit,
-        onFailed: suspend () -> Unit,
+        onComplete: suspend (command: String, output: String) -> Unit,
+        onFailed: suspend (command: String, output: String) -> Unit,
     )
 
     fun clear()

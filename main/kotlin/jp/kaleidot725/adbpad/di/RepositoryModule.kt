@@ -37,7 +37,7 @@ val repositoryModule =
             NormalCommandOutputRepositoryImpl()
         }
         single<NormalCommandRepository> {
-            NormalCommandRepositoryImpl(get())
+            NormalCommandRepositoryImpl()
         }
         single<TextCommandRepository> {
             TextCommandRepositoryImpl()

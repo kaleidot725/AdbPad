@@ -55,15 +55,13 @@ fun OutputTerminal(
                             .padding(8.dp),
                     verticalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
-                    // Command strings
-                    latestHistory.commandStrings.forEach { commandString ->
-                        Text(
-                            text = "$ adb shell $commandString",
-                            style = MaterialTheme.typography.bodySmall,
-                            fontFamily = FontFamily.Monospace,
-                            color = MaterialTheme.colorScheme.primary,
-                        )
-                    }
+                    // Command
+                    Text(
+                        text = latestHistory.command,
+                        style = MaterialTheme.typography.bodySmall,
+                        fontFamily = FontFamily.Monospace,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
 
                     // Output
                     if (latestHistory.output.isNotEmpty()) {

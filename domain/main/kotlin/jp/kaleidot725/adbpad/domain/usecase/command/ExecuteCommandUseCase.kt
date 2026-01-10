@@ -11,8 +11,8 @@ class ExecuteCommandUseCase(
         device: Device,
         command: NormalCommand,
         onStart: suspend () -> Unit,
-        onFailed: suspend () -> Unit,
-        onComplete: suspend () -> Unit,
+        onFailed: suspend (command: String, output: String) -> Unit,
+        onComplete: suspend (command: String, output: String) -> Unit,
     ) {
         normalCommandRepository.sendCommand(
             device = device,
@@ -20,11 +20,11 @@ class ExecuteCommandUseCase(
             onStart = {
                 onStart()
             },
-            onFailed = {
-                onFailed()
+            onFailed = { formattedCommand, output ->
+                onFailed(formattedCommand, output)
             },
-            onComplete = {
-                onComplete()
+            onComplete = { formattedCommand, output ->
+                onComplete(formattedCommand, output)
             },
         )
     }

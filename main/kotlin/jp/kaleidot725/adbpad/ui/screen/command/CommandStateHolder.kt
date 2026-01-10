@@ -1,6 +1,7 @@
 package jp.kaleidot725.adbpad.ui.screen.command
 
 import jp.kaleidot725.adbpad.core.mvi.MVIBase
+import jp.kaleidot725.adbpad.domain.model.command.CommandExecutionHistory
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommandCategory
 import jp.kaleidot725.adbpad.domain.repository.NormalCommandOutputRepository
@@ -65,12 +66,24 @@ class CommandStateHolder(
                     this.copy(commands = getNormalCommandGroup())
                 }
             },
-            onFailed = {
+            onFailed = { command, output ->
+                normalCommandOutputRepository.addExecutionHistory(
+                    CommandExecutionHistory(
+                        command = command,
+                        output = output,
+                    ),
+                )
                 update {
                     this.copy(commands = getNormalCommandGroup())
                 }
             },
-            onComplete = {
+            onComplete = { command, output ->
+                normalCommandOutputRepository.addExecutionHistory(
+                    CommandExecutionHistory(
+                        command = command,
+                        output = output,
+                    ),
+                )
                 update {
                     this.copy(commands = getNormalCommandGroup())
                 }
