@@ -238,4 +238,274 @@ interface NormalCommand {
             )
         override val category: NormalCommandCategory = NormalCommandCategory.UI
     }
+
+    data class AirplaneModeOn(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandAirplaneModeOnTitle
+        override val details: String get() = Language.commandAirplaneModeOnDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put global airplane_mode_on 1"),
+                ShellCommandRequest("am broadcast -a android.intent.action.AIRPLANE_MODE"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.COM
+    }
+
+    data class AirplaneModeOff(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandAirplaneModeOffTitle
+        override val details: String get() = Language.commandAirplaneModeOffDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put global airplane_mode_on 0"),
+                ShellCommandRequest("am broadcast -a android.intent.action.AIRPLANE_MODE"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.COM
+    }
+
+    data class BluetoothOn(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandBluetoothOnTitle
+        override val details: String get() = Language.commandBluetoothOnDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("svc bluetooth enable"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.COM
+    }
+
+    data class BluetoothOff(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandBluetoothOffTitle
+        override val details: String get() = Language.commandBluetoothOffDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("svc bluetooth disable"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.COM
+    }
+
+    data class LocationOn(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandLocationOnTitle
+        override val details: String get() = Language.commandLocationOnDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put secure location_mode 3"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.COM
+    }
+
+    data class LocationOff(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandLocationOffTitle
+        override val details: String get() = Language.commandLocationOffDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put secure location_mode 0"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.COM
+    }
+
+    data class AnimationsOn(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandAnimationsOnTitle
+        override val details: String get() = Language.commandAnimationsOnDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put global window_animation_scale 1"),
+                ShellCommandRequest("settings put global transition_animation_scale 1"),
+                ShellCommandRequest("settings put global animator_duration_scale 1"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class AnimationsOff(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandAnimationsOffTitle
+        override val details: String get() = Language.commandAnimationsOffDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put global window_animation_scale 0"),
+                ShellCommandRequest("settings put global transition_animation_scale 0"),
+                ShellCommandRequest("settings put global animator_duration_scale 0"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class AutoRotateOn(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandAutoRotateOnTitle
+        override val details: String get() = Language.commandAutoRotateOnDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put system accelerometer_rotation 1"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class AutoRotateOff(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandAutoRotateOffTitle
+        override val details: String get() = Language.commandAutoRotateOffDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put system accelerometer_rotation 0"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class FontScaleSmall(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandFontScaleSmallTitle
+        override val details: String get() = Language.commandFontScaleSmallDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put system font_scale 0.85"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class FontScaleNormal(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandFontScaleNormalTitle
+        override val details: String get() = Language.commandFontScaleNormalDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put system font_scale 1.0"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class FontScaleLarge(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandFontScaleLargeTitle
+        override val details: String get() = Language.commandFontScaleLargeDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put system font_scale 1.15"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class FontScaleHuge(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandFontScaleHugeTitle
+        override val details: String get() = Language.commandFontScaleHugeDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put system font_scale 1.3"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class RtlLayoutOn(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandRtlLayoutOnTitle
+        override val details: String get() = Language.commandRtlLayoutOnDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put global debug.force_rtl 1"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class RtlLayoutOff(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandRtlLayoutOffTitle
+        override val details: String get() = Language.commandRtlLayoutOffDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put global debug.force_rtl 0"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class BatterySaverOn(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandBatterySaverOnTitle
+        override val details: String get() = Language.commandBatterySaverOnDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put global low_power 1"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class BatterySaverOff(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandBatterySaverOffTitle
+        override val details: String get() = Language.commandBatterySaverOffDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put global low_power 0"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class DataSaverOn(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandDataSaverOnTitle
+        override val details: String get() = Language.commandDataSaverOnDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("cmd netpolicy set restrict-background true"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.COM
+    }
+
+    data class DataSaverOff(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandDataSaverOffTitle
+        override val details: String get() = Language.commandDataSaverOffDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("cmd netpolicy set restrict-background false"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.COM
+    }
+
+    data class DozeModeOn(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandDozeModeOnTitle
+        override val details: String get() = Language.commandDozeModeOnDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("dumpsys deviceidle enable"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
+
+    data class DozeModeOff(
+        override val isRunning: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandDozeModeOffTitle
+        override val details: String get() = Language.commandDozeModeOffDetails
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("dumpsys deviceidle disable"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.UI
+    }
 }

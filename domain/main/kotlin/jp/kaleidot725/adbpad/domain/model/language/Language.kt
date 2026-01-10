@@ -149,6 +149,94 @@ object Language : StringResources {
         get() = getCurrentResources().commandEnableGestureNavigationTitle
     override val commandEnableGestureNavigationDetails: String
         get() = getCurrentResources().commandEnableGestureNavigationDetails
+    override val commandAirplaneModeOnTitle: String
+        get() = getCurrentResources().commandAirplaneModeOnTitle
+    override val commandAirplaneModeOnDetails: String
+        get() = getCurrentResources().commandAirplaneModeOnDetails
+    override val commandAirplaneModeOffTitle: String
+        get() = getCurrentResources().commandAirplaneModeOffTitle
+    override val commandAirplaneModeOffDetails: String
+        get() = getCurrentResources().commandAirplaneModeOffDetails
+    override val commandBluetoothOnTitle: String
+        get() = getCurrentResources().commandBluetoothOnTitle
+    override val commandBluetoothOnDetails: String
+        get() = getCurrentResources().commandBluetoothOnDetails
+    override val commandBluetoothOffTitle: String
+        get() = getCurrentResources().commandBluetoothOffTitle
+    override val commandBluetoothOffDetails: String
+        get() = getCurrentResources().commandBluetoothOffDetails
+    override val commandLocationOnTitle: String
+        get() = getCurrentResources().commandLocationOnTitle
+    override val commandLocationOnDetails: String
+        get() = getCurrentResources().commandLocationOnDetails
+    override val commandLocationOffTitle: String
+        get() = getCurrentResources().commandLocationOffTitle
+    override val commandLocationOffDetails: String
+        get() = getCurrentResources().commandLocationOffDetails
+    override val commandAnimationsOnTitle: String
+        get() = getCurrentResources().commandAnimationsOnTitle
+    override val commandAnimationsOnDetails: String
+        get() = getCurrentResources().commandAnimationsOnDetails
+    override val commandAnimationsOffTitle: String
+        get() = getCurrentResources().commandAnimationsOffTitle
+    override val commandAnimationsOffDetails: String
+        get() = getCurrentResources().commandAnimationsOffDetails
+    override val commandAutoRotateOnTitle: String
+        get() = getCurrentResources().commandAutoRotateOnTitle
+    override val commandAutoRotateOnDetails: String
+        get() = getCurrentResources().commandAutoRotateOnDetails
+    override val commandAutoRotateOffTitle: String
+        get() = getCurrentResources().commandAutoRotateOffTitle
+    override val commandAutoRotateOffDetails: String
+        get() = getCurrentResources().commandAutoRotateOffDetails
+    override val commandFontScaleSmallTitle: String
+        get() = getCurrentResources().commandFontScaleSmallTitle
+    override val commandFontScaleSmallDetails: String
+        get() = getCurrentResources().commandFontScaleSmallDetails
+    override val commandFontScaleNormalTitle: String
+        get() = getCurrentResources().commandFontScaleNormalTitle
+    override val commandFontScaleNormalDetails: String
+        get() = getCurrentResources().commandFontScaleNormalDetails
+    override val commandFontScaleLargeTitle: String
+        get() = getCurrentResources().commandFontScaleLargeTitle
+    override val commandFontScaleLargeDetails: String
+        get() = getCurrentResources().commandFontScaleLargeDetails
+    override val commandFontScaleHugeTitle: String
+        get() = getCurrentResources().commandFontScaleHugeTitle
+    override val commandFontScaleHugeDetails: String
+        get() = getCurrentResources().commandFontScaleHugeDetails
+    override val commandRtlLayoutOnTitle: String
+        get() = getCurrentResources().commandRtlLayoutOnTitle
+    override val commandRtlLayoutOnDetails: String
+        get() = getCurrentResources().commandRtlLayoutOnDetails
+    override val commandRtlLayoutOffTitle: String
+        get() = getCurrentResources().commandRtlLayoutOffTitle
+    override val commandRtlLayoutOffDetails: String
+        get() = getCurrentResources().commandRtlLayoutOffDetails
+    override val commandBatterySaverOnTitle: String
+        get() = getCurrentResources().commandBatterySaverOnTitle
+    override val commandBatterySaverOnDetails: String
+        get() = getCurrentResources().commandBatterySaverOnDetails
+    override val commandBatterySaverOffTitle: String
+        get() = getCurrentResources().commandBatterySaverOffTitle
+    override val commandBatterySaverOffDetails: String
+        get() = getCurrentResources().commandBatterySaverOffDetails
+    override val commandDataSaverOnTitle: String
+        get() = getCurrentResources().commandDataSaverOnTitle
+    override val commandDataSaverOnDetails: String
+        get() = getCurrentResources().commandDataSaverOnDetails
+    override val commandDataSaverOffTitle: String
+        get() = getCurrentResources().commandDataSaverOffTitle
+    override val commandDataSaverOffDetails: String
+        get() = getCurrentResources().commandDataSaverOffDetails
+    override val commandDozeModeOnTitle: String
+        get() = getCurrentResources().commandDozeModeOnTitle
+    override val commandDozeModeOnDetails: String
+        get() = getCurrentResources().commandDozeModeOnDetails
+    override val commandDozeModeOffTitle: String
+        get() = getCurrentResources().commandDozeModeOffTitle
+    override val commandDozeModeOffDetails: String
+        get() = getCurrentResources().commandDozeModeOffDetails
 
     override val categoryUI: String
         get() = getCurrentResources().categoryUI
