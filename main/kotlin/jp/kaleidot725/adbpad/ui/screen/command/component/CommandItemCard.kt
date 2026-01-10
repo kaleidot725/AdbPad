@@ -33,14 +33,12 @@ fun CommandItemCard(
     title: String,
     detail: String,
     isRunning: Boolean,
-    isSelected: Boolean,
     canExecute: Boolean,
     onExecute: () -> Unit,
-    onSelect: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface(
-        modifier = modifier.fillMaxWidth().clickable { onSelect() },
+        modifier = modifier.fillMaxWidth(),
         tonalElevation = 2.dp,
         shape = RoundedCornerShape(8.dp),
     ) {
@@ -48,7 +46,7 @@ fun CommandItemCard(
             modifier =
                 Modifier
                     .fillMaxWidth()
-                    .clickableBackground(isSelected = isSelected || isRunning, shape = RoundedCornerShape(6.dp))
+                    .clickableBackground(isSelected = isRunning, shape = RoundedCornerShape(6.dp))
                     .padding(horizontal = 12.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
@@ -70,10 +68,7 @@ fun CommandItemCard(
 
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
                 Button(
-                    onClick = {
-                        onSelect()
-                        onExecute()
-                    },
+                    onClick = onExecute,
                     enabled = canExecute,
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                 ) {
@@ -100,10 +95,8 @@ private fun CommandItemCard_Running_Preview() {
         title = "ダークテーマON",
         detail = "端末のダークテーマ設定をONにします",
         isRunning = true,
-        isSelected = false,
         canExecute = true,
         onExecute = {},
-        onSelect = {},
         modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp),
     )
 }
@@ -115,10 +108,8 @@ private fun CommandItemCard_NotRunning_Preview() {
         title = "ダークテーマON",
         detail = "端末のダークテーマ設定をONにします",
         isRunning = false,
-        isSelected = false,
         canExecute = true,
         onExecute = {},
-        onSelect = {},
         modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp),
     )
 }
@@ -130,10 +121,8 @@ private fun CommandItemCard_NotExecute_Preview() {
         title = "ダークテーマON",
         detail = "端末のダークテーマ設定をONにします",
         isRunning = false,
-        isSelected = false,
         canExecute = false,
         onExecute = {},
-        onSelect = {},
         modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp),
     )
 }

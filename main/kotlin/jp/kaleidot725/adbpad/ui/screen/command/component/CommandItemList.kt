@@ -29,17 +29,12 @@ fun CommandItemList(
     title: String,
     detail: String,
     isRunning: Boolean,
-    isSelected: Boolean,
     canExecute: Boolean,
     onExecute: () -> Unit,
-    onSelect: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface(
-        modifier =
-            modifier
-                .fillMaxWidth()
-                .clickable { onSelect() },
+        modifier = modifier.fillMaxWidth(),
         tonalElevation = 2.dp,
         shape = RoundedCornerShape(8.dp),
     ) {
@@ -47,7 +42,7 @@ fun CommandItemList(
             modifier =
                 Modifier
                     .fillMaxWidth()
-                    .clickableBackground(isSelected = isSelected || isRunning, shape = RoundedCornerShape(6.dp))
+                    .clickableBackground(isSelected = isRunning, shape = RoundedCornerShape(6.dp))
                     .padding(horizontal = 12.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -69,10 +64,7 @@ fun CommandItemList(
             }
 
             Button(
-                onClick = {
-                    onSelect()
-                    onExecute()
-                },
+                onClick = onExecute,
                 enabled = canExecute,
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
             ) {

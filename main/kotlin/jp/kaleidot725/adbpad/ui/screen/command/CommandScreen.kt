@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import jp.kaleidot725.adbpad.domain.model.command.CommandExecutionHistory
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommandCategory
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommandGroup
@@ -42,13 +43,11 @@ fun CommandScreen(
         commands = state.commands,
         filtered = state.filtered,
         layoutMode = state.layoutMode,
-        selectedCommand = state.selectedCommand,
         executionHistory = state.executionHistory,
         onClickFilter = { onAction(CommandAction.ClickCategoryTab(it)) },
         onToggleLayout = { onAction(CommandAction.ToggleLayoutMode) },
         canExecute = state.canExecuteCommand,
         onExecute = { command -> onAction(CommandAction.ExecuteCommand(command)) },
-        onSelectCommand = { command -> onAction(CommandAction.SelectCommand(command)) },
     )
 }
 
@@ -57,13 +56,11 @@ private fun CommandScreen(
     commands: NormalCommandGroup,
     filtered: NormalCommandCategory,
     layoutMode: CommandLayoutMode,
-    selectedCommand: NormalCommand?,
-    executionHistory: jp.kaleidot725.adbpad.domain.model.command.CommandExecutionHistory?,
+    executionHistory: CommandExecutionHistory?,
     onClickFilter: (NormalCommandCategory) -> Unit,
     onToggleLayout: () -> Unit,
     canExecute: Boolean,
     onExecute: (NormalCommand) -> Unit,
-    onSelectCommand: (NormalCommand) -> Unit,
 ) {
     BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
         val density = LocalDensity.current
@@ -101,10 +98,8 @@ private fun CommandScreen(
                         NormalCommandCategory.COM -> commands.communication
                         NormalCommandCategory.ALL -> commands.all
                     },
-                selectedCommand = selectedCommand,
                 canExecute = canExecute,
                 onExecute = onExecute,
-                onSelectCommand = onSelectCommand,
                 layoutMode = layoutMode,
                 modifier = Modifier.weight(1f).fillMaxWidth().padding(16.dp),
             )
@@ -147,13 +142,11 @@ private fun CommandScreen_Card_Preview() {
             ),
         filtered = NormalCommandCategory.ALL,
         layoutMode = CommandLayoutMode.CARD,
-        selectedCommand = null,
         executionHistory = null,
         onClickFilter = {},
         onToggleLayout = {},
         canExecute = true,
         onExecute = {},
-        onSelectCommand = {},
     )
 }
 
@@ -169,12 +162,10 @@ private fun CommandScreen_List_Preview() {
             ),
         filtered = NormalCommandCategory.ALL,
         layoutMode = CommandLayoutMode.LIST,
-        selectedCommand = null,
         executionHistory = null,
         onClickFilter = {},
         onToggleLayout = {},
         canExecute = true,
         onExecute = {},
-        onSelectCommand = {},
     )
 }

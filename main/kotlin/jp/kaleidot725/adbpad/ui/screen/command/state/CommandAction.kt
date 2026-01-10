@@ -14,8 +14,4 @@ sealed class CommandAction : MVIAction {
     ) : CommandAction()
 
     data object ToggleLayoutMode : CommandAction()
-
-    data class SelectCommand(
-        val command: NormalCommand?,
-    ) : CommandAction()
 }

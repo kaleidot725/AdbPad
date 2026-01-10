@@ -26,10 +26,8 @@ import jp.kaleidot725.adbpad.ui.screen.command.model.CommandLayoutMode
 @Composable
 fun CommandList(
     commands: List<NormalCommand>,
-    selectedCommand: NormalCommand?,
     canExecute: Boolean,
     onExecute: (NormalCommand) -> Unit,
-    onSelectCommand: (NormalCommand) -> Unit,
     layoutMode: CommandLayoutMode,
     modifier: Modifier = Modifier,
 ) {
@@ -47,10 +45,8 @@ fun CommandList(
                                 title = command.title,
                                 detail = command.details,
                                 isRunning = command.isRunning,
-                                isSelected = selectedCommand?.let { it::class.simpleName } == command::class.simpleName,
                                 canExecute = canExecute,
                                 onExecute = { onExecute(command) },
-                                onSelect = { onSelectCommand(command) },
                                 modifier = Modifier.height(175.dp).fillMaxWidth().padding(2.dp),
                             )
                         }
@@ -65,10 +61,8 @@ fun CommandList(
                                 title = command.title,
                                 detail = command.details,
                                 isRunning = command.isRunning,
-                                isSelected = selectedCommand?.let { it::class.simpleName } == command::class.simpleName,
                                 canExecute = canExecute,
                                 onExecute = { onExecute(command) },
-                                onSelect = { onSelectCommand(command) },
                                 modifier = Modifier.fillMaxWidth(),
                             )
                         }
@@ -90,20 +84,16 @@ private fun CommandList_Card_Preview() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         CommandList(
             commands = listOf(NormalCommand.DarkThemeOn(), NormalCommand.DarkThemeOff(), NormalCommand.WifiOn()),
-            selectedCommand = null,
             canExecute = true,
             onExecute = {},
-            onSelectCommand = {},
             layoutMode = CommandLayoutMode.CARD,
             modifier = Modifier.fillMaxWidth().weight(0.5f),
         )
 
         CommandList(
             commands = emptyList(),
-            selectedCommand = null,
             canExecute = true,
             onExecute = {},
-            onSelectCommand = {},
             layoutMode = CommandLayoutMode.CARD,
             modifier = Modifier.fillMaxWidth().weight(0.5f).background(Color.LightGray),
         )
@@ -116,20 +106,16 @@ private fun CommandList_List_Preview() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         CommandList(
             commands = listOf(NormalCommand.DarkThemeOn(), NormalCommand.DarkThemeOff(), NormalCommand.WifiOn()),
-            selectedCommand = null,
             canExecute = true,
             onExecute = {},
-            onSelectCommand = {},
             layoutMode = CommandLayoutMode.LIST,
             modifier = Modifier.fillMaxWidth().weight(0.5f),
         )
 
         CommandList(
             commands = emptyList(),
-            selectedCommand = null,
             canExecute = true,
             onExecute = {},
-            onSelectCommand = {},
             layoutMode = CommandLayoutMode.LIST,
             modifier = Modifier.fillMaxWidth().weight(0.5f).background(Color.LightGray),
         )
