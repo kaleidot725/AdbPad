@@ -86,8 +86,8 @@ object TurkishResources : StringResources {
     override val commandEnableGestureNavigationDetails: String = "Hareket tabanlı gezinmeyi etkinleştir"
 
     override val categoryUI: String = "UI"
-    override val categoryCommunication: String = "Communication"
-    override val categoryAll: String = "All"
+    override val categoryCommunication: String = "İletişim"
+    override val categoryAll: String = "Hepsi"
 
     override val outputTerminalTitle: String = "Çıktı"
     override val outputTerminalPlaceholder: String = "Yürütme geçmişi burada görüntülenecek"
