@@ -39,8 +39,7 @@ fun ResizableDivider(
                     } else {
                         UserColor.getSplitterColor()
                     },
-                )
-                .hoverable(interactionSource)
+                ).hoverable(interactionSource)
                 .pointerHoverIcon(PointerIcon(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR)))
                 .pointerInput(Unit) {
                     detectDragGestures { change, dragAmount ->

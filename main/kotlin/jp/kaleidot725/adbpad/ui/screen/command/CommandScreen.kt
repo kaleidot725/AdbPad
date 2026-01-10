@@ -111,10 +111,11 @@ private fun CommandScreen(
 
             ResizableDivider(
                 onDrag = { dragAmount ->
-                    val newHeight = (outputHeightPx - dragAmount).coerceIn(
-                        containerHeightPx * 0.1f,
-                        containerHeightPx * 0.8f,
-                    )
+                    val newHeight =
+                        (outputHeightPx - dragAmount).coerceIn(
+                            containerHeightPx * 0.1f,
+                            containerHeightPx * 0.8f,
+                        )
                     outputHeightPx = newHeight
                 },
             )
