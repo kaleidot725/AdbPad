@@ -15,6 +15,7 @@ val stateHolderModule =
         factory {
             CommandStateHolder(
                 getNormalCommandGroup = get(),
+                toggleNormalCommandFavorite = get(),
                 executeCommandUseCase = get(),
                 getSelectedDeviceFlowUseCase = get(),
                 normalCommandOutputRepository = get(),

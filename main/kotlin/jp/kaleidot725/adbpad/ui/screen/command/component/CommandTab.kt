@@ -3,6 +3,8 @@ package jp.kaleidot725.adbpad.ui.screen.command.component
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -28,6 +30,13 @@ fun CommandTab(
             icon = Lucide.Diamond,
             isSelected = filtered == NormalCommandCategory.ALL,
             onClick = { onClick(NormalCommandCategory.ALL) },
+        )
+
+        CommandTabItem(
+            title = Language.commandCategoryFavorite,
+            icon = Icons.Default.Star,
+            isSelected = filtered == NormalCommandCategory.FAVORITE,
+            onClick = { onClick(NormalCommandCategory.FAVORITE) },
         )
 
         CommandTabItem(

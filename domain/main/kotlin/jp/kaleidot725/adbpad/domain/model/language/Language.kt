@@ -545,6 +545,8 @@ object Language : StringResources {
         get() = getCurrentResources().commandCategoryUi
     override val commandCategoryCommunication: String
         get() = getCurrentResources().commandCategoryCommunication
+    override val commandCategoryFavorite: String
+        get() = getCurrentResources().commandCategoryFavorite
 
     fun scrcpyNewDisplayTitle(name: String): String = String.format(scrcpyNewDisplayTitleFormat, name)
 

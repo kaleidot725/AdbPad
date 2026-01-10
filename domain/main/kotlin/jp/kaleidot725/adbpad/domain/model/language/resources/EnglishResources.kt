@@ -131,6 +131,7 @@ object EnglishResources : StringResources {
 
     override val categoryUI: String = "UI"
     override val categoryCommunication: String = "Communication"
+    override val categoryFavorite: String = "Favorite"
     override val categoryAll: String = "All"
 
     override val outputTerminalTitle: String = "Output"
@@ -293,4 +294,5 @@ object EnglishResources : StringResources {
     override val commandCategoryAll: String = "All"
     override val commandCategoryUi: String = "UI"
     override val commandCategoryCommunication: String = "Communication"
+    override val commandCategoryFavorite: String = "Favorite"
 }

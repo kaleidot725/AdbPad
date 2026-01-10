@@ -289,4 +289,5 @@ interface StringResources {
     val commandCategoryAll: String
     val commandCategoryUi: String
     val commandCategoryCommunication: String
+    val commandCategoryFavorite: String
 }

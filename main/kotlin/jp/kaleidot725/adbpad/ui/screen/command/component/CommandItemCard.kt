@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,7 +14,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.StarBorder
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -32,6 +38,8 @@ fun CommandItemCard(
     title: String,
     detail: String,
     isRunning: Boolean,
+    isFavorite: Boolean,
+    onToggleFavorite: () -> Unit,
     canExecute: Boolean,
     onExecute: () -> Unit,
     modifier: Modifier = Modifier,
@@ -49,11 +57,28 @@ fun CommandItemCard(
                     .padding(horizontal = 12.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = if (isRunning) FontWeight.SemiBold else FontWeight.Normal,
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = if (isRunning) FontWeight.SemiBold else FontWeight.Normal,
+                    modifier = Modifier.weight(1f),
+                )
+
+                IconButton(
+                    onClick = onToggleFavorite,
+                    modifier = Modifier.size(24.dp),
+                ) {
+                    Icon(
+                        imageVector = if (isFavorite) Icons.Default.Star else Icons.Default.StarBorder,
+                        contentDescription = "Favorite",
+                        tint = if (isFavorite) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
 
             Text(
                 text = detail,
@@ -94,6 +119,8 @@ private fun CommandItemCard_Running_Preview() {
         title = "ダークテーマON",
         detail = "端末のダークテーマ設定をONにします",
         isRunning = true,
+        isFavorite = true,
+        onToggleFavorite = {},
         canExecute = true,
         onExecute = {},
         modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp),
@@ -107,6 +134,8 @@ private fun CommandItemCard_NotRunning_Preview() {
         title = "ダークテーマON",
         detail = "端末のダークテーマ設定をONにします",
         isRunning = false,
+        isFavorite = false,
+        onToggleFavorite = {},
         canExecute = true,
         onExecute = {},
         modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp),
@@ -120,6 +149,8 @@ private fun CommandItemCard_NotExecute_Preview() {
         title = "ダークテーマON",
         detail = "端末のダークテーマ設定をONにします",
         isRunning = false,
+        isFavorite = false,
+        onToggleFavorite = {},
         canExecute = false,
         onExecute = {},
         modifier = Modifier.height(200.dp).wrapContentWidth().padding(16.dp),

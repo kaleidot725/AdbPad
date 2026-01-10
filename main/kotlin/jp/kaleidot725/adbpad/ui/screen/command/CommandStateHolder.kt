@@ -6,6 +6,7 @@ import jp.kaleidot725.adbpad.domain.model.command.NormalCommandCategory
 import jp.kaleidot725.adbpad.domain.repository.NormalCommandOutputRepository
 import jp.kaleidot725.adbpad.domain.usecase.command.ExecuteCommandUseCase
 import jp.kaleidot725.adbpad.domain.usecase.command.GetNormalCommandGroup
+import jp.kaleidot725.adbpad.domain.usecase.command.ToggleNormalCommandFavorite
 import jp.kaleidot725.adbpad.domain.usecase.device.GetSelectedDeviceFlowUseCase
 import jp.kaleidot725.adbpad.ui.screen.command.model.CommandLayoutMode
 import jp.kaleidot725.adbpad.ui.screen.command.state.CommandAction
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 
 class CommandStateHolder(
     private val getNormalCommandGroup: GetNormalCommandGroup,
+    private val toggleNormalCommandFavorite: ToggleNormalCommandFavorite,
     private val executeCommandUseCase: ExecuteCommandUseCase,
     private val getSelectedDeviceFlowUseCase: GetSelectedDeviceFlowUseCase,
     private val normalCommandOutputRepository: NormalCommandOutputRepository,
@@ -48,9 +50,15 @@ class CommandStateHolder(
             when (uiAction) {
                 is CommandAction.ClickCategoryTab -> clickTab(uiAction.category)
                 is CommandAction.ExecuteCommand -> executeCommand(uiAction.command)
+                is CommandAction.ToggleFavorite -> toggleFavorite(uiAction.command)
                 is CommandAction.ToggleLayoutMode -> toggleLayoutMode()
             }
         }
+    }
+
+    private suspend fun toggleFavorite(command: NormalCommand) {
+        toggleNormalCommandFavorite(command)
+        update { this.copy(commands = getNormalCommandGroup()) }
     }
 
     private suspend fun executeCommand(command: NormalCommand) {
