@@ -7,7 +7,6 @@ import jp.kaleidot725.adbpad.domain.model.device.Device
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
-import java.time.LocalDateTime
 
 class NormalCommandRepositoryImpl(
     private val outputRepository: NormalCommandOutputRepository,
@@ -54,11 +53,9 @@ class NormalCommandRepositoryImpl(
                 delay(300)
 
                 val outputs = mutableListOf<String>()
-                var lastExitCode = 0
 
                 command.requests.forEach { request ->
                     val result = adbClient.execute(request, device.serial)
-                    lastExitCode = result.exitCode
 
                     // 標準出力を取得
                     val output = result.output.trim()
@@ -70,12 +67,8 @@ class NormalCommandRepositoryImpl(
                         // エラー時の実行履歴を追加
                         val history =
                             CommandExecutionHistory(
-                                commandName = command.title,
                                 commandStrings = command.commandStrings,
                                 output = output.ifEmpty { "Error: Command failed with exit code ${result.exitCode}" },
-                                exitCode = result.exitCode,
-                                timestamp = LocalDateTime.now(),
-                                isSuccess = false,
                             )
                         outputRepository.addExecutionHistory(history)
 
@@ -88,12 +81,8 @@ class NormalCommandRepositoryImpl(
                 // 成功時の実行履歴を追加
                 val history =
                     CommandExecutionHistory(
-                        commandName = command.title,
                         commandStrings = command.commandStrings,
                         output = outputs.joinToString("\n").ifEmpty { "Success" },
-                        exitCode = lastExitCode,
-                        timestamp = LocalDateTime.now(),
-                        isSuccess = true,
                     )
                 outputRepository.addExecutionHistory(history)
 
@@ -103,12 +92,8 @@ class NormalCommandRepositoryImpl(
                 // 例外時の実行履歴を追加
                 val history =
                     CommandExecutionHistory(
-                        commandName = command.title,
                         commandStrings = command.commandStrings,
                         output = "Exception: ${e.message}",
-                        exitCode = -1,
-                        timestamp = LocalDateTime.now(),
-                        isSuccess = false,
                     )
                 outputRepository.addExecutionHistory(history)
 
