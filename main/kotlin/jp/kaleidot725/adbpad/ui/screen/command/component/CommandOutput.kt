@@ -17,12 +17,10 @@ import jp.kaleidot725.adbpad.domain.model.command.CommandExecutionHistory
 import jp.kaleidot725.adbpad.domain.model.language.Language
 
 @Composable
-fun OutputTerminal(
-    executionHistory: List<CommandExecutionHistory>,
+fun CommandOutput(
+    executionHistory: CommandExecutionHistory?,
     modifier: Modifier = Modifier,
 ) {
-    val latestHistory = executionHistory.lastOrNull()
-
     Column(
         modifier =
             modifier
@@ -37,8 +35,8 @@ fun OutputTerminal(
             fontFamily = FontFamily.Monospace,
         )
 
-        // Terminal content
-        if (latestHistory == null) {
+        // Content
+        if (executionHistory == null) {
             Text(
                 text = Language.outputTerminalPlaceholder,
                 style = MaterialTheme.typography.bodySmall,
@@ -57,16 +55,16 @@ fun OutputTerminal(
                 ) {
                     // Command
                     Text(
-                        text = latestHistory.command,
+                        text = executionHistory.command,
                         style = MaterialTheme.typography.bodySmall,
                         fontFamily = FontFamily.Monospace,
                         color = MaterialTheme.colorScheme.primary,
                     )
 
                     // Output
-                    if (latestHistory.output.isNotEmpty()) {
+                    if (executionHistory.output.isNotEmpty()) {
                         Text(
-                            text = latestHistory.output,
+                            text = executionHistory.output,
                             style = MaterialTheme.typography.bodySmall,
                             fontFamily = FontFamily.Monospace,
                             color = MaterialTheme.colorScheme.onSurface,

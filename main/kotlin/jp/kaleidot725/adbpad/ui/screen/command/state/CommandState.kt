@@ -13,7 +13,7 @@ data class CommandState(
     val selectedDevice: Device? = null,
     val layoutMode: CommandLayoutMode = CommandLayoutMode.CARD,
     val selectedCommandId: String? = null,
-    val executionHistory: List<CommandExecutionHistory> = emptyList(),
+    val executionHistory: CommandExecutionHistory? = null,
 ) : MVIState {
     val canExecuteCommand: Boolean get() = selectedDevice != null
 

@@ -25,7 +25,7 @@ class ExecuteCommandUseCase(
                 onStart()
             },
             onFailed = { formattedCommand, output ->
-                normalCommandOutputRepository.addExecutionHistory(
+                normalCommandOutputRepository.setExecutionHistory(
                     CommandExecutionHistory(
                         command = formattedCommand,
                         output = output,
@@ -34,7 +34,7 @@ class ExecuteCommandUseCase(
                 onFailed()
             },
             onComplete = { formattedCommand, output ->
-                normalCommandOutputRepository.addExecutionHistory(
+                normalCommandOutputRepository.setExecutionHistory(
                     CommandExecutionHistory(
                         command = formattedCommand,
                         output = output,

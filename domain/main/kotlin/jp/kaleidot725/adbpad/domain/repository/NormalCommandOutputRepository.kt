@@ -4,9 +4,9 @@ import jp.kaleidot725.adbpad.domain.model.command.CommandExecutionHistory
 import kotlinx.coroutines.flow.StateFlow
 
 interface NormalCommandOutputRepository {
-    val executionHistory: StateFlow<List<CommandExecutionHistory>>
+    val executionHistory: StateFlow<CommandExecutionHistory?>
 
-    suspend fun addExecutionHistory(history: CommandExecutionHistory)
+    suspend fun setExecutionHistory(history: CommandExecutionHistory)
 
     fun clear()
 }
