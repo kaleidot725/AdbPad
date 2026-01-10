@@ -60,6 +60,7 @@ class CommandStateHolder(
             device = selectedDevice,
             command = command,
             onStart = {
+                normalCommandOutputRepository.clear()
                 update {
                     this.copy(commands = getNormalCommandGroup())
                 }

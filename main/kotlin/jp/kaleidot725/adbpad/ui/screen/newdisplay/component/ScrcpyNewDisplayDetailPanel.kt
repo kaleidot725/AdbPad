@@ -62,7 +62,7 @@ fun ScrcpyNewDisplayDetailPanel(
         modifier =
             modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.surface),
+                .background(MaterialTheme.colorScheme.background),
     ) {
         if (effectiveProfile != null) {
             Row(

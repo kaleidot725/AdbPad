@@ -1,28 +1,30 @@
 package jp.kaleidot725.adbpad.ui.screen
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommand
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommandCategory
 import jp.kaleidot725.adbpad.domain.model.command.NormalCommandGroup
 import jp.kaleidot725.adbpad.ui.common.resource.UserColor
-import jp.kaleidot725.adbpad.ui.screen.command.component.CommandDetailPane
+import jp.kaleidot725.adbpad.ui.component.divider.ResizableDivider
 import jp.kaleidot725.adbpad.ui.screen.command.component.CommandLayoutToggle
 import jp.kaleidot725.adbpad.ui.screen.command.component.CommandList
 import jp.kaleidot725.adbpad.ui.screen.command.component.CommandTab
@@ -63,8 +65,13 @@ private fun CommandScreen(
     onExecute: (NormalCommand) -> Unit,
     onSelectCommand: (NormalCommand) -> Unit,
 ) {
-    Row(modifier = Modifier.fillMaxSize()) {
-        Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
+    BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+        val density = LocalDensity.current
+        val containerHeightPx = with(density) { maxHeight.toPx() }
+
+        var outputHeightPx by remember { mutableFloatStateOf(containerHeightPx * 0.3f) }
+
+        Column(modifier = Modifier.fillMaxSize()) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier =
@@ -102,28 +109,27 @@ private fun CommandScreen(
                 modifier = Modifier.weight(1f).fillMaxWidth().padding(16.dp),
             )
 
-            HorizontalDivider(color = UserColor.getSplitterColor())
+            ResizableDivider(
+                onDrag = { dragAmount ->
+                    val newHeight = (outputHeightPx - dragAmount).coerceIn(
+                        containerHeightPx * 0.1f,
+                        containerHeightPx * 0.8f,
+                    )
+                    outputHeightPx = newHeight
+                },
+            )
 
-            Box(modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)) {
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(with(density) { outputHeightPx.toDp() }),
+            ) {
                 OutputTerminal(
                     executionHistory = executionHistory,
                     modifier = Modifier.fillMaxSize(),
                 )
             }
-        }
-
-        if (selectedCommand != null) {
-            VerticalDivider(
-                modifier = Modifier.fillMaxHeight(),
-                color = UserColor.getSplitterColor(),
-            )
-
-            CommandDetailPane(
-                command = selectedCommand,
-                canExecute = canExecute,
-                onExecute = { onExecute(selectedCommand) },
-                modifier = Modifier.width(300.dp).fillMaxHeight().background(MaterialTheme.colorScheme.surface),
-            )
         }
     }
 }

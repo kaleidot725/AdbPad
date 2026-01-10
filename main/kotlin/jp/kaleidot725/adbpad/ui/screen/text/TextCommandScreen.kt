@@ -67,7 +67,7 @@ fun TextCommandScreen(
         }
 
         second {
-            Row(modifier = Modifier.background(MaterialTheme.colorScheme.surface)) {
+            Row(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
                 if (state.selectedCommand != null) {
                     TextCommandEditor(
                         command = state.selectedCommand,
