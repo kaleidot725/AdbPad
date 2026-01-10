@@ -48,6 +48,7 @@ fun CommandScreen(
         onToggleLayout = { onAction(CommandAction.ToggleLayoutMode) },
         canExecute = state.canExecuteCommand,
         onExecute = { command -> onAction(CommandAction.ExecuteCommand(command)) },
+        onToggleFavorite = { command -> onAction(CommandAction.ToggleFavorite(command)) },
     )
 }
 
@@ -61,6 +62,7 @@ private fun CommandScreen(
     onToggleLayout: () -> Unit,
     canExecute: Boolean,
     onExecute: (NormalCommand) -> Unit,
+    onToggleFavorite: (NormalCommand) -> Unit,
 ) {
     BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
         val density = LocalDensity.current
@@ -96,10 +98,12 @@ private fun CommandScreen(
                     when (filtered) {
                         NormalCommandCategory.UI -> commands.ui
                         NormalCommandCategory.COM -> commands.communication
+                        NormalCommandCategory.FAVORITE -> commands.favorite
                         NormalCommandCategory.ALL -> commands.all
                     },
                 canExecute = canExecute,
                 onExecute = onExecute,
+                onToggleFavorite = onToggleFavorite,
                 layoutMode = layoutMode,
                 modifier = Modifier.weight(1f).fillMaxWidth().padding(16.dp),
             )
@@ -147,6 +151,7 @@ private fun CommandScreen_Card_Preview() {
         onToggleLayout = {},
         canExecute = true,
         onExecute = {},
+        onToggleFavorite = {},
     )
 }
 
@@ -167,5 +172,6 @@ private fun CommandScreen_List_Preview() {
         onToggleLayout = {},
         canExecute = true,
         onExecute = {},
+        onToggleFavorite = {},
     )
 }

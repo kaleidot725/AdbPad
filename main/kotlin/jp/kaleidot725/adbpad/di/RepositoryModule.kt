@@ -3,7 +3,6 @@ package jp.kaleidot725.adbpad.di
 import jp.kaleidot725.adbpad.data.local.ScrcpyNewDisplayProfileFileCreator
 import jp.kaleidot725.adbpad.data.repository.DeviceSettingsRepositoryImpl
 import jp.kaleidot725.adbpad.data.repository.NormalCommandFavoriteRepositoryImpl
-import jp.kaleidot725.adbpad.data.repository.NormalCommandRepositoryImpl
 import jp.kaleidot725.adbpad.data.repository.ScrcpyNewDisplayProfileRepositoryImpl
 import jp.kaleidot725.adbpad.data.repository.SettingRepositoryImpl
 import jp.kaleidot725.adbpad.data.repository.TextCommandRepositoryImpl
@@ -16,6 +15,7 @@ import jp.kaleidot725.adbpad.domain.repository.NormalCommandFavoriteRepository
 import jp.kaleidot725.adbpad.domain.repository.NormalCommandOutputRepository
 import jp.kaleidot725.adbpad.domain.repository.NormalCommandOutputRepositoryImpl
 import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepository
+import jp.kaleidot725.adbpad.domain.repository.NormalCommandRepositoryImpl
 import jp.kaleidot725.adbpad.domain.repository.ScrcpyNewDisplayProcessRepository
 import jp.kaleidot725.adbpad.domain.repository.ScrcpyNewDisplayProcessRepositoryImpl
 import jp.kaleidot725.adbpad.domain.repository.ScrcpyNewDisplayProfileRepository

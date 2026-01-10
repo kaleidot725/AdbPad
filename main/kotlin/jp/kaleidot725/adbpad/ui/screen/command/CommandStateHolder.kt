@@ -58,7 +58,8 @@ class CommandStateHolder(
 
     private suspend fun toggleFavorite(command: NormalCommand) {
         toggleNormalCommandFavorite(command)
-        update { this.copy(commands = getNormalCommandGroup()) }
+        val commands = getNormalCommandGroup()
+        update { this.copy(commands = commands) }
     }
 
     private suspend fun executeCommand(command: NormalCommand) {
@@ -67,18 +68,21 @@ class CommandStateHolder(
             device = selectedDevice,
             command = command,
             onStart = {
+                val commands = getNormalCommandGroup()
                 update {
-                    this.copy(commands = getNormalCommandGroup())
+                    this.copy(commands = commands)
                 }
             },
             onFailed = {
+                val commands = getNormalCommandGroup()
                 update {
-                    this.copy(commands = getNormalCommandGroup())
+                    this.copy(commands = commands)
                 }
             },
             onComplete = {
+                val commands = getNormalCommandGroup()
                 update {
-                    this.copy(commands = getNormalCommandGroup())
+                    this.copy(commands = commands)
                 }
             },
         )
