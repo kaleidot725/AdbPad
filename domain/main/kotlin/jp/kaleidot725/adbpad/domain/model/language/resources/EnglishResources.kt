@@ -98,9 +98,6 @@ object EnglishResources : StringResources {
 
     override val outputTerminalTitle: String = "Output"
     override val outputTerminalPlaceholder: String = "Execution history will be displayed here"
-    override val outputStatusSuccess: String = "Success"
-    override val outputStatusFailed: String = "Failed"
-    override val outputExitCode: String = "Exit Code"
 
     override val textCommandStartEventFormat = "Start sending text「%s」"
     override val textCommandEndEventFormat = "End sending text「%s」"

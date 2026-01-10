@@ -98,9 +98,6 @@ object TurkishResources : StringResources {
 
     override val outputTerminalTitle: String = "Çıktı"
     override val outputTerminalPlaceholder: String = "Yürütme geçmişi burada görüntülenecek"
-    override val outputStatusSuccess: String = "Başarılı"
-    override val outputStatusFailed: String = "Başarısız"
-    override val outputExitCode: String = "Çıkış Kodu"
 
     override val textCommandStartEventFormat = "「%s」 metni gönderiliyor"
     override val textCommandEndEventFormat = "「%s」 metni gönderildi"

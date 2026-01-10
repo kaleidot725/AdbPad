@@ -100,9 +100,6 @@ object JapaneseResources : StringResources {
 
     override val outputTerminalTitle: String = "出力"
     override val outputTerminalPlaceholder: String = "実行履歴がここに表示されます"
-    override val outputStatusSuccess: String = "成功"
-    override val outputStatusFailed: String = "失敗"
-    override val outputExitCode: String = "終了コード"
 
     override val textCommandStartEventFormat = "「%s」のテキスト送信を開始しました"
     override val textCommandEndEventFormat = "「%s」のテキスト送信が完了しました"

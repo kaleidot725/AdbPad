@@ -175,12 +175,6 @@ object Language : StringResources {
         get() = getCurrentResources().outputTerminalTitle
     override val outputTerminalPlaceholder: String
         get() = getCurrentResources().outputTerminalPlaceholder
-    override val outputStatusSuccess: String
-        get() = getCurrentResources().outputStatusSuccess
-    override val outputStatusFailed: String
-        get() = getCurrentResources().outputStatusFailed
-    override val outputExitCode: String
-        get() = getCurrentResources().outputExitCode
 
     override val textCommandStartEventFormat: String
         get() = getCurrentResources().textCommandStartEventFormat
