@@ -74,6 +74,50 @@ interface StringResources {
     val commandEnableTwoButtonNavigationDetails: String
     val commandEnableGestureNavigationTitle: String
     val commandEnableGestureNavigationDetails: String
+    val commandAirplaneModeOnTitle: String
+    val commandAirplaneModeOnDetails: String
+    val commandAirplaneModeOffTitle: String
+    val commandAirplaneModeOffDetails: String
+    val commandBluetoothOnTitle: String
+    val commandBluetoothOnDetails: String
+    val commandBluetoothOffTitle: String
+    val commandBluetoothOffDetails: String
+    val commandLocationOnTitle: String
+    val commandLocationOnDetails: String
+    val commandLocationOffTitle: String
+    val commandLocationOffDetails: String
+    val commandAnimationsOnTitle: String
+    val commandAnimationsOnDetails: String
+    val commandAnimationsOffTitle: String
+    val commandAnimationsOffDetails: String
+    val commandAutoRotateOnTitle: String
+    val commandAutoRotateOnDetails: String
+    val commandAutoRotateOffTitle: String
+    val commandAutoRotateOffDetails: String
+    val commandFontScaleSmallTitle: String
+    val commandFontScaleSmallDetails: String
+    val commandFontScaleNormalTitle: String
+    val commandFontScaleNormalDetails: String
+    val commandFontScaleLargeTitle: String
+    val commandFontScaleLargeDetails: String
+    val commandFontScaleHugeTitle: String
+    val commandFontScaleHugeDetails: String
+    val commandRtlLayoutOnTitle: String
+    val commandRtlLayoutOnDetails: String
+    val commandRtlLayoutOffTitle: String
+    val commandRtlLayoutOffDetails: String
+    val commandBatterySaverOnTitle: String
+    val commandBatterySaverOnDetails: String
+    val commandBatterySaverOffTitle: String
+    val commandBatterySaverOffDetails: String
+    val commandDataSaverOnTitle: String
+    val commandDataSaverOnDetails: String
+    val commandDataSaverOffTitle: String
+    val commandDataSaverOffDetails: String
+    val commandDozeModeOnTitle: String
+    val commandDozeModeOnDetails: String
+    val commandDozeModeOffTitle: String
+    val commandDozeModeOffDetails: String
 
     val categoryUI: String
     val categoryCommunication: String
