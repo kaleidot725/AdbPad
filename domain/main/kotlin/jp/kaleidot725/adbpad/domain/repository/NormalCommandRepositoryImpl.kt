@@ -39,8 +39,8 @@ class NormalCommandRepositoryImpl : NormalCommandRepository {
         device: Device,
         command: NormalCommand,
         onStart: suspend () -> Unit,
-        onComplete: suspend () -> Unit,
-        onFailed: suspend () -> Unit,
+        onComplete: suspend (command: String, output: String) -> Unit,
+        onFailed: suspend (command: String, output: String) -> Unit,
     ) {
         withContext(Dispatchers.IO) {
             try {
@@ -49,20 +49,40 @@ class NormalCommandRepositoryImpl : NormalCommandRepository {
 
                 delay(300)
 
+                val outputs = mutableListOf<String>()
+                val formattedCommand =
+                    command.commandStrings.joinToString("\n") { "$ adb shell $it" }
+
                 command.requests.forEach { request ->
                     val result = adbClient.execute(request, device.serial)
+
+                    // 標準出力を取得
+                    val output = result.output.trim()
+                    if (output.isNotEmpty()) {
+                        outputs.add(output)
+                    }
+
                     if (result.exitCode != 0) {
                         runningCommands.remove(command)
-                        onFailed()
+                        onFailed(
+                            formattedCommand,
+                            output.ifEmpty { "Error: Command failed with exit code ${result.exitCode}" },
+                        )
                         return@withContext
                     }
                 }
 
                 runningCommands.remove(command)
-                onComplete()
+                onComplete(
+                    formattedCommand,
+                    outputs.joinToString("\n").ifEmpty { "Success" },
+                )
             } catch (e: Exception) {
                 runningCommands.remove(command)
-                onFailed()
+                onFailed(
+                    command.commandStrings.joinToString("\n") { "$ adb shell $it" },
+                    "Exception: ${e.message}",
+                )
             }
         }
     }

@@ -87,6 +87,13 @@ object JapaneseResources : StringResources {
     override val commandEnableGestureNavigationTitle: String = "ジェスチャー ナビゲーション: ON"
     override val commandEnableGestureNavigationDetails: String = "ジェスチャー ナビゲーションを有効化する"
 
+    override val categoryUI: String = "UI"
+    override val categoryCommunication: String = "通信"
+    override val categoryAll: String = "すべて"
+
+    override val outputTerminalTitle: String = "出力"
+    override val outputTerminalPlaceholder: String = "実行履歴がここに表示されます"
+
     override val textCommandStartEventFormat = "「%s」のテキスト送信を開始しました"
     override val textCommandEndEventFormat = "「%s」のテキスト送信が完了しました"
     override val textCommandErrorEventFormat = "「%s」のテキスト送信に失敗しました"

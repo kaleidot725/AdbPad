@@ -150,6 +150,18 @@ object Language : StringResources {
     override val commandEnableGestureNavigationDetails: String
         get() = getCurrentResources().commandEnableGestureNavigationDetails
 
+    override val categoryUI: String
+        get() = getCurrentResources().categoryUI
+    override val categoryCommunication: String
+        get() = getCurrentResources().categoryCommunication
+    override val categoryAll: String
+        get() = getCurrentResources().categoryAll
+
+    override val outputTerminalTitle: String
+        get() = getCurrentResources().outputTerminalTitle
+    override val outputTerminalPlaceholder: String
+        get() = getCurrentResources().outputTerminalPlaceholder
+
     override val textCommandStartEventFormat: String
         get() = getCurrentResources().textCommandStartEventFormat
     override val textCommandEndEventFormat: String

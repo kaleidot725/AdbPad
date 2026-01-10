@@ -68,7 +68,7 @@ object ChineseResources : StringResources {
     override val commandWifiOnDetails = "启用 Wi-Fi 通信。"
     override val commandWifiOffTitle = "Wi-Fi: 关闭"
     override val commandWifiOffDetails = "禁用 Wi-Fi 通信。"
-    override val commandDataOnTitle = "蜂窝网ad络: 开启"
+    override val commandDataOnTitle = "蜂窝网络: 开启"
     override val commandDataOnDetails = "启用蜂窝网络通信。"
     override val commandDataOffTitle = "蜂窝网络: 关闭"
     override val commandDataOffDetails = "禁用蜂窝网络通信。"
@@ -84,6 +84,13 @@ object ChineseResources : StringResources {
     override val commandEnableTwoButtonNavigationDetails: String = "启动双按钮导航"
     override val commandEnableGestureNavigationTitle: String = "手势导航 : 开启"
     override val commandEnableGestureNavigationDetails: String = "启动手势导航"
+
+    override val categoryUI: String = "界面"
+    override val categoryCommunication: String = "通信"
+    override val categoryAll: String = "全部"
+
+    override val outputTerminalTitle: String = "输出"
+    override val outputTerminalPlaceholder: String = "执行历史将显示在此处"
 
     override val textCommandStartEventFormat = "开始发送文本 「%s」"
     override val textCommandEndEventFormat = "结束发送文本 「%s」"

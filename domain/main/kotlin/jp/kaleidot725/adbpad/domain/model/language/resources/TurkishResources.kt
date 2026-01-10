@@ -85,6 +85,13 @@ object TurkishResources : StringResources {
     override val commandEnableGestureNavigationTitle: String = "Hareket tabanlı gezinme: AÇIK"
     override val commandEnableGestureNavigationDetails: String = "Hareket tabanlı gezinmeyi etkinleştir"
 
+    override val categoryUI: String = "UI"
+    override val categoryCommunication: String = "İletişim"
+    override val categoryAll: String = "Hepsi"
+
+    override val outputTerminalTitle: String = "Çıktı"
+    override val outputTerminalPlaceholder: String = "Yürütme geçmişi burada görüntülenecek"
+
     override val textCommandStartEventFormat = "「%s」 metni gönderiliyor"
     override val textCommandEndEventFormat = "「%s」 metni gönderildi"
     override val textCommandErrorEventFormat = "「%s」 metni gönderilirken hata oluştu"

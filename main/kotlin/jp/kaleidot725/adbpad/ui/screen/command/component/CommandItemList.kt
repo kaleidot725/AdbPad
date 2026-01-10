@@ -33,9 +33,7 @@ fun CommandItemList(
     modifier: Modifier = Modifier,
 ) {
     Surface(
-        modifier =
-            modifier
-                .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         tonalElevation = 2.dp,
         shape = RoundedCornerShape(8.dp),
     ) {

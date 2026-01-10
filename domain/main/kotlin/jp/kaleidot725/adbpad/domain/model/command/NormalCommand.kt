@@ -10,6 +10,9 @@ interface NormalCommand {
     val requests: List<ShellCommandRequest>
     val category: NormalCommandCategory
 
+    val commandStrings: List<String>
+        get() = requests.map { it.cmd }
+
     data class PointerLocationOn(
         override val isRunning: Boolean = false,
     ) : NormalCommand {

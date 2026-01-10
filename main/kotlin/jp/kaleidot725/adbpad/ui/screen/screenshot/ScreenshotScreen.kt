@@ -177,7 +177,7 @@ private fun ScreenshotScreen(
             }
 
             second {
-                Row(modifier = Modifier.background(MaterialTheme.colorScheme.surface)) {
+                Row(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
                     Column(modifier = Modifier.weight(1.0f).fillMaxHeight()) {
                         if (screenshot.file != null) {
                             Row(modifier = Modifier.fillMaxWidth()) {

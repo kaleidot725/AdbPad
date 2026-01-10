@@ -75,6 +75,13 @@ interface StringResources {
     val commandEnableGestureNavigationTitle: String
     val commandEnableGestureNavigationDetails: String
 
+    val categoryUI: String
+    val categoryCommunication: String
+    val categoryAll: String
+
+    val outputTerminalTitle: String
+    val outputTerminalPlaceholder: String
+
     val textCommandStartEventFormat: String
     val textCommandEndEventFormat: String
     val textCommandErrorEventFormat: String
