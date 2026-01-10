@@ -20,6 +20,12 @@ https://github.com/user-attachments/assets/71feae28-9d19-4dfc-9424-97ce7d0e2146
 1. Download the latest installer from the [Releases page](https://github.com/kaleidot725/AdbPad/releases/).
 2. Launch the application and configure the ADB path in the **Settings**.
 
+> [!IMPORTANT]
+> **For macOS users:** Since the app is not signed with an Apple Developer account, you may encounter a security warning stating that the developer cannot be verified. To open the app:
+> 1. Right-click (or Control-click) the AdbPad icon and select **Open**.
+> 2. In the dialog that appears, click **Open** again.
+> 3. Alternatively, go to **System Settings > Privacy & Security** and click **Open Anyway**.
+
 https://github.com/user-attachments/assets/473a860a-fd54-4f29-9d5f-8f4d6edfaaf7
 
 # 🎫 License
