@@ -45,7 +45,7 @@ val domainModule =
             RestartAdbUseCase(get())
         }
         factory {
-            ExecuteCommandUseCase(get())
+            ExecuteCommandUseCase(get(), get())
         }
         factory {
             ExecuteDeviceControlCommandUseCase(get())
