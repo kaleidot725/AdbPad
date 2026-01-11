@@ -291,4 +291,5 @@ object ChineseResources : StringResources {
     override val commandCategoryAll: String = "全部"
     override val commandCategoryUi: String = "界面"
     override val commandCategoryCommunication: String = "通信"
+    override val commandCategoryFavorite: String = "收藏"
 }

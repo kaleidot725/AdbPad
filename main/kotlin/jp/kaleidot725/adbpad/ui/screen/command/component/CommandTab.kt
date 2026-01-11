@@ -3,6 +3,8 @@ package jp.kaleidot725.adbpad.ui.screen.command.component
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -42,6 +44,13 @@ fun CommandTab(
             icon = Lucide.Wifi,
             isSelected = filtered == NormalCommandCategory.COM,
             onClick = { onClick(NormalCommandCategory.COM) },
+        )
+
+        CommandTabItem(
+            title = Language.commandCategoryFavorite,
+            icon = Icons.Default.Favorite,
+            isSelected = filtered == NormalCommandCategory.FAVORITE,
+            onClick = { onClick(NormalCommandCategory.FAVORITE) },
         )
     }
 }

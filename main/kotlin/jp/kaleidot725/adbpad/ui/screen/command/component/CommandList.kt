@@ -28,6 +28,7 @@ fun CommandList(
     commands: List<NormalCommand>,
     canExecute: Boolean,
     onExecute: (NormalCommand) -> Unit,
+    onToggleFavorite: (NormalCommand) -> Unit,
     layoutMode: CommandLayoutMode,
     modifier: Modifier = Modifier,
 ) {
@@ -45,6 +46,8 @@ fun CommandList(
                                 title = command.title,
                                 detail = command.details,
                                 isRunning = command.isRunning,
+                                isFavorite = command.isFavorite,
+                                onToggleFavorite = { onToggleFavorite(command) },
                                 canExecute = canExecute,
                                 onExecute = { onExecute(command) },
                                 modifier = Modifier.height(175.dp).fillMaxWidth().padding(2.dp),
@@ -61,6 +64,8 @@ fun CommandList(
                                 title = command.title,
                                 detail = command.details,
                                 isRunning = command.isRunning,
+                                isFavorite = command.isFavorite,
+                                onToggleFavorite = { onToggleFavorite(command) },
                                 canExecute = canExecute,
                                 onExecute = { onExecute(command) },
                                 modifier = Modifier.fillMaxWidth(),
@@ -86,6 +91,7 @@ private fun CommandList_Card_Preview() {
             commands = listOf(NormalCommand.DarkThemeOn(), NormalCommand.DarkThemeOff(), NormalCommand.WifiOn()),
             canExecute = true,
             onExecute = {},
+            onToggleFavorite = {},
             layoutMode = CommandLayoutMode.CARD,
             modifier = Modifier.fillMaxWidth().weight(0.5f),
         )
@@ -94,6 +100,7 @@ private fun CommandList_Card_Preview() {
             commands = emptyList(),
             canExecute = true,
             onExecute = {},
+            onToggleFavorite = {},
             layoutMode = CommandLayoutMode.CARD,
             modifier = Modifier.fillMaxWidth().weight(0.5f).background(Color.LightGray),
         )
@@ -108,6 +115,7 @@ private fun CommandList_List_Preview() {
             commands = listOf(NormalCommand.DarkThemeOn(), NormalCommand.DarkThemeOff(), NormalCommand.WifiOn()),
             canExecute = true,
             onExecute = {},
+            onToggleFavorite = {},
             layoutMode = CommandLayoutMode.LIST,
             modifier = Modifier.fillMaxWidth().weight(0.5f),
         )
@@ -116,6 +124,7 @@ private fun CommandList_List_Preview() {
             commands = emptyList(),
             canExecute = true,
             onExecute = {},
+            onToggleFavorite = {},
             layoutMode = CommandLayoutMode.LIST,
             modifier = Modifier.fillMaxWidth().weight(0.5f).background(Color.LightGray),
         )

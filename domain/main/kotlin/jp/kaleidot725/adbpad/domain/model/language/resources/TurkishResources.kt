@@ -293,4 +293,5 @@ object TurkishResources : StringResources {
     override val commandCategoryAll: String = "Hepsi"
     override val commandCategoryUi: String = "UI"
     override val commandCategoryCommunication: String = "İletişim"
+    override val commandCategoryFavorite: String = "Favori"
 }

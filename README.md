@@ -17,6 +17,15 @@ https://github.com/user-attachments/assets/71feae28-9d19-4dfc-9424-97ce7d0e2146
 
 # ⬇️ Installation
 
+## Via Homebrew (macOS)
+
+```bash
+brew tap kaleidot725/kaleidot725
+brew install --cask adbpad
+```
+
+## Manual Installation
+
 1. Download the latest installer from the [Releases page](https://github.com/kaleidot725/AdbPad/releases/).
 2. Launch the application and configure the ADB path in the **Settings**.
 
