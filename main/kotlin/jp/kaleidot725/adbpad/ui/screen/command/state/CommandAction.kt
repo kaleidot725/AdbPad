@@ -9,6 +9,10 @@ sealed class CommandAction : MVIAction {
         val command: NormalCommand,
     ) : CommandAction()
 
+    data class ToggleFavorite(
+        val command: NormalCommand,
+    ) : CommandAction()
+
     data class ClickCategoryTab(
         val category: NormalCommandCategory,
     ) : CommandAction()

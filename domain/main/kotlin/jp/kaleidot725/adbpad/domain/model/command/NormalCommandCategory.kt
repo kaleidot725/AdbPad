@@ -4,4 +4,5 @@ enum class NormalCommandCategory {
     ALL,
     UI,
     COM,
+    FAVORITE,
 }

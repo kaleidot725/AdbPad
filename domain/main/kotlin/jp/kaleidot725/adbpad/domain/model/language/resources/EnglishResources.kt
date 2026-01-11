@@ -293,4 +293,5 @@ object EnglishResources : StringResources {
     override val commandCategoryAll: String = "All"
     override val commandCategoryUi: String = "UI"
     override val commandCategoryCommunication: String = "Communication"
+    override val commandCategoryFavorite: String = "Favorite"
 }
