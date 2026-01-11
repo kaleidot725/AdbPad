@@ -10,7 +10,7 @@ class GetNormalCommandGroup(
     private val normalCommandFavoriteRepository: NormalCommandFavoriteRepository,
 ) {
     suspend operator fun invoke(): NormalCommandGroup {
-        val favorites = normalCommandFavoriteRepository.favorites.value
+        val favorites = normalCommandFavoriteRepository.getAll()
         val all =
             normalCommandRepository.getCommands().map {
                 it.updateFavorite(favorites.contains(it::class.qualifiedName))
